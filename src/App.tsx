@@ -1,3 +1,5 @@
+import { Styles } from './styles'
+
 export function App() {
-  return <div>Hello</div>
+  return <Styles />
 }

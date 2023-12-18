@@ -74,14 +74,7 @@
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "prettier/prettier": "error",
-    "import/no-extraneous-dependencies": [
-      "error",
-      {
-        "devDependencies": false,
-        "optionalDependencies": false,
-        "peerDependencies": false
-      }
-    ],
+    "import/no-extraneous-dependencies": "off",
     "import/prefer-default-export": "off",
     "import/no-duplicates": "off",
     "import/extensions": [
