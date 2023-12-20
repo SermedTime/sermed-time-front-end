@@ -1,27 +1,37 @@
-// import { Col, Container, Row } from 'react-bootstrap'
+import { useEffect } from 'react'
+import { useNavigate, useSearchParams } from 'react-router-dom'
+import { Col, Container, Row } from 'react-bootstrap'
+import { Field, Form, Formik, FormikHelpers } from 'formik'
 
-import { AnimatedPage } from '@/components/Layout/AnimatedPage'
-
-// import { Field, Form, Formik, FormikHelpers } from 'formik'
+import { useZoomDetection } from '@/hooks/utils/useZoomDetection'
+import { useAuthContext } from '@/contexts/Auth'
 
 import BackgroundImage from '@/assets/images/login-images/background.png'
 import Logo from '@/assets/images/login-images/logo.png'
 
-import { useZoomDetection } from '@/hooks/utils/useZoomDetection'
+import { AnimatedPage } from '@/components/Layout/AnimatedPage'
 
-import { Col, Container, Row } from 'react-bootstrap'
 import { Heading } from '@/components/Core/Typography/Heading'
 import { ButtonLink } from '@/components/Core/Buttons/ButtonLink'
-import { Field, Form, Formik, FormikHelpers } from 'formik'
-
-import { Checkbox } from '@/components/Core/Form/Fields/Checkbox'
 import { Paragraph } from '@/components/Core/Typography/Paragraph'
-import * as S from '../Auth.styles'
+import { Checkbox } from '@/components/Core/Form/Fields/Checkbox'
+
+import { TITLE_LOGIN } from '@/constants/title.browser'
+
+import { ROUTE_HOME } from '@/routes/Pages/Pages.paths'
 import { SubmitButton } from '../components/SubmitButton'
 import { Input } from '../components/Input'
 import { ILoginForm, initialValuesSchema, validationSchema } from './Login.form'
 
+import * as S from '../Auth.styles'
+
 export function Login() {
+  const [searchParams] = useSearchParams()
+
+  const navigate = useNavigate()
+
+  const { signIn } = useAuthContext()
+
   const { zoomLevel } = useZoomDetection()
 
   function handleOnZoomDetectionClass() {
@@ -30,12 +40,29 @@ export function Login() {
     return 'pb-xl-0 pb-xxl-5'
   }
 
+  useEffect(() => {
+    document.title = TITLE_LOGIN
+  }, [])
+
   async function handleOnSubmit(
     formValues: ILoginForm,
     formikHelpers: FormikHelpers<ILoginForm>
   ) {
-    console.log(formValues)
-    console.log(formikHelpers)
+    const authenticated = await signIn({
+      username: formValues.email,
+      password: formValues.password
+    })
+
+    if (authenticated) {
+      navigate(
+        searchParams.get('redirect')
+          ? String(searchParams.get('redirect'))
+          : ROUTE_HOME
+      )
+    } else if (!authenticated) {
+      formikHelpers.setFieldError('password', 'Senha incorreta')
+      formikHelpers.setFieldError('email', 'E-mail incorreto')
+    }
   }
 
   return (
