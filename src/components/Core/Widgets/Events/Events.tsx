@@ -1,0 +1,225 @@
+import { useState, useEffect, useCallback } from 'react'
+
+import { Row, Col } from 'react-bootstrap'
+
+import { isSameDay } from 'date-fns'
+
+import Image from 'assets/images/icon-chat.png'
+
+import { get } from 'services/api/easy-crm'
+
+import { Section } from 'components/Core/Containers/Section'
+import { Caption } from 'components/Core/Typography/Caption'
+import { Heading } from 'components/Core/Typography/Heading'
+import { ButtonLink } from 'components/Core/Buttons/ButtonLink'
+import { Skeleton } from 'components/Core/Skeleton'
+
+import { fillWithLeadingZero } from 'utils/masks'
+
+import { EditEvent } from 'pages/User/Calendar/Edit'
+
+import { IEvent } from './Event/Event.interface'
+import { handleWeekDay, handleMonth } from './Events.helpers'
+
+import { Event } from './Event'
+import { ShowMore } from './ShowMore'
+
+interface Props {
+  date?: Date
+  events?: IEvent[] | null
+  expanded?: boolean
+  shouldLoadEvents?: boolean
+  onCreateEvent?: () => void
+  onRefetch?: () => void
+}
+
+export function WidgetEvents({
+  date,
+  events,
+  expanded,
+  shouldLoadEvents,
+  onCreateEvent,
+  onRefetch
+}: Props) {
+  const [currentDate, setCurrentDate] = useState<Date | null>(null)
+  const [dayEvents, setDayEvents] = useState<IEvent[] | null>(null)
+
+  const [showMore, setShowMore] = useState(false)
+
+  const [editingEvent, setEditingEvent] = useState<string | null>(null)
+
+  useEffect(() => {
+    if (date && events) {
+      setCurrentDate(date)
+
+      const newDayEvents = events.filter(event => isSameDay(date, event.start))
+
+      setDayEvents(newDayEvents)
+    }
+  }, [date, events, currentDate])
+
+  const fetchData = useCallback(async (date: Date) => {
+    try {
+      const params = { date }
+
+      const { data } = await get('/user/calendar', params)
+      for (let i = 0; i < data.data.length; i++) {
+        data.data[i].start = new Date(data.data[i].start)
+        data.data[i].end = new Date(data.data[i].end)
+      }
+      setDayEvents(data.data)
+    } catch {
+      setDayEvents([])
+    }
+  }, [])
+
+  useEffect(() => {
+    if (shouldLoadEvents && dayEvents === null) {
+      setCurrentDate(new Date())
+
+      fetchData(new Date())
+    }
+  }, [shouldLoadEvents, dayEvents, fetchData])
+
+  function handleOnCloseEdit(refetch: boolean | undefined) {
+    setEditingEvent(null)
+
+    if (refetch && onRefetch) {
+      onRefetch()
+    }
+
+    if (refetch && shouldLoadEvents && currentDate) {
+      fetchData(currentDate)
+    }
+  }
+
+  return (
+    <>
+      <Section size="sm">
+        <Row>
+          <Col className="mb-3">
+            {currentDate ? (
+              <div className="d-flex gap-2">
+                <Heading size="md">
+                  {fillWithLeadingZero(currentDate.getDate(), 2)}
+                </Heading>
+
+                <div className="mt-1">
+                  <Heading size="xs">
+                    {handleWeekDay(currentDate.getDay())}
+                  </Heading>
+
+                  <Caption size="lg">
+                    {`${handleMonth(
+                      currentDate.getMonth()
+                    )} ${currentDate.getFullYear()}`}
+                  </Caption>
+                </div>
+              </div>
+            ) : (
+              <Skeleton size="lg" />
+            )}
+          </Col>
+        </Row>
+
+        {dayEvents ? (
+          <div>
+            {dayEvents.length > 0 ? (
+              dayEvents.map((event, idx) => {
+                if (expanded || showMore) {
+                  return (
+                    <Row key={idx} className="my-2">
+                      <Col>
+                        <Event
+                          data={event}
+                          onClick={id => setEditingEvent(id)}
+                        />
+                      </Col>
+                    </Row>
+                  )
+                }
+
+                if (idx === 0) {
+                  return (
+                    <Row key={idx}>
+                      <Col>
+                        <Row className="my-2">
+                          <Col>
+                            <Event
+                              data={event}
+                              onClick={id => setEditingEvent(id)}
+                            />
+                          </Col>
+                        </Row>
+
+                        <ShowMore
+                          events={dayEvents}
+                          onClick={() => setShowMore(true)}
+                        />
+                      </Col>
+                    </Row>
+                  )
+                }
+
+                return undefined
+              })
+            ) : (
+              <Row className="mt-2 mb-3">
+                <Col>
+                  <Row className="justify-content-center">
+                    <Col xs="auto">
+                      <img src={Image} alt=">Não há eventos para exibir" />
+                    </Col>
+                  </Row>
+
+                  <Row className="justify-content-center text-center mt-3">
+                    <Col xs={8}>
+                      <Caption size="lg">Não há eventos para exibir</Caption>
+                    </Col>
+                  </Row>
+                </Col>
+              </Row>
+            )}
+          </div>
+        ) : (
+          <>
+            <Row className="my-2">
+              <Col>
+                <Skeleton size="lg" />
+                <Skeleton size="lg" />
+              </Col>
+            </Row>
+
+            <Row className="my-2">
+              <Col>
+                <Skeleton size="sm" />
+              </Col>
+            </Row>
+          </>
+        )}
+
+        {onCreateEvent && (
+          <Row className="justify-content-center">
+            <Col xs="auto" className="my-2">
+              <ButtonLink onClick={onCreateEvent}>Novo Evento</ButtonLink>
+            </Col>
+          </Row>
+        )}
+      </Section>
+
+      <EditEvent
+        id={editingEvent}
+        onClose={refetch => handleOnCloseEdit(refetch)}
+      />
+    </>
+  )
+}
+
+WidgetEvents.defaultProps = {
+  date: undefined,
+  events: undefined,
+  expanded: undefined,
+  shouldLoadEvents: undefined,
+  onCreateEvent: undefined,
+  onRefetch: undefined
+}

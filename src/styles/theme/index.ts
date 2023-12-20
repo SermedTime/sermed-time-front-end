@@ -1,5 +1,5 @@
-import brand from 'styles/tokens/brand-tokens'
-import global from 'styles/tokens/global-tokens'
+import brand from '../tokens/brand-tokens'
+import global from '../tokens/global-tokens'
 
 export const theme = {
   background: {

@@ -1,0 +1,70 @@
+import { ReactNode } from 'react'
+
+import ReactDOM from 'react-dom'
+
+import { Tooltip as ReactTooltip, PlacesType } from 'react-tooltip'
+
+import { v4 } from 'uuid'
+
+interface Props {
+  place?: PlacesType
+  title: string | ReactNode
+  html?: boolean
+  scrollHide?: boolean
+  delayShow?: number
+  children: ReactNode
+}
+
+const domNode = document.createElement('div')
+document.body.appendChild(domNode)
+
+function BodyPortal({ children }: { children: ReactNode }) {
+  return ReactDOM.createPortal(children, domNode)
+}
+
+function CustomReactTooltip(props: any) {
+  return (
+    <BodyPortal>
+      <ReactTooltip effect="solid" {...props} />
+    </BodyPortal>
+  )
+}
+
+export function Tooltip({
+  place,
+  title,
+  html,
+  delayShow,
+  scrollHide,
+  children
+}: Props) {
+  const uuid = v4()
+
+  return (
+    <>
+      <div
+        data-for={uuid}
+        data-tip={title}
+        data-html={html}
+        data-class="custom-tooltip"
+        style={{ display: 'flex' }}
+      >
+        {children}
+      </div>
+
+      <CustomReactTooltip
+        id={uuid}
+        place={place}
+        delayShow={delayShow}
+        scrollHide={scrollHide}
+      />
+    </>
+  )
+}
+
+Tooltip.defaultProps = {
+  place: undefined,
+  html: undefined,
+  delayShow: 200,
+  scrollHide: true
+}

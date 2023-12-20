@@ -1,0 +1,1 @@
+export { WidgetIndicatorByStatus } from './IndicatorByStatus'
