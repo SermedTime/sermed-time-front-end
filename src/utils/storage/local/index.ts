@@ -4,7 +4,7 @@ export function getLocalStorageItem(key: string): any {
   const storaged = localStorage.getItem(key)
 
   if (storaged) {
-    const bytes = CryptoJS.AES.decrypt(storaged, 'MTCorp@EasyCRM')
+    const bytes = CryptoJS.AES.decrypt(storaged, 'Sermed@time')
     const data = JSON.parse(bytes.toString(CryptoJS.enc.Utf8))
 
     return data
@@ -19,7 +19,7 @@ export function setLocalStorageItem(
 ): void {
   const encrypt = CryptoJS.AES.encrypt(
     JSON.stringify(value),
-    'MTCorp@EasyCRM'
+    'Sermed@time'
   ).toString()
 
   localStorage.setItem(key, encrypt)
@@ -34,7 +34,7 @@ export function encrypt(
 ) {
   const encrypt = CryptoJS.AES.encrypt(
     JSON.stringify(value),
-    CryptoJS.enc.Hex.parse('MTCorp@EasyCRM')
+    CryptoJS.enc.Hex.parse('Sermed@time')
   ).toString()
 
   return encrypt

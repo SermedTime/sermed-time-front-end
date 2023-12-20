@@ -4,7 +4,7 @@ export function getSessionStorageItem(key: string): any {
   const storaged = sessionStorage.getItem(key)
 
   if (storaged) {
-    const bytes = CryptoJS.AES.decrypt(storaged, 'MTCorp@EasyCRM')
+    const bytes = CryptoJS.AES.decrypt(storaged, 'Sermed@time')
     const data = JSON.parse(bytes.toString(CryptoJS.enc.Utf8))
 
     return data
@@ -19,7 +19,7 @@ export function setSessionStorageItem(
 ): void {
   const encrypt = CryptoJS.AES.encrypt(
     JSON.stringify(value),
-    'MTCorp@EasyCRM'
+    'Sermed@time'
   ).toString()
 
   sessionStorage.setItem(key, encrypt)
