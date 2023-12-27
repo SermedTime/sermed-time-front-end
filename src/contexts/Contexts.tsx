@@ -7,6 +7,7 @@ import { HeaderContext } from './Layout/Header'
 import { BreadcrumbContext } from './Layout/Breadcrumb'
 import { FooterContext } from './Layout/Footer'
 import { ModalContext } from './Layout/Modal'
+import { SideMenuContext } from './Layout/SideMenu'
 
 interface Props {
   children: ReactNode
@@ -19,9 +20,11 @@ export function Contexts({ children }: Props) {
         <ModalContext>
           <HeaderContext>
             <BreadcrumbContext>
-              <FooterContext>
-                <ToastContext>{children}</ToastContext>
-              </FooterContext>
+              <SideMenuContext>
+                <FooterContext>
+                  <ToastContext>{children}</ToastContext>
+                </FooterContext>
+              </SideMenuContext>
             </BreadcrumbContext>
           </HeaderContext>
         </ModalContext>
