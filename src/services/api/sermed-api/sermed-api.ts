@@ -1,8 +1,8 @@
 import axios from 'axios'
 
-import { ROUTE_LOGIN } from 'routes/Pages/Auth/Auth.paths'
+import { removeLocalStorageItem } from '@/utils/storage/local'
 
-import { removeLocalStorageItem } from 'utils/storage/local'
+import { ROUTE_LOGIN } from '@/routes/Pages/Auth/Auth.paths'
 
 import { getAuthorizationToken } from './token'
 

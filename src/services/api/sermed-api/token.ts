@@ -1,4 +1,4 @@
-import { getLocalStorageItem } from 'utils/storage/local'
+import { getLocalStorageItem } from '@/utils/storage/local'
 
 export function getAuthorizationToken(): string {
   const token = getLocalStorageItem('Sermed@time:user')

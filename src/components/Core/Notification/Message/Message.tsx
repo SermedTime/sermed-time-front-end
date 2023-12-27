@@ -2,14 +2,14 @@ import { Row, Col } from 'react-bootstrap'
 
 import { SpringValue } from 'react-spring'
 
-import { useNotificationContext } from 'contexts/Notification'
+import { useNotificationContext } from '@/contexts/Notification'
 
-import { INotificationMessage } from 'contexts/Notification/Notification.interface'
+import { INotificationMessage } from '@/contexts/Notification/Notification.interface'
 
-import { Heading } from 'components/Core/Typography/Heading'
-import { ButtonIcon } from 'components/Core/Buttons/ButtonIcon'
-import { Paragraph } from 'components/Core/Typography/Paragraph'
-import { Button } from 'components/Core/Buttons/Button'
+import { Heading } from '../../Typography/Heading'
+import { ButtonIcon } from '../../Buttons/ButtonIcon'
+import { Paragraph } from '../../Typography/Paragraph'
+import { Button } from '../../Buttons/Button'
 
 import { Container } from './Message.styles'
 

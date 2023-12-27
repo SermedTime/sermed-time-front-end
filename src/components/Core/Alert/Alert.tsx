@@ -1,15 +1,15 @@
 import { useEffect } from 'react'
 
+import { useAlertContext } from '@/contexts/Alert'
+
 import { Row, Col } from 'react-bootstrap'
 
-import { useAlertContext } from 'contexts/Alert'
-
-import { ButtonIcon } from 'components/Core/Buttons/ButtonIcon'
-import { Icon } from 'components/Core/Icons/Icon'
-import { Heading } from 'components/Core/Typography/Heading'
-import { Paragraph } from 'components/Core/Typography/Paragraph'
-import { Subtitle } from 'components/Core/Typography/Subtitle'
-import { Button } from 'components/Core/Buttons/Button'
+import { ButtonIcon } from '../Buttons/ButtonIcon'
+import { Icon } from '../Icons/Icon'
+import { Heading } from '../Typography/Heading'
+import { Paragraph } from '../Typography/Paragraph'
+import { Subtitle } from '../Typography/Subtitle'
+import { Button } from '../Buttons/Button'
 
 import {
   Backdrop,
