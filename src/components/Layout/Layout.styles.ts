@@ -38,10 +38,10 @@ export const Ellipse = styled.div`
 
   background: linear-gradient(
     245.29deg,
-    #6dc1dc 13.32%,
-    #d9dfff 28.55%,
-    #ccf0ff 55.55%,
-    #d9dfff 84.12%
+    #65ff80 13.32%,
+    #a1ffbc 28.55%,
+    #bfffda 55.55%,
+    #c9ffe4 84.12%
   );
   filter: blur(364px);
   transform: rotate(-15deg);

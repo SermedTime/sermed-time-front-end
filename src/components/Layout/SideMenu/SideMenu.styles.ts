@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components'
 
 import { rgba } from 'polished'
 
-import BrandLogo from '@/assets/images/login-images/logo.png'
+import BrandLogo from '@/assets/images/logo.png'
 
 interface ContainerProps {
   hover: boolean
@@ -53,7 +53,7 @@ export const Container = styled.nav<ContainerProps>`
 export const Brand = styled.div`
   background-image: url(${BrandLogo});
   background-repeat: no-repeat;
-  height: 72px;
+  height: 75px;
   width: 64px;
 
   transition: width 250ms ease;
