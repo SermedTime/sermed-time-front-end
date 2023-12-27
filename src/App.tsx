@@ -3,15 +3,18 @@ import { Styles } from './styles'
 import { Routing } from './routes/Routing'
 import { Contexts } from './contexts'
 import { Providers } from './providers/Providers'
+import { Layout } from './components/Layout/Layout'
 
 export function App() {
   return (
     <BrowserRouter>
       <Providers>
         <Contexts>
-          <Routing />
+          <Layout>
+            <Routing />
 
-          <Styles />
+            <Styles />
+          </Layout>
         </Contexts>
       </Providers>
     </BrowserRouter>
