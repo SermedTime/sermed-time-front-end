@@ -1,7 +1,9 @@
+import { Link } from 'react-router-dom'
+
 import { v4 } from 'uuid'
 
 import { Caption } from '@/components/Core/Typography/Caption'
-import { Link } from 'react-router-dom'
+
 import { IBreadcrumb } from './Breadcrumb.interface'
 
 import * as S from './Breadcrumb.styles'
