@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom'
 
 import { v4 } from 'uuid'
 
-import { Icon } from 'components/Core/Icons/Icon'
-
 import { IDropdown } from './Dropdown.interface'
 
 import {
@@ -16,6 +14,7 @@ import {
   ItemWrapper,
   Label
 } from './Dropdown.styles'
+import { Icon } from '../Icons/Icon'
 
 interface Props {
   children: ReactNode

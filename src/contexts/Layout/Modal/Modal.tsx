@@ -1,4 +1,11 @@
-import { ReactNode, createContext, useContext, useMemo, useState } from 'react'
+import {
+  ReactNode,
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState
+} from 'react'
 
 import { fakeRequest } from '@/services/api/sermed-api/sermed-api'
 
@@ -15,25 +22,33 @@ interface Props {
 function ModalContext({ children }: Props) {
   const [amount, setAmount] = useState(0)
 
-  async function callback() {
-    await fakeRequest(100)
+  useEffect(() => {
+    async function callback() {
+      await fakeRequest(100)
 
-    const openedModals = document.getElementsByClassName('custom-modal').length
+      const openedModals =
+        document.getElementsByClassName('custom-modal').length
 
-    openedModals > 0
-      ? document.body.classList.add('no-overflow')
-      : document.body.classList.remove('no-overflow')
+      openedModals > 0
+        ? document.body.classList.add('no-overflow')
+        : document.body.classList.remove('no-overflow')
 
-    setAmount(openedModals)
-  }
+      setAmount(openedModals)
+    }
 
-  const targetNode = document.getElementById('modal') as HTMLElement
+    const targetNode = document.getElementById('modal')
 
-  const config = { attributes: true, childList: true, subtree: true }
+    if (targetNode) {
+      const config = { attributes: true, childList: true, subtree: true }
+      const observer = new MutationObserver(callback)
+      observer.observe(targetNode, config)
 
-  const observer = new MutationObserver(callback)
+      // Limpeza do observer
+      return () => observer.disconnect()
+    }
 
-  observer.observe(targetNode, config)
+    return undefined
+  }, [])
 
   const providerValue = useMemo(() => ({ amount }), [amount])
 
