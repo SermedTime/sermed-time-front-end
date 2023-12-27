@@ -8,6 +8,8 @@ import { BreadcrumbContext } from './Layout/Breadcrumb'
 import { FooterContext } from './Layout/Footer'
 import { ModalContext } from './Layout/Modal'
 import { SideMenuContext } from './Layout/SideMenu'
+import { AlertContext } from './Alert'
+import { NotificationContext } from './Notification'
 
 interface Props {
   children: ReactNode
@@ -22,7 +24,11 @@ export function Contexts({ children }: Props) {
             <BreadcrumbContext>
               <SideMenuContext>
                 <FooterContext>
-                  <ToastContext>{children}</ToastContext>
+                  <ToastContext>
+                    <AlertContext>
+                      <NotificationContext>{children}</NotificationContext>
+                    </AlertContext>
+                  </ToastContext>
                 </FooterContext>
               </SideMenuContext>
             </BreadcrumbContext>
