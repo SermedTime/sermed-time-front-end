@@ -4,6 +4,7 @@ import { LoaderContext } from './Loader'
 import { AuthContext } from './Auth'
 import { HeaderContext } from './Layout/Header'
 import { BreadcrumbContext } from './Layout/Breadcrumb'
+import { FooterContext } from './Layout/Footer'
 
 interface Props {
   children: ReactNode
@@ -15,7 +16,9 @@ export function Contexts({ children }: Props) {
       <AuthContext>
         <HeaderContext>
           <BreadcrumbContext>
-            <ToastContext>{children}</ToastContext>
+            <FooterContext>
+              <ToastContext>{children}</ToastContext>
+            </FooterContext>
           </BreadcrumbContext>
         </HeaderContext>
       </AuthContext>
