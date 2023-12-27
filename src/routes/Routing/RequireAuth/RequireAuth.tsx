@@ -2,13 +2,12 @@ import { useEffect } from 'react'
 
 import { Navigate } from 'react-router-dom'
 
-import { useAuthContext } from 'contexts/Auth'
-
-import { useAuthRoles } from 'hooks/Services/Rules/Auth/useRoles'
-
 import { ROUTE_HOME } from '@/routes/Pages/Pages.paths'
-import { ROUTE_LOGIN } from '@/routes/Pages/Auth/Auth.routes'
+
 import { useToastContext } from '@/contexts/Toast'
+import { ROUTE_LOGIN } from '@/routes/Pages/Auth/Auth.paths'
+import { useAuthContext } from '@/contexts/Auth'
+import { useAuthRoles } from '@/hooks/services/rules/Auth/useRoles'
 
 interface Props {
   allowedRoles?: string[]

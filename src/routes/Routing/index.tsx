@@ -11,6 +11,7 @@ import { Loader } from '@/components/Core/Loader'
 import { NotFound } from '@/pages/Errors/NotFound'
 
 import { routes } from '../Pages/Pages.routes'
+import { RequireAuth } from './RequireAuth'
 
 export function Routing() {
   const location = useLocation()
@@ -20,22 +21,23 @@ export function Routing() {
       <Suspense fallback={<Loader />}>
         <Routes key={location.pathname} location={location}>
           <Route path="/">
-            {routes.map(({ path, component: Component }) => (
-              <Route
-                key={path}
-                path={path}
-                element={
-                  <Component />
-                  // !isPrivate ? (
-                  //   <Component />
-                  // ) : (
-                  //   <RequireAuth allowedRoles={allowedRoles}>
-                  //     <Component />
-                  //   </RequireAuth>
-                  // )
-                }
-              />
-            ))}
+            {routes.map(
+              ({ path, component: Component, isPrivate, allowedRoles }) => (
+                <Route
+                  key={path}
+                  path={path}
+                  element={
+                    !isPrivate ? (
+                      <Component />
+                    ) : (
+                      <RequireAuth allowedRoles={allowedRoles}>
+                        <Component />
+                      </RequireAuth>
+                    )
+                  }
+                />
+              )
+            )}
           </Route>
 
           <Route path="*" element={<NotFound />} />

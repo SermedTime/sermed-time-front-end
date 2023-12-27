@@ -24,9 +24,15 @@ interface Auth {
   refreshToken: string
 }
 
+interface Roles {
+  name: string
+  write?: boolean
+}
+
 interface UserAuth {
   auth: Auth
   firstName: string
+  roles?: Roles[]
 }
 
 interface UserCredentials {
@@ -93,7 +99,13 @@ function AuthContext({ children }: Props) {
                 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
             },
 
-            firstName: 'John Doe'
+            firstName: 'John Doe',
+            roles: [
+              {
+                name: 'point',
+                write: true
+              }
+            ]
           }
 
           setUser(user)
