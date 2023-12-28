@@ -13,6 +13,7 @@ import { Col, Container, Row } from 'react-bootstrap'
 import { WidgetPaycheck } from '@/components/Rules/Users/Widgets/Paycheck'
 import { Summary } from './components/Summary'
 import { TimeSheet } from './components/TimeSheet'
+import { WorkTime } from './components/WorkTime'
 
 export function Home() {
   const { user } = useAuthContext()
@@ -41,6 +42,12 @@ export function Home() {
             <Row className="mb-4">
               <Col>
                 <TimeSheet />
+              </Col>
+            </Row>
+
+            <Row className="mb-4">
+              <Col>
+                <WorkTime />
               </Col>
             </Row>
           </Col>
