@@ -1,4 +1,4 @@
-import { Paragraph } from 'components/Core/Typography/Paragraph'
+import { Paragraph } from '../../Typography/Paragraph'
 
 import { ICaptionBullet } from './CaptionBullet.interface'
 import { Wrapper, Container } from './CaptionBullet.styles'

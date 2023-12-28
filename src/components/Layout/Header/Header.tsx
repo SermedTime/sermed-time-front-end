@@ -9,6 +9,7 @@ import { useBreadcrumbContext } from '@/contexts/Layout/Breadcrumb'
 
 import { Heading } from '@/components/Core/Typography/Heading'
 import { ButtonIcon } from '@/components/Core/Buttons/ButtonIcon'
+import { Tooltip } from '@/components/Core/Tooltip'
 import { DropdownMenu } from './Dropdown'
 import { Breadcrumb } from '../Breadcrumb'
 
@@ -40,17 +41,21 @@ export function Header() {
             <Col xs={4}>
               <div className="d-flex align-items-center justify-content-end gap-4">
                 <div className="d-flex align-items-center justify-content-end gap-1">
-                  <ButtonIcon
-                    size="md"
-                    icon="assistant"
-                    onClick={() => navigate(ROUTE_HOME)}
-                  />
+                  <Tooltip title="Home" place="top">
+                    <ButtonIcon
+                      size="md"
+                      icon="assistant"
+                      onClick={() => navigate(ROUTE_HOME)}
+                    />
+                  </Tooltip>
 
-                  <ButtonIcon
-                    size="md"
-                    icon="calendar_today"
-                    onClick={() => navigate(ROUTE_HOME)} // NAVEGAR PARA ESCALA
-                  />
+                  <Tooltip title="Escala" place="top">
+                    <ButtonIcon
+                      size="md"
+                      icon="calendar_today"
+                      onClick={() => navigate(ROUTE_HOME)} // NAVEGAR PARA ESCALA
+                    />
+                  </Tooltip>
                 </div>
               </div>
             </Col>

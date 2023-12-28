@@ -1,12 +1,11 @@
 import { Row, Col } from 'react-bootstrap'
 
-import { Section } from 'components/Core/Containers/Section'
-import { Icon } from 'components/Core/Icons/Icon'
-import { Heading } from 'components/Core/Typography/Heading'
-import { Skeleton } from 'components/Core/Skeleton'
-import { Paragraph } from 'components/Core/Typography/Paragraph'
-
 import { Container, TextHeading, TextValue } from './InfoCard.styles'
+import { Section } from '../../Containers/Section'
+import { Icon } from '../../Icons/Icon'
+import { Paragraph } from '../../Typography/Paragraph'
+import { Heading } from '../../Typography/Heading'
+import { Skeleton } from '../../Skeleton'
 
 interface Props {
   icon: string

@@ -29,6 +29,24 @@ export function convertDateToString(date: Date | undefined | null): string {
   return format(date, 'yyyy-MM-dd')
 }
 
+export function convertIntToTime(time: number | undefined): string {
+  let formattedTime = '00:00'
+
+  if (time) {
+    const hoursAmount = Math.floor(time)
+    const minutesAmount = ((time - hoursAmount) * 60).toFixed(0)
+
+    const minutes =
+      Number(minutesAmount) < 10 ? `0${minutesAmount}` : minutesAmount
+
+    const hours = hoursAmount < 10 ? `0${hoursAmount}` : hoursAmount
+
+    formattedTime = `${hours}:${minutes}`
+  }
+
+  return formattedTime
+}
+
 export function validateData(
   values: any,
   date: Date | string,

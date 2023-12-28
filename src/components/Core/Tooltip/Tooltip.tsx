@@ -8,7 +8,7 @@ import { v4 } from 'uuid'
 
 interface Props {
   place?: PlacesType
-  title: string | ReactNode
+  title: string | null
   html?: boolean
   scrollHide?: boolean
   delayShow?: number
@@ -43,8 +43,8 @@ export function Tooltip({
   return (
     <>
       <div
-        data-for={uuid}
-        data-tip={title}
+        data-tooltip-id={uuid}
+        data-tooltip-content={title}
         data-html={html}
         data-class="custom-tooltip"
         style={{ display: 'flex' }}
