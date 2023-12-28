@@ -1,9 +1,8 @@
-import { Section } from 'components/Core/Containers/Section'
-import { Icon } from 'components/Core/Icons/Icon'
-import { Heading } from 'components/Core/Typography/Heading'
-import { Caption } from 'components/Core/Typography/Caption'
-import { ButtonIcon } from 'components/Core/Buttons/ButtonIcon'
-
+import { ButtonIcon } from '../../Buttons/ButtonIcon'
+import { Icon } from '../../Icons/Icon'
+import { Caption } from '../../Typography/Caption'
+import { Heading } from '../../Typography/Heading'
+import { Section } from '../Section'
 import { IWidget } from './Widget.interface'
 
 export function Widget({

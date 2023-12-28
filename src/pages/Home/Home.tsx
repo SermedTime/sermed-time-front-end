@@ -10,6 +10,7 @@ import { AnimatedPage } from '@/components/Layout/AnimatedPage'
 
 import { Col, Container, Row } from 'react-bootstrap'
 
+import { WidgetPaycheck } from '@/components/Rules/Users/Widgets/Paycheck'
 import { Summary } from './components/Summary'
 import { TimeSheet } from './components/TimeSheet'
 
@@ -40,6 +41,14 @@ export function Home() {
             <Row className="mb-4">
               <Col>
                 <TimeSheet />
+              </Col>
+            </Row>
+          </Col>
+
+          <Col lg={3} xxl={2}>
+            <Row className="mb-4">
+              <Col>
+                <WidgetPaycheck />
               </Col>
             </Row>
           </Col>
