@@ -10,7 +10,8 @@ import { AnimatedPage } from '@/components/Layout/AnimatedPage'
 
 import { Col, Container, Row } from 'react-bootstrap'
 
-import { Summary } from './Summary'
+import { Summary } from './components/Summary'
+import { TimeSheet } from './components/TimeSheet'
 
 export function Home() {
   const { user } = useAuthContext()
@@ -31,7 +32,15 @@ export function Home() {
         <Row>
           <Col g={9} xxl={10}>
             <Row className="mb-4">
-              <Summary />
+              <Col>
+                <Summary />
+              </Col>
+            </Row>
+
+            <Row className="mb-4">
+              <Col>
+                <TimeSheet />
+              </Col>
             </Row>
           </Col>
         </Row>

@@ -1,7 +1,6 @@
 import { v4 } from 'uuid'
-
-import { Tr, Td } from 'components/Core/Table'
-import { Skeleton } from 'components/Core/Skeleton'
+import { Td, Tr } from '../Table'
+import { Skeleton } from '../../Skeleton'
 
 interface Props {
   lines: number

@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 
-import { Icon } from 'components/Core/Icons/Icon'
+import { Icon } from '../../Icons/Icon'
 
 import { IOrder } from './Order.interface'
 
