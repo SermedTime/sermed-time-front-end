@@ -1,8 +1,8 @@
 import { useRef, useState, useEffect } from 'react'
 
-import { Label } from 'components/Core/Form/Label'
-import { Icon } from 'components/Core/Icons/Icon'
-import { HelperText } from 'components/Core/Form/HelperText'
+import { Label } from '@/components/Core/Form/Label'
+import { Icon } from '@/components/Core/Icons/Icon'
+import { HelperText } from '@/components/Core/Form/HelperText'
 
 import { Options } from './Options'
 import { Color } from './Options/Options.styles'

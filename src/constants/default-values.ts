@@ -1,0 +1,1 @@
+export const DEFAULT_RECORDS_PER_PAGE = 25

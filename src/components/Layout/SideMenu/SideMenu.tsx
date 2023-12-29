@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom'
 
 import { useSideMenuContext } from '@/contexts/Layout/SideMenu'
 
-import { useAuthRoles } from '@/hooks/services/rules/Auth/useRoles'
+import { useAuthRoles } from '@/hooks/services/Rules/Auth/useRoles'
 
 import { Icon } from '@/components/Core/Icons/Icon'
 import * as S from './SideMenu.styles'

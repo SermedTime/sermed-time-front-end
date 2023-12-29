@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 
 import { v4 } from 'uuid'
 
-import { ButtonIcon } from 'components/Core/Buttons/ButtonIcon'
+import { ButtonIcon } from '@/components/Core/Buttons/ButtonIcon'
 
 import { Container, Controller, Item } from './Pagination.styles'
 

@@ -16,6 +16,7 @@ interface Props {
 }
 
 const domNode = document.createElement('div')
+domNode.style.zIndex = '1000'
 document.body.appendChild(domNode)
 
 function BodyPortal({ children }: { children: ReactNode }) {
@@ -25,7 +26,13 @@ function BodyPortal({ children }: { children: ReactNode }) {
 function CustomReactTooltip(props: any) {
   return (
     <BodyPortal>
-      <ReactTooltip effect="solid" {...props} />
+      <ReactTooltip
+        style={{
+          zIndex: 1000
+        }}
+        effect="solid"
+        {...props}
+      />
     </BodyPortal>
   )
 }

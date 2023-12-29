@@ -1,5 +1,5 @@
-import { Tr, Td } from 'components/Core/Table'
-import { EmptyResult } from 'components/Core/EmptyResult'
+import { Tr, Td } from '@/components/Core/Table'
+import { EmptyResult } from '@/components/Core/EmptyResult'
 
 interface Props {
   columns: number

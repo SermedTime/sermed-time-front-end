@@ -1,3 +1,5 @@
+import { ROUTE_MANAGEMENT_COMPANIES_LIST } from '@/routes/Pages/Parametrizations/Management/Management.paths'
+
 import { IParameterList } from './Parametrizations.interface'
 
 export const initialParameterList: IParameterList[] = [
@@ -8,7 +10,7 @@ export const initialParameterList: IParameterList[] = [
       {
         icon: 'business',
         title: 'Empresa',
-        routeToList: '',
+        routeToList: ROUTE_MANAGEMENT_COMPANIES_LIST,
         routeToAdd: ''
       }
     ]
