@@ -1,8 +1,8 @@
 import { useRef, useState, useEffect } from 'react'
 
-import { Icon } from 'components/Core/Icons/Icon'
-import { Options } from 'components/Core/Form/Fields/Select/Options'
-import { HelperText } from 'components/Core/Form/HelperText'
+import { Icon } from '@/components/Core/Icons/Icon'
+import { Options } from '@/components/Core/Form/Fields/Select/Options'
+import { HelperText } from '@/components/Core/Form/HelperText'
 
 import { IOption } from './Select.interface'
 import { Container } from './Select.styles'

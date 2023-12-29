@@ -5,7 +5,7 @@ import { useZoomDetection } from '@/hooks/utils/useZoomDetection'
 import * as S from './Layout.styles'
 import { Header } from './Header'
 import { SideMenu } from './SideMenu'
-import { Footer } from './Footer'
+// import { Footer } from './Footer'
 
 interface Props {
   children: ReactNode
@@ -31,7 +31,7 @@ export function Layout({ children }: Props) {
 
           {children}
 
-          <Footer />
+          {/* <Footer /> */}
         </S.Container>
       ) : (
         <S.Container width={handleOnZoomDetectionClass()}>

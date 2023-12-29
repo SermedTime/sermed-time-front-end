@@ -1,0 +1,1 @@
+export { ParametrizationsSearchForm } from './SearchForm'

@@ -2,10 +2,9 @@ import { Row, Col } from 'react-bootstrap'
 
 import { useNavigate, useSearchParams } from 'react-router-dom'
 
-import IconNotFound from 'assets/images/icon-message.png'
-
-import { Heading } from 'components/Core/Typography/Heading'
-import { Button } from 'components/Core/Buttons/Button'
+import { Heading } from '@/components/Core/Typography/Heading'
+import { Button } from '@/components/Core/Buttons/Button'
+import IconNotFound from '@/assets/images/icon-message.png'
 
 import { Container } from './EmptyResult.styles'
 

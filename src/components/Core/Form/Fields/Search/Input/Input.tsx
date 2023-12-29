@@ -2,8 +2,8 @@ import { useEffect, useState, useRef } from 'react'
 
 import { v4 } from 'uuid'
 
-import { Icon } from 'components/Core/Icons/Icon'
-import { HelperText } from 'components/Core/Form/HelperText'
+import { Icon } from '@/components/Core/Icons/Icon'
+import { HelperText } from '@/components/Core/Form/HelperText'
 
 import { Container } from './Input.styles'
 

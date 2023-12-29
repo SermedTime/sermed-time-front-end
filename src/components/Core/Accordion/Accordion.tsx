@@ -2,8 +2,8 @@ import { ReactNode, useState } from 'react'
 
 import { Row, Col } from 'react-bootstrap'
 
-import { ButtonIcon } from 'components/Core/Buttons/ButtonIcon'
-import { Paragraph } from 'components/Core/Typography/Paragraph'
+import { ButtonIcon } from '@/components/Core/Buttons/ButtonIcon'
+import { Paragraph } from '@/components/Core/Typography/Paragraph'
 
 import { Container, Body } from './Accordion.styles'
 
