@@ -40,6 +40,7 @@ import { initialFilterValues } from '../../../components/FilterForm/FilterForm.F
 import { Companies } from './components'
 import { IParametersFilterForm } from '../../../components/FilterForm/FilterForm.Form'
 import { ParametersFilterForm } from '../../../components/FilterForm/FilterForm'
+import { EditCompany } from '../Edit'
 
 export function ListCompanies() {
   const navigate = useNavigate()
@@ -303,14 +304,14 @@ export function ListCompanies() {
         </Row>
       </Container>
 
-      {/* <EditCompany
+      <EditCompany
         uuid={editingRecord}
         onClose={hasChanges => {
           setEditingRecord('')
 
           hasChanges && refetch()
         }}
-      /> */}
+      />
     </AnimatedPage>
   )
 }

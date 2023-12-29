@@ -2,9 +2,9 @@ import { ReactNode } from 'react'
 
 import ReactDOM from 'react-dom'
 
-import { useModalContext } from 'contexts/Layout/Modal'
+import { useModalContext } from '@/contexts/Layout/Modal'
 
-import { ButtonIcon } from 'components/Core/Buttons/ButtonIcon'
+import { ButtonIcon } from '@/components/Core/Buttons/ButtonIcon'
 
 import { Backdrop, Dialog, Content, CloseButton } from './Modal.styles'
 

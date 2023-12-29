@@ -1,0 +1,1 @@
+export { EditCompany } from './Edit'

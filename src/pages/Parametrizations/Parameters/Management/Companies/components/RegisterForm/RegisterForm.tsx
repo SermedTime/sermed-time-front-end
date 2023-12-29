@@ -40,14 +40,21 @@ export function CompanyRegisterForm({
 
   if (!initialValues) {
     return (
-      <Row className="mb-4">
-        <Col xs={2}>
-          <Skeleton />
-        </Col>
-        <Col>
-          <Skeleton size="lg" />
-        </Col>
-      </Row>
+      <>
+        <Row className="mb-4">
+          <Col xs={2}>
+            <Skeleton />
+          </Col>
+        </Row>
+        <Row className="mb-4">
+          <Col xxl={6}>
+            <Skeleton size="lg" />
+          </Col>
+          <Col xxl={6}>
+            <Skeleton size="lg" />
+          </Col>
+        </Row>
+      </>
     )
   }
 
