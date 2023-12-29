@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { Col, Container, Row } from 'react-bootstrap'
 
 import { useBreadcrumbContext } from '@/contexts/Layout/Breadcrumb'
 import { useHeaderContext } from '@/contexts/Layout/Header'
@@ -8,14 +9,17 @@ import { useToastContext } from '@/contexts/Toast'
 
 import { TITLE_COMPANIES_PARAMETERIZATIONS } from '@/constants/title.browser'
 import { ROUTE_PARAMETERIZATIONS } from '@/routes/Pages/Parametrizations/Parametrizations.paths'
-import { post } from '@/services/api/sermed-api/sermed-api'
 import { ROUTE_MANAGEMENT_COMPANIES_LIST } from '@/routes/Pages/Parametrizations/Management/Management.paths'
+
+import { post } from '@/services/api/sermed-api/sermed-api'
+
 import { AnimatedPage } from '@/components/Layout/AnimatedPage'
-import { Col, Container, Row } from 'react-bootstrap'
 import { Section } from '@/components/Core/Containers/Section'
 import { Icon } from '@/components/Core/Icons/Icon'
 import { Subtitle } from '@/components/Core/Typography/Subtitle'
+
 import { ICompanyRegisterForm } from '../components/RegisterForm/RegisterForm.form'
+import { CompanyRegisterForm } from '../components/RegisterForm'
 
 export function CreateCompany() {
   const navigate = useNavigate()
@@ -28,7 +32,7 @@ export function CreateCompany() {
   useEffect(() => {
     document.title = TITLE_COMPANIES_PARAMETERIZATIONS
 
-    setPageHeading('Setor de Atividade')
+    setPageHeading('Empresas')
 
     setPageBreadcrumb([
       { text: 'Parametrizações', route: ROUTE_PARAMETERIZATIONS },
@@ -81,6 +85,21 @@ export function CreateCompany() {
 
                 <Subtitle size="sm">Nova Empresa</Subtitle>
               </div>
+
+              <Row className="justify-content-center">
+                <Col xs={11}>
+                  <CompanyRegisterForm
+                    mode="create"
+                    initialValues={{
+                      status: 'active',
+                      name: '',
+                      cnpj: ''
+                    }}
+                    onCancel={() => navigate(-1)}
+                    onSubmit={values => handleOnSubmit(values)}
+                  />
+                </Col>
+              </Row>
             </Section>
           </Col>
         </Row>

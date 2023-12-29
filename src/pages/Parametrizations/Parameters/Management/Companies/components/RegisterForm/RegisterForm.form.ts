@@ -15,6 +15,6 @@ export const validationSchema = Yup.object().shape({
     .max(50, 'Digite no máximo 50 caracteres'),
   cnpj: Yup.string()
     .required('CNPJ is required')
-    .min(14, 'Digite no mínimo 14 caracteres')
-    .max(50, 'Digite no máximo 14 caracteres')
+    .min(18, 'Digite no mínimo 18 caracteres')
+    .max(18, 'Digite no máximo 18 caracteres')
 })

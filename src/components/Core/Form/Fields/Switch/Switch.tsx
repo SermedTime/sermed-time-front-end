@@ -1,5 +1,5 @@
-import { Label } from 'components/Core/Form/Label'
-import { Icon } from 'components/Core/Icons/Icon'
+import { Label } from '@/components/Core/Form/Label'
+import { Icon } from '@/components/Core/Icons/Icon'
 
 import { Wrapper, Container } from './Switch.styles'
 

@@ -2,9 +2,9 @@ import { ReactNode, useEffect, useState, useRef } from 'react'
 
 import { v4 } from 'uuid'
 
-import { Label } from 'components/Core/Form/Label'
-import { Icon } from 'components/Core/Icons/Icon'
-import { HelperText } from 'components/Core/Form/HelperText'
+import { Label } from '@/components/Core/Form/Label'
+import { Icon } from '@/components/Core/Icons/Icon'
+import { HelperText } from '@/components/Core/Form/HelperText'
 
 import { Container } from './InputText.styles'
 
