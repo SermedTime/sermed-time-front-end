@@ -142,7 +142,7 @@ export function Parametrizations() {
                             >
                               <Row className="pt-2">
                                 {parameter.items.map(item => (
-                                  <Col key={v4()} xs={4} className="mt3">
+                                  <Col key={v4()} xs={4} className="mt-3">
                                     <Card
                                       icon={item.icon}
                                       title={item.title}

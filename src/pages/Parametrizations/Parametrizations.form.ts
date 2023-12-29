@@ -15,6 +15,24 @@ export const initialParameterList: IParameterList[] = [
         title: 'Empresa',
         routeToList: ROUTE_MANAGEMENT_COMPANIES_LIST,
         routeToAdd: ROUTE_MANAGEMENT_COMPANIES_CREATE
+      },
+      {
+        icon: 'person',
+        title: 'Funcionários',
+        routeToList: '',
+        routeToAdd: ''
+      },
+      {
+        icon: 'access_time',
+        title: 'Horários',
+        routeToList: '',
+        routeToAdd: ''
+      },
+      {
+        icon: 'calendar_month',
+        title: 'Escalas',
+        routeToList: '',
+        routeToAdd: ''
       }
     ]
   }
