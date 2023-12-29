@@ -27,6 +27,7 @@ import { Col, Container, Row } from 'react-bootstrap'
 
 import { Pagination } from '@/components/Core/Pagination'
 import { Skeleton } from '@/components/Core/Skeleton'
+import { ROUTE_MANAGEMENT_COMPANIES_CREATE } from '@/routes/Pages/Parametrizations/Management/Management.paths'
 import { ParametersSearchForm } from '../../../components/SearchForm'
 
 import {
@@ -194,7 +195,9 @@ export function ListCompanies() {
                     <ButtonIcon
                       size="lg"
                       icon="add"
-                      onClick={() => navigate(ROUTE_ACTIVITY_SECTOR_CREATE)}
+                      onClick={() =>
+                        navigate(ROUTE_MANAGEMENT_COMPANIES_CREATE)
+                      }
                     />
                   </Tooltip>
                 </Col>
@@ -300,14 +303,14 @@ export function ListCompanies() {
         </Row>
       </Container>
 
-      <EditCompany
+      {/* <EditCompany
         uuid={editingRecord}
         onClose={hasChanges => {
           setEditingRecord('')
 
           hasChanges && refetch()
         }}
-      />
+      /> */}
     </AnimatedPage>
   )
 }

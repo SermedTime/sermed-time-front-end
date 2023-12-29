@@ -39,7 +39,7 @@ export function Card({ icon, title, routeToList, routeToAdd }: ICard) {
               size="md"
               icon="add"
               disabled={!routeToAdd}
-              onClick={() => navigate(routeToList)}
+              onClick={() => navigate(routeToAdd)}
             />
           </div>
         </Col>
