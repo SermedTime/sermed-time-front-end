@@ -3,19 +3,19 @@ import { Td, Tr } from '@/components/Core/Table'
 import { Paragraph } from '@/components/Core/Typography/Paragraph'
 import { useLoaderContext } from '@/contexts/Loader'
 import { useToastContext } from '@/contexts/Toast'
+import { ITeams } from '@/hooks/services/Parameters/useTeams'
 
-import { ITimeClock } from '@/hooks/services/Parameters/useTimeClock'
 import { put } from '@/services/api/sermed-api/sermed-api'
 import { convertIsoDateToPtBr } from '@/utils/date'
 import { Col, Row } from 'react-bootstrap'
 
 interface Props {
-  data: ITimeClock
+  data: ITeams
   onEdit: () => void
   onRefetch: () => void
 }
 
-export function TimeClock({ data, onEdit, onRefetch }: Props) {
+export function Teams({ data, onEdit, onRefetch }: Props) {
   const { showLoader, hideLoader } = useLoaderContext()
   const { addToast, handleApiRejection } = useToastContext()
 
@@ -23,7 +23,7 @@ export function TimeClock({ data, onEdit, onRefetch }: Props) {
     try {
       showLoader()
 
-      const { data } = await put(`parametrizations/companies/${uuid}`, {
+      const { data } = await put(`parametrizations/teams/${uuid}`, {
         status: 'active'
       })
 
@@ -33,7 +33,7 @@ export function TimeClock({ data, onEdit, onRefetch }: Props) {
         addToast({
           type: 'success',
           title: 'Sucesso!',
-          description: 'Relógio de Ponto ativado com sucesso!'
+          description: 'Equipe ativada com sucesso!'
         })
       }
     } catch {
@@ -47,7 +47,7 @@ export function TimeClock({ data, onEdit, onRefetch }: Props) {
     try {
       showLoader()
 
-      const { data } = await put(`parametrizations/companies/${uuid}`, {
+      const { data } = await put(`parametrizations/teams/${uuid}`, {
         status: 'inactive'
       })
 
@@ -57,7 +57,7 @@ export function TimeClock({ data, onEdit, onRefetch }: Props) {
         addToast({
           type: 'success',
           title: 'Sucesso!',
-          description: 'Relógio de Ponto inativado com sucesso!'
+          description: 'Equipe inativada com sucesso!'
         })
       }
     } catch {

@@ -1,12 +1,12 @@
 import { IApiResponse } from '@/services/api/sermed-api/sermed-api.interface'
 import { v4 } from 'uuid'
-import { ITimeClock } from './useTimeClock'
+import { ITeams } from '../useTeams'
 
-export const useTimeClockRequest: IApiResponse<ITimeClock> = {
+export const useTeamsRequest: IApiResponse<ITeams> = {
   data: [
     {
       uuid: v4(),
-      name: 'Relógio de Ponto 1',
+      name: 'Equipe 1',
       created_at: '2022-12-01',
       status: 'active'
     }

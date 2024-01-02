@@ -60,10 +60,6 @@ export function ListTimeClock() {
     {
       value: 'description',
       label: 'Descrição'
-    },
-    {
-      value: 'cnpj',
-      label: 'CNPJ'
     }
   ]
 
