@@ -9,8 +9,8 @@ import { Col, Row } from 'react-bootstrap'
 import { Icon } from '@/components/Core/Icons/Icon'
 import { Subtitle } from '@/components/Core/Typography/Subtitle'
 import { Button } from '@/components/Core/Buttons/Button'
-import { ICompanyRegisterForm } from '../components/RegisterForm/RegisterForm.form'
-import { CompanyRegisterForm } from '../components/RegisterForm'
+import { IClockTimeRegisterForm } from '../components/RegisterForm/RegisterForm.form'
+import { ClockTimeRegisterForm } from '../components/RegisterForm/RegisterForm'
 
 interface Props {
   uuid: string
@@ -25,7 +25,7 @@ export function EditCompany({ uuid, onClose }: Props) {
   const [readOnly, setReadOnly] = useState(true)
 
   const [initialValues, setInitialValues] =
-    useState<ICompanyRegisterForm | null>(null)
+    useState<IClockTimeRegisterForm | null>(null)
 
   const fetchData = useCallback(
     async (uuid: string) => {
@@ -34,13 +34,29 @@ export function EditCompany({ uuid, onClose }: Props) {
           data: { data }
         } = await get(`parametrizations/companies/${uuid}`)
 
-        const { status, name, cnpj } = data
+        const {
+          city,
+          clock_ip,
+          manufacturer,
+          model,
+          name,
+          sector,
+          state,
+          status,
+          unit
+        } = data
 
         setInitialValues({
-          uuid,
-          status,
+          city,
+          clock_ip,
+          manufacturer,
+          model,
           name,
-          cnpj
+          sector,
+          state,
+          status,
+          unit,
+          uuid
         })
       } catch {
         handleApiRejection()
@@ -67,7 +83,7 @@ export function EditCompany({ uuid, onClose }: Props) {
     onClose(false)
   }
 
-  async function handleOnSubmit(formValues: ICompanyRegisterForm) {
+  async function handleOnSubmit(formValues: IClockTimeRegisterForm) {
     try {
       showLoader()
 
@@ -111,7 +127,7 @@ export function EditCompany({ uuid, onClose }: Props) {
           <div className="d-flex align-items-center gap-2">
             <Icon icon="edit" />
 
-            <Subtitle size="sm">Editar Setor de Atividade</Subtitle>
+            <Subtitle size="sm">Editar Relógio de Ponto</Subtitle>
           </div>
         </Col>
 
@@ -130,7 +146,7 @@ export function EditCompany({ uuid, onClose }: Props) {
 
       <Row>
         <Col>
-          <CompanyRegisterForm
+          <ClockTimeRegisterForm
             mode="edit"
             initialValues={initialValues}
             readOnly={readOnly}

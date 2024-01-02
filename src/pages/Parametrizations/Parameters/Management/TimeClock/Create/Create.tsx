@@ -18,8 +18,9 @@ import { Subtitle } from '@/components/Core/Typography/Subtitle'
 
 import { TITLE_TIME_CLOCK_PARAMETERIZATIONS } from '@/constants/title.browser'
 import { ROUTE_MANAGEMENT_TIME_CLOCK_LIST } from '@/routes/Pages/Parametrizations/Management/Management.paths'
-import { ICompanyRegisterForm } from '../components/RegisterForm/RegisterForm.form'
-import { CompanyRegisterForm } from '../components/RegisterForm'
+
+import { ClockTimeRegisterForm } from '../components/RegisterForm/RegisterForm'
+import { IClockTimeRegisterForm } from '../components/RegisterForm/RegisterForm.form'
 
 export function CreateCompany() {
   const navigate = useNavigate()
@@ -41,7 +42,7 @@ export function CreateCompany() {
     ])
   }, [setPageHeading, setPageBreadcrumb])
 
-  async function handleOnSubmit(formValues: ICompanyRegisterForm) {
+  async function handleOnSubmit(formValues: IClockTimeRegisterForm) {
     try {
       showLoader()
 
@@ -88,18 +89,18 @@ export function CreateCompany() {
 
               <Row className="justify-content-center">
                 <Col xs={11}>
-                  <CompanyRegisterForm
+                  <ClockTimeRegisterForm
                     mode="create"
                     initialValues={{
-                      city: '',
-                      clock_ip: '',
+                      city: '', //
+                      clock_ip: '', //
                       manufacturer: '',
                       model: '',
-                      name: '',
-                      sector: '',
-                      state: '',
-                      status: 'active',
-                      unit: ''
+                      name: '', //
+                      sector: '', //
+                      state: '', //
+                      status: 'active', //
+                      unit: '' //
                     }}
                     onCancel={() => navigate(-1)}
                     onSubmit={values => handleOnSubmit(values)}

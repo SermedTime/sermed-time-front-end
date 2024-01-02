@@ -1,6 +1,6 @@
 import * as Yup from 'yup'
 
-export interface ICompanyRegisterForm {
+export interface IClockTimeRegisterForm {
   uuid?: string
   city: string
   clock_ip: string

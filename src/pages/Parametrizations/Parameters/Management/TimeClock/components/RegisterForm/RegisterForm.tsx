@@ -7,19 +7,22 @@ import { Skeleton } from '@/components/Core/Skeleton'
 import { Field, Form, Formik } from 'formik'
 import { Switch } from '@/components/Core/Form/Fields/Switch'
 import { InputText } from '@/components/Core/Form/Fields/InputText'
-import { cnpjMask } from '@/utils/masks'
+import { ipMask } from '@/utils/masks'
 import { Button } from '@/components/Core/Buttons/Button'
-import { ICompanyRegisterForm, validationSchema } from './RegisterForm.form'
+import { Select } from '@/components/Core/Form/Fields/Select'
+import { UF_OPTIONS } from '@/constants/options/uf.options'
+import { IOption } from '@/components/Core/Form/Fields/Select/Select.interface'
+import { IClockTimeRegisterForm, validationSchema } from './RegisterForm.form'
 
 interface Props {
   mode: 'create' | 'edit'
-  initialValues: ICompanyRegisterForm | null
+  initialValues: IClockTimeRegisterForm | null
   readOnly?: boolean
   onCancel: (hasChanges?: boolean) => void
-  onSubmit: (formValues: ICompanyRegisterForm) => void
+  onSubmit: (formValues: IClockTimeRegisterForm) => void
 }
 
-export function CompanyRegisterForm({
+export function ClockTimeRegisterForm({
   mode,
   initialValues,
   readOnly,
@@ -54,6 +57,30 @@ export function CompanyRegisterForm({
             <Skeleton size="lg" />
           </Col>
         </Row>
+        <Row className="mb-4">
+          <Col xxl={6}>
+            <Skeleton size="lg" />
+          </Col>
+          <Col xxl={6}>
+            <Skeleton size="lg" />
+          </Col>
+        </Row>
+        <Row className="mb-4">
+          <Col xxl={6}>
+            <Skeleton size="lg" />
+          </Col>
+          <Col xxl={6}>
+            <Skeleton size="lg" />
+          </Col>
+        </Row>
+        <Row className="mb-4">
+          <Col xxl={6}>
+            <Skeleton size="lg" />
+          </Col>
+          <Col xxl={6}>
+            <Skeleton size="lg" />
+          </Col>
+        </Row>
       </>
     )
   }
@@ -64,7 +91,15 @@ export function CompanyRegisterForm({
       validationSchema={validationSchema}
       onSubmit={onSubmit}
     >
-      {({ values, touched, errors, dirty, isValid, setFieldValue }) => (
+      {({
+        values,
+        touched,
+        errors,
+        dirty,
+        isValid,
+        setFieldValue,
+        setFieldTouched
+      }) => (
         <Form>
           <Row className="mb-4">
             <Col xs="auto">
@@ -101,19 +136,115 @@ export function CompanyRegisterForm({
             <Col xl={6}>
               <Field
                 as={InputText}
-                label="CNPJ"
-                name="cnpj"
-                placeholder="00.000.000/0000-00"
-                maxLength={18}
+                label="IP do Equipamento"
+                name="clock_ip"
+                placeholder="255.255.255.255"
+                maxLength={15}
                 type="text"
-                error={touched.cnpj && !!errors.cnpj}
-                helperText={touched.cnpj && !!errors.cnpj ? errors.cnpj : ''}
+                error={touched.clock_ip && !!errors.clock_ip}
+                helperText={
+                  touched.clock_ip && !!errors.clock_ip ? errors.clock_ip : ''
+                }
                 readOnly={readOnly}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                  e.target.value = cnpjMask(e.target.value)
+                  e.target.value = ipMask(e.target.value)
 
-                  setFieldValue('cnpj', e.target.value)
+                  setFieldValue('clock_ip', e.target.value)
                 }}
+              />
+            </Col>
+          </Row>
+
+          <Row className="mb-4">
+            <Col xl={6}>
+              <Field
+                as={InputText}
+                label="Unidade"
+                name="unit"
+                placeholder="Insira a unidade do Relógio de Ponto"
+                type="text"
+                error={touched.unit && !!errors.unit}
+                helperText={touched.unit && !!errors.unit ? errors.unit : ''}
+                readOnly={readOnly}
+              />
+            </Col>
+
+            <Col xl={6}>
+              <Field
+                as={InputText}
+                label="Setor"
+                name="sector"
+                placeholder="Insira o Setor do Relógio de Ponto"
+                type="text"
+                error={touched.sector && !!errors.sector}
+                helperText={
+                  touched.sector && !!errors.sector ? errors.sector : ''
+                }
+                readOnly={readOnly}
+              />
+            </Col>
+          </Row>
+
+          <Row className="mb-4">
+            <Col xl={6}>
+              <Field
+                as={InputText}
+                label="Cidade"
+                name="city"
+                placeholder="Insira a cidade do Relógio de Ponto"
+                type="text"
+                error={touched.city && !!errors.city}
+                helperText={touched.city && !!errors.city ? errors.city : ''}
+                readOnly={readOnly}
+              />
+            </Col>
+
+            <Col xl={6}>
+              <Field
+                as={Select}
+                label="UF"
+                name="state"
+                placeholder="Selecione um UF"
+                value={values.state}
+                options={UF_OPTIONS}
+                error={touched.state && !!errors.state}
+                helperText={touched.state && !!errors.state ? errors.state : ''}
+                onChange={({ value }: IOption) => {
+                  setFieldTouched('state')
+                  setFieldValue('state', value)
+                }}
+              />
+            </Col>
+          </Row>
+
+          <Row className="mb-4">
+            <Col xl={6}>
+              <Field
+                as={InputText}
+                label="Fabricante"
+                name="manufacturer"
+                placeholder="Insira a fabricate do Relógio de Ponto"
+                type="text"
+                error={touched.manufacturer && !!errors.manufacturer}
+                helperText={
+                  touched.manufacturer && !!errors.manufacturer
+                    ? errors.manufacturer
+                    : ''
+                }
+                readOnly={readOnly}
+              />
+            </Col>
+
+            <Col xl={6}>
+              <Field
+                as={InputText}
+                label="Modelo"
+                name="model"
+                placeholder="Insira o modelo do Relógio de Ponto"
+                type="text"
+                error={touched.model && !!errors.model}
+                helperText={touched.model && !!errors.model ? errors.model : ''}
+                readOnly={readOnly}
               />
             </Col>
           </Row>
@@ -151,6 +282,6 @@ export function CompanyRegisterForm({
   )
 }
 
-CompanyRegisterForm.defaultProps = {
+ClockTimeRegisterForm.defaultProps = {
   readOnly: undefined
 }
