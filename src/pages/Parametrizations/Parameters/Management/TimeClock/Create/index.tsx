@@ -1,1 +1,1 @@
-export { CreateCompany } from './Create'
+export { CreateTimeClock } from './Create'

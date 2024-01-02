@@ -1,0 +1,1 @@
+export { TeamsRegisterForm } from './RegisterForm'

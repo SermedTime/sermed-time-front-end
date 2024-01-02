@@ -8,3 +8,4 @@ export const TITLE_HOME = `Home - ${brand}`
 // PARAMETRIZATIONS
 export const TITLE_PARAMETERIZATIONS = `Parametrizações - ${brand}`
 export const TITLE_TIME_CLOCK_PARAMETERIZATIONS = `Relógios de Ponto - ${brand}`
+export const TITLE_TEAMS_PARAMETERIZATIONS = `Equipes - ${brand}`

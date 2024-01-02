@@ -1,4 +1,6 @@
 import {
+  ROUTE_MANAGEMENT_TEAMS_CREATE,
+  ROUTE_MANAGEMENT_TEAMS_LIST,
   ROUTE_MANAGEMENT_TIME_CLOCK_CREATE,
   ROUTE_MANAGEMENT_TIME_CLOCK_LIST
 } from '@/routes/Pages/Parametrizations/Management/Management.paths'
@@ -18,8 +20,8 @@ export const initialParameterList: IParameterList[] = [
       {
         icon: 'access_time',
         title: 'Equipes',
-        routeToList: '',
-        routeToAdd: ''
+        routeToList: ROUTE_MANAGEMENT_TEAMS_LIST,
+        routeToAdd: ROUTE_MANAGEMENT_TEAMS_CREATE
       },
       {
         icon: 'admin_panel_settings',
