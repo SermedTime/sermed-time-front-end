@@ -8,6 +8,7 @@ import { Modal } from '@/components/Core/Modal'
 import { Col, Row } from 'react-bootstrap'
 import { Icon } from '@/components/Core/Icons/Icon'
 import { Subtitle } from '@/components/Core/Typography/Subtitle'
+
 import { Button } from '@/components/Core/Buttons/Button'
 import { IClockTimeRegisterForm } from '../components/RegisterForm/RegisterForm.form'
 import { ClockTimeRegisterForm } from '../components/RegisterForm/RegisterForm'
@@ -17,7 +18,7 @@ interface Props {
   onClose: (hasChanges: boolean) => void
 }
 
-export function EditCompany({ uuid, onClose }: Props) {
+export function EditTimeClock({ uuid, onClose }: Props) {
   const { showLoader, hideLoader } = useLoaderContext()
   const { addToast, handleApiRejection } = useToastContext()
 

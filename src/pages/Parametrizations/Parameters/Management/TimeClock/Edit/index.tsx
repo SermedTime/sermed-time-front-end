@@ -1,1 +1,1 @@
-export { EditCompany } from './Edit'
+export { EditTimeClock } from './Edit'

@@ -15,7 +15,7 @@ interface Props {
   onRefetch: () => void
 }
 
-export function Companies({ data, onEdit, onRefetch }: Props) {
+export function TimeClock({ data, onEdit, onRefetch }: Props) {
   const { showLoader, hideLoader } = useLoaderContext()
   const { addToast, handleApiRejection } = useToastContext()
 

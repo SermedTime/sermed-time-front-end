@@ -38,10 +38,10 @@ import {
 
 import { initialFilterValues } from '../../../components/FilterForm/FilterForm.Form'
 
-import { Companies } from './components'
 import { IParametersFilterForm } from '../../../components/FilterForm/FilterForm.Form'
 import { ParametersFilterForm } from '../../../components/FilterForm/FilterForm'
-import { EditCompany } from '../Edit'
+import { TimeClock } from './components'
+import { EditTimeClock } from '../Edit'
 
 export function ListCompanies() {
   const navigate = useNavigate()
@@ -249,7 +249,7 @@ export function ListCompanies() {
                       {result ? (
                         result.data.length > 0 ? (
                           result.data.map(item => (
-                            <Companies
+                            <TimeClock
                               key={item.uuid}
                               data={item}
                               onEdit={() => setEditingRecord(item.uuid)}
@@ -305,7 +305,7 @@ export function ListCompanies() {
         </Row>
       </Container>
 
-      <EditCompany
+      <EditTimeClock
         uuid={editingRecord}
         onClose={hasChanges => {
           setEditingRecord('')
