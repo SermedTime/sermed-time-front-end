@@ -7,9 +7,7 @@ import { useHeaderContext } from '@/contexts/Layout/Header'
 import { useLoaderContext } from '@/contexts/Loader'
 import { useToastContext } from '@/contexts/Toast'
 
-import { TITLE_COMPANIES_PARAMETERIZATIONS } from '@/constants/title.browser'
 import { ROUTE_PARAMETERIZATIONS } from '@/routes/Pages/Parametrizations/Parametrizations.paths'
-import { ROUTE_MANAGEMENT_COMPANIES_LIST } from '@/routes/Pages/Parametrizations/Management/Management.paths'
 
 import { post } from '@/services/api/sermed-api/sermed-api'
 
@@ -18,6 +16,8 @@ import { Section } from '@/components/Core/Containers/Section'
 import { Icon } from '@/components/Core/Icons/Icon'
 import { Subtitle } from '@/components/Core/Typography/Subtitle'
 
+import { TITLE_TIME_CLOCK_PARAMETERIZATIONS } from '@/constants/title.browser'
+import { ROUTE_MANAGEMENT_TIME_CLOCK_LIST } from '@/routes/Pages/Parametrizations/Management/Management.paths'
 import { ICompanyRegisterForm } from '../components/RegisterForm/RegisterForm.form'
 import { CompanyRegisterForm } from '../components/RegisterForm'
 
@@ -30,14 +30,14 @@ export function CreateCompany() {
   const { addToast, handleApiRejection } = useToastContext()
 
   useEffect(() => {
-    document.title = TITLE_COMPANIES_PARAMETERIZATIONS
+    document.title = TITLE_TIME_CLOCK_PARAMETERIZATIONS
 
-    setPageHeading('Empresas')
+    setPageHeading('Relógios de Ponto')
 
     setPageBreadcrumb([
       { text: 'Parametrizações', route: ROUTE_PARAMETERIZATIONS },
       { text: 'Gerenciais' },
-      { text: 'Empresas' }
+      { text: 'Relógios de Ponto' }
     ])
   }, [setPageHeading, setPageBreadcrumb])
 
@@ -46,7 +46,7 @@ export function CreateCompany() {
       showLoader()
 
       const { data, message } = await post(
-        'parametrizations/companies',
+        'parametrizations/time-clock',
         formValues
       )
 
@@ -54,10 +54,10 @@ export function CreateCompany() {
         addToast({
           type: 'success',
           title: 'Sucesso!',
-          description: 'A empresa foi cadastrada com sucesso!'
+          description: 'O Relógio foi cadastrado com sucesso!'
         })
 
-        navigate(ROUTE_MANAGEMENT_COMPANIES_LIST)
+        navigate(ROUTE_MANAGEMENT_TIME_CLOCK_LIST)
       }
 
       if (message) {
@@ -83,7 +83,7 @@ export function CreateCompany() {
               <div className="d-flex align-items-center gap-2 mb-4">
                 <Icon icon="post_add" />
 
-                <Subtitle size="sm">Nova Empresa</Subtitle>
+                <Subtitle size="sm">Novo Relógio de Ponto</Subtitle>
               </div>
 
               <Row className="justify-content-center">
@@ -91,9 +91,15 @@ export function CreateCompany() {
                   <CompanyRegisterForm
                     mode="create"
                     initialValues={{
-                      status: 'active',
+                      city: '',
+                      clock_ip: '',
+                      manufacturer: '',
+                      model: '',
                       name: '',
-                      cnpj: ''
+                      sector: '',
+                      state: '',
+                      status: 'active',
+                      unit: ''
                     }}
                     onCancel={() => navigate(-1)}
                     onSubmit={values => handleOnSubmit(values)}

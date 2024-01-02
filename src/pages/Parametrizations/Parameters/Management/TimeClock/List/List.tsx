@@ -7,7 +7,6 @@ import { useBreadcrumbContext } from '@/contexts/Layout/Breadcrumb'
 
 import { useCompanies } from '@/hooks/services/Parameters/useCompanies'
 
-import { TITLE_COMPANIES_PARAMETERIZATIONS } from '@/constants/title.browser'
 import { ROUTE_PARAMETERIZATIONS } from '@/routes/Pages/Parametrizations/Parametrizations.paths'
 
 import { AnimatedPage } from '@/components/Layout/AnimatedPage'
@@ -27,7 +26,9 @@ import { Col, Container, Row } from 'react-bootstrap'
 
 import { Pagination } from '@/components/Core/Pagination'
 import { Skeleton } from '@/components/Core/Skeleton'
-import { ROUTE_MANAGEMENT_COMPANIES_CREATE } from '@/routes/Pages/Parametrizations/Management/Management.paths'
+
+import { TITLE_TIME_CLOCK_PARAMETERIZATIONS } from '@/constants/title.browser'
+import { ROUTE_MANAGEMENT_TIME_CLOCK_CREATE } from '@/routes/Pages/Parametrizations/Management/Management.paths'
 import { ParametersSearchForm } from '../../../components/SearchForm'
 
 import {
@@ -67,14 +68,14 @@ export function ListCompanies() {
   ]
 
   useEffect(() => {
-    document.title = TITLE_COMPANIES_PARAMETERIZATIONS
+    document.title = TITLE_TIME_CLOCK_PARAMETERIZATIONS
 
-    setPageHeading('Empresas')
+    setPageHeading('Relógios de Ponto')
 
     setPageBreadcrumb([
       { text: 'Parametrizações', route: ROUTE_PARAMETERIZATIONS },
       { text: 'Gerenciais' },
-      { text: 'Empresas' }
+      { text: 'Relógios de Ponto' }
     ])
 
     setLoaded(true)
@@ -192,12 +193,12 @@ export function ListCompanies() {
 
               <Row className="justify-content-end align-items-center mb-3">
                 <Col xs="auto">
-                  <Tooltip title="Adcionar uma Empresa">
+                  <Tooltip title="Adcionar um Relógio de Ponto">
                     <ButtonIcon
                       size="lg"
                       icon="add"
                       onClick={() =>
-                        navigate(ROUTE_MANAGEMENT_COMPANIES_CREATE)
+                        navigate(ROUTE_MANAGEMENT_TIME_CLOCK_CREATE)
                       }
                     />
                   </Tooltip>

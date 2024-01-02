@@ -1,8 +1,7 @@
 import {
-  ROUTE_MANAGEMENT_COMPANIES_CREATE,
-  ROUTE_MANAGEMENT_COMPANIES_LIST
+  ROUTE_MANAGEMENT_TIME_CLOCK_CREATE,
+  ROUTE_MANAGEMENT_TIME_CLOCK_LIST
 } from '@/routes/Pages/Parametrizations/Management/Management.paths'
-
 import { IParameterList } from './Parametrizations.interface'
 
 export const initialParameterList: IParameterList[] = [
@@ -11,28 +10,28 @@ export const initialParameterList: IParameterList[] = [
     description: 'As gerenciais são parametrizações referentes ...',
     items: [
       {
-        icon: 'business',
-        title: 'Empresa',
-        routeToList: ROUTE_MANAGEMENT_COMPANIES_LIST,
-        routeToAdd: ROUTE_MANAGEMENT_COMPANIES_CREATE
-      },
-      {
         icon: 'person',
-        title: 'Funcionários',
+        title: 'Usuários',
         routeToList: '',
         routeToAdd: ''
       },
       {
         icon: 'access_time',
-        title: 'Horários',
+        title: 'Equipes',
         routeToList: '',
         routeToAdd: ''
       },
       {
-        icon: 'calendar_month',
-        title: 'Escalas',
+        icon: 'admin_panel_settings',
+        title: 'Supervisores',
         routeToList: '',
         routeToAdd: ''
+      },
+      {
+        icon: 'alarm_add',
+        title: 'Relógios de Ponto',
+        routeToList: ROUTE_MANAGEMENT_TIME_CLOCK_LIST,
+        routeToAdd: ROUTE_MANAGEMENT_TIME_CLOCK_CREATE
       }
     ]
   }

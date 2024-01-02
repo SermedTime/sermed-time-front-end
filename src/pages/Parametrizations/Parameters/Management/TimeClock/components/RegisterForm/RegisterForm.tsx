@@ -90,7 +90,7 @@ export function CompanyRegisterForm({
                 as={InputText}
                 label="Descrição"
                 name="name"
-                placeholder="Insira o nome da Empresa"
+                placeholder="Insira o nome do Relógio de Ponto"
                 type="text"
                 error={touched.name && !!errors.name}
                 helperText={touched.name && !!errors.name ? errors.name : ''}

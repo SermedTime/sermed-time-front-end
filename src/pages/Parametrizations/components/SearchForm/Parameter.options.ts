@@ -2,7 +2,7 @@ import { IOption } from '@/components/Core/Form/Fields/Search/Select/Select.inte
 
 export const PARAMETER_OPTIONS: IOption[] = [
   {
-    value: 'Empresa',
-    label: 'Empresa'
+    value: 'Relógio de Ponto',
+    label: 'Relógio de Ponto'
   }
 ]

@@ -6,7 +6,7 @@ export const useCompaniesRequest: IApiResponse<ICompanies> = {
   data: [
     {
       uuid: v4(),
-      name: 'Empresa 1',
+      name: 'Relógio de Ponto 1',
       created_at: '2022-12-01',
       status: 'active'
     }

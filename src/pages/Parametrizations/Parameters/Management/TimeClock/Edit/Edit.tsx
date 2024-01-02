@@ -80,7 +80,7 @@ export function EditCompany({ uuid, onClose }: Props) {
         addToast({
           type: 'success',
           title: 'Sucesso',
-          description: 'O cadastro da empresa foi editado.'
+          description: 'O cadastro do Relógio foi editado.'
         })
 
         setShowModal(false)

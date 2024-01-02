@@ -7,4 +7,4 @@ export const TITLE_HOME = `Home - ${brand}`
 
 // PARAMETRIZATIONS
 export const TITLE_PARAMETERIZATIONS = `Parametrizações - ${brand}`
-export const TITLE_COMPANIES_PARAMETERIZATIONS = `Empresas - ${brand}`
+export const TITLE_TIME_CLOCK_PARAMETERIZATIONS = `Relógios de Ponto - ${brand}`

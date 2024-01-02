@@ -33,7 +33,7 @@ export function Companies({ data, onEdit, onRefetch }: Props) {
         addToast({
           type: 'success',
           title: 'Sucesso!',
-          description: 'Empresa ativada com sucesso!'
+          description: 'Relógio de Ponto ativado com sucesso!'
         })
       }
     } catch {
@@ -57,7 +57,7 @@ export function Companies({ data, onEdit, onRefetch }: Props) {
         addToast({
           type: 'success',
           title: 'Sucesso!',
-          description: 'Empresa inativada com sucesso!'
+          description: 'Relógio de Ponto inativado com sucesso!'
         })
       }
     } catch {

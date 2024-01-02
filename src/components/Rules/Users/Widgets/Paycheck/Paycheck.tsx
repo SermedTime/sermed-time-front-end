@@ -35,7 +35,7 @@ export function WidgetPaycheck() {
     <Widget icon="folder_shared" heading="Ficha" caption="Dados Cadastrais">
       <Col className="mt-4">
         <Row>
-          <Heading size="xs">Empresa</Heading>
+          <Heading size="xs">Relógio de Ponto</Heading>
         </Row>
         <Row className="mt-1">
           {result ? (
