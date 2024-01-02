@@ -2,19 +2,19 @@ import { fakeRequest } from '@/services/api/sermed-api/sermed-api'
 import { IApiResponse } from '@/services/api/sermed-api/sermed-api.interface'
 import { removeEmptyEntries } from '@/utils/generic'
 import { useCallback, useEffect, useState } from 'react'
-import { useCompaniesRequest } from './useCompanies.request'
+import { useTimeClockRequest } from './useTimeClock.request'
 
-export interface ICompanies {
+export interface ITimeClock {
   uuid: string
   name: string
   created_at: string
   status: string
 }
 
-export function useCompanies() {
+export function useTimeClock() {
   const [params, setParams] = useState<Record<string, any> | null>(null)
 
-  const [result, setResult] = useState<IApiResponse<ICompanies> | null>(null)
+  const [result, setResult] = useState<IApiResponse<ITimeClock> | null>(null)
 
   const fetchData = useCallback(async (params: Record<string, any>) => {
     try {
@@ -34,7 +34,7 @@ export function useCompanies() {
 
       await fakeRequest(2000)
 
-      const data: IApiResponse<ICompanies> = useCompaniesRequest
+      const data: IApiResponse<ITimeClock> = useTimeClockRequest
 
       if (data) {
         setResult(data)

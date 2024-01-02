@@ -5,8 +5,6 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useHeaderContext } from '@/contexts/Layout/Header'
 import { useBreadcrumbContext } from '@/contexts/Layout/Breadcrumb'
 
-import { useCompanies } from '@/hooks/services/Parameters/useCompanies'
-
 import { ROUTE_PARAMETERIZATIONS } from '@/routes/Pages/Parametrizations/Parametrizations.paths'
 
 import { AnimatedPage } from '@/components/Layout/AnimatedPage'
@@ -29,6 +27,8 @@ import { Skeleton } from '@/components/Core/Skeleton'
 
 import { TITLE_TIME_CLOCK_PARAMETERIZATIONS } from '@/constants/title.browser'
 import { ROUTE_MANAGEMENT_TIME_CLOCK_CREATE } from '@/routes/Pages/Parametrizations/Management/Management.paths'
+
+import { useTimeClock } from '@/hooks/services/Parameters/useTimeClock'
 import { ParametersSearchForm } from '../../../components/SearchForm'
 
 import {
@@ -43,7 +43,7 @@ import { ParametersFilterForm } from '../../../components/FilterForm/FilterForm'
 import { TimeClock } from './components'
 import { EditTimeClock } from '../Edit'
 
-export function ListCompanies() {
+export function ListTimeClock() {
   const navigate = useNavigate()
 
   const [searchParams, setSearchParams] = useSearchParams()
@@ -51,7 +51,7 @@ export function ListCompanies() {
   const { setPageHeading } = useHeaderContext()
   const { setPageBreadcrumb } = useBreadcrumbContext()
 
-  const { result, params, refetch, setParams } = useCompanies()
+  const { result, params, refetch, setParams } = useTimeClock()
 
   const [loaded, setLoaded] = useState(false)
   const [editingRecord, setEditingRecord] = useState('')
@@ -62,7 +62,7 @@ export function ListCompanies() {
       label: 'Descrição'
     },
     {
-      value: 'cnpn',
+      value: 'cnpj',
       label: 'CNPJ'
     }
   ]

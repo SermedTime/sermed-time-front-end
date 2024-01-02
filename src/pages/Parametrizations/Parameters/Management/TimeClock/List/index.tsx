@@ -1,1 +1,1 @@
-export { ListCompanies } from './List'
+export { ListTimeClock } from './List'

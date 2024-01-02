@@ -1,8 +1,8 @@
 import { IApiResponse } from '@/services/api/sermed-api/sermed-api.interface'
 import { v4 } from 'uuid'
-import { ICompanies } from './useCompanies'
+import { ITimeClock } from './useTimeClock'
 
-export const useCompaniesRequest: IApiResponse<ICompanies> = {
+export const useTimeClockRequest: IApiResponse<ITimeClock> = {
   data: [
     {
       uuid: v4(),
