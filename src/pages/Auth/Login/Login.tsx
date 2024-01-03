@@ -19,6 +19,7 @@ import { Checkbox } from '@/components/Core/Form/Fields/Checkbox'
 import { TITLE_LOGIN } from '@/constants/title.browser'
 
 import { ROUTE_HOME } from '@/routes/Pages/Pages.paths'
+import { ROUTE_RECOVER_PASSWORD } from '@/routes/Pages/Auth/Auth.paths'
 import { SubmitButton } from '../components/SubmitButton'
 import { Input } from '../components/Input'
 import { ILoginForm, initialValuesSchema, validationSchema } from './Login.form'
@@ -145,7 +146,7 @@ export function Login() {
                           </Col>
 
                           <Col xs="auto">
-                            <ButtonLink route="https://www.google.com.br">
+                            <ButtonLink route={ROUTE_RECOVER_PASSWORD}>
                               Recuperar Senha
                             </ButtonLink>
                           </Col>
