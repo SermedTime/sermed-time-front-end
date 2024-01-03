@@ -36,6 +36,7 @@ import {
 } from '../../../components/SearchForm/SearchForm.form'
 import { ParametersFilterForm } from '../../../components/FilterForm/FilterForm'
 import { UsersTable } from './components/UsersTable'
+import { EditUser } from '../Edit'
 
 export function ListUsers() {
   const navigate = useNavigate()
@@ -295,6 +296,15 @@ export function ListUsers() {
           </Col>
         </Row>
       </Container>
+
+      <EditUser
+        uuid={editingRecord}
+        onClose={hasChanges => {
+          setEditingRecord('')
+
+          hasChanges && refetch()
+        }}
+      />
     </AnimatedPage>
   )
 }
