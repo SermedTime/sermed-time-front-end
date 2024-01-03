@@ -22,11 +22,11 @@ export const validationSchema = Yup.object().shape({
   name: Yup.string()
     .required('Um Modelo é obrigatório')
     .min(3, 'Digite no mínimo 18 caracteres')
-    .max(50, 'Digite no máximo 18 caracteres'),
+    .max(50, 'Digite no máximo 50 caracteres'),
   model: Yup.string()
     .required('Um Modelo é obrigatório')
     .min(3, 'Digite no mínimo 18 caracteres')
-    .max(50, 'Digite no máximo 18 caracteres'),
+    .max(50, 'Digite no máximo 50 caracteres'),
   manufacturer: Yup.string()
     .required('Uma fabricante é obrigatoria')
     .min(3, 'Digite no mínimo 3 caracteres')

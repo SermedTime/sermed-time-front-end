@@ -13,8 +13,6 @@ interface Props {
 }
 
 export function Label({ htmlFor, size, tooltip, children }: Props) {
-  console.log('Label => ', size)
-
   return (
     <Container className="form-label" size={size} htmlFor={htmlFor}>
       {size === 'sm' ? (
