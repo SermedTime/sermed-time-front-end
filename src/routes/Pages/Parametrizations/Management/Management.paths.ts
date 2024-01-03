@@ -7,3 +7,6 @@ export const ROUTE_MANAGEMENT_TIME_CLOCK_CREATE = `${path}/time-clock/create`
 
 export const ROUTE_MANAGEMENT_TEAMS_LIST = `${path}/teams/list`
 export const ROUTE_MANAGEMENT_TEAMS_CREATE = `${path}/teams/create`
+
+export const ROUTE_MANAGEMENT_USERS_LIST = `${path}/users/list`
+export const ROUTE_MANAGEMENT_USERS_CREATE = `${path}/users/create`

@@ -13,3 +13,4 @@ export const TITLE_USER_CHANGE_PASSWORD = `Alterar Senha - ${brand}`
 export const TITLE_PARAMETERIZATIONS = `Parametrizações - ${brand}`
 export const TITLE_TIME_CLOCK_PARAMETERIZATIONS = `Relógios de Ponto - ${brand}`
 export const TITLE_TEAMS_PARAMETERIZATIONS = `Equipes - ${brand}`
+export const TITLE_USERS_PARAMETERIZATIONS = `Usuários - ${brand}`

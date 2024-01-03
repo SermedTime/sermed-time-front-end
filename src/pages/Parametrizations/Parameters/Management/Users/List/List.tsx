@@ -1,50 +1,43 @@
 import { useCallback, useEffect, useState } from 'react'
 
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { Col, Container, Row } from 'react-bootstrap'
 
-import { useHeaderContext } from '@/contexts/Layout/Header'
 import { useBreadcrumbContext } from '@/contexts/Layout/Breadcrumb'
+import { useHeaderContext } from '@/contexts/Layout/Header'
+import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useUsers } from '@/hooks/services/Parameters/useUsers'
 
+import { IOption } from '@/components/Core/Form/Fields/Select/Select.interface'
+import { TITLE_USERS_PARAMETERIZATIONS } from '@/constants/title.browser'
 import { ROUTE_PARAMETERIZATIONS } from '@/routes/Pages/Parametrizations/Parametrizations.paths'
-
+import { IOrder } from '@/components/Core/Table/Order/Order.interface'
 import { AnimatedPage } from '@/components/Layout/AnimatedPage'
 import { Section } from '@/components/Core/Containers/Section'
-import { ButtonIcon } from '@/components/Core/Buttons/ButtonIcon'
+
 import { Tooltip } from '@/components/Core/Tooltip'
+import { ButtonIcon } from '@/components/Core/Buttons/ButtonIcon'
+import { ROUTE_MANAGEMENT_USERS_CREATE } from '@/routes/Pages/Parametrizations/Management/Management.paths'
+
 import { Table, Tbody, Th, Thead, Tr } from '@/components/Core/Table'
 import { Icon } from '@/components/Core/Icons/Icon'
 import { Heading } from '@/components/Core/Typography/Heading'
 import { Empty } from '@/components/Core/Table/Empty'
 import { LoadingLines } from '@/components/Core/Table/LoadingLines'
-
-import { IOrder } from '@/components/Core/Table/Order/Order.interface'
-import { IOption } from '@/components/Core/Form/Fields/Select/Select.interface'
-
-import { Col, Container, Row } from 'react-bootstrap'
-
 import { Pagination } from '@/components/Core/Pagination'
 import { Skeleton } from '@/components/Core/Skeleton'
-
-import { TITLE_TIME_CLOCK_PARAMETERIZATIONS } from '@/constants/title.browser'
-import { ROUTE_MANAGEMENT_TIME_CLOCK_CREATE } from '@/routes/Pages/Parametrizations/Management/Management.paths'
-
-import { useTimeClock } from '@/hooks/services/Parameters/useTimeClock'
 import { ParametersSearchForm } from '../../../components/SearchForm'
-
-import {
-  IParametersSearchForm,
-  initialSearchValues
-} from '../../../components/SearchForm/SearchForm.form'
-
 import {
   IParametersFilterForm,
   initialFilterValues
 } from '../../../components/FilterForm/FilterForm.Form'
+import {
+  IParametersSearchForm,
+  initialSearchValues
+} from '../../../components/SearchForm/SearchForm.form'
 import { ParametersFilterForm } from '../../../components/FilterForm/FilterForm'
-import { TimeClock } from './components'
-import { EditTimeClock } from '../Edit'
+import { UsersTable } from './components/UsersTable'
 
-export function ListTimeClock() {
+export function ListUsers() {
   const navigate = useNavigate()
 
   const [searchParams, setSearchParams] = useSearchParams()
@@ -52,27 +45,31 @@ export function ListTimeClock() {
   const { setPageHeading } = useHeaderContext()
   const { setPageBreadcrumb } = useBreadcrumbContext()
 
-  const { result, params, refetch, setParams } = useTimeClock()
+  const { result, params, refetch, setParams } = useUsers()
 
   const [loaded, setLoaded] = useState(false)
   const [editingRecord, setEditingRecord] = useState('')
 
   const SEARCH_OPTIONS: IOption[] = [
     {
-      value: 'description',
-      label: 'Descrição'
+      value: 'name',
+      label: 'Nome'
+    },
+    {
+      value: 'cpf',
+      label: 'CPF'
     }
   ]
 
   useEffect(() => {
-    document.title = TITLE_TIME_CLOCK_PARAMETERIZATIONS
+    document.title = TITLE_USERS_PARAMETERIZATIONS
 
-    setPageHeading('Relógios de Ponto')
+    setPageHeading('Usuários')
 
     setPageBreadcrumb([
       { text: 'Parametrizações', route: ROUTE_PARAMETERIZATIONS },
       { text: 'Gerenciais' },
-      { text: 'Relógios de Ponto' }
+      { text: 'Usuários' }
     ])
 
     setLoaded(true)
@@ -164,7 +161,6 @@ export function ListTimeClock() {
       }
     }
   }
-
   return (
     <AnimatedPage>
       <Container>
@@ -190,13 +186,11 @@ export function ListTimeClock() {
 
               <Row className="justify-content-end align-items-center mb-3">
                 <Col xs="auto">
-                  <Tooltip title="Adcionar um Relógio de Ponto">
+                  <Tooltip title="Adicionar um Usuário">
                     <ButtonIcon
                       size="lg"
                       icon="add"
-                      onClick={() =>
-                        navigate(ROUTE_MANAGEMENT_TIME_CLOCK_CREATE)
-                      }
+                      onClick={() => navigate(ROUTE_MANAGEMENT_USERS_CREATE)}
                     />
                   </Tooltip>
                 </Col>
@@ -219,7 +213,7 @@ export function ListTimeClock() {
                         </Th>
 
                         <Th>
-                          <Heading size="xs">Descrição</Heading>
+                          <Heading size="xs">Nome</Heading>
                         </Th>
 
                         <Th
@@ -246,7 +240,7 @@ export function ListTimeClock() {
                       {result ? (
                         result.data.length > 0 ? (
                           result.data.map(item => (
-                            <TimeClock
+                            <UsersTable
                               key={item.uuid}
                               data={item}
                               onEdit={() => setEditingRecord(item.uuid)}
@@ -301,15 +295,6 @@ export function ListTimeClock() {
           </Col>
         </Row>
       </Container>
-
-      <EditTimeClock
-        uuid={editingRecord}
-        onClose={hasChanges => {
-          setEditingRecord('')
-
-          hasChanges && refetch()
-        }}
-      />
     </AnimatedPage>
   )
 }
