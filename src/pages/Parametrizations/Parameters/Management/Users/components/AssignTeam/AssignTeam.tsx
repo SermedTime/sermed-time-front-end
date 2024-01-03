@@ -119,9 +119,12 @@ export function AssignTeam({ uuid, onClose }: Props) {
         <Col>
           <AssignTeamRegisterForm
             // initialValues={initialValues}
-            initialValues={{ isSupervisor: false, team: '', user: '' }}
+            initialValues={{ isSupervisor: false, team: '', user: 'teste' }}
             onCancel={() => handleOnCancel()}
-            onSubmit={values => handleOnSubmit(values)}
+            onSubmit={values => {
+              console.log(values)
+              handleOnSubmit(values)
+            }}
           />
         </Col>
       </Row>

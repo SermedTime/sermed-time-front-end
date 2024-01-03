@@ -78,8 +78,8 @@ export function AssignTeamRegisterForm({
                 error={touched.team && !!errors.team}
                 helperText={touched.team && !!errors.team ? errors.team : ''}
                 onChange={({ value }: IOption) => {
-                  setFieldTouched('supervisor')
-                  setFieldValue('supervisor', value)
+                  setFieldTouched('team')
+                  setFieldValue('team', value)
                 }}
               />
             </Col>
