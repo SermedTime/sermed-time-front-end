@@ -10,7 +10,7 @@ import { Switch } from '@/components/Core/Form/Fields/Switch'
 import { Button } from '@/components/Core/Buttons/Button'
 import { InputText } from '@/components/Core/Form/Fields/InputText'
 import { cpfMask } from '@/utils/masks'
-import { Checkbox } from '@/components/Core/Form/Fields/Checkbox'
+
 import { IUserRegisterForm, validationSchema } from './RegisterForm.form'
 
 interface Props {
@@ -280,7 +280,7 @@ export function UserRegisterForm({
             </Col>
           </Row>
 
-          <Row className="mb-4">
+          {/* <Row className="mb-4">
             <Col xs="auto">
               <Field
                 as={Checkbox}
@@ -299,7 +299,7 @@ export function UserRegisterForm({
                 }}
               />
             </Col>
-          </Row>
+          </Row> */}
 
           {!readOnly && (
             <Row className="justify-content-end">

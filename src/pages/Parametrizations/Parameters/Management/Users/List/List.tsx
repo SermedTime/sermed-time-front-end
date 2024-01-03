@@ -37,6 +37,7 @@ import {
 import { ParametersFilterForm } from '../../../components/FilterForm/FilterForm'
 import { UsersTable } from './components/UsersTable'
 import { EditUser } from '../Edit'
+import { AssignTeam } from '../components/AssignTeam'
 
 export function ListUsers() {
   const navigate = useNavigate()
@@ -50,6 +51,7 @@ export function ListUsers() {
 
   const [loaded, setLoaded] = useState(false)
   const [editingRecord, setEditingRecord] = useState('')
+  const [addTeamRecord, setAddTeamRecord] = useState('')
 
   const SEARCH_OPTIONS: IOption[] = [
     {
@@ -245,6 +247,7 @@ export function ListUsers() {
                               key={item.uuid}
                               data={item}
                               onEdit={() => setEditingRecord(item.uuid)}
+                              onAddTeam={() => setAddTeamRecord(item.uuid)}
                               onRefetch={() => refetch()}
                             />
                           ))
@@ -301,6 +304,15 @@ export function ListUsers() {
         uuid={editingRecord}
         onClose={hasChanges => {
           setEditingRecord('')
+
+          hasChanges && refetch()
+        }}
+      />
+
+      <AssignTeam
+        uuid={addTeamRecord}
+        onClose={hasChanges => {
+          setAddTeamRecord('')
 
           hasChanges && refetch()
         }}

@@ -14,7 +14,6 @@ export interface IUserRegisterForm {
   admissionDate: string
   resignationDate?: string
   status: string
-  isSupervisor: boolean
 }
 
 export const validationSchema = Yup.object().shape({

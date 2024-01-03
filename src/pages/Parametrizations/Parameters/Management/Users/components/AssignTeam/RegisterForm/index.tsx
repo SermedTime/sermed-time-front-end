@@ -1,0 +1,1 @@
+export { AssignTeamRegisterForm } from './RegisterForm'

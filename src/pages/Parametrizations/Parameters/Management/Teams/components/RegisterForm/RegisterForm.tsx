@@ -6,10 +6,8 @@ import { Col, Row } from 'react-bootstrap'
 import { Skeleton } from '@/components/Core/Skeleton'
 import { Switch } from '@/components/Core/Form/Fields/Switch'
 import { InputText } from '@/components/Core/Form/Fields/InputText'
-import { Select } from '@/components/Core/Form/Fields/Select'
 import { Button } from '@/components/Core/Buttons/Button'
 
-import { IOption } from '@/components/Core/Form/Fields/Select/Select.interface'
 import { ITeamRegisterForm, validationSchema } from './RegisterForm.form'
 
 interface Props {
@@ -65,15 +63,7 @@ export function TeamsRegisterForm({
       validationSchema={validationSchema}
       onSubmit={onSubmit}
     >
-      {({
-        values,
-        touched,
-        errors,
-        dirty,
-        isValid,
-        setFieldValue,
-        setFieldTouched
-      }) => (
+      {({ values, touched, errors, dirty, isValid, setFieldValue }) => (
         <Form>
           <Row className="mb-4">
             <Col xs="auto">
@@ -94,7 +84,7 @@ export function TeamsRegisterForm({
           </Row>
 
           <Row className="mb-4">
-            <Col xl={6}>
+            <Col xl={12}>
               <Field
                 as={InputText}
                 label="Descrição"
@@ -104,27 +94,6 @@ export function TeamsRegisterForm({
                 error={touched.name && !!errors.name}
                 helperText={touched.name && !!errors.name ? errors.name : ''}
                 readOnly={readOnly}
-              />
-            </Col>
-
-            <Col xl={6}>
-              <Field
-                as={Select}
-                label="Supervisor"
-                name="supervisor"
-                placeholder="Selecione"
-                value={values.supervisor}
-                options={[{ label: 'Leila Bugorim', value: 'leila' }]}
-                error={touched.supervisor && !!errors.supervisor}
-                helperText={
-                  touched.supervisor && !!errors.supervisor
-                    ? errors.supervisor
-                    : ''
-                }
-                onChange={({ value }: IOption) => {
-                  setFieldTouched('supervisor')
-                  setFieldValue('supervisor', value)
-                }}
               />
             </Col>
           </Row>

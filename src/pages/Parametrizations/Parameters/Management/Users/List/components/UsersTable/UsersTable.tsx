@@ -11,14 +11,16 @@ import { put } from '@/services/api/sermed-api/sermed-api'
 import { convertIsoDateToPtBr } from '@/utils/date'
 
 import { IUsers } from '@/hooks/services/Parameters/useUsers'
+import { Tooltip } from '@/components/Core/Tooltip'
 
 interface Props {
   data: IUsers
   onEdit: () => void
+  onAddTeam: () => void
   onRefetch: () => void
 }
 
-export function UsersTable({ data, onEdit, onRefetch }: Props) {
+export function UsersTable({ data, onEdit, onRefetch, onAddTeam }: Props) {
   const { showLoader, hideLoader } = useLoaderContext()
   const { addToast, handleApiRejection } = useToastContext()
 
@@ -99,7 +101,17 @@ export function UsersTable({ data, onEdit, onRefetch }: Props) {
 
       <Td showOnHover={true}>
         <div className="d-flex justify-content-center">
-          <ButtonIcon size="sm" icon="edit" onClick={() => onEdit()} />
+          <Tooltip title="Editar" place="top">
+            <ButtonIcon size="sm" icon="edit" onClick={() => onEdit()} />
+          </Tooltip>
+
+          <Tooltip title="Atribuir Equipe" place="top">
+            <ButtonIcon
+              size="sm"
+              icon="group_add"
+              onClick={() => onAddTeam()}
+            />
+          </Tooltip>
         </div>
       </Td>
     </Tr>

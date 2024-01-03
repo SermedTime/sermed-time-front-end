@@ -12,9 +12,5 @@ export const PARAMETER_OPTIONS: IOption[] = [
   {
     value: 'Equipes',
     label: 'Equipes'
-  },
-  {
-    value: 'Supervisores',
-    label: 'Supervisores'
   }
 ]

@@ -26,12 +26,6 @@ export const initialParameterList: IParameterList[] = [
         routeToAdd: ROUTE_MANAGEMENT_TEAMS_CREATE
       },
       {
-        icon: 'admin_panel_settings',
-        title: 'Supervisores',
-        routeToList: '',
-        routeToAdd: ''
-      },
-      {
         icon: 'alarm_add',
         title: 'Relógios de Ponto',
         routeToList: ROUTE_MANAGEMENT_TIME_CLOCK_LIST,
