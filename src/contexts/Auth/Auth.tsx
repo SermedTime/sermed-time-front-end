@@ -33,6 +33,9 @@ interface UserAuth {
   auth: Auth
   firstName: string
   roles?: Roles[]
+  lastAccessDate?: string
+  lastChangeDate: string
+  username: string
 }
 
 interface UserCredentials {
@@ -105,7 +108,10 @@ function AuthContext({ children }: Props) {
                 name: 'point',
                 write: true
               }
-            ]
+            ],
+            lastAccessDate: '2022-07-01T09:00:00',
+            lastChangeDate: '2022-02-22',
+            username: 'admin@sermed.com.br'
           }
 
           setUser(user)

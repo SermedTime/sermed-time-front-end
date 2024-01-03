@@ -1,4 +1,4 @@
-import { Skeleton } from 'components/Core/Skeleton'
+import { Skeleton } from '@/components/Core/Skeleton'
 
 import { Container, Label, Value } from './Display.styles'
 

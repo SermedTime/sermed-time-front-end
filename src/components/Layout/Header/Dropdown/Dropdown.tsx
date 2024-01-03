@@ -4,10 +4,10 @@ import AvatarImage from '@/assets/images/user-avatar-sm.png'
 
 import { useAuthContext } from '@/contexts/Auth'
 
-import { ROUTE_HOME } from '@/routes/Pages/Pages.paths'
-
 import { IDropdown } from '@/components/Core/Dropdown/Dropdown.interface'
 import { Dropdown } from '@/components/Core/Dropdown'
+
+import { ROUTE_USER_PROFILE } from '@/routes/Pages/User/User.paths'
 
 import { Icon } from '@/components/Core/Icons/Icon'
 import * as S from './Dropdown.styles'
@@ -26,13 +26,7 @@ export function DropdownMenu() {
     newList.push({
       icon: 'person',
       text: 'Perfil',
-      route: ROUTE_HOME // NAVIGATE TO PROFILE
-    })
-
-    newList.push({
-      icon: 'settings',
-      text: 'Configurações',
-      route: ROUTE_HOME // NAVIGATE TO SETTINGS
+      route: ROUTE_USER_PROFILE
     })
 
     newList.push({

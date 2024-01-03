@@ -1,4 +1,4 @@
-import { Icon } from 'components/Core/Icons/Icon'
+import { Icon } from '@/components/Core/Icons/Icon'
 
 import { Container } from './Avatar.styles'
 
