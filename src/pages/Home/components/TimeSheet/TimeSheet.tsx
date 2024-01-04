@@ -9,7 +9,7 @@ import { Heading } from '@/components/Core/Typography/Heading'
 
 import { Col, Row } from 'react-bootstrap'
 
-import { ROUTE_HOME } from '@/routes/Pages/Pages.paths'
+import { ROUTE_TIME_SHEET_USER_SEARCH } from '@/routes/Pages/TimeSheet/TimeSheet.paths'
 
 import { IApiResponse } from '@/services/api/sermed-api/sermed-api.interface'
 import { fakeRequest } from '@/services/api/sermed-api/sermed-api'
@@ -67,7 +67,9 @@ export function TimeSheet() {
       <Row className="justify-content-center mt-3">
         {result ? (
           <Col xs="auto">
-            <ButtonLink route={ROUTE_HOME}>Exibir mais</ButtonLink>{' '}
+            <ButtonLink route={ROUTE_TIME_SHEET_USER_SEARCH}>
+              Exibir mais
+            </ButtonLink>{' '}
             {/* Rota para tela de Horas */}
           </Col>
         ) : (
