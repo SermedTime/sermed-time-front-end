@@ -1,9 +1,13 @@
 import { lazy } from 'react'
-import { IRouteProps } from '../routes.interface'
-import { ROUTE_HOME } from './Pages.paths'
+
 import { authRoutes } from './Auth/Auth.routes'
 import { parameterizationsRoutes } from './Parametrizations/Parametrizations.routes'
 import { userRoutes } from './User/User.routes'
+import { timeSheetRoutes } from './TimeSheet/TimeSheet.routes'
+
+import { ROUTE_HOME } from './Pages.paths'
+
+import { IRouteProps } from '../routes.interface'
 
 const Home = lazy(() =>
   import('@/pages/Home').then(module => ({
@@ -27,5 +31,6 @@ const mainRoutes: IRouteProps[] = [
 export const routes: IRouteProps[] = mainRoutes.concat(
   authRoutes,
   parameterizationsRoutes,
-  userRoutes
+  userRoutes,
+  timeSheetRoutes
 )
