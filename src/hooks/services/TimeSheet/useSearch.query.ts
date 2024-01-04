@@ -14,7 +14,7 @@ interface IUserSearch {
   name: string
   socialName: string
   cpf: string
-  status: string
+  status: 'active' | 'inactive'
   employeeCode: string
 }
 

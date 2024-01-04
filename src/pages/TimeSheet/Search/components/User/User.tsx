@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import { useNavigate } from 'react-router-dom'
 
 import { Row, Col } from 'react-bootstrap'
@@ -7,8 +5,7 @@ import { Row, Col } from 'react-bootstrap'
 import { ROUTE_TIME_SHEET_OVERVIEW } from '@/routes/Pages/TimeSheet/TimeSheet.paths'
 
 import { Paragraph } from '@/components/Core/Typography/Paragraph'
-import { Heading } from '@/components/Core/Typography/Heading'
-import { Tag } from '@/components/Core/Tag'
+
 import { Caption } from '@/components/Core/Typography/Caption'
 import { Icon } from '@/components/Core/Icons/Icon'
 import { ButtonLink } from '@/components/Core/Buttons/ButtonLink'
@@ -33,10 +30,9 @@ interface UserDisplayProps {
 
 interface DisplayProps {
   data: IUser | undefined
-  onDetails: () => void
 }
 
-function DisplayAsCard({ data, onDetails }: DisplayProps) {
+function DisplayAsCard({ data }: DisplayProps) {
   const navigate = useNavigate()
 
   return (
@@ -127,4 +123,105 @@ function DisplayAsCard({ data, onDetails }: DisplayProps) {
   )
 }
 
-function DisplayAsList({ data, onDetails }: DisplayProps) {}
+function DisplayAsList({ data }: DisplayProps) {
+  const navigate = useNavigate()
+
+  return (
+    <S.List>
+      <Row className="align-items-center">
+        <Col lg={1} xxl={data ? 'auto' : 1}>
+          {data ? (
+            <S.Avatar status={data.status}>
+              <Icon size="sm" icon="person_outline" />
+            </S.Avatar>
+          ) : (
+            <Skeleton size="lg" />
+          )}
+        </Col>
+
+        <Col lg={3} xxl={5}>
+          <Row>
+            <Col xs={data ? undefined : 5}>
+              {data ? (
+                <Paragraph size="sm" className="text-truncate">
+                  {data.socialName}
+                </Paragraph>
+              ) : (
+                <Skeleton size="sm" />
+              )}
+            </Col>
+          </Row>
+
+          <Row>
+            <Col xs={data ? undefined : 8}>
+              {data ? (
+                <Caption size="lg" className="text-truncate">
+                  {data.name}
+                </Caption>
+              ) : (
+                <Skeleton size="sm" />
+              )}
+            </Col>
+          </Row>
+        </Col>
+
+        <Col lg={8} xxl={6}>
+          <Row className="justify-content-end align-items-center">
+            <Col xs={data ? 'auto' : 3}>
+              {data ? (
+                <Caption size="lg">{`CPF: ${data.cpf}`}</Caption>
+              ) : (
+                <Skeleton size="sm" />
+              )}
+            </Col>
+
+            <Col xs={data ? 'auto' : 3}>
+              {data ? (
+                <div className="d-flex align-items-center">
+                  <S.Insured status={data.status}>
+                    {data.employeeCode}
+                  </S.Insured>
+                </div>
+              ) : (
+                <Skeleton size="sm" />
+              )}
+            </Col>
+
+            <Col xs={data ? 'auto' : 2}>
+              {data ? (
+                <div className="d-flex gap-1">
+                  <ButtonIcon
+                    size="sm"
+                    icon="open_in_new"
+                    onClick={() =>
+                      navigate(`${ROUTE_TIME_SHEET_OVERVIEW}/${data.userUuid}`)
+                    }
+                  />
+                </div>
+              ) : (
+                <Skeleton size="sm" />
+              )}
+            </Col>
+          </Row>
+        </Col>
+      </Row>
+    </S.List>
+  )
+}
+
+export function Customer({ displayMode, data }: UserDisplayProps) {
+  return (
+    // eslint-disable-next-line react/jsx-no-useless-fragment
+    <>
+      {displayMode === 'cards' ? (
+        <DisplayAsCard data={data} />
+      ) : (
+        <DisplayAsList data={data} />
+      )}
+    </>
+  )
+}
+
+Customer.defaultProps = {
+  data: undefined
+}

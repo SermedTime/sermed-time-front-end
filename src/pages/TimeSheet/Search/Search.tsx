@@ -31,6 +31,8 @@ import {
   initialFilterValues
 } from './components/FilterForm/FilterForm.form'
 import { UserSearchForm } from './components/SearchForm'
+import { Customer } from './components/User/User'
+import { UserFilterForm } from './components/FilterForm'
 
 export function UserSearch() {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -186,7 +188,42 @@ export function UserSearch() {
                   )}
                 </Col>
               </Row>
+
+              <Row className="justify-content-center">
+                {params && data ? (
+                  <Col xs="auto">
+                    <Pagination
+                      defaultCurrent={params.page}
+                      pageSize={Number(params.records)}
+                      total={data.total}
+                      onChange={page => handleOnChangePage(page)}
+                    />
+                  </Col>
+                ) : (
+                  <Col xs={4} className="mt-5">
+                    <Skeleton />
+                  </Col>
+                )}
+              </Row>
             </Section>
+          </Col>
+
+          <Col lg={3} xxl={2}>
+            <Row>
+              <Col>
+                <UserFilterForm
+                  defaultValues={
+                    params
+                      ? {
+                          records: Number(params.records),
+                          status: params.status
+                        }
+                      : null
+                  }
+                  onChange={filter => handleOnFilter(filter)}
+                />
+              </Col>
+            </Row>
           </Col>
         </Row>
       </Container>
