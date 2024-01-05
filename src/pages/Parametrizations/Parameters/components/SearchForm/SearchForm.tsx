@@ -63,7 +63,11 @@ export function ParametersSearchForm({
                     <Field
                       as={SelectSearch}
                       placeholder="Tipo de pesquisa"
-                      value={values.searchingBy}
+                      value={
+                        options.length === 1
+                          ? options[0].value
+                          : values.searchingBy
+                      }
                       options={options}
                       readOnly={options.length === 1}
                       onChange={(option: IOption) =>
