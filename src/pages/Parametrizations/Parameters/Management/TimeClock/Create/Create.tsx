@@ -47,7 +47,7 @@ export function CreateTimeClock() {
       showLoader()
 
       const { data, message } = await post(
-        'parametrizations/time-clock',
+        '/parametrizations/time-clock',
         formValues
       )
 

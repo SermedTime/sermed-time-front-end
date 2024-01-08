@@ -1,8 +1,7 @@
-import { fakeRequest } from '@/services/api/sermed-api/sermed-api'
 import { IApiResponse } from '@/services/api/sermed-api/sermed-api.interface'
 import { removeEmptyEntries } from '@/utils/generic'
 import { useCallback, useEffect, useState } from 'react'
-import { useTimeClockRequest } from './fake/useTimeClock.request'
+import { get } from '@/services/api/sermed-api/sermed-api'
 
 export interface ITimeClock {
   uuid: string
@@ -30,11 +29,9 @@ export function useTimeClock() {
         page: params?.page
       })
 
-      console.log('queryParams', queryParams)
-
-      await fakeRequest(2000)
-
-      const data: IApiResponse<ITimeClock> = useTimeClockRequest
+      const { data } = await get('/parametrizations/time-clock', {
+        params: queryParams
+      })
 
       if (data) {
         setResult(data)
