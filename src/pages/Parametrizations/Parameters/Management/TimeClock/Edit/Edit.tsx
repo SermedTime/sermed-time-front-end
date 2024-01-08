@@ -33,7 +33,7 @@ export function EditTimeClock({ uuid, onClose }: Props) {
       try {
         const {
           data: { data }
-        } = await get(`parametrizations/companies/${uuid}`)
+        } = await get(`/parametrizations/time-clock/${uuid}`)
 
         const {
           city,
@@ -89,7 +89,7 @@ export function EditTimeClock({ uuid, onClose }: Props) {
       showLoader()
 
       const { data, message } = await put(
-        `parametrizations/companies/${formValues.uuid}`,
+        `/parametrizations/time-clock/${formValues.uuid}`,
         formValues
       )
 

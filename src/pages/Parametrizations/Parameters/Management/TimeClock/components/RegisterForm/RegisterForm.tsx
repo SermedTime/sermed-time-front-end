@@ -213,6 +213,7 @@ export function ClockTimeRegisterForm({
                   setFieldTouched('state')
                   setFieldValue('state', value)
                 }}
+                readOnly={readOnly}
               />
             </Col>
           </Row>
@@ -264,11 +265,7 @@ export function ClockTimeRegisterForm({
                   </Col>
 
                   <Col xs="auto">
-                    <Button
-                      type="submit"
-                      styles="primary"
-                      disabled={!dirty || !isValid}
-                    >
+                    <Button type="submit" styles="primary" disabled={!isValid}>
                       {mode === 'create' ? 'Cadastrar' : 'Salvar'}
                     </Button>
                   </Col>

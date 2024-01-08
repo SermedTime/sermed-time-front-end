@@ -23,7 +23,7 @@ export function TimeClock({ data, onEdit, onRefetch }: Props) {
     try {
       showLoader()
 
-      const { data } = await put(`parametrizations/companies/${uuid}`, {
+      const { data } = await put(`parametrizations/time-clock/${uuid}`, {
         status: 'active'
       })
 
@@ -47,7 +47,7 @@ export function TimeClock({ data, onEdit, onRefetch }: Props) {
     try {
       showLoader()
 
-      const { data } = await put(`parametrizations/companies/${uuid}`, {
+      const { data } = await put(`parametrizations/time-clock/${uuid}`, {
         status: 'inactive'
       })
 
