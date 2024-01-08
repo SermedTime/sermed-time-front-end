@@ -59,8 +59,8 @@ export function ListTimeClock() {
 
   const SEARCH_OPTIONS: IOption[] = [
     {
-      value: 'description',
-      label: 'Descrição'
+      value: 'name',
+      label: 'Nome do Relógio'
     }
   ]
 

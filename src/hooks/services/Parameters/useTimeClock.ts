@@ -29,9 +29,7 @@ export function useTimeClock() {
         page: params?.page
       })
 
-      const { data } = await get('/parametrizations/time-clock', {
-        params: queryParams
-      })
+      const { data } = await get('/parametrizations/time-clock', queryParams)
 
       if (data) {
         setResult(data)

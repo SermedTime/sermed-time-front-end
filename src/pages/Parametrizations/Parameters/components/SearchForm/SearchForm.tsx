@@ -30,10 +30,12 @@ export function ParametersSearchForm({
       if (initialValues === null) {
         setInitialValues(defaultValues)
       }
+    } else if (options.length === 1) {
+      setInitialValues({ search: '', searchingBy: String(options[0].value) })
     } else {
       setInitialValues(initialSearchValues)
     }
-  }, [defaultValues, initialValues])
+  }, [defaultValues, initialValues, options])
 
   return (
     <Row className="mb-2">
@@ -63,6 +65,7 @@ export function ParametersSearchForm({
                     <Field
                       as={SelectSearch}
                       placeholder="Tipo de pesquisa"
+                      name="searchingBy"
                       value={
                         options.length === 1
                           ? options[0].value
