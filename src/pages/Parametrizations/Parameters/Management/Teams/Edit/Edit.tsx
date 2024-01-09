@@ -36,15 +36,14 @@ export function EditTeam({ uuid, onClose }: Props) {
       try {
         const {
           data: { data }
-        } = await get(`parametrizations/teams/${uuid}`)
+        } = await get(`/parametrizations/team/${uuid}`)
 
-        const { name, status, supervisor } = data
+        const { name, status } = data
 
         setInitialValues({
           uuid,
           name,
-          status,
-          supervisor
+          status
         })
       } catch {
         handleApiRejection()
@@ -76,7 +75,7 @@ export function EditTeam({ uuid, onClose }: Props) {
       showLoader()
 
       const { data, message } = await put(
-        `parametrizations/teams/${formValues.uuid}`,
+        `/parametrizations/team/${formValues.uuid}`,
         formValues
       )
 

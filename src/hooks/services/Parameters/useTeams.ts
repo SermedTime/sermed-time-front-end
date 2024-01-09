@@ -1,8 +1,9 @@
-import { fakeRequest } from '@/services/api/sermed-api/sermed-api'
-import { IApiResponse } from '@/services/api/sermed-api/sermed-api.interface'
 import { removeEmptyEntries } from '@/utils/generic'
 import { useCallback, useEffect, useState } from 'react'
-import { useTeamsRequest } from './fake/useTeams.request'
+
+import { get } from '@/services/api/sermed-api/sermed-api'
+
+import { IApiResponse } from '@/services/api/sermed-api/sermed-api.interface'
 
 export interface ITeams {
   uuid: string
@@ -30,11 +31,7 @@ export function useTeams() {
         page: params?.page
       })
 
-      console.log('queryParams', queryParams)
-
-      await fakeRequest(2000)
-
-      const data: IApiResponse<ITeams> = useTeamsRequest
+      const { data } = await get('/parametrizations/team', queryParams)
 
       if (data) {
         setResult(data)

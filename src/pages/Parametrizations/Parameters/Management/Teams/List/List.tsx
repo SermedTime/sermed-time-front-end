@@ -51,8 +51,8 @@ export function ListTeams() {
 
   const SEARCH_OPTIONS: IOption[] = [
     {
-      value: 'description',
-      label: 'Descrição'
+      value: 'name',
+      label: 'Nome da Equipe'
     }
   ]
 

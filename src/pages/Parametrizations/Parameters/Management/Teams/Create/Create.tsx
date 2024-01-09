@@ -46,7 +46,7 @@ export function CreateTeam() {
     try {
       showLoader()
 
-      const { data, message } = await post('parametrizations/teams', formValues)
+      const { data, message } = await post('/parametrizations/team', formValues)
 
       if (data) {
         addToast({
@@ -90,7 +90,6 @@ export function CreateTeam() {
                     mode="create"
                     initialValues={{
                       name: '',
-                      supervisor: '',
                       status: 'active'
                     }}
                     onCancel={() => navigate(-1)}

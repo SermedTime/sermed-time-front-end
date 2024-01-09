@@ -23,7 +23,7 @@ export function Teams({ data, onEdit, onRefetch }: Props) {
     try {
       showLoader()
 
-      const { data } = await put(`parametrizations/teams/${uuid}`, {
+      const { data } = await put(`/parametrizations/team/${uuid}`, {
         status: 'active'
       })
 
@@ -47,7 +47,7 @@ export function Teams({ data, onEdit, onRefetch }: Props) {
     try {
       showLoader()
 
-      const { data } = await put(`parametrizations/teams/${uuid}`, {
+      const { data } = await put(`/parametrizations/team/${uuid}`, {
         status: 'inactive'
       })
 
