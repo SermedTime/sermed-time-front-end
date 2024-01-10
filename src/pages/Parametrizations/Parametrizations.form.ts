@@ -14,10 +14,10 @@ export const initialParameterList: IParameterList[] = [
     description: 'As gerenciais são parametrizações referentes ...',
     items: [
       {
-        icon: 'person',
-        title: 'Usuários',
-        routeToList: ROUTE_MANAGEMENT_USERS_LIST,
-        routeToAdd: ROUTE_MANAGEMENT_USERS_CREATE
+        icon: 'business',
+        title: 'Empresas',
+        routeToList: ROUTE_MANAGEMENT_TIME_CLOCK_LIST,
+        routeToAdd: ROUTE_MANAGEMENT_TIME_CLOCK_CREATE
       },
       {
         icon: 'access_time',
@@ -25,6 +25,13 @@ export const initialParameterList: IParameterList[] = [
         routeToList: ROUTE_MANAGEMENT_TEAMS_LIST,
         routeToAdd: ROUTE_MANAGEMENT_TEAMS_CREATE
       },
+      {
+        icon: 'person',
+        title: 'Usuários',
+        routeToList: ROUTE_MANAGEMENT_USERS_LIST,
+        routeToAdd: ROUTE_MANAGEMENT_USERS_CREATE
+      },
+
       {
         icon: 'alarm_add',
         title: 'Relógios de Ponto',

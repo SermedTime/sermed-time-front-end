@@ -59,6 +59,10 @@ export function ListUsers() {
       label: 'Nome'
     },
     {
+      value: 'socialName',
+      label: 'Nome Social'
+    },
+    {
       value: 'cpf',
       label: 'CPF'
     }

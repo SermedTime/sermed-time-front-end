@@ -1,8 +1,7 @@
-import { fakeRequest } from '@/services/api/sermed-api/sermed-api'
 import { IApiResponse } from '@/services/api/sermed-api/sermed-api.interface'
 import { removeEmptyEntries } from '@/utils/generic'
 import { useCallback, useEffect, useState } from 'react'
-import { useUsersRequest } from './fake/useUsers.request'
+import { get } from '@/services/api/sermed-api/sermed-api'
 
 export interface IUsers {
   uuid: string
@@ -30,11 +29,7 @@ export function useUsers() {
         page: params?.page
       })
 
-      console.log('queryParams', queryParams)
-
-      await fakeRequest(2000)
-
-      const data: IApiResponse<IUsers> = useUsersRequest
+      const { data } = await get('/parametrizations/users', queryParams)
 
       if (data) {
         setResult(data)

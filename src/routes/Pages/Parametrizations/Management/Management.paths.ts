@@ -10,3 +10,6 @@ export const ROUTE_MANAGEMENT_TEAMS_CREATE = `${path}/teams/create`
 
 export const ROUTE_MANAGEMENT_USERS_LIST = `${path}/users/list`
 export const ROUTE_MANAGEMENT_USERS_CREATE = `${path}/users/create`
+
+export const ROUTE_MANAGEMENT_COMPANIES_LIST = `${path}/companies/list`
+export const ROUTE_MANAGEMENT_COMPANIES_CREATE = `${path}/companies/create`

@@ -46,7 +46,11 @@ export function CreateUser() {
 
       showLoader()
 
-      const { data, message } = await post('parametrizations/users', formValues)
+      const { data, message } = await post('/parametrizations/users', {
+        ...formValues,
+        cpf: formValues.cpf.replace(/\D/g, ''),
+        companyCnpj: formValues.companyCnpj.replace(/\D/g, '')
+      })
 
       if (data) {
         addToast({
@@ -91,14 +95,17 @@ export function CreateUser() {
                     initialValues={{
                       cpf: '',
                       name: '',
+                      companyCnpj: '',
+                      companyName: '',
+                      position: '',
                       socialName: '',
                       email: '',
                       payrollNumber: '',
                       employeeCode: '',
                       pis: '',
                       ctps: '',
-                      admissionDate: '',
-                      resignationDate: '',
+                      admissionDate: null,
+                      resignationDate: null,
                       status: 'active'
                     }}
                     onCancel={() => navigate(-1)}

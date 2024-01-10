@@ -9,7 +9,7 @@ import { useAlertContext } from '@/contexts/Alert'
 import { Switch } from '@/components/Core/Form/Fields/Switch'
 import { Button } from '@/components/Core/Buttons/Button'
 import { InputText } from '@/components/Core/Form/Fields/InputText'
-import { cpfMask } from '@/utils/masks'
+import { cnpjMask, cpfMask } from '@/utils/masks'
 
 import { IUserRegisterForm, validationSchema } from './RegisterForm.form'
 
@@ -86,6 +86,17 @@ export function UserRegisterForm({
             <Skeleton size="lg" />
           </Col>
         </Row>
+        <Row className="mb-4">
+          <Col xxl={4}>
+            <Skeleton size="lg" />
+          </Col>
+          <Col xxl={4}>
+            <Skeleton size="lg" />
+          </Col>
+          <Col xxl={4}>
+            <Skeleton size="lg" />
+          </Col>
+        </Row>
       </>
     )
   }
@@ -105,8 +116,8 @@ export function UserRegisterForm({
                 description="Ativo"
                 name="status"
                 checked={values.status === 'active'}
-                disabled={mode === 'create'}
                 readOnly={readOnly}
+                disabled={values.resignationDate !== null}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                   const { checked } = e.target
 
@@ -186,6 +197,63 @@ export function UserRegisterForm({
             <Col xl={4}>
               <Field
                 as={InputText}
+                label="Empresa"
+                name="companyName"
+                placeholder="Digite o nome da Empresa"
+                type="text"
+                error={touched.companyName && !!errors.companyName}
+                helperText={
+                  touched.companyName && !!errors.companyName
+                    ? errors.companyName
+                    : ''
+                }
+                readOnly={readOnly}
+              />
+            </Col>
+
+            <Col xl={4}>
+              <Field
+                as={InputText}
+                label="CNPJ"
+                name="companyCnpj"
+                placeholder="00.000.000/0000-00"
+                type="text"
+                error={touched.companyCnpj && !!errors.companyCnpj}
+                helperText={
+                  touched.companyCnpj && !!errors.companyCnpj
+                    ? errors.companyCnpj
+                    : ''
+                }
+                maxLength={18}
+                readOnly={readOnly}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  e.target.value = cnpjMask(e.target.value)
+
+                  setFieldValue('companyCnpj', e.target.value)
+                }}
+              />
+            </Col>
+
+            <Col xl={4}>
+              <Field
+                as={InputText}
+                label="Função"
+                name="position"
+                placeholder="Digite a função"
+                type="text"
+                error={touched.position && !!errors.position}
+                helperText={
+                  touched.position && !!errors.position ? errors.position : ''
+                }
+                readOnly={readOnly}
+              />
+            </Col>
+          </Row>
+
+          <Row className="mb-4">
+            <Col xl={4}>
+              <Field
+                as={InputText}
                 label="N° Folha de Pagamento"
                 name="payrollNumber"
                 placeholder="0000"
@@ -223,6 +291,7 @@ export function UserRegisterForm({
                 label="N° PIS"
                 name="pis"
                 placeholder="00000000000"
+                maxLength={11}
                 type="text"
                 error={touched.pis && !!errors.pis}
                 helperText={touched.pis && !!errors.pis ? errors.pis : ''}
@@ -238,6 +307,7 @@ export function UserRegisterForm({
                 label="N° CTPS"
                 name="ctps"
                 placeholder="00000"
+                maxLength={5}
                 type="text"
                 error={touched.ctps && !!errors.ctps}
                 helperText={touched.ctps && !!errors.ctps ? errors.ctps : ''}
@@ -276,6 +346,12 @@ export function UserRegisterForm({
                     : ''
                 }
                 readOnly={readOnly}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  const date = e.target.value
+
+                  setFieldValue('status', date !== '' ? 'inactive' : 'active')
+                  setFieldValue('resignationDate', date === '' ? null : date)
+                }}
               />
             </Col>
           </Row>
