@@ -1,1 +1,1 @@
-export { CompanyRegisterForm } from './RegisterForm'
+export { ClockTimeRegisterForm } from './RegisterForm'

@@ -1,6 +1,9 @@
 import { IRouteProps } from '@/routes/routes.interface'
 import { lazy } from 'react'
+
 import {
+  ROUTE_MANAGEMENT_COMPANIES_CREATE,
+  ROUTE_MANAGEMENT_COMPANIES_LIST,
   ROUTE_MANAGEMENT_TEAMS_CREATE,
   ROUTE_MANAGEMENT_TEAMS_LIST,
   ROUTE_MANAGEMENT_TIME_CLOCK_CREATE,
@@ -45,6 +48,18 @@ const CreateUser = lazy(() =>
   )
 )
 
+const ListCompanies = lazy(() =>
+  import('@/pages/Parametrizations/Parameters/Management/Companies/List').then(
+    module => ({ default: module.ListCompanies })
+  )
+)
+
+const CreateCompany = lazy(() =>
+  import(
+    '@/pages/Parametrizations/Parameters/Management/Companies/Create'
+  ).then(module => ({ default: module.CreateCompany }))
+)
+
 export const managementParametersRoutes: IRouteProps[] = [
   {
     path: ROUTE_MANAGEMENT_TIME_CLOCK_LIST,
@@ -74,6 +89,16 @@ export const managementParametersRoutes: IRouteProps[] = [
   {
     path: ROUTE_MANAGEMENT_USERS_CREATE,
     component: CreateUser,
+    isPrivate: true
+  },
+  {
+    path: ROUTE_MANAGEMENT_COMPANIES_LIST,
+    component: ListCompanies,
+    isPrivate: true
+  },
+  {
+    path: ROUTE_MANAGEMENT_COMPANIES_CREATE,
+    component: CreateCompany,
     isPrivate: true
   }
 ]
