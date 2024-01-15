@@ -12,7 +12,7 @@ import { Icon } from '@/components/Core/Icons/Icon'
 import { Subtitle } from '@/components/Core/Typography/Subtitle'
 import { Button } from '@/components/Core/Buttons/Button'
 
-import { cepMask, cnpjMask } from '@/utils/masks'
+import { cepMask, cnpjMask, removeMask } from '@/utils/masks'
 import { CompanyRegisterForm } from '../components/RegisterForm'
 
 import { ICompanyRegisterForm } from '../components/RegisterForm/RegisterForm.form'
@@ -89,13 +89,17 @@ export function EditCompany({ uuid, onClose }: Props) {
     onClose(false)
   }
 
-  async function handleOnSubmit(formValues: any) {
+  async function handleOnSubmit(formValues: ICompanyRegisterForm) {
     try {
       showLoader()
 
       const { data, message } = await put(
-        `/parametrizations/companies/${formValues.uuid}`,
-        formValues
+        `/parametrizations/companies/${uuid}`,
+        {
+          ...formValues,
+          companyCnpj: removeMask(formValues.companyCnpj),
+          zipCode: removeMask(formValues.zipCode)
+        }
       )
 
       if (data) {

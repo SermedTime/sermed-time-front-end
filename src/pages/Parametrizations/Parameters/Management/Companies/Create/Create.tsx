@@ -17,6 +17,7 @@ import { Col, Container, Row } from 'react-bootstrap'
 import { Section } from '@/components/Core/Containers/Section'
 import { Icon } from '@/components/Core/Icons/Icon'
 import { Subtitle } from '@/components/Core/Typography/Subtitle'
+import { removeMask } from '@/utils/masks'
 import { ICompanyRegisterForm } from '../components/RegisterForm/RegisterForm.form'
 import { CompanyRegisterForm } from '../components/RegisterForm'
 
@@ -44,10 +45,11 @@ export function CreateCompany() {
     try {
       showLoader()
 
-      const { data, message } = await post(
-        '/parametrizations/companies',
-        formValues
-      )
+      const { data, message } = await post('/parametrizations/companies', {
+        ...formValues,
+        companyCnpj: removeMask(formValues.companyCnpj),
+        zipCode: removeMask(formValues.zipCode)
+      })
 
       if (data) {
         addToast({

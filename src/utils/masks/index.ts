@@ -156,3 +156,7 @@ export function patternFormat(
 export function capitalizeFirstLetter(value: string): string {
   return value.replace(/^./, value[0].toUpperCase())
 }
+
+export function removeMask(value: string): string {
+  return value.replace(/\D/g, '')
+}
