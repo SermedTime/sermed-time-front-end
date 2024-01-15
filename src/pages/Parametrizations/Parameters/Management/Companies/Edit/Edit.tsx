@@ -12,6 +12,7 @@ import { Icon } from '@/components/Core/Icons/Icon'
 import { Subtitle } from '@/components/Core/Typography/Subtitle'
 import { Button } from '@/components/Core/Buttons/Button'
 
+import { cepMask, cnpjMask } from '@/utils/masks'
 import { CompanyRegisterForm } from '../components/RegisterForm'
 
 import { ICompanyRegisterForm } from '../components/RegisterForm/RegisterForm.form'
@@ -53,8 +54,8 @@ export function EditCompany({ uuid, onClose }: Props) {
 
         setInitialValues({
           companyName,
-          companyCnpj,
-          zipCode,
+          companyCnpj: cnpjMask(companyCnpj),
+          zipCode: cepMask(zipCode),
           streetName,
           streetNumber,
           complement,
