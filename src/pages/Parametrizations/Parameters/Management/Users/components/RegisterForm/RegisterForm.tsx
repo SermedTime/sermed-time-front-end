@@ -5,12 +5,15 @@ import { Field, Form, Formik } from 'formik'
 import { Skeleton } from '@/components/Core/Skeleton'
 
 import { useAlertContext } from '@/contexts/Alert'
+import { useCompanyDropdown } from '@/hooks/services/Rules/Dropdown/useCompanies'
 
 import { Switch } from '@/components/Core/Form/Fields/Switch'
 import { Button } from '@/components/Core/Buttons/Button'
 import { InputText } from '@/components/Core/Form/Fields/InputText'
-import { cnpjMask, cpfMask } from '@/utils/masks'
+import { cpfMask } from '@/utils/masks'
+import { Select } from '@/components/Core/Form/Fields/Select'
 
+import { IOption } from '@/components/Core/Form/Fields/Select/Select.interface'
 import { IUserRegisterForm, validationSchema } from './RegisterForm.form'
 
 interface Props {
@@ -29,6 +32,8 @@ export function UserRegisterForm({
   onSubmit
 }: Props) {
   const { addAlertOnCancel } = useAlertContext()
+
+  const { companies } = useCompanyDropdown()
 
   function handleOnCancel(hasChanges: boolean) {
     if (!hasChanges) {
@@ -107,7 +112,15 @@ export function UserRegisterForm({
       validationSchema={validationSchema}
       onSubmit={onSubmit}
     >
-      {({ values, touched, errors, dirty, isValid, setFieldValue }) => (
+      {({
+        values,
+        touched,
+        errors,
+        dirty,
+        isValid,
+        setFieldValue,
+        setFieldTouched
+      }) => (
         <Form>
           <Row className="mb-4">
             <Col xs="auto">
@@ -194,47 +207,29 @@ export function UserRegisterForm({
           </Row>
 
           <Row className="mb-4">
-            <Col xl={4}>
+            <Col xl={6}>
               <Field
-                as={InputText}
+                as={Select}
                 label="Empresa"
-                name="companyName"
-                placeholder="Digite o nome da Empresa"
-                type="text"
-                error={touched.companyName && !!errors.companyName}
+                name="companyUuid"
+                placeholder="Selecione uma empresa"
+                value={values.companyUuid}
+                options={companies}
+                error={touched.companyUuid && !!errors.companyUuid}
                 helperText={
-                  touched.companyName && !!errors.companyName
-                    ? errors.companyName
+                  touched.companyUuid && !!errors.companyUuid
+                    ? errors.companyUuid
                     : ''
                 }
-                readOnly={readOnly}
-              />
-            </Col>
-
-            <Col xl={4}>
-              <Field
-                as={InputText}
-                label="CNPJ"
-                name="companyCnpj"
-                placeholder="00.000.000/0000-00"
-                type="text"
-                error={touched.companyCnpj && !!errors.companyCnpj}
-                helperText={
-                  touched.companyCnpj && !!errors.companyCnpj
-                    ? errors.companyCnpj
-                    : ''
-                }
-                maxLength={18}
-                readOnly={readOnly}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                  e.target.value = cnpjMask(e.target.value)
-
-                  setFieldValue('companyCnpj', e.target.value)
+                onChange={({ value }: IOption) => {
+                  setFieldTouched('companyUuid')
+                  setFieldValue('companyUuid', value)
                 }}
+                readOnly={readOnly}
               />
             </Col>
 
-            <Col xl={4}>
+            <Col xl={6}>
               <Field
                 as={InputText}
                 label="Função"

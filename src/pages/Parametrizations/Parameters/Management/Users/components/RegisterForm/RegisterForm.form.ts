@@ -7,8 +7,7 @@ export interface IUserRegisterForm {
   name: string
   socialName: string
   email: string
-  companyName: string
-  companyCnpj: string
+  companyUuid: string
   position: string
   payrollNumber: string
   employeeCode: string
@@ -36,8 +35,6 @@ export const validationSchema = Yup.object().shape({
         return value ? isEmailValid(value) : true
       }
     }),
-  companyName: Yup.string().required('Campo Obrigatório'),
-  companyCnpj: Yup.string().required('Campo Obrigatório'),
   position: Yup.string().required('Campo Obrigatório'),
   payrollNumber: Yup.string()
     .required('Campo Obrigatório')
@@ -66,5 +63,6 @@ export const validationSchema = Yup.object().shape({
 
         return admissionDate <= date
       }
-    })
+    }),
+  companyUuid: Yup.string().required('Campo Obrigatório')
 })
