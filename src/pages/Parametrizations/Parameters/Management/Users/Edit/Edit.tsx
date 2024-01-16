@@ -10,6 +10,7 @@ import { Icon } from '@/components/Core/Icons/Icon'
 import { Subtitle } from '@/components/Core/Typography/Subtitle'
 
 import { Button } from '@/components/Core/Buttons/Button'
+import { cpfMask } from '@/utils/masks'
 import { IUserRegisterForm } from '../components/RegisterForm/RegisterForm.form'
 import { UserRegisterForm } from '../components/RegisterForm/RegisterForm'
 
@@ -34,12 +35,14 @@ export function EditUser({ uuid, onClose }: Props) {
       try {
         const {
           data: { data }
-        } = await get(`parametrizations/companies/${uuid}`)
+        } = await get(`parametrizations/users/${uuid}`)
 
         const {
           cpf,
           name,
           socialName,
+          companyUuid,
+          position,
           email,
           payrollNumber,
           employeeCode,
@@ -51,15 +54,17 @@ export function EditUser({ uuid, onClose }: Props) {
         } = data
 
         setInitialValues({
-          cpf,
+          cpf: cpfMask(cpf),
           name,
           socialName,
+          companyUuid,
+          position,
           email,
           payrollNumber,
           employeeCode,
           pis,
           ctps,
-          admissionDate,
+          admissionDate: admissionDate?.split('T')[0],
           resignationDate,
           status,
           uuid
@@ -95,7 +100,7 @@ export function EditUser({ uuid, onClose }: Props) {
 
       const { data, message } = await put(
         `parametrizations/users/${formValues.uuid}`,
-        formValues
+        { ...formValues, cpf: formValues.cpf.replace(/\D/g, '') }
       )
 
       if (data) {

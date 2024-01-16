@@ -42,14 +42,11 @@ export function CreateUser() {
 
   async function handleOnSubmit(formValues: IUserRegisterForm) {
     try {
-      console.log(formValues)
-
       showLoader()
 
       const { data, message } = await post('/parametrizations/users', {
         ...formValues,
-        cpf: formValues.cpf.replace(/\D/g, ''),
-        companyCnpj: formValues.companyCnpj.replace(/\D/g, '')
+        cpf: formValues.cpf.replace(/\D/g, '')
       })
 
       if (data) {
@@ -95,8 +92,7 @@ export function CreateUser() {
                     initialValues={{
                       cpf: '',
                       name: '',
-                      companyCnpj: '',
-                      companyName: '',
+                      companyUuid: '',
                       position: '',
                       socialName: '',
                       email: '',
