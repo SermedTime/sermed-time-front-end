@@ -46,10 +46,7 @@ export function TeamsRegisterForm({
           </Col>
         </Row>
         <Row className="mb-4">
-          <Col xxl={6}>
-            <Skeleton size="lg" />
-          </Col>
-          <Col xxl={6}>
+          <Col xxl={12}>
             <Skeleton size="lg" />
           </Col>
         </Row>
