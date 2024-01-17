@@ -3,6 +3,7 @@ import { Col, Row } from 'react-bootstrap'
 import { Field, Form, Formik } from 'formik'
 
 import { useAlertContext } from '@/contexts/Alert'
+import { useTeamDropdown } from '@/hooks/services/Rules/Dropdown/useTeams'
 
 import { Skeleton } from '@/components/Core/Skeleton'
 import { Button } from '@/components/Core/Buttons/Button'
@@ -24,6 +25,8 @@ export function AssignTeamRegisterForm({
   onSubmit
 }: Props) {
   const { addAlertOnCancel } = useAlertContext()
+
+  const { teams } = useTeamDropdown()
 
   function handleOnCancel(hasChanges: boolean) {
     if (!hasChanges) {
@@ -74,7 +77,7 @@ export function AssignTeamRegisterForm({
                 name="team"
                 placeholder="Selecione uma Equipe"
                 value={values.team}
-                options={[{ label: 'Enfermagem', value: 'enfermagem' }]}
+                options={teams}
                 error={touched.team && !!errors.team}
                 helperText={touched.team && !!errors.team ? errors.team : ''}
                 onChange={({ value }: IOption) => {

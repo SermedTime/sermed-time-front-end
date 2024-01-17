@@ -14,6 +14,10 @@ import { UF_OPTIONS } from '@/constants/options/uf.options'
 import { Button } from '@/components/Core/Buttons/Button'
 
 import { IOption } from '@/components/Core/Form/Fields/Select/Select.interface'
+import { useState } from 'react'
+import { useLoaderContext } from '@/contexts/Loader'
+import { ViaCepService } from '@/services/via-cep'
+import { useToastContext } from '@/contexts/Toast'
 import { ICompanyRegisterForm, validationSchema } from './RegisterForm.form'
 
 interface Props {
@@ -32,6 +36,10 @@ export function CompanyRegisterForm({
   onSubmit
 }: Props) {
   const { addAlertOnCancel } = useAlertContext()
+  const { showLoader, hideLoader } = useLoaderContext()
+  const { addToast, handleApiRejection } = useToastContext()
+
+  const [cepSelected, setCepSelected] = useState(true)
 
   function handleOnCancel(hasChanges: boolean) {
     if (!hasChanges) {
@@ -40,6 +48,60 @@ export function CompanyRegisterForm({
       addAlertOnCancel(() => {
         onCancel(false)
       })
+    }
+  }
+
+  async function checkZipCode(
+    zipCode: string,
+    setFieldValue: (
+      field: string,
+      value: any,
+      shouldValidate?: boolean | undefined
+    ) => void
+  ) {
+    zipCode.replace(/\D/g, '')
+
+    if (zipCode.length < 9) return
+
+    try {
+      showLoader()
+
+      const response = await ViaCepService.fetchAddressByCep(zipCode)
+
+      const { bairro, complemento, localidade, logradouro, uf } = response.data
+
+      if (!response.data.localidade) {
+        addToast({
+          type: 'helper',
+          title: 'Opss',
+          description: 'Não Encontramos informação do CEP informado!'
+        })
+
+        setCepSelected(false)
+        setFieldValue('streetName', '')
+        setFieldValue('state', '')
+        setFieldValue('neighborhood', '')
+        setFieldValue('city', '')
+        setFieldValue('complement', '')
+
+        return
+      }
+
+      setCepSelected(true)
+      setFieldValue('streetName', `${logradouro} ${complemento}`)
+      setFieldValue('state', uf)
+      setFieldValue('city', localidade)
+      setFieldValue('neighborhood', bairro)
+    } catch (error) {
+      addToast({
+        type: 'warning',
+        title: 'Opss',
+        description: 'Não Encontramos informação do CEP informado!'
+      })
+
+      handleApiRejection()
+    } finally {
+      hideLoader()
     }
   }
 
@@ -173,16 +235,17 @@ export function CompanyRegisterForm({
                 label="CEP"
                 name="zipCode"
                 placeholder="00000-000"
+                maxLength={9}
                 type="text"
                 error={touched.zipCode && !!errors.zipCode}
                 helperText={
                   touched.zipCode && !!errors.zipCode ? errors.zipCode : ''
                 }
                 readOnly={readOnly}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                onBlur={(e: React.ChangeEvent<HTMLInputElement>) => {
                   e.target.value = cepMask(e.target.value)
-
                   setFieldValue('zipCode', e.target.value)
+                  checkZipCode(e.target.value, setFieldValue)
                 }}
               />
             </Col>
@@ -200,7 +263,7 @@ export function CompanyRegisterForm({
                     ? errors.streetName
                     : ''
                 }
-                readOnly={readOnly}
+                readOnly={readOnly || cepSelected}
               />
             </Col>
 
@@ -254,7 +317,7 @@ export function CompanyRegisterForm({
                     ? errors.neighborhood
                     : ''
                 }
-                readOnly={readOnly}
+                readOnly={readOnly || cepSelected}
               />
             </Col>
 
@@ -267,7 +330,7 @@ export function CompanyRegisterForm({
                 type="text"
                 error={touched.city && !!errors.city}
                 helperText={touched.city && !!errors.city ? errors.city : ''}
-                readOnly={readOnly}
+                readOnly={readOnly || cepSelected}
               />
             </Col>
 
@@ -285,7 +348,7 @@ export function CompanyRegisterForm({
                   setFieldTouched('state')
                   setFieldValue('state', value)
                 }}
-                readOnly={readOnly}
+                readOnly={readOnly || cepSelected}
               />
             </Col>
           </Row>

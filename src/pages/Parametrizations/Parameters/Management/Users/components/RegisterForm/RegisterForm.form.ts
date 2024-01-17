@@ -63,6 +63,5 @@ export const validationSchema = Yup.object().shape({
 
         return admissionDate <= date
       }
-    }),
-  companyUuid: Yup.string().required('Campo Obrigatório')
+    })
 })
