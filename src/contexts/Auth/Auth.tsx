@@ -16,6 +16,8 @@ import {
 
 import { useNavigate } from 'react-router-dom'
 import { ROUTE_LOGIN } from '@/routes/Pages/Auth/Auth.paths'
+import { post } from '@/services/api/sermed-api/sermed-api'
+import { decryptToPayload } from '@/utils/crypt'
 import { useLoaderContext } from '../Loader'
 
 interface Auth {
@@ -31,11 +33,20 @@ interface Roles {
 
 interface UserAuth {
   auth: Auth
-  firstName: string
   roles?: Roles[]
-  lastAccessDate?: string
-  lastChangeDate: string
-  username: string
+  userUuid: string
+  userName: string
+  socialName: string
+  email: string
+  companyName: string
+  companyCnpj: string
+  sysPassword: boolean
+  position: string
+  pis: string
+  identityNumber: string
+  cpf: string
+  admissionDate: string
+  lastUpdateDate: string
 }
 
 interface UserCredentials {
@@ -89,29 +100,31 @@ function AuthContext({ children }: Props) {
           password: credentials.password
         }
 
-        if (
-          params.username === 'admin@sermed.com.br' &&
-          params.password === 'admin'
-        ) {
+        const {
+          data: { data }
+        } = await post('/auth/login', params)
+
+        if (data) {
           const user: UserAuth = {
             auth: {
-              expiresIn: 3600,
-              token:
-                'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c',
-              refreshToken:
-                'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
+              expiresIn: data.accessToken.expiresIn,
+              token: data.accessToken.token,
+              refreshToken: data.refreshToken
             },
-
-            firstName: 'Ana Flávia',
-            roles: [
-              {
-                name: 'point',
-                write: true
-              }
-            ],
-            lastAccessDate: '2022-07-01T09:00:00',
-            lastChangeDate: '2022-02-22',
-            username: 'admin@sermed.com.br'
+            userUuid: decryptToPayload(data.user.userUuid),
+            userName: decryptToPayload(data.user.userName),
+            socialName: decryptToPayload(data.user.socialName),
+            email: decryptToPayload(data.user.email),
+            companyName: decryptToPayload(data.user.companyName),
+            companyCnpj: decryptToPayload(data.user.companyCnpj),
+            sysPassword: decryptToPayload(data.user.sysPassword) === 'true',
+            position: decryptToPayload(data.user.position),
+            pis: decryptToPayload(data.user.pis),
+            identityNumber: decryptToPayload(data.user.identityNumber),
+            cpf: decryptToPayload(data.user.cpf),
+            admissionDate: decryptToPayload(data.user.admissionDate),
+            lastUpdateDate: decryptToPayload(data.user.lastUpdateDate),
+            roles: data.user.roles
           }
 
           setUser(user)

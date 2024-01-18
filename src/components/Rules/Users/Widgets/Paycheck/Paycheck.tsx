@@ -1,35 +1,16 @@
-import { useCallback, useEffect, useState } from 'react'
-
 import { Widget } from '@/components/Core/Containers/Widget'
 import { Heading } from '@/components/Core/Typography/Heading'
 
 import { Col, Row } from 'react-bootstrap'
 
-import { fakeRequest } from '@/services/api/sermed-api/sermed-api'
-
 import { Caption } from '@/components/Core/Typography/Caption'
 import { cnpjMask } from '@/utils/masks'
 import { Skeleton } from '@/components/Core/Skeleton'
-import { IUserProfile, fakeUserProfile } from './Paycheck.interface'
+import { useAuthContext } from '@/contexts/Auth'
+import { convertIsoDateToPtBr } from '@/utils/date'
 
 export function WidgetPaycheck() {
-  const [result, setResult] = useState<IUserProfile | null>(null)
-
-  const fetchData = useCallback(async () => {
-    try {
-      await fakeRequest(2000)
-
-      setResult(fakeUserProfile.data[0])
-    } catch {
-      setResult(null)
-    }
-  }, [])
-
-  useEffect(() => {
-    if (result === null) {
-      fetchData()
-    }
-  }, [result, fetchData])
+  const { user } = useAuthContext()
 
   return (
     <Widget icon="folder_shared" heading="Ficha" caption="Dados Cadastrais">
@@ -38,8 +19,8 @@ export function WidgetPaycheck() {
           <Heading size="xs">Empresa</Heading>
         </Row>
         <Row className="mt-1">
-          {result ? (
-            <Caption size="lg">{result.company}</Caption>
+          {user ? (
+            <Caption size="lg">{user.companyName}</Caption>
           ) : (
             <Skeleton />
           )}
@@ -49,19 +30,8 @@ export function WidgetPaycheck() {
           <Heading size="xs">CNPJ</Heading>
         </Row>
         <Row className="mt-1">
-          {result ? (
-            <Caption size="lg">{cnpjMask(result.cnpj)}</Caption>
-          ) : (
-            <Skeleton />
-          )}
-        </Row>
-
-        <Row className="mt-2">
-          <Heading size="xs">Inscrição Estadual</Heading>
-        </Row>
-        <Row className="mt-1">
-          {result ? (
-            <Caption size="lg">{result.stateRegistration}</Caption>
+          {user ? (
+            <Caption size="lg">{cnpjMask(user.companyCnpj)}</Caption>
           ) : (
             <Skeleton />
           )}
@@ -71,30 +41,17 @@ export function WidgetPaycheck() {
           <Heading size="xs">Funcão</Heading>
         </Row>
         <Row className="mt-1">
-          {result ? (
-            <Caption size="lg">{result.position}</Caption>
-          ) : (
-            <Skeleton />
-          )}
+          {user ? <Caption size="lg">{user.position}</Caption> : <Skeleton />}
         </Row>
 
         <Row className="mt-2">
-          <Heading size="xs">Departamento</Heading>
+          <Heading size="xs">Data de Admissão</Heading>
         </Row>
         <Row className="mt-1">
-          {result ? (
-            <Caption size="lg">{result.department}</Caption>
-          ) : (
-            <Skeleton />
-          )}
-        </Row>
-
-        <Row className="mt-2">
-          <Heading size="xs">Responsável Direto</Heading>
-        </Row>
-        <Row className="mt-1">
-          {result ? (
-            <Caption size="lg">{result.responsible}</Caption>
+          {user ? (
+            <Caption size="lg">
+              {convertIsoDateToPtBr(user.admissionDate)}
+            </Caption>
           ) : (
             <Skeleton />
           )}

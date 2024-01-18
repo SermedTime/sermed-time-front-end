@@ -23,7 +23,7 @@ export function Home() {
   useEffect(() => {
     document.title = TITLE_HOME
 
-    setPageHeading(`Olá, ${user?.firstName}!`)
+    setPageHeading(`Olá, ${user?.socialName}!`)
 
     setPageBreadcrumb([])
   }, [user, setPageHeading, setPageBreadcrumb])

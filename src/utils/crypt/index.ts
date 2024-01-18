@@ -1,6 +1,7 @@
 import CryptoJS from 'crypto-js'
 
-export function encryptToPayload(value: string, key: string) {
+export function encryptToPayload(value: string) {
+  const key = `${import.meta.env.VITE_APP_CRYPTO_KEY}`
   const salt = CryptoJS.lib.WordArray.random(256)
   const iv = CryptoJS.lib.WordArray.random(16)
 
@@ -21,7 +22,8 @@ export function encryptToPayload(value: string, key: string) {
   return JSON.stringify(data)
 }
 
-export function decryptToPayload(value: string, key: string) {
+export function decryptToPayload(value: string) {
+  const key = `${import.meta.env.VITE_APP_CRYPTO_KEY}`
   const obj_json = JSON.parse(value)
 
   const encrypted = obj_json.ciphertext

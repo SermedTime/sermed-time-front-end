@@ -20,6 +20,7 @@ import { TITLE_LOGIN } from '@/constants/title.browser'
 
 import { ROUTE_HOME } from '@/routes/Pages/Pages.paths'
 import { ROUTE_RECOVER_PASSWORD } from '@/routes/Pages/Auth/Auth.paths'
+import { useToastContext } from '@/contexts/Toast'
 import { SubmitButton } from '../components/SubmitButton'
 import { Input } from '../components/Input'
 import { ILoginForm, initialValuesSchema, validationSchema } from './Login.form'
@@ -28,6 +29,8 @@ import * as S from '../Auth.styles'
 
 export function Login() {
   const [searchParams] = useSearchParams()
+
+  const { addToast } = useToastContext()
 
   const navigate = useNavigate()
 
@@ -63,6 +66,12 @@ export function Login() {
     } else if (!authenticated) {
       formikHelpers.setFieldError('password', 'Senha incorreta')
       formikHelpers.setFieldError('email', 'E-mail incorreto')
+
+      addToast({
+        type: 'warning',
+        title: 'Erro no Login',
+        description: 'Usuário ou senha incorretos'
+      })
     }
   }
 

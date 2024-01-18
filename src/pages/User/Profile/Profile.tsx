@@ -49,7 +49,7 @@ export function UserProfile() {
               <Col xs={4}>
                 <DataDisplay
                   label="Nome"
-                  value={user ? user.firstName : ''}
+                  value={user ? user.userName : ''}
                   loading={!user}
                 />
               </Col>
@@ -57,7 +57,7 @@ export function UserProfile() {
               <Col xs={4}>
                 <DataDisplay
                   label="E-mail"
-                  value={user ? user.username : ''}
+                  value={user ? user.email : ''}
                   loading={!user}
                 />
               </Col>
@@ -74,7 +74,7 @@ export function UserProfile() {
             {user && (
               <Paragraph size="sm">
                 {`Última alteração em ${format(
-                  new Date(user.lastChangeDate),
+                  new Date(user.lastUpdateDate),
                   "dd 'de' MMMM 'de' yyyy",
                   {
                     locale: ptBR

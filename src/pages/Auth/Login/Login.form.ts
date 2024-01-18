@@ -8,8 +8,8 @@ export interface ILoginForm {
 }
 
 export const initialValuesSchema: ILoginForm = {
-  email: 'admin@sermed.com.br',
-  password: 'admin',
+  email: 'tmartins.pino@gmail.com',
+  password: '123456',
   keepConnected: true
 }
 

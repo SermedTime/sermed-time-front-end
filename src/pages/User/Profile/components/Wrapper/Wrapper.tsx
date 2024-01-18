@@ -6,14 +6,10 @@ import { Row, Col } from 'react-bootstrap'
 
 import { ROUTE_USER_CHANGE_PASSWORD } from '@/routes/Pages/User/User.paths'
 
-import { useAuthContext } from '@/contexts/Auth'
-
 import { Section } from '@/components/Core/Containers/Section'
 import { UserAvatar } from '@/components/Core/User/Avatar'
-import { Caption } from '@/components/Core/Typography/Caption'
-import { ButtonIcon } from '@/components/Core/Buttons/ButtonIcon'
 
-import { convertIsoDateToPtBr, convertIsoDateToTime } from '@/utils/date'
+import { ButtonIcon } from '@/components/Core/Buttons/ButtonIcon'
 
 import { Tooltip } from '@/components/Core/Tooltip'
 import * as S from './Wrapper.styles'
@@ -25,20 +21,12 @@ interface Props {
 export function Wrapper({ children }: Props) {
   const location = useLocation()
 
-  const { user } = useAuthContext()
-
   return (
     <S.Container>
       <S.Header>
         <S.Avatar>
           <UserAvatar size="lg" />
         </S.Avatar>
-
-        <S.LastAccess>
-          <Caption size="lg">{`Último Acesso em ${convertIsoDateToPtBr(
-            user?.lastAccessDate
-          )} às ${convertIsoDateToTime(user?.lastAccessDate)}`}</Caption>
-        </S.LastAccess>
       </S.Header>
 
       <Section>

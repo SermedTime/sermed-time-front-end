@@ -47,7 +47,7 @@ export function DropdownMenu() {
             <img src={AvatarImage} alt="Username" />
           </S.Avatar>
 
-          <S.Username>{user?.firstName}</S.Username>
+          <S.Username>{user?.socialName}</S.Username>
         </S.User>
 
         <Icon icon={isOpen ? 'keyboard_arrow_up' : 'keyboard_arrow_down'} />

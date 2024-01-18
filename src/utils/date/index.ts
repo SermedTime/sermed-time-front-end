@@ -14,7 +14,12 @@ export function convertIsoDateToPtBr(
 ): string {
   if (!date) return ''
 
-  return format(parseISO(date), time ? `dd/MM/yyyy 'às' HH:mm` : 'dd/MM/yyyy')
+  const dateWithoutTimezone = date.replace(/Z|([+-]\d{2}:\d{2})$/g, '')
+
+  return format(
+    parseISO(dateWithoutTimezone),
+    time ? `dd/MM/yyyy 'às' HH:mm` : 'dd/MM/yyyy'
+  )
 }
 
 export function convertIsoDateToTime(date: string | undefined | null): string {
