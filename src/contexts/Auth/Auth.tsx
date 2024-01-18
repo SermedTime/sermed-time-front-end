@@ -23,7 +23,6 @@ import { useLoaderContext } from '../Loader'
 interface Auth {
   expiresIn: number
   token: string
-  refreshToken: string
 }
 
 interface Roles {
@@ -108,8 +107,7 @@ function AuthContext({ children }: Props) {
           const user: UserAuth = {
             auth: {
               expiresIn: data.accessToken.expiresIn,
-              token: data.accessToken.token,
-              refreshToken: data.refreshToken
+              token: data.accessToken.token
             },
             userUuid: decryptToPayload(data.user.userUuid),
             userName: decryptToPayload(data.user.userName),
