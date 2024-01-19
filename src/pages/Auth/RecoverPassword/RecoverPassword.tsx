@@ -4,8 +4,6 @@ import { useNavigate } from 'react-router-dom'
 import { useLoaderContext } from '@/contexts/Loader'
 import { useToastContext } from '@/contexts/Toast'
 
-import { fakeRequest } from '@/services/api/sermed-api/sermed-api'
-
 import BackgroundImage from '@/assets/images/login-images/background.png'
 import Logo from '@/assets/images/login-images/logo.png'
 
@@ -19,6 +17,7 @@ import { ROUTE_LOGIN } from '@/routes/Pages/Auth/Auth.paths'
 import { TITLE_RECOVER_PASSWORD } from '@/constants/title.browser'
 
 import { Field, Form, Formik } from 'formik'
+import { post } from '@/services/api/sermed-api/sermed-api'
 import { SubmitButton } from '../components/SubmitButton'
 import { Input } from '../components/Input'
 
@@ -44,7 +43,7 @@ export function RecoverPassword() {
     try {
       showLoader()
 
-      const { data } = await fakeRequest(2000, formValues)
+      const { data } = await post('/password/recover_password', formValues)
 
       if (data) {
         navigate(ROUTE_LOGIN)

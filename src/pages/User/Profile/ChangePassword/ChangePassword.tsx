@@ -17,7 +17,7 @@ import { TITLE_USER_CHANGE_PASSWORD } from '@/constants/title.browser'
 import { ROUTE_HOME } from '@/routes/Pages/Pages.paths'
 import { ROUTE_USER_PROFILE } from '@/routes/Pages/User/User.paths'
 
-import { put } from '@/services/api/sermed-api/sermed-api'
+import { post } from '@/services/api/sermed-api/sermed-api'
 
 import { InputText } from '@/components/Core/Form/Fields/InputText'
 import { Button } from '@/components/Core/Buttons/Button'
@@ -78,7 +78,7 @@ export function UserChangePassword() {
         newPassword: formValues.newPassword
       }
 
-      const { data } = await put('/user/changepassword', params)
+      const { data } = await post('/password/change', params)
 
       if (data) {
         addToast({
