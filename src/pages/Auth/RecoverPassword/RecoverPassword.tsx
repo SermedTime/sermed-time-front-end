@@ -33,7 +33,7 @@ export function RecoverPassword() {
   const navigate = useNavigate()
 
   const { showLoader, hideLoader } = useLoaderContext()
-  const { handleApiRejection } = useToastContext()
+  const { handleApiRejection, addToast } = useToastContext()
 
   useEffect(() => {
     document.title = TITLE_RECOVER_PASSWORD
@@ -43,9 +43,15 @@ export function RecoverPassword() {
     try {
       showLoader()
 
-      const { data } = await post('/password/recover_password', formValues)
+      const { data } = await post('/password/recover', formValues)
 
       if (data) {
+        addToast({
+          type: 'success',
+          title: 'Sucesso',
+          description: 'Um e-mail foi enviado para você com as instruções!'
+        })
+
         navigate(ROUTE_LOGIN)
       }
     } catch {
@@ -64,7 +70,7 @@ export function RecoverPassword() {
         <S.LoginContainer>
           <S.FormBox>
             <Container>
-              <Row className="pb-xl-0 pb-xxl-5">
+              <Row className="pb-xl-0 pb-xxl-0">
                 <Col>
                   <img src={Logo} alt="Logo Sermed" />
                 </Col>
@@ -72,7 +78,7 @@ export function RecoverPassword() {
 
               <Row className="my-xl-3 my-xxl-5">
                 <Col className="pt-xl-3 pt-xxl-5">
-                  <Heading size="xl" className="mb-4">
+                  <Heading size="xl" className="mb-2">
                     <p>Recuperar</p>
                     <p>Senha</p>
                   </Heading>

@@ -16,6 +16,7 @@ export const validationSchema = Yup.object().shape({
   currentPassword: Yup.string().required('Campo obrigatório'),
   newPassword: Yup.string()
     .required('Campo obrigatório')
+    .min(8, 'A senha deve ter no mínimo 8 caracteres')
     .test('areEqual', 'A nova senha deve ser diferente', function () {
       return this.parent.currentPassword !== this.parent.newPassword
     }),

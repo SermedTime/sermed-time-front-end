@@ -5,7 +5,7 @@ import styled, { css } from 'styled-components'
 import { rgba } from 'polished'
 
 export const MainContainer = styled.div`
-  background-image: linear-gradient(140deg, #f6fbff 20%, #c2c7f9 50%);
+  background-image: linear-gradient(321.77deg, #e3e0ff 74.96%, #ffffff 114.96%);
   width: 100%;
   height: 100vh;
   display: flex;
@@ -13,7 +13,7 @@ export const MainContainer = styled.div`
 `
 
 export const Wrapper = styled.div`
-  height: 100vh;
+  height: 100%;
   width: 60%;
 
   display: flex;
@@ -27,7 +27,7 @@ export const Wrapper = styled.div`
 `
 
 export const LoginContainer = styled.div`
-  height: 100vh;
+  height: 100%;
   width: 40%;
 
   display: flex;
@@ -45,8 +45,8 @@ export const FormBox = styled.div`
     border-radius: 3rem;
 
     height: 90%;
-    width: 600px;
-    padding: 50px 72px;
+    width: 37.5rem;
+    padding: 3.125rem 4.5rem;
 
     img {
       height: 8rem;
@@ -55,11 +55,11 @@ export const FormBox = styled.div`
     }
 
     @media (max-width: 1366px) {
-      width: 600px;
-      padding: 24px 96px;
+      width: 37.5rem;
+      padding: 1.5rem 6rem;
 
       img {
-        height: 48px;
+        height: 3rem;
       }
     }
   `}
