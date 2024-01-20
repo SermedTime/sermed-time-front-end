@@ -19,7 +19,10 @@ import { Checkbox } from '@/components/Core/Form/Fields/Checkbox'
 import { TITLE_LOGIN } from '@/constants/title.browser'
 
 import { ROUTE_HOME } from '@/routes/Pages/Pages.paths'
-import { ROUTE_RECOVER_PASSWORD } from '@/routes/Pages/Auth/Auth.paths'
+import {
+  ROUTE_FIRST_LOGIN,
+  ROUTE_RECOVER_PASSWORD
+} from '@/routes/Pages/Auth/Auth.paths'
 import { useToastContext } from '@/contexts/Toast'
 import { SubmitButton } from '../components/SubmitButton'
 import { Input } from '../components/Input'
@@ -52,18 +55,20 @@ export function Login() {
     formValues: ILoginForm,
     formikHelpers: FormikHelpers<ILoginForm>
   ) {
-    const authenticated = await signIn({
+    const user = await signIn({
       username: formValues.email,
       password: formValues.password
     })
 
-    if (authenticated) {
+    if (user?.firstLogin) {
+      navigate(ROUTE_FIRST_LOGIN)
+    } else if (user?.authenticated) {
       navigate(
         searchParams.get('redirect')
           ? String(searchParams.get('redirect'))
           : ROUTE_HOME
       )
-    } else if (!authenticated) {
+    } else if (!user || !user.authenticated) {
       formikHelpers.setFieldError('password', 'Senha incorreta')
       formikHelpers.setFieldError('email', 'E-mail incorreto')
 

@@ -53,10 +53,15 @@ interface UserCredentials {
   password: string
 }
 
+interface authResponse {
+  authenticated: boolean
+  firstLogin?: boolean
+}
+
 interface AuthContextData {
   loaded: boolean
   user: UserAuth | null
-  signIn: (credentials: UserCredentials) => Promise<boolean | undefined>
+  signIn: (credentials: UserCredentials) => Promise<authResponse | undefined>
   signOut: () => void
 }
 
@@ -85,7 +90,7 @@ function AuthContext({ children }: Props) {
   }, [])
 
   const signIn = useCallback(
-    async (credentials: UserCredentials): Promise<boolean | undefined> => {
+    async (credentials: UserCredentials): Promise<authResponse | undefined> => {
       try {
         showLoader()
 
@@ -128,10 +133,10 @@ function AuthContext({ children }: Props) {
           setUser(user)
           setLocalStorageItem('Sermed@time:user', user)
 
-          return true
+          return { authenticated: true, firstLogin: user.sysPassword }
         }
 
-        return false
+        return { authenticated: false }
       } catch {
         return undefined
       } finally {

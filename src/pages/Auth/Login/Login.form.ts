@@ -9,7 +9,7 @@ export interface ILoginForm {
 
 export const initialValuesSchema: ILoginForm = {
   email: 'tmartins.pino@gmail.com',
-  password: '123456',
+  password: '12345678',
   keepConnected: true
 }
 

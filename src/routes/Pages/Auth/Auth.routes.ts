@@ -2,12 +2,11 @@ import { lazy } from 'react'
 
 import { IRouteProps } from '@/routes/routes.interface'
 import {
+  ROUTE_FIRST_LOGIN,
   ROUTE_LOGIN,
   ROUTE_RECOVER_PASSWORD,
   ROUTE_RESET_PASSWORD
 } from './Auth.paths'
-
-// import { ROUTE_LOGIN, ROUTE_RECOVER_PASSWORD } from './Auth.paths'
 
 const Login = lazy(() =>
   import('@/pages/Auth/Login').then(module => ({
@@ -27,6 +26,12 @@ const ResetPassword = lazy(() =>
   }))
 )
 
+const FirstLogin = lazy(() =>
+  import('@/pages/Auth/FirstLogin').then(module => ({
+    default: module.FirstLogin
+  }))
+)
+
 export const authRoutes: IRouteProps[] = [
   {
     path: ROUTE_LOGIN,
@@ -39,5 +44,10 @@ export const authRoutes: IRouteProps[] = [
   {
     path: ROUTE_RESET_PASSWORD,
     component: ResetPassword
+  },
+  {
+    path: ROUTE_FIRST_LOGIN,
+    component: FirstLogin,
+    isPrivate: true
   }
 ]
