@@ -14,12 +14,16 @@ import { IAssignTeamForm, validationSchema } from './AssignTeam.form'
 
 interface Props {
   initialValues: IAssignTeamForm | null
-
+  user_id: string
   onSubmit: (formValues: IAssignTeamForm) => void
 }
 
-export function AssignTeamRegisterForm({ initialValues, onSubmit }: Props) {
-  const { teams } = useTeamDropdown({ uuid: initialValues?.user })
+export function AssignTeamRegisterForm({
+  initialValues,
+  onSubmit,
+  user_id
+}: Props) {
+  const { teams } = useTeamDropdown({ uuid: user_id })
 
   if (!initialValues) {
     return (
@@ -57,15 +61,17 @@ export function AssignTeamRegisterForm({ initialValues, onSubmit }: Props) {
             <Col xl={10}>
               <Field
                 as={Select}
-                name="team"
+                name="team_id"
                 placeholder="Selecione uma Equipe"
-                value={values.team}
+                value={values.team_id}
                 options={teams}
-                error={touched.team && !!errors.team}
-                helperText={touched.team && !!errors.team ? errors.team : ''}
+                error={touched.team_id && !!errors.team_id}
+                helperText={
+                  touched.team_id && !!errors.team_id ? errors.team_id : ''
+                }
                 onChange={({ value }: IOption) => {
-                  setFieldTouched('team')
-                  setFieldValue('team', value)
+                  setFieldTouched('team_id')
+                  setFieldValue('team_id', value)
                 }}
               />
             </Col>
@@ -86,15 +92,15 @@ export function AssignTeamRegisterForm({ initialValues, onSubmit }: Props) {
               <Field
                 as={Checkbox}
                 description="Supervisor"
-                name="isSupervisor"
-                checked={values?.isSupervisor === true}
+                name="is_supervisor"
+                checked={values.is_supervisor === 'active'}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                   const { checked } = e.target
 
                   if (checked) {
-                    setFieldValue('isSupervisor', true)
+                    setFieldValue('is_supervisor', 'active')
                   } else {
-                    setFieldValue('isSupervisor', false)
+                    setFieldValue('is_supervisor', 'inactive')
                   }
                 }}
               />

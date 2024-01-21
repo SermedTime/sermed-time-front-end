@@ -317,7 +317,6 @@ export function ListUsers() {
         uuid={addTeamRecord}
         onClose={hasChanges => {
           setAddTeamRecord('')
-
           hasChanges && refetch()
         }}
       />

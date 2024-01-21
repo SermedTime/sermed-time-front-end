@@ -25,6 +25,7 @@ export function AssignTeam({ uuid, onClose }: Props) {
   const { addToast, handleApiRejection } = useToastContext()
 
   const [showModal, setShowModal] = useState(false)
+  const [refreshKey, setRefreshKey] = useState(0)
 
   useEffect(() => {
     if (uuid) {
@@ -42,17 +43,24 @@ export function AssignTeam({ uuid, onClose }: Props) {
     try {
       showLoader()
 
+      const params = {
+        user_id: uuid,
+        ...formValues
+      }
+
       const { data, message } = await post(
-        `/parametrizations/users/team/${formValues.user}`,
-        formValues
+        `/parametrizations/users/team`,
+        params
       )
 
       if (data) {
         addToast({
           type: 'success',
           title: 'Sucesso',
-          description: 'O cadastro do Usuário foi editado.'
+          description: 'A equipe foi atribuida ao usuário.'
         })
+
+        setRefreshKey(oldKey => oldKey + 1)
       }
 
       if (message) {
@@ -70,7 +78,11 @@ export function AssignTeam({ uuid, onClose }: Props) {
   }
 
   return (
-    <Modal visible={showModal} onClose={() => handleOnCancel()}>
+    <Modal
+      key={refreshKey}
+      visible={showModal}
+      onClose={() => handleOnCancel()}
+    >
       <Row className="align-items-center mb-4">
         <Col xs="auto">
           <div className="d-flex align-items-center gap-2">
@@ -84,7 +96,11 @@ export function AssignTeam({ uuid, onClose }: Props) {
       <Row className="mb-4">
         <Col>
           <AssignTeamRegisterForm
-            initialValues={{ isSupervisor: false, team: '', user: uuid }}
+            initialValues={{
+              is_supervisor: 'inactive',
+              team_id: ''
+            }}
+            user_id={uuid}
             onSubmit={values => {
               handleOnSubmit(values)
             }}

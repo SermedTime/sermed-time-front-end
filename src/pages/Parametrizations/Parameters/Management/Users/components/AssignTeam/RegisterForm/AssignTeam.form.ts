@@ -1,13 +1,11 @@
 import * as Yup from 'yup'
 
 export interface IAssignTeamForm {
-  team: string
-  user: string
-  isSupervisor: boolean
+  team_id: string
+  is_supervisor: 'active' | 'inactive'
 }
 
 export const validationSchema = Yup.object().shape({
-  team: Yup.string().required('Campo é obrigatório'),
-  isSupervisor: Yup.boolean().required('Campo é obrigatório'),
-  user: Yup.string().required('Campo é obrigatório')
+  team_id: Yup.string().required('Campo é obrigatório'),
+  is_supervisor: Yup.mixed().oneOf(['active', 'inactive']).required()
 })
