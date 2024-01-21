@@ -2,7 +2,6 @@ import { Col, Row } from 'react-bootstrap'
 
 import { Field, Form, Formik } from 'formik'
 
-import { useAlertContext } from '@/contexts/Alert'
 import { useTeamDropdown } from '@/hooks/services/Rules/Dropdown/useTeams'
 
 import { Skeleton } from '@/components/Core/Skeleton'
@@ -15,28 +14,12 @@ import { IAssignTeamForm, validationSchema } from './AssignTeam.form'
 
 interface Props {
   initialValues: IAssignTeamForm | null
-  onCancel: (hasChanges?: boolean) => void
+
   onSubmit: (formValues: IAssignTeamForm) => void
 }
 
-export function AssignTeamRegisterForm({
-  initialValues,
-  onCancel,
-  onSubmit
-}: Props) {
-  const { addAlertOnCancel } = useAlertContext()
-
+export function AssignTeamRegisterForm({ initialValues, onSubmit }: Props) {
   const { teams } = useTeamDropdown()
-
-  function handleOnCancel(hasChanges: boolean) {
-    if (!hasChanges) {
-      onCancel(false)
-    } else {
-      addAlertOnCancel(() => {
-        onCancel(false)
-      })
-    }
-  }
 
   if (!initialValues) {
     return (
@@ -115,22 +98,6 @@ export function AssignTeamRegisterForm({
                   }
                 }}
               />
-            </Col>
-          </Row>
-
-          <Row className="justify-content-end">
-            <Col xs="auto">
-              <Row>
-                <Col xs="auto">
-                  <Button
-                    type="button"
-                    styles="tertiary"
-                    onClick={() => handleOnCancel(dirty)}
-                  >
-                    Cancelar
-                  </Button>
-                </Col>
-              </Row>
             </Col>
           </Row>
         </Form>

@@ -10,8 +10,10 @@ import { Subtitle } from '@/components/Core/Typography/Subtitle'
 
 import { get, post } from '@/services/api/sermed-api/sermed-api'
 
+import { Button } from '@/components/Core/Buttons/Button'
 import { IAssignTeamForm } from './RegisterForm/AssignTeam.form'
 import { AssignTeamRegisterForm } from './RegisterForm'
+import { ListTeams } from './components/List'
 
 interface Props {
   uuid: string
@@ -115,17 +117,37 @@ export function AssignTeam({ uuid, onClose }: Props) {
         </Col>
       </Row>
 
-      <Row>
+      <Row className="mb-4">
         <Col>
           <AssignTeamRegisterForm
             // initialValues={initialValues}
             initialValues={{ isSupervisor: false, team: '', user: 'teste' }}
-            onCancel={() => handleOnCancel()}
             onSubmit={values => {
-              console.log(values)
               handleOnSubmit(values)
             }}
           />
+        </Col>
+      </Row>
+
+      <Row className="mb-4">
+        <Col>
+          <ListTeams uuid={uuid} />
+        </Col>
+      </Row>
+
+      <Row className="justify-content-end">
+        <Col xs="auto">
+          <Row>
+            <Col xs="auto">
+              <Button
+                type="button"
+                styles="tertiary"
+                onClick={() => handleOnCancel()}
+              >
+                Cancelar
+              </Button>
+            </Col>
+          </Row>
         </Col>
       </Row>
     </Modal>
