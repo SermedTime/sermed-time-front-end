@@ -19,7 +19,7 @@ interface Props {
 }
 
 export function AssignTeamRegisterForm({ initialValues, onSubmit }: Props) {
-  const { teams } = useTeamDropdown()
+  const { teams } = useTeamDropdown({ uuid: initialValues?.user })
 
   if (!initialValues) {
     return (

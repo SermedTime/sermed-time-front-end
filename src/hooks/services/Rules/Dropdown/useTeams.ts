@@ -9,18 +9,26 @@ interface ITeamDropdown {
   description: string
 }
 
-export function useTeamDropdown(allData?: string) {
+interface props {
+  allData?: string
+  uuid?: string
+}
+
+export function useTeamDropdown({ allData, uuid }: props) {
   const [teams, setTeams] = useState<IOption[] | null>(null)
 
-  const fetchData = useCallback(async (allData?: string) => {
+  const fetchData = useCallback(async (allData?: string, uuid?: string) => {
     try {
       setTeams(null)
 
-      const params = allData ? { allData } : {}
+      const params = {
+        allData,
+        user_id: uuid
+      }
 
       const {
         data: { data }
-      } = await get('/dropdown/team', { params })
+      } = await get('/dropdown/team', { ...params })
 
       const teams = data.map((item: ITeamDropdown) => {
         return {
@@ -36,8 +44,8 @@ export function useTeamDropdown(allData?: string) {
   }, [])
 
   useEffect(() => {
-    fetchData(allData)
-  }, [allData, fetchData])
+    fetchData(allData, uuid)
+  }, [allData, uuid, fetchData])
 
   return { teams }
 }

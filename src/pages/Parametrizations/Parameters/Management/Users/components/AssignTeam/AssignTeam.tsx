@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { useLoaderContext } from '@/contexts/Loader'
 import { useToastContext } from '@/contexts/Toast'
@@ -8,7 +8,7 @@ import { Modal } from '@/components/Core/Modal'
 import { Icon } from '@/components/Core/Icons/Icon'
 import { Subtitle } from '@/components/Core/Typography/Subtitle'
 
-import { get, post } from '@/services/api/sermed-api/sermed-api'
+import { post } from '@/services/api/sermed-api/sermed-api'
 
 import { Button } from '@/components/Core/Buttons/Button'
 import { IAssignTeamForm } from './RegisterForm/AssignTeam.form'
@@ -26,44 +26,14 @@ export function AssignTeam({ uuid, onClose }: Props) {
 
   const [showModal, setShowModal] = useState(false)
 
-  const [initialValues, setInitialValues] = useState<IAssignTeamForm | null>(
-    null
-  )
-
-  const fetchData = useCallback(
-    async (uuid: string) => {
-      try {
-        const {
-          data: { data }
-        } = await get(`parametrizations/users/team/${uuid}`)
-
-        const { user, team, isSupervisor } = data
-
-        setInitialValues({
-          user,
-          team,
-          isSupervisor
-        })
-      } catch {
-        handleApiRejection()
-        onClose(false)
-      }
-    },
-    [handleApiRejection, onClose]
-  )
-
   useEffect(() => {
-    if (initialValues === null && uuid) {
+    if (uuid) {
       setShowModal(true)
-
-      fetchData(uuid)
     }
-  }, [initialValues, uuid, fetchData])
+  }, [uuid])
 
   function handleOnCancel() {
     setShowModal(false)
-
-    setInitialValues(null)
 
     onClose(false)
   }
@@ -73,7 +43,7 @@ export function AssignTeam({ uuid, onClose }: Props) {
       showLoader()
 
       const { data, message } = await post(
-        `parametrizations/users/team/${formValues.user}`,
+        `/parametrizations/users/team/${formValues.user}`,
         formValues
       )
 
@@ -83,12 +53,6 @@ export function AssignTeam({ uuid, onClose }: Props) {
           title: 'Sucesso',
           description: 'O cadastro do Usuário foi editado.'
         })
-
-        setShowModal(false)
-
-        setInitialValues(null)
-
-        onClose(true)
       }
 
       if (message) {
@@ -120,8 +84,7 @@ export function AssignTeam({ uuid, onClose }: Props) {
       <Row className="mb-4">
         <Col>
           <AssignTeamRegisterForm
-            // initialValues={initialValues}
-            initialValues={{ isSupervisor: false, team: '', user: 'teste' }}
+            initialValues={{ isSupervisor: false, team: '', user: uuid }}
             onSubmit={values => {
               handleOnSubmit(values)
             }}
