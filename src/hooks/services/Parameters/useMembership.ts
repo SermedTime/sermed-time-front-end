@@ -34,7 +34,7 @@ export function useMembership({ uuid }: props) {
         }
 
         const { data } = await get(
-          `/parametrizations/users/membership/${uuid}`,
+          `/parametrizations/assign-teams/${uuid}`,
           queryParams
         )
 

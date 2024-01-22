@@ -24,7 +24,7 @@ export function MembershipTable({ data, onRefetch }: Props) {
     try {
       showLoader()
 
-      const { data } = await put(`/parametrizations/users/membership/${uuid}`, {
+      const { data } = await put(`/parametrizations/assign-teams/${uuid}`, {
         is_supervisor: 'active'
       })
 
@@ -48,7 +48,7 @@ export function MembershipTable({ data, onRefetch }: Props) {
     try {
       showLoader()
 
-      const { data } = await put(`/parametrizations/users/membership/${uuid}`, {
+      const { data } = await put(`/parametrizations/assign-teams/${uuid}`, {
         is_supervisor: 'inactive'
       })
 
@@ -72,7 +72,7 @@ export function MembershipTable({ data, onRefetch }: Props) {
     try {
       showLoader()
 
-      const { data } = await del(`/parametrizations/users/membership/${uuid}`)
+      const { data } = await del(`/parametrizations/assign-teams/${uuid}`)
 
       if (data) {
         onRefetch()

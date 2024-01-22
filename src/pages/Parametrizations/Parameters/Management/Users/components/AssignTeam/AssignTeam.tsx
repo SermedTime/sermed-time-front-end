@@ -51,7 +51,7 @@ export function AssignTeam({ uuid, onClose, user_name }: Props) {
       }
 
       const { data, message } = await post(
-        `/parametrizations/users/membership`,
+        `/parametrizations/assign-teams`,
         params
       )
 
