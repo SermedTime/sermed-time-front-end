@@ -4,12 +4,12 @@ import { useToastContext } from '@/contexts/Toast'
 import { convertIsoDateToPtBr } from '@/utils/date'
 import { put, del } from '@/services/api/sermed-api/sermed-api'
 
+import { Tooltip } from '@/components/Core/Tooltip'
 import { ButtonIcon } from '@/components/Core/Buttons/ButtonIcon'
 import { Paragraph } from '@/components/Core/Typography/Paragraph'
 import { Td, Tr } from '@/components/Core/Table'
 
 import { IMembership } from '@/hooks/services/Parameters/useMembership'
-import { Tooltip } from '@/components/Core/Tooltip'
 
 interface Props {
   data: IMembership
@@ -93,18 +93,18 @@ export function MembershipTable({ data, onRefetch }: Props) {
   return (
     <Tr>
       <Td>
-        <Paragraph size="sm">{data.team}</Paragraph>
+        <Paragraph size="sm">{data.team_name}</Paragraph>
       </Td>
 
       <Td>
         <Paragraph size="sm">{convertIsoDateToPtBr(data.created_at)}</Paragraph>
       </Td>
 
-      <Td showOnHover={true}>
+      <Td>
         <div className="d-flex justify-content-center">
           <Tooltip
             title={
-              data.isSupervisor === 'active'
+              data.is_supervisor === 'active'
                 ? 'Revogar Supervisão'
                 : 'Tornar Supervisor'
             }
@@ -112,14 +112,14 @@ export function MembershipTable({ data, onRefetch }: Props) {
           >
             <ButtonIcon
               appearance={`${
-                data.isSupervisor === 'active' ? 'filled' : 'outlined'
+                data.is_supervisor === 'active' ? 'filled' : 'outlined'
               }`}
               size="sm"
               icon={`${
-                data.isSupervisor === 'active' ? 'toggle_on' : 'toggle_off'
+                data.is_supervisor === 'active' ? 'toggle_on' : 'toggle_off'
               }`}
               onClick={() => {
-                data.isSupervisor === 'active'
+                data.is_supervisor === 'active'
                   ? handleOnUndoSupervisor(data.uuid)
                   : handleOnBecomeSupervisor(data.uuid)
               }}

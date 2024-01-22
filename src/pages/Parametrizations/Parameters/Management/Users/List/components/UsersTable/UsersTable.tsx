@@ -105,7 +105,7 @@ export function UsersTable({ data, onEdit, onRefetch, onAddTeam }: Props) {
             <ButtonIcon size="sm" icon="edit" onClick={() => onEdit()} />
           </Tooltip>
 
-          <Tooltip title="Atribuir Equipe" place="top">
+          <Tooltip title="Atribuir Equipe" place="top-start">
             <ButtonIcon
               size="sm"
               icon="group_add"

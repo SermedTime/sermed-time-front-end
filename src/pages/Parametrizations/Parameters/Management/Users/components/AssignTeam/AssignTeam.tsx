@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { v4 as uuidv4 } from 'uuid'
 
 import { useLoaderContext } from '@/contexts/Loader'
 import { useToastContext } from '@/contexts/Toast'
@@ -25,7 +26,7 @@ export function AssignTeam({ uuid, onClose }: Props) {
   const { addToast, handleApiRejection } = useToastContext()
 
   const [showModal, setShowModal] = useState(false)
-  const [refreshKey, setRefreshKey] = useState(0)
+  const [refreshKey, setRefreshKey] = useState<string>(uuidv4())
 
   useEffect(() => {
     if (uuid) {
@@ -49,7 +50,7 @@ export function AssignTeam({ uuid, onClose }: Props) {
       }
 
       const { data, message } = await post(
-        `/parametrizations/users/team`,
+        `/parametrizations/users/membership`,
         params
       )
 
@@ -60,7 +61,7 @@ export function AssignTeam({ uuid, onClose }: Props) {
           description: 'A equipe foi atribuida ao usuário.'
         })
 
-        setRefreshKey(oldKey => oldKey + 1)
+        setRefreshKey(uuidv4())
       }
 
       if (message) {

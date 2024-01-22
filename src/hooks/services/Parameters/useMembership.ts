@@ -5,9 +5,10 @@ import { get } from '@/services/api/sermed-api/sermed-api'
 
 export interface IMembership {
   uuid: string
-  team: string
+  team_name: string
+  team_id: string
+  is_supervisor: string
   created_at: string
-  isSupervisor: string
 }
 
 interface props {
@@ -25,8 +26,6 @@ export function useMembership({ uuid }: props) {
         setResult(null)
 
         const queryParams = {
-          search: params?.search,
-          searchingBy: params?.searchingBy,
           records: params?.records,
           isSupervisor: params?.isSupervisor,
           order: params?.order,

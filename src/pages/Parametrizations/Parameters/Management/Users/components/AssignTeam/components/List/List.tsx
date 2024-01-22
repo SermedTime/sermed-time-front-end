@@ -122,7 +122,7 @@ export function ListTeams({ uuid }: props) {
                       </Th>
 
                       <Th>
-                        <Heading size="xs">Ações</Heading>
+                        <div style={{ height: '2.5rem', width: '2.5rem' }} />
                       </Th>
                     </Tr>
                   </Thead>
