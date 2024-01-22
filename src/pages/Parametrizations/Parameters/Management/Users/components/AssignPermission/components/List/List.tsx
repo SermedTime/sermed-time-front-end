@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import { useSearchParams } from 'react-router-dom'
 
-import { useMembership } from '@/hooks/services/Parameters/useMembership'
+import { useUserPermissions } from '@/hooks/services/Parameters/useUserPermissions'
 
 import { Section } from '@/components/Core/Containers/Section'
 import { Table, Tbody, Th, Thead, Tr } from '@/components/Core/Table'
@@ -13,17 +13,16 @@ import { Pagination } from '@/components/Core/Pagination'
 import { Skeleton } from '@/components/Core/Skeleton'
 
 import { IOrder } from '@/components/Core/Table/Order/Order.interface'
-
-import { MembershipTable } from './components/MembershipTable'
+import { PesmissionsTable } from './Components/PermissionsTable'
 
 interface props {
   uuid: string
 }
 
-export function ListTeams({ uuid }: props) {
+export function ListPermissions({ uuid }: props) {
   const [searchParams, setSearchParams] = useSearchParams()
 
-  const { result, params, refetch, setParams } = useMembership({ uuid })
+  const { result, params, refetch, setParams } = useUserPermissions({ uuid })
 
   const [loaded, setLoaded] = useState(false)
 
@@ -97,7 +96,7 @@ export function ListTeams({ uuid }: props) {
                     <Tr>
                       <Th>
                         <div style={{ width: '14rem' }}>
-                          <Heading size="xs">Equipe</Heading>
+                          <Heading size="xs">Permissão</Heading>
                         </div>
                       </Th>
 
@@ -125,7 +124,7 @@ export function ListTeams({ uuid }: props) {
                     {result ? (
                       result.data.length > 0 ? (
                         result.data.map(item => (
-                          <MembershipTable
+                          <PesmissionsTable
                             key={item.uuid}
                             data={item}
                             onRefetch={() => refetch()}

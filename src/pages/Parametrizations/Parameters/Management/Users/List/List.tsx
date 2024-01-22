@@ -38,6 +38,7 @@ import { ParametersFilterForm } from '../../../components/FilterForm/FilterForm'
 import { UsersTable } from './components/UsersTable'
 import { EditUser } from '../Edit'
 import { AssignTeam } from '../components/AssignTeam'
+import { AssignPermission } from '../components/AssignPermission'
 
 export function ListUsers() {
   const navigate = useNavigate()
@@ -51,7 +52,14 @@ export function ListUsers() {
 
   const [loaded, setLoaded] = useState(false)
   const [editingRecord, setEditingRecord] = useState('')
-  const [addTeamRecord, setAddTeamRecord] = useState('')
+  const [addTeamRecord, setAddTeamRecord] = useState({
+    user_name: '',
+    uuid: ''
+  })
+  const [addPermissionRecord, setAddPermissionRecord] = useState({
+    user_name: '',
+    uuid: ''
+  })
 
   const SEARCH_OPTIONS: IOption[] = [
     {
@@ -251,7 +259,18 @@ export function ListUsers() {
                               key={item.uuid}
                               data={item}
                               onEdit={() => setEditingRecord(item.uuid)}
-                              onAddTeam={() => setAddTeamRecord(item.uuid)}
+                              onAddTeam={() =>
+                                setAddTeamRecord({
+                                  user_name: item.name,
+                                  uuid: item.uuid
+                                })
+                              }
+                              onAddPermission={() =>
+                                setAddPermissionRecord({
+                                  user_name: item.name,
+                                  uuid: item.uuid
+                                })
+                              }
                               onRefetch={() => refetch()}
                             />
                           ))
@@ -314,9 +333,25 @@ export function ListUsers() {
       />
 
       <AssignTeam
-        uuid={addTeamRecord}
+        uuid={addTeamRecord.uuid}
+        user_name={addTeamRecord.user_name}
         onClose={hasChanges => {
-          setAddTeamRecord('')
+          setAddTeamRecord({
+            user_name: '',
+            uuid: ''
+          })
+          hasChanges && refetch()
+        }}
+      />
+
+      <AssignPermission
+        uuid={addPermissionRecord.uuid}
+        user_name={addPermissionRecord.user_name}
+        onClose={hasChanges => {
+          setAddPermissionRecord({
+            user_name: '',
+            uuid: ''
+          })
           hasChanges && refetch()
         }}
       />

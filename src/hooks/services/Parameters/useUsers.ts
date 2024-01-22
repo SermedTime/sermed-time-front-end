@@ -8,6 +8,7 @@ export interface IUsers {
   name: string
   created_at: string
   status: string
+  resignation_date: string
 }
 
 export function useUsers() {

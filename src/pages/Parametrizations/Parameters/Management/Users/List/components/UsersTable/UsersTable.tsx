@@ -17,10 +17,17 @@ interface Props {
   data: IUsers
   onEdit: () => void
   onAddTeam: () => void
+  onAddPermission: () => void
   onRefetch: () => void
 }
 
-export function UsersTable({ data, onEdit, onRefetch, onAddTeam }: Props) {
+export function UsersTable({
+  data,
+  onEdit,
+  onRefetch,
+  onAddTeam,
+  onAddPermission
+}: Props) {
   const { showLoader, hideLoader } = useLoaderContext()
   const { addToast, handleApiRejection } = useToastContext()
 
@@ -107,9 +114,19 @@ export function UsersTable({ data, onEdit, onRefetch, onAddTeam }: Props) {
 
           <Tooltip title="Atribuir Equipe" place="top-start">
             <ButtonIcon
+              disabled={data.resignation_date !== null}
               size="sm"
               icon="group_add"
               onClick={() => onAddTeam()}
+            />
+          </Tooltip>
+
+          <Tooltip title="Atribuir Permissões" place="top-start">
+            <ButtonIcon
+              disabled={data.resignation_date !== null}
+              size="sm"
+              icon="admin_panel_settings"
+              onClick={() => onAddPermission()}
             />
           </Tooltip>
         </div>

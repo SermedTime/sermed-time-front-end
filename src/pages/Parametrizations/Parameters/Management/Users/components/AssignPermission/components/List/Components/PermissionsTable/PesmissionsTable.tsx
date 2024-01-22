@@ -9,24 +9,27 @@ import { ButtonIcon } from '@/components/Core/Buttons/ButtonIcon'
 import { Paragraph } from '@/components/Core/Typography/Paragraph'
 import { Td, Tr } from '@/components/Core/Table'
 
-import { IMembership } from '@/hooks/services/Parameters/useMembership'
+import { IUserPermissions } from '@/hooks/services/Parameters/useUserPermissions'
 
 interface Props {
-  data: IMembership
+  data: IUserPermissions
   onRefetch: () => void
 }
 
-export function MembershipTable({ data, onRefetch }: Props) {
+export function PesmissionsTable({ data, onRefetch }: Props) {
   const { showLoader, hideLoader } = useLoaderContext()
   const { addToast, handleApiRejection } = useToastContext()
 
-  async function handleOnBecomeSupervisor(uuid: string) {
+  async function handleOnBecomeWriter(uuid: string) {
     try {
       showLoader()
 
-      const { data } = await put(`/parametrizations/users/membership/${uuid}`, {
-        is_supervisor: 'active'
-      })
+      const { data } = await put(
+        `/parametrizations/users/permissions/${uuid}`,
+        {
+          is_writer: 'active'
+        }
+      )
 
       if (data) {
         onRefetch()
@@ -34,7 +37,7 @@ export function MembershipTable({ data, onRefetch }: Props) {
         addToast({
           type: 'success',
           title: 'Sucesso!',
-          description: 'O usuário agora é um supervisor desta equipe!'
+          description: 'O usuário agora tem permissão de escrita!'
         })
       }
     } catch {
@@ -44,13 +47,16 @@ export function MembershipTable({ data, onRefetch }: Props) {
     }
   }
 
-  async function handleOnUndoSupervisor(uuid: string) {
+  async function handleOnUndoWriter(uuid: string) {
     try {
       showLoader()
 
-      const { data } = await put(`/parametrizations/users/membership/${uuid}`, {
-        is_supervisor: 'inactive'
-      })
+      const { data } = await put(
+        `/parametrizations/users/permissions/${uuid}`,
+        {
+          is_writer: 'inactive'
+        }
+      )
 
       if (data) {
         onRefetch()
@@ -58,7 +64,7 @@ export function MembershipTable({ data, onRefetch }: Props) {
         addToast({
           type: 'success',
           title: 'Sucesso!',
-          description: 'O usuário não é mais supervisor desta equipe!'
+          description: 'O usuário não tem mais permissão de escrita!'
         })
       }
     } catch {
@@ -68,11 +74,11 @@ export function MembershipTable({ data, onRefetch }: Props) {
     }
   }
 
-  async function handleOnDeleteTeam(uuid: string) {
+  async function handleOnDeletePermission(uuid: string) {
     try {
       showLoader()
 
-      const { data } = await del(`/parametrizations/users/membership/${uuid}`)
+      const { data } = await del(`/parametrizations/users/permissions/${uuid}`)
 
       if (data) {
         onRefetch()
@@ -80,7 +86,7 @@ export function MembershipTable({ data, onRefetch }: Props) {
         addToast({
           type: 'success',
           title: 'Sucesso!',
-          description: 'Equipe removida com sucesso!'
+          description: 'Permissão removida!'
         })
       }
     } catch {
@@ -93,7 +99,7 @@ export function MembershipTable({ data, onRefetch }: Props) {
   return (
     <Tr>
       <Td>
-        <Paragraph size="sm">{data.team_name}</Paragraph>
+        <Paragraph size="sm">{data.permission_name}</Paragraph>
       </Td>
 
       <Td>
@@ -104,24 +110,24 @@ export function MembershipTable({ data, onRefetch }: Props) {
         <div className="d-flex justify-content-center">
           <Tooltip
             title={
-              data.is_supervisor === 'active'
-                ? 'Revogar Supervisão'
-                : 'Tornar Supervisor'
+              data.is_writer === 'active'
+                ? 'Revogar permissão de escrita'
+                : 'Incluir permissão de escrita'
             }
             place="top"
           >
             <ButtonIcon
               appearance={`${
-                data.is_supervisor === 'active' ? 'filled' : 'outlined'
+                data.is_writer === 'active' ? 'filled' : 'outlined'
               }`}
               size="sm"
               icon={`${
-                data.is_supervisor === 'active' ? 'toggle_on' : 'toggle_off'
+                data.is_writer === 'active' ? 'toggle_on' : 'toggle_off'
               }`}
               onClick={() => {
-                data.is_supervisor === 'active'
-                  ? handleOnUndoSupervisor(data.uuid)
-                  : handleOnBecomeSupervisor(data.uuid)
+                data.is_writer === 'active'
+                  ? handleOnUndoWriter(data.uuid)
+                  : handleOnBecomeWriter(data.uuid)
               }}
             />
           </Tooltip>
@@ -130,7 +136,7 @@ export function MembershipTable({ data, onRefetch }: Props) {
             <ButtonIcon
               size="sm"
               icon="group_remove"
-              onClick={() => handleOnDeleteTeam(data.uuid)}
+              onClick={() => handleOnDeletePermission(data.uuid)}
             />
           </Tooltip>
         </div>

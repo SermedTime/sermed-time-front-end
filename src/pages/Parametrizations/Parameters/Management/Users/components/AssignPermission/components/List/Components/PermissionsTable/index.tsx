@@ -1,0 +1,1 @@
+export { PesmissionsTable } from './PesmissionsTable'

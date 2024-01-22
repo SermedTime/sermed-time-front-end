@@ -1,0 +1,1 @@
+export { AssignPermission } from './AssignPermission'

@@ -12,9 +12,9 @@ import { Subtitle } from '@/components/Core/Typography/Subtitle'
 import { post } from '@/services/api/sermed-api/sermed-api'
 
 import { Button } from '@/components/Core/Buttons/Button'
-import { IAssignTeamForm } from './RegisterForm/AssignTeam.form'
-import { AssignTeamRegisterForm } from './RegisterForm'
-import { ListTeams } from './components/List'
+import { IAssignPermissionForm } from './RegisterForm/AssignPermission'
+import { AssignPermissionRegisterForm } from './RegisterForm'
+import { ListPermissions } from './components/List'
 
 interface Props {
   uuid: string
@@ -22,7 +22,7 @@ interface Props {
   onClose: (hasChanges: boolean) => void
 }
 
-export function AssignTeam({ uuid, onClose, user_name }: Props) {
+export function AssignPermission({ uuid, onClose, user_name }: Props) {
   const { showLoader, hideLoader } = useLoaderContext()
   const { addToast, handleApiRejection } = useToastContext()
 
@@ -41,7 +41,7 @@ export function AssignTeam({ uuid, onClose, user_name }: Props) {
     onClose(false)
   }
 
-  async function handleOnSubmit(formValues: IAssignTeamForm) {
+  async function handleOnSubmit(formValues: IAssignPermissionForm) {
     try {
       showLoader()
 
@@ -51,7 +51,7 @@ export function AssignTeam({ uuid, onClose, user_name }: Props) {
       }
 
       const { data, message } = await post(
-        `/parametrizations/users/membership`,
+        `/parametrizations/users/permissions`,
         params
       )
 
@@ -59,7 +59,7 @@ export function AssignTeam({ uuid, onClose, user_name }: Props) {
         addToast({
           type: 'success',
           title: 'Sucesso',
-          description: 'A equipe foi atribuida ao usuário.'
+          description: 'A permissão foi atribuida ao usuário.'
         })
 
         setRefreshKey(uuidv4())
@@ -97,10 +97,10 @@ export function AssignTeam({ uuid, onClose, user_name }: Props) {
 
       <Row className="mb-4">
         <Col>
-          <AssignTeamRegisterForm
+          <AssignPermissionRegisterForm
             initialValues={{
-              is_supervisor: 'inactive',
-              team_id: ''
+              permission_id: '',
+              is_writer: 'inactive'
             }}
             user_id={uuid}
             onSubmit={values => {
@@ -112,7 +112,7 @@ export function AssignTeam({ uuid, onClose, user_name }: Props) {
 
       <Row className="mb-4">
         <Col>
-          <ListTeams uuid={uuid} />
+          <ListPermissions uuid={uuid} />
         </Col>
       </Row>
 
