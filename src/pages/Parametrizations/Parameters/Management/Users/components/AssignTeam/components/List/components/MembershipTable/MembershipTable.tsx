@@ -1,5 +1,6 @@
 import { useLoaderContext } from '@/contexts/Loader'
 import { useToastContext } from '@/contexts/Toast'
+import { useRefreshKeyContext } from '@/contexts/Refresh'
 
 import { convertIsoDateToPtBr } from '@/utils/date'
 import { put, del } from '@/services/api/sermed-api/sermed-api'
@@ -19,6 +20,8 @@ interface Props {
 export function MembershipTable({ data, onRefetch }: Props) {
   const { showLoader, hideLoader } = useLoaderContext()
   const { addToast, handleApiRejection } = useToastContext()
+
+  const { onRefresh } = useRefreshKeyContext()
 
   async function handleOnBecomeSupervisor(uuid: string) {
     try {
@@ -83,6 +86,8 @@ export function MembershipTable({ data, onRefetch }: Props) {
           description: 'Equipe removida com sucesso!'
         })
       }
+
+      onRefresh()
     } catch {
       handleApiRejection()
     } finally {

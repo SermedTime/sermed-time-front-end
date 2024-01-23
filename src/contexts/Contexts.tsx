@@ -10,6 +10,7 @@ import { ModalContext } from './Layout/Modal'
 import { SideMenuContext } from './Layout/SideMenu'
 import { AlertContext } from './Alert'
 import { NotificationContext } from './Notification'
+import { RefreshKeyContext } from './Refresh'
 
 interface Props {
   children: ReactNode
@@ -17,24 +18,26 @@ interface Props {
 
 export function Contexts({ children }: Props) {
   return (
-    <LoaderContext>
-      <AuthContext>
-        <ModalContext>
-          <HeaderContext>
-            <BreadcrumbContext>
-              <SideMenuContext>
-                <FooterContext>
-                  <ToastContext>
-                    <AlertContext>
-                      <NotificationContext>{children}</NotificationContext>
-                    </AlertContext>
-                  </ToastContext>
-                </FooterContext>
-              </SideMenuContext>
-            </BreadcrumbContext>
-          </HeaderContext>
-        </ModalContext>
-      </AuthContext>
-    </LoaderContext>
+    <RefreshKeyContext>
+      <LoaderContext>
+        <AuthContext>
+          <ModalContext>
+            <HeaderContext>
+              <BreadcrumbContext>
+                <SideMenuContext>
+                  <FooterContext>
+                    <ToastContext>
+                      <AlertContext>
+                        <NotificationContext>{children}</NotificationContext>
+                      </AlertContext>
+                    </ToastContext>
+                  </FooterContext>
+                </SideMenuContext>
+              </BreadcrumbContext>
+            </HeaderContext>
+          </ModalContext>
+        </AuthContext>
+      </LoaderContext>
+    </RefreshKeyContext>
   )
 }

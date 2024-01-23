@@ -1,5 +1,6 @@
 import { useLoaderContext } from '@/contexts/Loader'
 import { useToastContext } from '@/contexts/Toast'
+import { useRefreshKeyContext } from '@/contexts/Refresh'
 
 import { convertIsoDateToPtBr } from '@/utils/date'
 import { put, del } from '@/services/api/sermed-api/sermed-api'
@@ -20,12 +21,14 @@ export function PesmissionsTable({ data, onRefetch }: Props) {
   const { showLoader, hideLoader } = useLoaderContext()
   const { addToast, handleApiRejection } = useToastContext()
 
+  const { onRefresh } = useRefreshKeyContext()
+
   async function handleOnBecomeWriter(uuid: string) {
     try {
       showLoader()
 
       const { data } = await put(
-        `/parametrizations/users/permissions/${uuid}`,
+        `/parametrizations/assing-permissions/${uuid}`,
         {
           is_writer: 'active'
         }
@@ -52,7 +55,7 @@ export function PesmissionsTable({ data, onRefetch }: Props) {
       showLoader()
 
       const { data } = await put(
-        `/parametrizations/users/permissions/${uuid}`,
+        `/parametrizations/assing-permissions/${uuid}`,
         {
           is_writer: 'inactive'
         }
@@ -78,7 +81,7 @@ export function PesmissionsTable({ data, onRefetch }: Props) {
     try {
       showLoader()
 
-      const { data } = await del(`/parametrizations/users/permissions/${uuid}`)
+      const { data } = await del(`/parametrizations/assing-permissions/${uuid}`)
 
       if (data) {
         onRefetch()
@@ -89,6 +92,8 @@ export function PesmissionsTable({ data, onRefetch }: Props) {
           description: 'Permissão removida!'
         })
       }
+
+      onRefresh()
     } catch {
       handleApiRejection()
     } finally {

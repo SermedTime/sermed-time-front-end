@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
-import { v4 as uuidv4 } from 'uuid'
 
 import { useLoaderContext } from '@/contexts/Loader'
 import { useToastContext } from '@/contexts/Toast'
+import { useRefreshKeyContext } from '@/contexts/Refresh'
 
 import { Col, Row } from 'react-bootstrap'
 import { Modal } from '@/components/Core/Modal'
@@ -12,8 +12,8 @@ import { Subtitle } from '@/components/Core/Typography/Subtitle'
 import { post } from '@/services/api/sermed-api/sermed-api'
 
 import { Button } from '@/components/Core/Buttons/Button'
-import { IAssignPermissionForm } from './RegisterForm/AssignPermission'
-import { AssignPermissionRegisterForm } from './RegisterForm'
+import { IAssignPermissionForm } from './components/RegisterForm/AssignPermission'
+import { AssignPermissionRegisterForm } from './components/RegisterForm'
 import { ListPermissions } from './components/List'
 
 interface Props {
@@ -27,7 +27,7 @@ export function AssignPermission({ user_id, onClose, user_name }: Props) {
   const { addToast, handleApiRejection } = useToastContext()
 
   const [showModal, setShowModal] = useState(false)
-  const [refreshKey, setRefreshKey] = useState<string>(uuidv4())
+  const { refreshKey, onRefresh } = useRefreshKeyContext()
 
   useEffect(() => {
     if (user_id) {
@@ -62,7 +62,7 @@ export function AssignPermission({ user_id, onClose, user_name }: Props) {
           description: 'A permissão foi atribuida ao usuário.'
         })
 
-        setRefreshKey(uuidv4())
+        onRefresh()
       }
 
       if (message) {
