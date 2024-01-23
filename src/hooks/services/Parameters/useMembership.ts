@@ -12,10 +12,10 @@ export interface IMembership {
 }
 
 interface props {
-  uuid: string
+  user_id: string
 }
 
-export function useMembership({ uuid }: props) {
+export function useMembership({ user_id }: props) {
   const [params, setParams] = useState<Record<string, any> | null>(null)
 
   const [result, setResult] = useState<IApiResponse<IMembership> | null>(null)
@@ -34,7 +34,7 @@ export function useMembership({ uuid }: props) {
         }
 
         const { data } = await get(
-          `/parametrizations/assign-teams/${uuid}`,
+          `/parametrizations/assign-teams/${user_id}`,
           queryParams
         )
 
@@ -55,16 +55,16 @@ export function useMembership({ uuid }: props) {
         })
       }
     },
-    [uuid]
+    [user_id]
   )
 
   function refetch() {
-    params && uuid && fetchData(params)
+    params && user_id && fetchData(params)
   }
 
   useEffect(() => {
-    params && uuid && fetchData(params)
-  }, [params, uuid, fetchData])
+    params && user_id && fetchData(params)
+  }, [params, user_id, fetchData])
 
   return { result, params, refetch, setParams }
 }

@@ -12,10 +12,10 @@ export interface IUserPermissions {
 }
 
 interface props {
-  uuid: string
+  user_id: string
 }
 
-export function useUserPermissions({ uuid }: props) {
+export function useUserPermissions({ user_id }: props) {
   const [params, setParams] = useState<Record<string, any> | null>(null)
 
   const [result, setResult] = useState<IApiResponse<IUserPermissions> | null>(
@@ -36,7 +36,7 @@ export function useUserPermissions({ uuid }: props) {
         }
 
         const { data } = await get(
-          `/parametrizations/users/permissions/${uuid}`,
+          `/parametrizations/assing-permissions/${user_id}`,
           queryParams
         )
 
@@ -57,16 +57,16 @@ export function useUserPermissions({ uuid }: props) {
         })
       }
     },
-    [uuid]
+    [user_id]
   )
 
   function refetch() {
-    params && uuid && fetchData(params)
+    params && user_id && fetchData(params)
   }
 
   useEffect(() => {
-    params && uuid && fetchData(params)
-  }, [params, uuid, fetchData])
+    params && user_id && fetchData(params)
+  }, [params, user_id, fetchData])
 
   return { result, params, refetch, setParams }
 }

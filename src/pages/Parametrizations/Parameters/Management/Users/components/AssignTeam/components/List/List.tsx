@@ -17,13 +17,13 @@ import { IOrder } from '@/components/Core/Table/Order/Order.interface'
 import { MembershipTable } from './components/MembershipTable'
 
 interface props {
-  uuid: string
+  user_id: string
 }
 
-export function ListTeams({ uuid }: props) {
+export function ListTeams({ user_id }: props) {
   const [searchParams, setSearchParams] = useSearchParams()
 
-  const { result, params, refetch, setParams } = useMembership({ uuid })
+  const { result, params, refetch, setParams } = useMembership({ user_id })
 
   const [loaded, setLoaded] = useState(false)
 

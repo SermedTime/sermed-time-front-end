@@ -17,12 +17,12 @@ import { AssignPermissionRegisterForm } from './RegisterForm'
 import { ListPermissions } from './components/List'
 
 interface Props {
-  uuid: string
+  user_id: string
   user_name: string
   onClose: (hasChanges: boolean) => void
 }
 
-export function AssignPermission({ uuid, onClose, user_name }: Props) {
+export function AssignPermission({ user_id, onClose, user_name }: Props) {
   const { showLoader, hideLoader } = useLoaderContext()
   const { addToast, handleApiRejection } = useToastContext()
 
@@ -30,10 +30,10 @@ export function AssignPermission({ uuid, onClose, user_name }: Props) {
   const [refreshKey, setRefreshKey] = useState<string>(uuidv4())
 
   useEffect(() => {
-    if (uuid) {
+    if (user_id) {
       setShowModal(true)
     }
-  }, [uuid])
+  }, [user_id])
 
   function handleOnCancel() {
     setShowModal(false)
@@ -46,12 +46,12 @@ export function AssignPermission({ uuid, onClose, user_name }: Props) {
       showLoader()
 
       const params = {
-        user_id: uuid,
+        user_id,
         ...formValues
       }
 
       const { data, message } = await post(
-        `/parametrizations/users/permissions`,
+        `/parametrizations/assing-permissions`,
         params
       )
 
@@ -102,7 +102,7 @@ export function AssignPermission({ uuid, onClose, user_name }: Props) {
               permission_id: '',
               is_writer: 'inactive'
             }}
-            user_id={uuid}
+            user_id={user_id}
             onSubmit={values => {
               handleOnSubmit(values)
             }}
@@ -112,7 +112,7 @@ export function AssignPermission({ uuid, onClose, user_name }: Props) {
 
       <Row className="mb-4">
         <Col>
-          <ListPermissions uuid={uuid} />
+          <ListPermissions user_id={user_id} />
         </Col>
       </Row>
 

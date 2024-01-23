@@ -16,13 +16,13 @@ import { IOrder } from '@/components/Core/Table/Order/Order.interface'
 import { PesmissionsTable } from './Components/PermissionsTable'
 
 interface props {
-  uuid: string
+  user_id: string
 }
 
-export function ListPermissions({ uuid }: props) {
+export function ListPermissions({ user_id }: props) {
   const [searchParams, setSearchParams] = useSearchParams()
 
-  const { result, params, refetch, setParams } = useUserPermissions({ uuid })
+  const { result, params, refetch, setParams } = useUserPermissions({ user_id })
 
   const [loaded, setLoaded] = useState(false)
 

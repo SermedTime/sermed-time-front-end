@@ -54,11 +54,11 @@ export function ListUsers() {
   const [editingRecord, setEditingRecord] = useState('')
   const [addTeamRecord, setAddTeamRecord] = useState({
     user_name: '',
-    uuid: ''
+    user_id: ''
   })
   const [addPermissionRecord, setAddPermissionRecord] = useState({
     user_name: '',
-    uuid: ''
+    user_id: ''
   })
 
   const SEARCH_OPTIONS: IOption[] = [
@@ -262,13 +262,13 @@ export function ListUsers() {
                               onAddTeam={() =>
                                 setAddTeamRecord({
                                   user_name: item.name,
-                                  uuid: item.uuid
+                                  user_id: item.uuid
                                 })
                               }
                               onAddPermission={() =>
                                 setAddPermissionRecord({
                                   user_name: item.name,
-                                  uuid: item.uuid
+                                  user_id: item.uuid
                                 })
                               }
                               onRefetch={() => refetch()}
@@ -333,24 +333,24 @@ export function ListUsers() {
       />
 
       <AssignTeam
-        uuid={addTeamRecord.uuid}
+        user_id={addTeamRecord.user_id}
         user_name={addTeamRecord.user_name}
         onClose={hasChanges => {
           setAddTeamRecord({
             user_name: '',
-            uuid: ''
+            user_id: ''
           })
           hasChanges && refetch()
         }}
       />
 
       <AssignPermission
-        uuid={addPermissionRecord.uuid}
+        user_id={addPermissionRecord.user_id}
         user_name={addPermissionRecord.user_name}
         onClose={hasChanges => {
           setAddPermissionRecord({
             user_name: '',
-            uuid: ''
+            user_id: ''
           })
           hasChanges && refetch()
         }}

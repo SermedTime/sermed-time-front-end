@@ -17,12 +17,12 @@ import { AssignTeamRegisterForm } from './RegisterForm'
 import { ListTeams } from './components/List'
 
 interface Props {
-  uuid: string
+  user_id: string
   user_name: string
   onClose: (hasChanges: boolean) => void
 }
 
-export function AssignTeam({ uuid, onClose, user_name }: Props) {
+export function AssignTeam({ user_id, onClose, user_name }: Props) {
   const { showLoader, hideLoader } = useLoaderContext()
   const { addToast, handleApiRejection } = useToastContext()
 
@@ -30,10 +30,10 @@ export function AssignTeam({ uuid, onClose, user_name }: Props) {
   const [refreshKey, setRefreshKey] = useState<string>(uuidv4())
 
   useEffect(() => {
-    if (uuid) {
+    if (user_id) {
       setShowModal(true)
     }
-  }, [uuid])
+  }, [user_id])
 
   function handleOnCancel() {
     setShowModal(false)
@@ -46,7 +46,7 @@ export function AssignTeam({ uuid, onClose, user_name }: Props) {
       showLoader()
 
       const params = {
-        user_id: uuid,
+        user_id,
         ...formValues
       }
 
@@ -102,7 +102,7 @@ export function AssignTeam({ uuid, onClose, user_name }: Props) {
               is_supervisor: 'inactive',
               team_id: ''
             }}
-            user_id={uuid}
+            user_id={user_id}
             onSubmit={values => {
               handleOnSubmit(values)
             }}
@@ -112,7 +112,7 @@ export function AssignTeam({ uuid, onClose, user_name }: Props) {
 
       <Row className="mb-4">
         <Col>
-          <ListTeams uuid={uuid} />
+          <ListTeams user_id={user_id} />
         </Col>
       </Row>
 
