@@ -26,6 +26,7 @@ import { Skeleton } from '@/components/Core/Skeleton'
 import { IOrder } from '@/components/Core/Table/Order/Order.interface'
 import { IOption } from '@/components/Core/Form/Fields/Select/Select.interface'
 
+import { usePermissionContext } from '@/contexts/Permissions'
 import { ParametersSearchForm } from '../../../components/SearchForm'
 import { ParametersFilterForm } from '../../../components/FilterForm/FilterForm'
 
@@ -41,6 +42,8 @@ import { Companies } from './components/CompaniesTable'
 import { EditCompany } from '../Edit'
 
 export function ListCompanies() {
+  const { hasParametrizationsWriter } = usePermissionContext()
+
   const navigate = useNavigate()
 
   const [searchParams, setSearchParams] = useSearchParams()
@@ -194,6 +197,7 @@ export function ListCompanies() {
                     <ButtonIcon
                       size="lg"
                       icon="add"
+                      disabled={!hasParametrizationsWriter()}
                       onClick={() =>
                         navigate(ROUTE_MANAGEMENT_COMPANIES_CREATE)
                       }

@@ -1,5 +1,6 @@
 import { useLoaderContext } from '@/contexts/Loader'
 import { useToastContext } from '@/contexts/Toast'
+import { usePermissionContext } from '@/contexts/Permissions'
 
 import { put } from '@/services/api/sermed-api/sermed-api'
 import { convertIsoDateToPtBr } from '@/utils/date'
@@ -11,6 +12,7 @@ import { ButtonIcon } from '@/components/Core/Buttons/ButtonIcon'
 import { Paragraph } from '@/components/Core/Typography/Paragraph'
 
 import { ICompanies } from '@/hooks/services/Parameters/useCompanies'
+import { Tooltip } from '@/components/Core/Tooltip'
 
 interface Props {
   data: ICompanies
@@ -19,6 +21,7 @@ interface Props {
 }
 
 export function Companies({ data, onEdit, onRefetch }: Props) {
+  const { hasParametrizationsWriter } = usePermissionContext()
   const { showLoader, hideLoader } = useLoaderContext()
   const { addToast, handleApiRejection } = useToastContext()
 
@@ -79,6 +82,7 @@ export function Companies({ data, onEdit, onRefetch }: Props) {
               appearance={`${data.status === 'active' ? 'filled' : 'outlined'}`}
               size="md"
               icon={`${data.status === 'active' ? 'toggle_on' : 'toggle_off'}`}
+              disabled={!hasParametrizationsWriter()}
               onClick={() => {
                 data.status === 'active'
                   ? handleOnInactivate(data.uuid)
@@ -99,7 +103,9 @@ export function Companies({ data, onEdit, onRefetch }: Props) {
 
       <Td showOnHover={true}>
         <div className="d-flex justify-content-center">
-          <ButtonIcon size="sm" icon="edit" onClick={() => onEdit()} />
+          <Tooltip title="Detalhes" place="top">
+            <ButtonIcon size="sm" icon="open_in_new" onClick={() => onEdit()} />
+          </Tooltip>
         </div>
       </Td>
     </Tr>

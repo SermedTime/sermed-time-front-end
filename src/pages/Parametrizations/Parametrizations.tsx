@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 
 import { useBreadcrumbContext } from '@/contexts/Layout/Breadcrumb'
 import { useHeaderContext } from '@/contexts/Layout/Header'
+import { usePermissionContext } from '@/contexts/Permissions'
 
 import { TITLE_PARAMETERIZATIONS } from '@/constants/title.browser'
 import { ROUTE_HOME } from '@/routes/Pages/Pages.paths'
@@ -14,8 +15,7 @@ import { Accordion } from '@/components/Core/Accordion'
 import { Subtitle } from '@/components/Core/Typography/Subtitle'
 import { Skeleton } from '@/components/Core/Skeleton'
 import { EmptyResult } from '@/components/Core/EmptyResult'
-import { useAuthRoles } from '@/hooks/services/Rules/Auth/useRoles'
-import { ROLE_PARAMETRIZATIONS } from '@/constants/user.roles'
+
 import { IParametrizationsSearchForm } from './components/SearchForm/SearchForm.form'
 import { IParameterList } from './Parametrizations.interface'
 import { ParametrizationsSearchForm } from './components/SearchForm'
@@ -23,7 +23,7 @@ import { Card } from './components/Card'
 import { initialParameterList } from './Parametrizations.form'
 
 export function Parametrizations() {
-  const { checkIfUserHasRole } = useAuthRoles()
+  const { hasParametrizationsWriter } = usePermissionContext()
 
   const { setPageHeading } = useHeaderContext()
   const { setPageBreadcrumb } = useBreadcrumbContext()
@@ -153,10 +153,7 @@ export function Parametrizations() {
                                       routeToList={item.routeToList}
                                       routeToAdd={{
                                         title: item.routeToAdd,
-                                        disabled: !checkIfUserHasRole({
-                                          role: ROLE_PARAMETRIZATIONS,
-                                          is_writer: true
-                                        })
+                                        disabled: !hasParametrizationsWriter()
                                       }}
                                     />
                                   </Col>
