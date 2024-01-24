@@ -1,3 +1,4 @@
+import { ROLE_PARAMETRIZATIONS } from '@/constants/user.roles'
 import { ROUTE_HOME } from '@/routes/Pages/Pages.paths'
 import { ROUTE_PARAMETERIZATIONS } from '@/routes/Pages/Parametrizations/Parametrizations.paths'
 import { ROUTE_TIME_SHEET_USER_SEARCH } from '@/routes/Pages/TimeSheet/TimeSheet.paths'
@@ -27,6 +28,7 @@ export const nav: INavigation[] = [
   {
     icon: 'multiline_chart',
     label: 'Parametrizações',
-    route: ROUTE_PARAMETERIZATIONS
+    route: ROUTE_PARAMETERIZATIONS,
+    allowedRoles: [ROLE_PARAMETRIZATIONS]
   }
 ]

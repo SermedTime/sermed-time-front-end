@@ -14,6 +14,8 @@ import { Accordion } from '@/components/Core/Accordion'
 import { Subtitle } from '@/components/Core/Typography/Subtitle'
 import { Skeleton } from '@/components/Core/Skeleton'
 import { EmptyResult } from '@/components/Core/EmptyResult'
+import { useAuthRoles } from '@/hooks/services/Rules/Auth/useRoles'
+import { ROLE_PARAMETRIZATIONS } from '@/constants/user.roles'
 import { IParametrizationsSearchForm } from './components/SearchForm/SearchForm.form'
 import { IParameterList } from './Parametrizations.interface'
 import { ParametrizationsSearchForm } from './components/SearchForm'
@@ -21,6 +23,8 @@ import { Card } from './components/Card'
 import { initialParameterList } from './Parametrizations.form'
 
 export function Parametrizations() {
+  const { checkIfUserHasRole } = useAuthRoles()
+
   const { setPageHeading } = useHeaderContext()
   const { setPageBreadcrumb } = useBreadcrumbContext()
 
@@ -147,7 +151,13 @@ export function Parametrizations() {
                                       icon={item.icon}
                                       title={item.title}
                                       routeToList={item.routeToList}
-                                      routeToAdd={item.routeToAdd}
+                                      routeToAdd={{
+                                        title: item.routeToAdd,
+                                        disabled: !checkIfUserHasRole({
+                                          role: ROLE_PARAMETRIZATIONS,
+                                          is_writer: true
+                                        })
+                                      }}
                                     />
                                   </Col>
                                 ))}

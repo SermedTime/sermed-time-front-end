@@ -1,20 +1,40 @@
+import { useCallback, useMemo } from 'react'
+
 import { useAuthContext } from '@/contexts/Auth'
-import { useCallback } from 'react'
+
+import { IRoles } from '@/contexts/Auth/Auth'
 
 export function useAuthRoles() {
   const { user } = useAuthContext()
 
-  const userRoles = user?.roles && user?.roles?.map(role => role.name)
+  const userRoles = useMemo(() => {
+    return user
+      ? user.roles.map((r: IRoles) => {
+          return {
+            role: r.role,
+            is_writer: r.is_writer
+          }
+        })
+      : ([] as IRoles[])
+  }, [user])
 
   const checkIfUserHasRole = useCallback(
-    (role: string): boolean => {
-      return userRoles?.includes(role) || false
+    ({ role, is_writer = false }: Partial<IRoles>): boolean => {
+      if (is_writer) {
+        return userRoles.some(
+          userRole => userRole.role === role && userRole.is_writer
+        )
+      }
+
+      return userRoles.some(userRole => userRole.role === role)
     },
     [userRoles]
   )
 
-  const viewPoint = useCallback((): boolean => {
-    return checkIfUserHasRole('point')
+  const parametrizations = useCallback((): boolean => {
+    return checkIfUserHasRole({
+      role: String(`${import.meta.env.VITE_APP_ROLE_PARAMETRIZATIONS}`)
+    })
   }, [checkIfUserHasRole])
 
   const handleUserRoles = useCallback(
@@ -28,7 +48,7 @@ export function useAuthRoles() {
 
   return {
     checkIfUserHasRole,
-    viewPoint,
+    parametrizations,
     handleUserRoles
   }
 }

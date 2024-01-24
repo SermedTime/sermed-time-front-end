@@ -8,9 +8,10 @@ import { useToastContext } from '@/contexts/Toast'
 import { ROUTE_LOGIN } from '@/routes/Pages/Auth/Auth.paths'
 import { useAuthContext } from '@/contexts/Auth'
 import { useAuthRoles } from '@/hooks/services/Rules/Auth/useRoles'
+import { IRoles } from '@/contexts/Auth/Auth'
 
 interface Props {
-  allowedRoles?: string[]
+  allowedRoles?: IRoles[]
   children: JSX.Element
 }
 
@@ -22,7 +23,7 @@ export function RequireAuth({ allowedRoles, children }: Props) {
 
   useEffect(() => {
     if (loaded && allowedRoles) {
-      const hasPermission = allowedRoles.some((role: string) =>
+      const hasPermission = allowedRoles.some((role: IRoles) =>
         checkIfUserHasRole(role)
       )
 
@@ -42,7 +43,7 @@ export function RequireAuth({ allowedRoles, children }: Props) {
 
   if (!allowedRoles) return children
 
-  const hasPermission = allowedRoles.some((role: string) =>
+  const hasPermission = allowedRoles.some((role: IRoles) =>
     checkIfUserHasRole(role)
   )
 

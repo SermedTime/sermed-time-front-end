@@ -1,6 +1,7 @@
 import { IRouteProps } from '@/routes/routes.interface'
 import { lazy } from 'react'
 
+import { ROLE_PARAMETRIZATIONS } from '@/constants/user.roles'
 import {
   ROUTE_MANAGEMENT_COMPANIES_CREATE,
   ROUTE_MANAGEMENT_COMPANIES_LIST,
@@ -64,41 +65,49 @@ export const managementParametersRoutes: IRouteProps[] = [
   {
     path: ROUTE_MANAGEMENT_TIME_CLOCK_LIST,
     component: ListTimeClock,
-    isPrivate: true
+    isPrivate: true,
+    allowedRoles: [{ role: ROLE_PARAMETRIZATIONS, is_writer: false }]
   },
   {
     path: ROUTE_MANAGEMENT_TIME_CLOCK_CREATE,
     component: CreateTimeClock,
-    isPrivate: true
+    isPrivate: true,
+    allowedRoles: [{ role: ROLE_PARAMETRIZATIONS, is_writer: true }]
   },
   {
     path: ROUTE_MANAGEMENT_TEAMS_LIST,
     component: ListTeams,
-    isPrivate: true
+    isPrivate: true,
+    allowedRoles: [{ role: ROLE_PARAMETRIZATIONS, is_writer: false }]
   },
   {
     path: ROUTE_MANAGEMENT_TEAMS_CREATE,
     component: CreateTeam,
-    isPrivate: true
+    isPrivate: true,
+    allowedRoles: [{ role: ROLE_PARAMETRIZATIONS, is_writer: true }]
   },
   {
     path: ROUTE_MANAGEMENT_USERS_LIST,
     component: ListUsers,
-    isPrivate: true
+    isPrivate: true,
+    allowedRoles: [{ role: ROLE_PARAMETRIZATIONS, is_writer: false }]
   },
   {
     path: ROUTE_MANAGEMENT_USERS_CREATE,
     component: CreateUser,
-    isPrivate: true
+    isPrivate: true,
+    allowedRoles: [{ role: ROLE_PARAMETRIZATIONS, is_writer: true }]
   },
   {
     path: ROUTE_MANAGEMENT_COMPANIES_LIST,
     component: ListCompanies,
-    isPrivate: true
+    isPrivate: true,
+    allowedRoles: [{ role: ROLE_PARAMETRIZATIONS, is_writer: false }]
   },
   {
     path: ROUTE_MANAGEMENT_COMPANIES_CREATE,
     component: CreateCompany,
-    isPrivate: true
+    isPrivate: true,
+    allowedRoles: [{ role: ROLE_PARAMETRIZATIONS, is_writer: true }]
   }
 ]

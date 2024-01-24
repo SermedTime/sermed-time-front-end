@@ -25,14 +25,14 @@ interface Auth {
   token: string
 }
 
-interface Roles {
-  name: string
-  write?: boolean
+export interface IRoles {
+  role: string
+  is_writer: boolean
 }
 
 interface UserAuth {
   auth: Auth
-  roles?: Roles[]
+  roles: IRoles[]
   userUuid: string
   userName: string
   socialName: string
@@ -109,6 +109,16 @@ function AuthContext({ children }: Props) {
         } = await post('/auth/login', params)
 
         if (data) {
+          const roles: IRoles[] =
+            data.user.roles.length > 0
+              ? data.user.roles.map((r: any) => {
+                  return {
+                    role: decryptToPayload(r.permission),
+                    is_writer: decryptToPayload(r.is_writer) === 'true'
+                  }
+                })
+              : []
+
           const user: UserAuth = {
             auth: {
               expiresIn: data.accessToken.expiresIn,
@@ -127,7 +137,7 @@ function AuthContext({ children }: Props) {
             cpf: decryptToPayload(data.user.cpf),
             admissionDate: decryptToPayload(data.user.admissionDate),
             lastUpdateDate: decryptToPayload(data.user.lastUpdateDate),
-            roles: data.user.roles
+            roles
           }
 
           setUser(user)

@@ -8,11 +8,16 @@ import { ButtonIcon } from '@/components/Core/Buttons/ButtonIcon'
 import { Heading } from '@/components/Core/Typography/Heading'
 import * as S from './Card.styles'
 
+interface IRouteToAdd {
+  title: string
+  disabled: boolean
+}
+
 export interface ICard {
   icon: string
   title: string
   routeToList: string
-  routeToAdd: string
+  routeToAdd: IRouteToAdd
 }
 
 export function Card({ icon, title, routeToList, routeToAdd }: ICard) {
@@ -38,8 +43,8 @@ export function Card({ icon, title, routeToList, routeToAdd }: ICard) {
             <ButtonIcon
               size="md"
               icon="add"
-              disabled={!routeToAdd}
-              onClick={() => navigate(routeToAdd)}
+              disabled={!routeToAdd || routeToAdd.disabled}
+              onClick={() => navigate(routeToAdd.title)}
             />
           </div>
         </Col>

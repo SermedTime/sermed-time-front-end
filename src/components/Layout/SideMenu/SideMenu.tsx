@@ -32,7 +32,7 @@ export function SideMenu() {
         {nav.map((item, idx) => {
           if (item.allowedRoles) {
             const hasPermission = item.allowedRoles.some((role: string) =>
-              checkIfUserHasRole(role)
+              checkIfUserHasRole({ role, is_writer: false })
             )
 
             if (!hasPermission) return null
