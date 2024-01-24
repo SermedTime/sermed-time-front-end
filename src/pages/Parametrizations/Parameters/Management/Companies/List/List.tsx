@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from 'react'
 
 import { useBreadcrumbContext } from '@/contexts/Layout/Breadcrumb'
 import { useHeaderContext } from '@/contexts/Layout/Header'
+import { usePermissionContext } from '@/contexts/Permissions'
 
 import { TITLE_COMPANIES_PARAMETERIZATIONS } from '@/constants/title.browser'
 import { ROUTE_PARAMETERIZATIONS } from '@/routes/Pages/Parametrizations/Parametrizations.paths'
@@ -26,7 +27,6 @@ import { Skeleton } from '@/components/Core/Skeleton'
 import { IOrder } from '@/components/Core/Table/Order/Order.interface'
 import { IOption } from '@/components/Core/Form/Fields/Select/Select.interface'
 
-import { usePermissionContext } from '@/contexts/Permissions'
 import { ParametersSearchForm } from '../../../components/SearchForm'
 import { ParametersFilterForm } from '../../../components/FilterForm/FilterForm'
 

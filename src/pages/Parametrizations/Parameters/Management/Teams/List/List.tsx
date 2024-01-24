@@ -3,6 +3,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 
 import { useBreadcrumbContext } from '@/contexts/Layout/Breadcrumb'
 import { useHeaderContext } from '@/contexts/Layout/Header'
+import { usePermissionContext } from '@/contexts/Permissions'
 
 import { useTeams } from '@/hooks/services/Parameters/useTeams'
 
@@ -37,6 +38,8 @@ import { EditTeam } from '../Edit'
 import { Teams } from './components'
 
 export function ListTeams() {
+  const { hasParametrizationsWriter } = usePermissionContext()
+
   const navigate = useNavigate()
 
   const [searchParams, setSearchParams] = useSearchParams()
@@ -182,10 +185,11 @@ export function ListTeams() {
 
               <Row className="justify-content-end align-items-center mb-3">
                 <Col xs="auto">
-                  <Tooltip title="Adcionar um Relógio de Ponto">
+                  <Tooltip title="Adcionar uma Equipe">
                     <ButtonIcon
                       size="lg"
                       icon="add"
+                      disabled={!hasParametrizationsWriter()}
                       onClick={() => navigate(ROUTE_MANAGEMENT_TEAMS_CREATE)}
                     />
                   </Tooltip>
