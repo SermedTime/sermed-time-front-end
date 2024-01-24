@@ -2,6 +2,7 @@ import { Col, Row } from 'react-bootstrap'
 
 import { useLoaderContext } from '@/contexts/Loader'
 import { useToastContext } from '@/contexts/Toast'
+import { usePermissionContext } from '@/contexts/Permissions'
 
 import { ButtonIcon } from '@/components/Core/Buttons/ButtonIcon'
 import { Td, Tr } from '@/components/Core/Table'
@@ -28,6 +29,7 @@ export function UsersTable({
   onAddTeam,
   onAddPermission
 }: Props) {
+  const { hasParametrizationsWriter } = usePermissionContext()
   const { showLoader, hideLoader } = useLoaderContext()
   const { addToast, handleApiRejection } = useToastContext()
 
@@ -88,6 +90,7 @@ export function UsersTable({
               appearance={`${data.status === 'active' ? 'filled' : 'outlined'}`}
               size="md"
               icon={`${data.status === 'active' ? 'toggle_on' : 'toggle_off'}`}
+              disabled={!hasParametrizationsWriter()}
               onClick={() => {
                 data.status === 'active'
                   ? handleOnInactivate(data.uuid)
@@ -108,8 +111,8 @@ export function UsersTable({
 
       <Td showOnHover={true}>
         <div className="d-flex justify-content-center">
-          <Tooltip title="Editar" place="top">
-            <ButtonIcon size="sm" icon="edit" onClick={() => onEdit()} />
+          <Tooltip title="Detalhes" place="top">
+            <ButtonIcon size="sm" icon="open_in_new" onClick={() => onEdit()} />
           </Tooltip>
 
           <Tooltip title="Atribuir Equipe" place="top-start">

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { useLoaderContext } from '@/contexts/Loader'
 import { useToastContext } from '@/contexts/Toast'
 import { useRefreshKeyContext } from '@/contexts/Refresh'
+import { usePermissionContext } from '@/contexts/Permissions'
 
 import { Col, Row } from 'react-bootstrap'
 import { Modal } from '@/components/Core/Modal'
@@ -23,6 +24,7 @@ interface Props {
 }
 
 export function AssignPermission({ user_id, onClose, user_name }: Props) {
+  const { hasParametrizationsWriter } = usePermissionContext()
   const { showLoader, hideLoader } = useLoaderContext()
   const { addToast, handleApiRejection } = useToastContext()
 
@@ -95,20 +97,22 @@ export function AssignPermission({ user_id, onClose, user_name }: Props) {
         </Col>
       </Row>
 
-      <Row className="mb-4">
-        <Col>
-          <AssignPermissionRegisterForm
-            initialValues={{
-              permission_id: '',
-              is_writer: 'inactive'
-            }}
-            user_id={user_id}
-            onSubmit={values => {
-              handleOnSubmit(values)
-            }}
-          />
-        </Col>
-      </Row>
+      {hasParametrizationsWriter() && (
+        <Row className="mb-4">
+          <Col>
+            <AssignPermissionRegisterForm
+              initialValues={{
+                permission_id: '',
+                is_writer: 'inactive'
+              }}
+              user_id={user_id}
+              onSubmit={values => {
+                handleOnSubmit(values)
+              }}
+            />
+          </Col>
+        </Row>
+      )}
 
       <Row className="mb-4">
         <Col>

@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 
 import { useLoaderContext } from '@/contexts/Loader'
 import { useToastContext } from '@/contexts/Toast'
+import { usePermissionContext } from '@/contexts/Permissions'
 
 import { get, put } from '@/services/api/sermed-api/sermed-api'
 import { Modal } from '@/components/Core/Modal'
@@ -20,6 +21,7 @@ interface Props {
 }
 
 export function EditUser({ uuid, onClose }: Props) {
+  const { hasParametrizationsWriter } = usePermissionContext()
   const { showLoader, hideLoader } = useLoaderContext()
   const { addToast, handleApiRejection } = useToastContext()
 
@@ -148,7 +150,9 @@ export function EditUser({ uuid, onClose }: Props) {
             styles="tertiary"
             icon="edit"
             onClick={() => setReadOnly(readOnly => !readOnly)}
-            disabled={!initialValues || !readOnly}
+            disabled={
+              !initialValues || !readOnly || !hasParametrizationsWriter()
+            }
           >
             {`${readOnly ? 'Alterar' : 'Alterando...'}`}
           </Button>

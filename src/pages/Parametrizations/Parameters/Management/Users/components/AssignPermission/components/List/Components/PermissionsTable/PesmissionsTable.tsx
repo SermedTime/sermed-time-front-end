@@ -1,6 +1,7 @@
 import { useLoaderContext } from '@/contexts/Loader'
 import { useToastContext } from '@/contexts/Toast'
 import { useRefreshKeyContext } from '@/contexts/Refresh'
+import { usePermissionContext } from '@/contexts/Permissions'
 
 import { convertIsoDateToPtBr } from '@/utils/date'
 import { put, del } from '@/services/api/sermed-api/sermed-api'
@@ -18,6 +19,7 @@ interface Props {
 }
 
 export function PesmissionsTable({ data, onRefetch }: Props) {
+  const { hasParametrizationsWriter } = usePermissionContext()
   const { showLoader, hideLoader } = useLoaderContext()
   const { addToast, handleApiRejection } = useToastContext()
 
@@ -129,6 +131,7 @@ export function PesmissionsTable({ data, onRefetch }: Props) {
               icon={`${
                 data.is_writer === 'active' ? 'toggle_on' : 'toggle_off'
               }`}
+              disabled={!hasParametrizationsWriter()}
               onClick={() => {
                 data.is_writer === 'active'
                   ? handleOnUndoWriter(data.uuid)
@@ -141,6 +144,7 @@ export function PesmissionsTable({ data, onRefetch }: Props) {
             <ButtonIcon
               size="sm"
               icon="group_remove"
+              disabled={!hasParametrizationsWriter()}
               onClick={() => handleOnDeletePermission(data.uuid)}
             />
           </Tooltip>

@@ -1,10 +1,12 @@
 import { useCallback, useEffect, useState } from 'react'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 
 import { Col, Container, Row } from 'react-bootstrap'
 
 import { useBreadcrumbContext } from '@/contexts/Layout/Breadcrumb'
 import { useHeaderContext } from '@/contexts/Layout/Header'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { usePermissionContext } from '@/contexts/Permissions'
+
 import { useUsers } from '@/hooks/services/Parameters/useUsers'
 
 import { IOption } from '@/components/Core/Form/Fields/Select/Select.interface'
@@ -41,6 +43,8 @@ import { AssignTeam } from '../components/AssignTeam'
 import { AssignPermission } from '../components/AssignPermission'
 
 export function ListUsers() {
+  const { hasParametrizationsWriter } = usePermissionContext()
+
   const navigate = useNavigate()
 
   const [searchParams, setSearchParams] = useSearchParams()
@@ -205,6 +209,7 @@ export function ListUsers() {
                     <ButtonIcon
                       size="lg"
                       icon="add"
+                      disabled={!hasParametrizationsWriter()}
                       onClick={() => navigate(ROUTE_MANAGEMENT_USERS_CREATE)}
                     />
                   </Tooltip>
