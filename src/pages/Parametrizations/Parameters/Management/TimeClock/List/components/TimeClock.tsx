@@ -1,13 +1,17 @@
-import { ButtonIcon } from '@/components/Core/Buttons/ButtonIcon'
-import { Td, Tr } from '@/components/Core/Table'
-import { Paragraph } from '@/components/Core/Typography/Paragraph'
 import { useLoaderContext } from '@/contexts/Loader'
 import { useToastContext } from '@/contexts/Toast'
+import { usePermissionContext } from '@/contexts/Permissions'
+
+import { convertIsoDateToPtBr } from '@/utils/date'
+import { put } from '@/services/api/sermed-api/sermed-api'
+
+import { Col, Row } from 'react-bootstrap'
+import { ButtonIcon } from '@/components/Core/Buttons/ButtonIcon'
+import { Td, Tr } from '@/components/Core/Table'
+import { Tooltip } from '@/components/Core/Tooltip'
+import { Paragraph } from '@/components/Core/Typography/Paragraph'
 
 import { ITimeClock } from '@/hooks/services/Parameters/useTimeClock'
-import { put } from '@/services/api/sermed-api/sermed-api'
-import { convertIsoDateToPtBr } from '@/utils/date'
-import { Col, Row } from 'react-bootstrap'
 
 interface Props {
   data: ITimeClock
@@ -16,6 +20,7 @@ interface Props {
 }
 
 export function TimeClock({ data, onEdit, onRefetch }: Props) {
+  const { hasParametrizationsWriter } = usePermissionContext()
   const { showLoader, hideLoader } = useLoaderContext()
   const { addToast, handleApiRejection } = useToastContext()
 
@@ -76,6 +81,7 @@ export function TimeClock({ data, onEdit, onRefetch }: Props) {
               appearance={`${data.status === 'active' ? 'filled' : 'outlined'}`}
               size="md"
               icon={`${data.status === 'active' ? 'toggle_on' : 'toggle_off'}`}
+              disabled={!hasParametrizationsWriter()}
               onClick={() => {
                 data.status === 'active'
                   ? handleOnInactivate(data.uuid)
@@ -96,7 +102,9 @@ export function TimeClock({ data, onEdit, onRefetch }: Props) {
 
       <Td showOnHover={true}>
         <div className="d-flex justify-content-center">
-          <ButtonIcon size="sm" icon="edit" onClick={() => onEdit()} />
+          <Tooltip title="Detalhes" place="top">
+            <ButtonIcon size="sm" icon="open_in_new" onClick={() => onEdit()} />
+          </Tooltip>
         </div>
       </Td>
     </Tr>

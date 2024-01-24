@@ -4,6 +4,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 
 import { useHeaderContext } from '@/contexts/Layout/Header'
 import { useBreadcrumbContext } from '@/contexts/Layout/Breadcrumb'
+import { usePermissionContext } from '@/contexts/Permissions'
 
 import { ROUTE_PARAMETERIZATIONS } from '@/routes/Pages/Parametrizations/Parametrizations.paths'
 
@@ -45,6 +46,8 @@ import { TimeClock } from './components'
 import { EditTimeClock } from '../Edit'
 
 export function ListTimeClock() {
+  const { hasParametrizationsWriter } = usePermissionContext()
+
   const navigate = useNavigate()
 
   const [searchParams, setSearchParams] = useSearchParams()
@@ -194,6 +197,7 @@ export function ListTimeClock() {
                     <ButtonIcon
                       size="lg"
                       icon="add"
+                      disabled={!hasParametrizationsWriter()}
                       onClick={() =>
                         navigate(ROUTE_MANAGEMENT_TIME_CLOCK_CREATE)
                       }
