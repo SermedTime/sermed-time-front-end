@@ -2,7 +2,7 @@ import { Col, Row } from 'react-bootstrap'
 
 import { useLoaderContext } from '@/contexts/Loader'
 import { useToastContext } from '@/contexts/Toast'
-import { usePermissionContext } from '@/contexts/Permissions'
+import { useAuthRoles } from '@/hooks/services/Rules/Auth/useRoles'
 
 import { ButtonIcon } from '@/components/Core/Buttons/ButtonIcon'
 import { Td, Tr } from '@/components/Core/Table'
@@ -29,7 +29,7 @@ export function UsersTable({
   onAddTeam,
   onAddPermission
 }: Props) {
-  const { hasParametrizationsWriter } = usePermissionContext()
+  const { hasParametrizationsWriter } = useAuthRoles()
   const { showLoader, hideLoader } = useLoaderContext()
   const { addToast, handleApiRejection } = useToastContext()
 

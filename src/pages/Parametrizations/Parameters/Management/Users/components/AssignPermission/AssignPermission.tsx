@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { useLoaderContext } from '@/contexts/Loader'
 import { useToastContext } from '@/contexts/Toast'
 import { useRefreshKeyContext } from '@/contexts/Refresh'
-import { usePermissionContext } from '@/contexts/Permissions'
+import { useAuthRoles } from '@/hooks/services/Rules/Auth/useRoles'
 
 import { Col, Row } from 'react-bootstrap'
 import { Modal } from '@/components/Core/Modal'
@@ -24,7 +24,7 @@ interface Props {
 }
 
 export function AssignPermission({ user_id, onClose, user_name }: Props) {
-  const { hasParametrizationsWriter } = usePermissionContext()
+  const { hasParametrizationsWriter } = useAuthRoles()
   const { showLoader, hideLoader } = useLoaderContext()
   const { addToast, handleApiRejection } = useToastContext()
 

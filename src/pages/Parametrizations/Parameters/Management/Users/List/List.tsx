@@ -5,7 +5,7 @@ import { Col, Container, Row } from 'react-bootstrap'
 
 import { useBreadcrumbContext } from '@/contexts/Layout/Breadcrumb'
 import { useHeaderContext } from '@/contexts/Layout/Header'
-import { usePermissionContext } from '@/contexts/Permissions'
+import { useAuthRoles } from '@/hooks/services/Rules/Auth/useRoles'
 
 import { useUsers } from '@/hooks/services/Parameters/useUsers'
 
@@ -43,7 +43,7 @@ import { AssignTeam } from '../components/AssignTeam'
 import { AssignPermission } from '../components/AssignPermission'
 
 export function ListUsers() {
-  const { hasParametrizationsWriter } = usePermissionContext()
+  const { hasParametrizationsWriter } = useAuthRoles()
 
   const navigate = useNavigate()
 

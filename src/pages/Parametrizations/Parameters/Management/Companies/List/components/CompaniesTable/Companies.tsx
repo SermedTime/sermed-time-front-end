@@ -1,6 +1,6 @@
 import { useLoaderContext } from '@/contexts/Loader'
 import { useToastContext } from '@/contexts/Toast'
-import { usePermissionContext } from '@/contexts/Permissions'
+import { useAuthRoles } from '@/hooks/services/Rules/Auth/useRoles'
 
 import { put } from '@/services/api/sermed-api/sermed-api'
 import { convertIsoDateToPtBr } from '@/utils/date'
@@ -21,7 +21,7 @@ interface Props {
 }
 
 export function Companies({ data, onEdit, onRefetch }: Props) {
-  const { hasParametrizationsWriter } = usePermissionContext()
+  const { hasParametrizationsWriter } = useAuthRoles()
   const { showLoader, hideLoader } = useLoaderContext()
   const { addToast, handleApiRejection } = useToastContext()
 

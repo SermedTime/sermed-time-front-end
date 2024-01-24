@@ -3,7 +3,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 
 import { useBreadcrumbContext } from '@/contexts/Layout/Breadcrumb'
 import { useHeaderContext } from '@/contexts/Layout/Header'
-import { usePermissionContext } from '@/contexts/Permissions'
+import { useAuthRoles } from '@/hooks/services/Rules/Auth/useRoles'
 
 import { useTeams } from '@/hooks/services/Parameters/useTeams'
 
@@ -26,6 +26,7 @@ import { LoadingLines } from '@/components/Core/Table/LoadingLines'
 import { Empty } from '@/components/Core/Table/Empty'
 import { Pagination } from '@/components/Core/Pagination'
 import { Skeleton } from '@/components/Core/Skeleton'
+
 import { ParametersSearchForm } from '../../../components/SearchForm'
 import {
   IParametersSearchForm,
@@ -38,7 +39,7 @@ import { EditTeam } from '../Edit'
 import { Teams } from './components'
 
 export function ListTeams() {
-  const { hasParametrizationsWriter } = usePermissionContext()
+  const { hasParametrizationsWriter } = useAuthRoles()
 
   const navigate = useNavigate()
 

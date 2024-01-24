@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 import { useBreadcrumbContext } from '@/contexts/Layout/Breadcrumb'
 import { useHeaderContext } from '@/contexts/Layout/Header'
-import { usePermissionContext } from '@/contexts/Permissions'
+import { useAuthRoles } from '@/hooks/services/Rules/Auth/useRoles'
 
 import { TITLE_PARAMETERIZATIONS } from '@/constants/title.browser'
 import { ROUTE_HOME } from '@/routes/Pages/Pages.paths'
@@ -23,7 +23,7 @@ import { Card } from './components/Card'
 import { initialParameterList } from './Parametrizations.form'
 
 export function Parametrizations() {
-  const { hasParametrizationsWriter } = usePermissionContext()
+  const { hasParametrizationsWriter } = useAuthRoles()
 
   const { setPageHeading } = useHeaderContext()
   const { setPageBreadcrumb } = useBreadcrumbContext()

@@ -4,7 +4,9 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 
 import { useHeaderContext } from '@/contexts/Layout/Header'
 import { useBreadcrumbContext } from '@/contexts/Layout/Breadcrumb'
-import { usePermissionContext } from '@/contexts/Permissions'
+import { useAuthRoles } from '@/hooks/services/Rules/Auth/useRoles'
+
+import { useTimeClock } from '@/hooks/services/Parameters/useTimeClock'
 
 import { ROUTE_PARAMETERIZATIONS } from '@/routes/Pages/Parametrizations/Parametrizations.paths'
 
@@ -29,7 +31,6 @@ import { Skeleton } from '@/components/Core/Skeleton'
 import { TITLE_TIME_CLOCK_PARAMETERIZATIONS } from '@/constants/title.browser'
 import { ROUTE_MANAGEMENT_TIME_CLOCK_CREATE } from '@/routes/Pages/Parametrizations/Management/Management.paths'
 
-import { useTimeClock } from '@/hooks/services/Parameters/useTimeClock'
 import { ParametersSearchForm } from '../../../components/SearchForm'
 
 import {
@@ -46,7 +47,7 @@ import { TimeClock } from './components'
 import { EditTimeClock } from '../Edit'
 
 export function ListTimeClock() {
-  const { hasParametrizationsWriter } = usePermissionContext()
+  const { hasParametrizationsWriter } = useAuthRoles()
 
   const navigate = useNavigate()
 

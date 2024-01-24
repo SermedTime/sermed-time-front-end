@@ -2,7 +2,6 @@ import { useCallback, useEffect, useState } from 'react'
 
 import { useLoaderContext } from '@/contexts/Loader'
 import { useToastContext } from '@/contexts/Toast'
-import { usePermissionContext } from '@/contexts/Permissions'
 
 import { get, put } from '@/services/api/sermed-api/sermed-api'
 
@@ -13,6 +12,7 @@ import { Icon } from '@/components/Core/Icons/Icon'
 import { Subtitle } from '@/components/Core/Typography/Subtitle'
 import { Button } from '@/components/Core/Buttons/Button'
 
+import { useAuthRoles } from '@/hooks/services/Rules/Auth/useRoles'
 import { ITeamRegisterForm } from '../components/RegisterForm/RegisterForm.form'
 import { TeamsRegisterForm } from '../components/RegisterForm'
 
@@ -22,7 +22,7 @@ interface Props {
 }
 
 export function EditTeam({ uuid, onClose }: Props) {
-  const { hasParametrizationsWriter } = usePermissionContext()
+  const { hasParametrizationsWriter } = useAuthRoles()
   const { showLoader, hideLoader } = useLoaderContext()
   const { addToast, handleApiRejection } = useToastContext()
 

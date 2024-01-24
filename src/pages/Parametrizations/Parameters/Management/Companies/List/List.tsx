@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from 'react'
 
 import { useBreadcrumbContext } from '@/contexts/Layout/Breadcrumb'
 import { useHeaderContext } from '@/contexts/Layout/Header'
-import { usePermissionContext } from '@/contexts/Permissions'
+import { useAuthRoles } from '@/hooks/services/Rules/Auth/useRoles'
 
 import { TITLE_COMPANIES_PARAMETERIZATIONS } from '@/constants/title.browser'
 import { ROUTE_PARAMETERIZATIONS } from '@/routes/Pages/Parametrizations/Parametrizations.paths'
@@ -42,7 +42,7 @@ import { Companies } from './components/CompaniesTable'
 import { EditCompany } from '../Edit'
 
 export function ListCompanies() {
-  const { hasParametrizationsWriter } = usePermissionContext()
+  const { hasParametrizationsWriter } = useAuthRoles()
 
   const navigate = useNavigate()
 

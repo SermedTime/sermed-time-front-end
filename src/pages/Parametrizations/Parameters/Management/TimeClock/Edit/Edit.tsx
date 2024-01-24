@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 
 import { useLoaderContext } from '@/contexts/Loader'
 import { useToastContext } from '@/contexts/Toast'
-import { usePermissionContext } from '@/contexts/Permissions'
+import { useAuthRoles } from '@/hooks/services/Rules/Auth/useRoles'
 
 import { get, put } from '@/services/api/sermed-api/sermed-api'
 import { Modal } from '@/components/Core/Modal'
@@ -20,7 +20,7 @@ interface Props {
 }
 
 export function EditTimeClock({ uuid, onClose }: Props) {
-  const { hasParametrizationsWriter } = usePermissionContext()
+  const { hasParametrizationsWriter } = useAuthRoles()
   const { showLoader, hideLoader } = useLoaderContext()
   const { addToast, handleApiRejection } = useToastContext()
 

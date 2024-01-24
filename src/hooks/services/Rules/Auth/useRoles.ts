@@ -31,9 +31,16 @@ export function useAuthRoles() {
     [userRoles]
   )
 
-  const parametrizations = useCallback((): boolean => {
+  const hasParametrizations = useCallback((): boolean => {
     return checkIfUserHasRole({
       role: String(`${import.meta.env.VITE_APP_ROLE_PARAMETRIZATIONS}`)
+    })
+  }, [checkIfUserHasRole])
+
+  const hasParametrizationsWriter = useCallback((): boolean => {
+    return checkIfUserHasRole({
+      role: String(`${import.meta.env.VITE_APP_ROLE_PARAMETRIZATIONS}`),
+      is_writer: true
     })
   }, [checkIfUserHasRole])
 
@@ -48,7 +55,8 @@ export function useAuthRoles() {
 
   return {
     checkIfUserHasRole,
-    parametrizations,
+    hasParametrizations,
+    hasParametrizationsWriter,
     handleUserRoles
   }
 }

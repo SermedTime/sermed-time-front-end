@@ -1,7 +1,7 @@
 import { useLoaderContext } from '@/contexts/Loader'
 import { useToastContext } from '@/contexts/Toast'
 import { useRefreshKeyContext } from '@/contexts/Refresh'
-import { usePermissionContext } from '@/contexts/Permissions'
+import { useAuthRoles } from '@/hooks/services/Rules/Auth/useRoles'
 
 import { convertIsoDateToPtBr } from '@/utils/date'
 import { put, del } from '@/services/api/sermed-api/sermed-api'
@@ -19,7 +19,7 @@ interface Props {
 }
 
 export function PesmissionsTable({ data, onRefetch }: Props) {
-  const { hasParametrizationsWriter } = usePermissionContext()
+  const { hasParametrizationsWriter } = useAuthRoles()
   const { showLoader, hideLoader } = useLoaderContext()
   const { addToast, handleApiRejection } = useToastContext()
 
