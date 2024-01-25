@@ -1,4 +1,5 @@
 import { get } from '@/services/api/sermed-api/sermed-api'
+import { removeEmptyEntries } from '@/utils/generic'
 import { useState, useCallback, useEffect } from 'react'
 
 interface IScheduleShift {
@@ -20,7 +21,14 @@ export function useSchedules() {
     try {
       setResult(null)
 
-      const { data } = await get('/schedules', params)
+      const queryParams = removeEmptyEntries({
+        team_id: params?.team_id,
+        user_id: params?.user_id
+      })
+
+      console.log(params)
+
+      const { data } = await get('/schedules', queryParams)
 
       for (let i = 0; i < data.data.length; i++) {
         data.data[i].start = new Date(data.data[i].start)

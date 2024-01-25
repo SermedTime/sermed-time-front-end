@@ -1,0 +1,1 @@
+export { ManageScheduleRegisterForm } from './RegisterForm'

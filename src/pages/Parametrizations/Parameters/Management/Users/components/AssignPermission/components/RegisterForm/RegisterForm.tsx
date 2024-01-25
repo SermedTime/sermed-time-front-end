@@ -4,7 +4,6 @@ import { Field, Form, Formik } from 'formik'
 
 import { usePermissionsDropdown } from '@/hooks/services/Rules/Dropdown/usePermissions'
 
-import { Skeleton } from '@/components/Core/Skeleton'
 import { Button } from '@/components/Core/Buttons/Button'
 import { Checkbox } from '@/components/Core/Form/Fields/Checkbox'
 import { Select } from '@/components/Core/Form/Fields/Select'
@@ -13,7 +12,7 @@ import { IOption } from '@/components/Core/Form/Fields/Select/Select.interface'
 import { IAssignPermissionForm, validationSchema } from './AssignPermission'
 
 interface Props {
-  initialValues: IAssignPermissionForm | null
+  initialValues: IAssignPermissionForm
   user_id: string
   onSubmit: (formValues: IAssignPermissionForm) => void
 }
@@ -24,22 +23,6 @@ export function AssignPermissionRegisterForm({
   user_id
 }: Props) {
   const { permissions } = usePermissionsDropdown({ uuid: user_id })
-
-  if (!initialValues) {
-    return (
-      <Row className="mb-4">
-        <Col xs={6}>
-          <Skeleton />
-        </Col>
-        <Col xs={4}>
-          <Skeleton />
-        </Col>
-        <Col xs={2}>
-          <Skeleton />
-        </Col>
-      </Row>
-    )
-  }
 
   return (
     <Formik

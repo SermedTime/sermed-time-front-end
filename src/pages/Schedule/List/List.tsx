@@ -38,6 +38,8 @@ import { ManageSchedule } from '../components/ManageSchedule'
 import { IScheduleShift } from './List.interface'
 import { handleDayPropGetter, handleEventPropGetter } from './List.helpers'
 import { Toolbar } from './components/Toolbar'
+import { TeamsAndUsersSearchForm } from './components/TeamsAndUsers'
+import { ITeamsAndUsersSearchForm } from './components/TeamsAndUsers/TeamsAndUsers.form'
 
 const locales = {
   'pt-BR': ptBR
@@ -101,12 +103,26 @@ export function ListScheduleCalendar() {
 
         params = { date: new Date(params.date || '') }
       } else {
-        params = { date: new Date() }
+        params = { date: new Date(), team_id: 'aaa' }
       }
 
       handleSearchParams(params)
     }
   }, [params, loaded, searchParams, handleSearchParams])
+
+  function handleOnSearch(data: ITeamsAndUsersSearchForm) {
+    if (params) {
+      const { team_id, user_id } = data
+
+      const newParams = {
+        ...params,
+        team_id,
+        user_id
+      }
+
+      handleSearchParams(newParams)
+    }
+  }
 
   function handleOnSelectEvent(event: IScheduleShift) {
     setSelectedDay(event.schedule_date)
@@ -147,7 +163,11 @@ export function ListScheduleCalendar() {
     if (!isSameDay(selectedDay, newDate) && action !== 'DATE') {
       setSelectedDay(newDate)
 
-      handleSearchParams({ date: newDate })
+      handleSearchParams({
+        date: newDate,
+        team_id: params?.team_id,
+        user_id: params?.user_id
+      })
     }
   }
 
@@ -157,50 +177,65 @@ export function ListScheduleCalendar() {
         <Row>
           <Col lg={9} xxl={10}>
             <Section>
-              <Calendar
-                culture="pt-BR"
-                localizer={localizer}
-                views={['month']}
-                selectable={true}
-                defaultDate={selectedDay}
-                date={selectedDay}
-                events={result || undefined}
-                dayPropGetter={date => {
-                  return handleDayPropGetter(date, selectedDay)
-                }}
-                eventPropGetter={event => {
-                  return handleEventPropGetter(event, selectedDay)
-                }}
-                messages={{
-                  date: 'Data',
-                  time: 'Tempo',
-                  event: 'Evento',
-                  allDay: 'Dia Inteiro',
-                  week: 'Semana',
-                  work_week: 'Semana de Trabalho',
-                  day: 'Dia',
-                  month: 'Mês',
-                  previous: 'Voltar',
-                  next: 'Avançar',
-                  yesterday: 'Ontem',
-                  tomorrow: 'Amanhã',
-                  today: 'Hoje',
-                  agenda: 'Agenda',
+              <Row className="mb-2">
+                <Col>
+                  <TeamsAndUsersSearchForm
+                    defaultValues={
+                      params
+                        ? { team_id: params.team_id, user_id: params.user_id }
+                        : null
+                    }
+                    onChange={search => handleOnSearch(search)}
+                  />
+                </Col>
+              </Row>
+              <Row className="mb-2">
+                <Calendar
+                  culture="pt-BR"
+                  localizer={localizer}
+                  views={['month']}
+                  selectable={true}
+                  defaultDate={selectedDay}
+                  date={selectedDay}
+                  events={result || undefined}
+                  dayPropGetter={date => {
+                    return handleDayPropGetter(date, selectedDay)
+                  }}
+                  eventPropGetter={event => {
+                    return handleEventPropGetter(event, selectedDay)
+                  }}
+                  messages={{
+                    date: 'Data',
+                    time: 'Tempo',
+                    event: 'Evento',
+                    allDay: 'Dia Inteiro',
+                    week: 'Semana',
+                    work_week: 'Semana de Trabalho',
+                    day: 'Dia',
+                    month: 'Mês',
+                    previous: 'Voltar',
+                    next: 'Avançar',
+                    yesterday: 'Ontem',
+                    tomorrow: 'Amanhã',
+                    today: 'Hoje',
+                    agenda: 'Agenda',
 
-                  noEventsInRange: 'Não existem eventos nesse range de datas.',
+                    noEventsInRange:
+                      'Não existem eventos nesse range de datas.',
 
-                  showMore: total => `+${total} Eventos`
-                }}
-                components={{
-                  toolbar: Toolbar
-                }}
-                onSelectEvent={event => handleOnSelectEvent(event)}
-                onSelectSlot={slot => handleOnSelectSlot(slot)}
-                onShowMore={(events, date) => handleOnShowMore(events, date)}
-                onNavigate={(newDate, view, action) => {
-                  handleOnNavigate(newDate, view, action)
-                }}
-              />
+                    showMore: total => `+${total} Eventos`
+                  }}
+                  components={{
+                    toolbar: Toolbar
+                  }}
+                  onSelectEvent={event => handleOnSelectEvent(event)}
+                  onSelectSlot={slot => handleOnSelectSlot(slot)}
+                  onShowMore={(events, date) => handleOnShowMore(events, date)}
+                  onNavigate={(newDate, view, action) => {
+                    handleOnNavigate(newDate, view, action)
+                  }}
+                />
+              </Row>
             </Section>
           </Col>
 
@@ -209,7 +244,9 @@ export function ListScheduleCalendar() {
               date={selectedDay}
               events={result}
               expanded={true}
-              onCreateEvent={() => setShowModalCreate(true)}
+              onCreateEvent={
+                params?.team_id ? () => setShowModalCreate(true) : undefined
+              }
               onRefetch={() => {
                 selectedDay && handleSearchParams({ date: selectedDay })
               }}
@@ -219,7 +256,7 @@ export function ListScheduleCalendar() {
       </Container>
 
       <ManageSchedule
-        team={undefined}
+        team_id={params?.team_id}
         date={selectedDay}
         show={showModalCreate}
         onClose={hasChanges => {
