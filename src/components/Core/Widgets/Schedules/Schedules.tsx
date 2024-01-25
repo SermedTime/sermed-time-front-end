@@ -4,36 +4,33 @@ import { Row, Col } from 'react-bootstrap'
 
 import { isSameDay } from 'date-fns'
 
-import Image from 'assets/images/icon-chat.png'
+import { Section } from '@/components/Core/Containers/Section'
+import { Caption } from '@/components/Core/Typography/Caption'
+import { Heading } from '@/components/Core/Typography/Heading'
+import { ButtonLink } from '@/components/Core/Buttons/ButtonLink'
+import { Skeleton } from '@/components/Core/Skeleton'
 
-import { get } from 'services/api/easy-crm'
+import { fillWithLeadingZero } from '@/utils/masks'
 
-import { Section } from 'components/Core/Containers/Section'
-import { Caption } from 'components/Core/Typography/Caption'
-import { Heading } from 'components/Core/Typography/Heading'
-import { ButtonLink } from 'components/Core/Buttons/ButtonLink'
-import { Skeleton } from 'components/Core/Skeleton'
-
-import { fillWithLeadingZero } from 'utils/masks'
-
-import { EditEvent } from 'pages/User/Calendar/Edit'
-
-import { IEvent } from './Event/Event.interface'
+import { get } from '@/services/api/sermed-api/sermed-api'
+import Image from '@/assets/images/icon-chat.png'
+// import { EditEvent } from '@/pages/User/Calendar/Edit'
+import { IScheduleShift } from './Schedule/Schedule.interface'
 import { handleWeekDay, handleMonth } from './Events.helpers'
 
-import { Event } from './Event'
+import { Schedule } from './Schedule'
 import { ShowMore } from './ShowMore'
 
 interface Props {
   date?: Date
-  events?: IEvent[] | null
+  events?: IScheduleShift[] | null
   expanded?: boolean
   shouldLoadEvents?: boolean
   onCreateEvent?: () => void
   onRefetch?: () => void
 }
 
-export function WidgetEvents({
+export function WidgetSchedules({
   date,
   events,
   expanded,
@@ -42,7 +39,7 @@ export function WidgetEvents({
   onRefetch
 }: Props) {
   const [currentDate, setCurrentDate] = useState<Date | null>(null)
-  const [dayEvents, setDayEvents] = useState<IEvent[] | null>(null)
+  const [dayEvents, setDayEvents] = useState<IScheduleShift[] | null>(null)
 
   const [showMore, setShowMore] = useState(false)
 
@@ -52,7 +49,9 @@ export function WidgetEvents({
     if (date && events) {
       setCurrentDate(date)
 
-      const newDayEvents = events.filter(event => isSameDay(date, event.start))
+      const newDayEvents = events.filter(event =>
+        isSameDay(date, event.schedule_date)
+      )
 
       setDayEvents(newDayEvents)
     }
@@ -62,7 +61,7 @@ export function WidgetEvents({
     try {
       const params = { date }
 
-      const { data } = await get('/user/calendar', params)
+      const { data } = await get('/schedules', params)
       for (let i = 0; i < data.data.length; i++) {
         data.data[i].start = new Date(data.data[i].start)
         data.data[i].end = new Date(data.data[i].end)
@@ -130,7 +129,7 @@ export function WidgetEvents({
                   return (
                     <Row key={idx} className="my-2">
                       <Col>
-                        <Event
+                        <Schedule
                           data={event}
                           onClick={id => setEditingEvent(id)}
                         />
@@ -145,7 +144,7 @@ export function WidgetEvents({
                       <Col>
                         <Row className="my-2">
                           <Col>
-                            <Event
+                            <Schedule
                               data={event}
                               onClick={id => setEditingEvent(id)}
                             />
@@ -201,21 +200,21 @@ export function WidgetEvents({
         {onCreateEvent && (
           <Row className="justify-content-center">
             <Col xs="auto" className="my-2">
-              <ButtonLink onClick={onCreateEvent}>Novo Evento</ButtonLink>
+              <ButtonLink onClick={onCreateEvent}>Nova Escala</ButtonLink>
             </Col>
           </Row>
         )}
       </Section>
 
-      <EditEvent
+      {/* <EditEvent
         id={editingEvent}
         onClose={refetch => handleOnCloseEdit(refetch)}
-      />
+      /> */}
     </>
   )
 }
 
-WidgetEvents.defaultProps = {
+WidgetSchedules.defaultProps = {
   date: undefined,
   events: undefined,
   expanded: undefined,

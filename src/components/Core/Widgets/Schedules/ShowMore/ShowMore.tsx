@@ -1,11 +1,11 @@
-import { Paragraph } from 'components/Core/Typography/Paragraph'
+import { Paragraph } from '@/components/Core/Typography/Paragraph'
 
-import { IEvent } from '../Event/Event.interface'
+import { IScheduleShift } from '../Schedule/Schedule.interface'
 
 import { Container, Stack, Identifier } from './ShowMore.styles'
 
 interface Props {
-  events: IEvent[]
+  events: IScheduleShift[]
   onClick: () => void
 }
 
@@ -16,7 +16,7 @@ export function ShowMore({ events, onClick }: Props) {
     <Container type="button" onClick={onClick}>
       <Stack>
         {minimizedEvents.map((event, idx) => (
-          <Identifier key={idx} type={event.type} />
+          <Identifier key={idx} type={event.shift} />
         ))}
       </Stack>
 

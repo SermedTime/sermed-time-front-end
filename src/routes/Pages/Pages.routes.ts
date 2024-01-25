@@ -8,6 +8,7 @@ import { timeSheetRoutes } from './TimeSheet/TimeSheet.routes'
 import { ROUTE_HOME } from './Pages.paths'
 
 import { IRouteProps } from '../routes.interface'
+import { scheduleRoutes } from './Schedule/Schedules.routes'
 
 const Home = lazy(() =>
   import('@/pages/Home').then(module => ({
@@ -32,5 +33,6 @@ export const routes: IRouteProps[] = mainRoutes.concat(
   authRoutes,
   parameterizationsRoutes,
   userRoutes,
-  timeSheetRoutes
+  timeSheetRoutes,
+  scheduleRoutes
 )

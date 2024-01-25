@@ -10,6 +10,7 @@ import { useBreadcrumbContext } from '@/contexts/Layout/Breadcrumb'
 import { Heading } from '@/components/Core/Typography/Heading'
 import { ButtonIcon } from '@/components/Core/Buttons/ButtonIcon'
 import { Tooltip } from '@/components/Core/Tooltip'
+import { ROUTE_SCHEDULE } from '@/routes/Pages/Schedule/Schedules.paths'
 import { DropdownMenu } from './Dropdown'
 import { Breadcrumb } from '../Breadcrumb'
 
@@ -52,8 +53,8 @@ export function Header() {
                   <Tooltip title="Escala" place="top">
                     <ButtonIcon
                       size="md"
-                      icon="calendar_today"
-                      onClick={() => navigate(ROUTE_HOME)} // NAVEGAR PARA ESCALA
+                      icon="calendar_month"
+                      onClick={() => navigate(ROUTE_SCHEDULE)} // NAVEGAR PARA ESCALA
                     />
                   </Tooltip>
                 </div>

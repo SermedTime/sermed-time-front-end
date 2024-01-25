@@ -1,6 +1,7 @@
 import { ROLE_PARAMETRIZATIONS } from '@/constants/user.roles'
 import { ROUTE_HOME } from '@/routes/Pages/Pages.paths'
 import { ROUTE_PARAMETERIZATIONS } from '@/routes/Pages/Parametrizations/Parametrizations.paths'
+import { ROUTE_SCHEDULE } from '@/routes/Pages/Schedule/Schedules.paths'
 import { ROUTE_TIME_SHEET_USER_SEARCH } from '@/routes/Pages/TimeSheet/TimeSheet.paths'
 
 interface INavigation {
@@ -24,6 +25,11 @@ export const nav: INavigation[] = [
     icon: 'pending_actions',
     label: 'Folha de Ponto',
     route: ROUTE_TIME_SHEET_USER_SEARCH
+  },
+  {
+    icon: 'calendar_month',
+    label: 'Escalas',
+    route: ROUTE_SCHEDULE
   },
   {
     icon: 'multiline_chart',

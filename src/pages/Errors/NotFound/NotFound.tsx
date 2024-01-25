@@ -8,7 +8,7 @@ import { AnimatedPage } from '@/components/Layout/AnimatedPage'
 import { Heading } from '@/components/Core/Typography/Heading'
 import { Paragraph } from '@/components/Core/Typography/Paragraph'
 import { Button } from '@/components/Core/Buttons/Button'
-import { ROUTE_LOGIN } from '@/routes/Pages/Auth/Auth.paths'
+import { ROUTE_HOME } from '@/routes/Pages/Pages.paths'
 import { Background } from './NotFound.styles'
 
 export function NotFound() {
@@ -37,10 +37,7 @@ export function NotFound() {
 
               <Row className="justify-content-center">
                 <Col xs="auto">
-                  <Button
-                    styles="primary"
-                    onClick={() => navigate(ROUTE_LOGIN)}
-                  >
+                  <Button styles="primary" onClick={() => navigate(ROUTE_HOME)}>
                     Home
                   </Button>
                 </Col>

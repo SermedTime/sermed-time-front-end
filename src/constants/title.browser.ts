@@ -18,3 +18,6 @@ export const TITLE_COMPANIES_PARAMETERIZATIONS = `Empresas - ${brand}`
 
 // TIME SHEET
 export const TITLE_USER_SEARCH = `Pesquisar Usuários - ${brand}`
+
+// SCHEDULE
+export const TITLE_SCHEDULE = `Escala - ${brand}`
