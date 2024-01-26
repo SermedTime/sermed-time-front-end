@@ -31,7 +31,7 @@ export function convertIsoDateToTime(date: string | undefined | null): string {
 export function convertDateToString(date: Date | undefined | null): string {
   if (!date) return ''
 
-  return format(date, 'yyyy-MM-dd')
+  return format(date, 'dd/MM/yyyy')
 }
 
 export function convertIntToTime(time: number | undefined): string {

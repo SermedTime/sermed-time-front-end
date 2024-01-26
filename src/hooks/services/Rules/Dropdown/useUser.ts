@@ -22,6 +22,7 @@ export function useUsersDropdown() {
     async (allData?: boolean, dependsOn?: boolean, teamId?: string | null) => {
       try {
         setUsers(null)
+
         if (dependsOn && !teamId) {
           setUsers([])
         } else {
@@ -60,9 +61,9 @@ export function useUsersDropdown() {
     }
   }, [teamId, allData, dependsOn, fetchData])
 
-  useEffect(() => {
-    !users && fetchData(allData, dependsOn, teamId)
-  }, [users, allData, teamId, dependsOn, fetchData])
+  // useEffect(() => {
+  //   !users && fetchData(allData, dependsOn, teamId)
+  // }, [users, allData, teamId, dependsOn, fetchData])
 
   return { users, setAllData, setDependsOn, setTeamId }
 }

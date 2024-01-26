@@ -5,7 +5,8 @@ import { IOption } from '@/components/Core/Form/Fields/Select/Select.interface'
 
 import { useUsersDropdown } from '@/hooks/services/Rules/Dropdown/useUser'
 import { useEffect } from 'react'
-import { useTeamDropdown } from '@/hooks/services/Rules/Dropdown/useTeams'
+import { useShiftDropdown } from '@/hooks/services/Rules/Dropdown/useShift'
+import { Button } from '@/components/Core/Buttons/Button'
 import { ISheduleRegisterForm, validationSchema } from './RegisterForm.form'
 
 interface Props {
@@ -14,12 +15,13 @@ interface Props {
 }
 
 export function ManageScheduleRegisterForm({ initialValues, onSubmit }: Props) {
-  const { teams } = useTeamDropdown({})
   const { users, setTeamId, setDependsOn } = useUsersDropdown()
+  const { shifts } = useShiftDropdown()
 
   useEffect(() => {
+    setTeamId(initialValues.team_id)
     setDependsOn(true)
-  }, [initialValues, setDependsOn])
+  }, [initialValues, setDependsOn, setTeamId])
 
   return (
     <Formik
@@ -27,37 +29,12 @@ export function ManageScheduleRegisterForm({ initialValues, onSubmit }: Props) {
       onSubmit={onSubmit}
       validationSchema={validationSchema}
     >
-      {({
-        values,
-        touched,
-        errors,
-        dirty,
-        isValid,
-        setFieldValue,
-        setFieldTouched
-      }) => (
+      {({ values, dirty, isValid, setFieldValue }) => (
         <Form>
-          <Row className="mb-2">
-            <Col>
+          <Row className="mb-2 ">
+            <Col xl={5}>
               <Field
                 as={Select}
-                size="sm"
-                label="Equipe"
-                placeholder="Selecione uma equipe"
-                value={values.team_id}
-                options={teams}
-                onChange={({ value }: IOption) => {
-                  setFieldValue('team_id', value)
-                  setFieldValue('user_id', null)
-                  setTeamId(value as string)
-                }}
-              />
-            </Col>
-
-            <Col>
-              <Field
-                as={Select}
-                size="sm"
                 label="Funcionário"
                 placeholder="Selecione um Funcionário"
                 value={values.user_id}
@@ -67,6 +44,29 @@ export function ManageScheduleRegisterForm({ initialValues, onSubmit }: Props) {
                 }}
                 disabled={!values.team_id}
               />
+            </Col>
+
+            <Col xl={5}>
+              <Field
+                as={Select}
+                label="Turno"
+                placeholder="Selecione um Turno"
+                value={values.shift_id}
+                options={shifts}
+                onChange={({ value }: IOption) => {
+                  setFieldValue('shift_id', value)
+                }}
+              />
+            </Col>
+
+            <Col xs="2" style={{ marginTop: '1.20rem' }}>
+              <Button
+                type="submit"
+                styles="primary"
+                disabled={!dirty || !isValid}
+              >
+                Escalar
+              </Button>
             </Col>
           </Row>
         </Form>

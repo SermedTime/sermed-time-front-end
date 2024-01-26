@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react'
-
 import { useToastContext } from '@/contexts/Toast'
 import { useLoaderContext } from '@/contexts/Loader'
 
@@ -12,6 +10,8 @@ import { Subtitle } from '@/components/Core/Typography/Subtitle'
 import { Button } from '@/components/Core/Buttons/Button'
 
 import { useRefreshKeyContext } from '@/contexts/Refresh'
+
+import { convertDateToString } from '@/utils/date'
 import { ManageScheduleRegisterForm } from './components/RegisterForm'
 
 import { ISheduleRegisterForm } from './components/RegisterForm/RegisterForm.form'
@@ -23,22 +23,14 @@ interface Props {
   onClose: (hasChanges?: boolean) => void
 }
 
-export function ManageSchedule({ team_id, date, show, onClose }: Props) {
+export function ManageSchedule({ date, show, onClose, team_id }: Props) {
   const { showLoader, hideLoader } = useLoaderContext()
   const { addToast, handleApiRejection } = useToastContext()
 
-  const [showModal, setShowModal] = useState(false)
   const { refreshKey, onRefresh } = useRefreshKeyContext()
 
-  useEffect(() => {
-    if (team_id && show) {
-      setShowModal(true)
-    }
-  }, [team_id, show])
-
   function handleOnCancel() {
-    setShowModal(false)
-
+    onRefresh()
     onClose(false)
   }
 
@@ -75,24 +67,28 @@ export function ManageSchedule({ team_id, date, show, onClose }: Props) {
   return (
     <Modal
       key={refreshKey}
-      visible={showModal}
+      visible={show}
       onClose={() => handleOnCancel()}
       blur="xl"
     >
-      <div className="d-flex align-items-center gap-2 mb-5">
+      <div className="d-flex align-items-center gap-2 mb-3">
         <Icon appearance="outlined" size="lg" icon="event_available" />
 
-        <Subtitle size="sm">Gerenciamendo de Escalas </Subtitle>
+        <Subtitle size="sm">
+          {`Gerenciamendo de Escalas ${
+            date ? ` - ${convertDateToString(date)}` : ''
+          }`}{' '}
+        </Subtitle>
       </div>
 
       <Row>
         <Col>
           <ManageScheduleRegisterForm
             initialValues={{
-              team_id: team_id || '',
+              team_id,
               user_id: '',
               schedule_date: date || '',
-              shift: ''
+              shift_id: ''
             }}
             onSubmit={values => handleOnSubmit(values)}
           />
