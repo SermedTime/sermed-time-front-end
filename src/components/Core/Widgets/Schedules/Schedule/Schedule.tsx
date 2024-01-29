@@ -10,14 +10,14 @@ interface Props {
 
 export function Schedule({ data, onClick }: Props) {
   return (
-    <Container onClick={() => onClick && onClick(data.id)}>
-      <Identifier type={data.shift} />
+    <Container onClick={() => onClick && onClick(data.schedule_id)}>
+      <Identifier shift_initials={data.shift_initials} />
 
       <div>
-        <Heading size="xs">{data.user_name}</Heading>
+        <Heading size="xxs">{data.user_name}</Heading>
 
         <Caption size="lg" className="mt-1">
-          {data.shift}
+          {data.shift_name}
         </Caption>
       </div>
     </Container>

@@ -66,6 +66,8 @@ export function ListScheduleCalendar() {
   const [selectedDay, setSelectedDay] = useState<Date | undefined>(new Date())
   const [showModalCreate, setShowModalCreate] = useState(false)
 
+  console.log('result', result)
+
   useEffect(() => {
     document.title = TITLE_SCHEDULE
 
@@ -103,7 +105,7 @@ export function ListScheduleCalendar() {
 
         params = { date: new Date(params.date || '') }
       } else {
-        params = { date: new Date(), team_id: 'aaa' }
+        params = { date: new Date(), team_id: '' }
       }
 
       handleSearchParams(params)
@@ -125,7 +127,14 @@ export function ListScheduleCalendar() {
   }
 
   function handleOnSelectEvent(event: IScheduleShift) {
-    setSelectedDay(event.schedule_date)
+    if (!selectedDay) {
+      setSelectedDay(event.start)
+      return
+    }
+
+    if (isSameMonth(selectedDay, event.start)) {
+      setSelectedDay(event.start)
+    }
   }
 
   function handleOnSelectSlot({ start }: SlotInfo) {
@@ -204,27 +213,6 @@ export function ListScheduleCalendar() {
                   eventPropGetter={event => {
                     return handleEventPropGetter(event, selectedDay)
                   }}
-                  messages={{
-                    date: 'Data',
-                    time: 'Tempo',
-                    event: 'Evento',
-                    allDay: 'Dia Inteiro',
-                    week: 'Semana',
-                    work_week: 'Semana de Trabalho',
-                    day: 'Dia',
-                    month: 'Mês',
-                    previous: 'Voltar',
-                    next: 'Avançar',
-                    yesterday: 'Ontem',
-                    tomorrow: 'Amanhã',
-                    today: 'Hoje',
-                    agenda: 'Agenda',
-
-                    noEventsInRange:
-                      'Não existem eventos nesse range de datas.',
-
-                    showMore: total => `+${total} Eventos`
-                  }}
                   components={{
                     toolbar: Toolbar
                   }}
@@ -247,9 +235,6 @@ export function ListScheduleCalendar() {
               onCreateEvent={
                 params?.team_id ? () => setShowModalCreate(true) : undefined
               }
-              onRefetch={() => {
-                selectedDay && handleSearchParams({ date: selectedDay })
-              }}
             />
           </Col>
         </Row>

@@ -124,13 +124,13 @@ export default createGlobalStyle`
           width: 0.25rem;
         }
 
-        &.green {
+        &.M {
           &:before {
             background-color: ${props.theme.colors.feedback.success.pure};
           }
         }
 
-        &.yellow {
+        &.T {
           &:before {
             background-color: ${props.theme.colors.feedback.helper.pure};
           }

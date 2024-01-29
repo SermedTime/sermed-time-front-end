@@ -3,7 +3,7 @@ import { ReactNode } from 'react'
 import { Container } from './Heading.styles'
 
 interface Props {
-  size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'display'
+  size: 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'display'
   className?: string
   children: string | number | ReactNode
 }

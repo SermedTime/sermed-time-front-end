@@ -16,7 +16,7 @@ export function ShowMore({ events, onClick }: Props) {
     <Container type="button" onClick={onClick}>
       <Stack>
         {minimizedEvents.map((event, idx) => (
-          <Identifier key={idx} type={event.shift} />
+          <Identifier key={idx} type={event.type} />
         ))}
       </Stack>
 

@@ -14,7 +14,7 @@ import { fillWithLeadingZero } from '@/utils/masks'
 
 import { get } from '@/services/api/sermed-api/sermed-api'
 import Image from '@/assets/images/icon-chat.png'
-// import { EditEvent } from '@/pages/User/Calendar/Edit'
+
 import { IScheduleShift } from './Schedule/Schedule.interface'
 import { handleWeekDay, handleMonth } from './Events.helpers'
 
@@ -27,7 +27,6 @@ interface Props {
   expanded?: boolean
   shouldLoadEvents?: boolean
   onCreateEvent?: () => void
-  onRefetch?: () => void
 }
 
 export function WidgetSchedules({
@@ -35,23 +34,18 @@ export function WidgetSchedules({
   events,
   expanded,
   shouldLoadEvents,
-  onCreateEvent,
-  onRefetch
+  onCreateEvent
 }: Props) {
   const [currentDate, setCurrentDate] = useState<Date | null>(null)
   const [dayEvents, setDayEvents] = useState<IScheduleShift[] | null>(null)
 
   const [showMore, setShowMore] = useState(false)
 
-  const [editingEvent, setEditingEvent] = useState<string | null>(null)
-
   useEffect(() => {
     if (date && events) {
       setCurrentDate(date)
 
-      const newDayEvents = events.filter(event =>
-        isSameDay(date, event.schedule_date)
-      )
+      const newDayEvents = events.filter(event => isSameDay(date, event.start))
 
       setDayEvents(newDayEvents)
     }
@@ -80,137 +74,112 @@ export function WidgetSchedules({
     }
   }, [shouldLoadEvents, dayEvents, fetchData])
 
-  function handleOnCloseEdit(refetch: boolean | undefined) {
-    setEditingEvent(null)
-
-    if (refetch && onRefetch) {
-      onRefetch()
-    }
-
-    if (refetch && shouldLoadEvents && currentDate) {
-      fetchData(currentDate)
-    }
-  }
-
   return (
-    <>
-      <Section size="sm">
-        <Row>
-          <Col className="mb-3">
-            {currentDate ? (
-              <div className="d-flex gap-2">
-                <Heading size="md">
-                  {fillWithLeadingZero(currentDate.getDate(), 2)}
+    <Section size="sm">
+      <Row>
+        <Col className="mb-3">
+          {currentDate ? (
+            <div className="d-flex gap-2">
+              <Heading size="md">
+                {fillWithLeadingZero(currentDate.getDate(), 2)}
+              </Heading>
+
+              <div className="mt-1">
+                <Heading size="xs">
+                  {handleWeekDay(currentDate.getDay())}
                 </Heading>
 
-                <div className="mt-1">
-                  <Heading size="xs">
-                    {handleWeekDay(currentDate.getDay())}
-                  </Heading>
-
-                  <Caption size="lg">
-                    {`${handleMonth(
-                      currentDate.getMonth()
-                    )} ${currentDate.getFullYear()}`}
-                  </Caption>
-                </div>
+                <Caption size="lg">
+                  {`${handleMonth(
+                    currentDate.getMonth()
+                  )} ${currentDate.getFullYear()}`}
+                </Caption>
               </div>
-            ) : (
+            </div>
+          ) : (
+            <Skeleton size="lg" />
+          )}
+        </Col>
+      </Row>
+
+      {dayEvents ? (
+        <div>
+          {dayEvents.length > 0 ? (
+            dayEvents.map((event, idx) => {
+              if (expanded || showMore) {
+                return (
+                  <Row key={idx} className="my-2">
+                    <Col>
+                      <Schedule data={event} />
+                    </Col>
+                  </Row>
+                )
+              }
+
+              if (idx === 0) {
+                return (
+                  <Row key={idx}>
+                    <Col>
+                      <Row className="my-2">
+                        <Col>
+                          <Schedule data={event} />
+                        </Col>
+                      </Row>
+
+                      <ShowMore
+                        events={dayEvents}
+                        onClick={() => setShowMore(true)}
+                      />
+                    </Col>
+                  </Row>
+                )
+              }
+
+              return undefined
+            })
+          ) : (
+            <Row className="mt-2 mb-3">
+              <Col>
+                <Row className="justify-content-center">
+                  <Col xs="auto">
+                    <img src={Image} alt=">Não há eventos para exibir" />
+                  </Col>
+                </Row>
+
+                <Row className="justify-content-center text-center mt-3">
+                  <Col xs={8}>
+                    <Caption size="lg">Não há escalas para exibir</Caption>
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
+          )}
+        </div>
+      ) : (
+        <>
+          <Row className="my-2">
+            <Col>
               <Skeleton size="lg" />
-            )}
-          </Col>
-        </Row>
-
-        {dayEvents ? (
-          <div>
-            {dayEvents.length > 0 ? (
-              dayEvents.map((event, idx) => {
-                if (expanded || showMore) {
-                  return (
-                    <Row key={idx} className="my-2">
-                      <Col>
-                        <Schedule
-                          data={event}
-                          onClick={id => setEditingEvent(id)}
-                        />
-                      </Col>
-                    </Row>
-                  )
-                }
-
-                if (idx === 0) {
-                  return (
-                    <Row key={idx}>
-                      <Col>
-                        <Row className="my-2">
-                          <Col>
-                            <Schedule
-                              data={event}
-                              onClick={id => setEditingEvent(id)}
-                            />
-                          </Col>
-                        </Row>
-
-                        <ShowMore
-                          events={dayEvents}
-                          onClick={() => setShowMore(true)}
-                        />
-                      </Col>
-                    </Row>
-                  )
-                }
-
-                return undefined
-              })
-            ) : (
-              <Row className="mt-2 mb-3">
-                <Col>
-                  <Row className="justify-content-center">
-                    <Col xs="auto">
-                      <img src={Image} alt=">Não há eventos para exibir" />
-                    </Col>
-                  </Row>
-
-                  <Row className="justify-content-center text-center mt-3">
-                    <Col xs={8}>
-                      <Caption size="lg">Não há eventos para exibir</Caption>
-                    </Col>
-                  </Row>
-                </Col>
-              </Row>
-            )}
-          </div>
-        ) : (
-          <>
-            <Row className="my-2">
-              <Col>
-                <Skeleton size="lg" />
-                <Skeleton size="lg" />
-              </Col>
-            </Row>
-
-            <Row className="my-2">
-              <Col>
-                <Skeleton size="sm" />
-              </Col>
-            </Row>
-          </>
-        )}
-
-        {onCreateEvent && (
-          <Row className="justify-content-center">
-            <Col xs="auto" className="my-2">
-              <ButtonLink onClick={onCreateEvent}>Nova Escala</ButtonLink>
+              <Skeleton size="lg" />
             </Col>
           </Row>
-        )}
-      </Section>
 
-      {/* <EditEvent
-        id={editingEvent}
-        onClose={refetch => handleOnCloseEdit(refetch)}
-      /> */}
-    </>
+          <Row className="my-2">
+            <Col>
+              <Skeleton size="sm" />
+            </Col>
+          </Row>
+        </>
+      )}
+
+      {onCreateEvent && (
+        <Row className="justify-content-center">
+          <Col xs="auto" className="my-2">
+            <ButtonLink onClick={onCreateEvent}>Nova Escala</ButtonLink>
+          </Col>
+        </Row>
+      )}
+    </Section>
   )
 }
 
@@ -219,6 +188,5 @@ WidgetSchedules.defaultProps = {
   events: undefined,
   expanded: undefined,
   shouldLoadEvents: undefined,
-  onCreateEvent: undefined,
-  onRefetch: undefined
+  onCreateEvent: undefined
 }

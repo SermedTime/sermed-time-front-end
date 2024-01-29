@@ -16,13 +16,13 @@ export function handleEventPropGetter(
 ) {
   if (!selectedDay) {
     return {
-      className: `custom-event ${event.shift}`
+      className: `custom-event ${event.shift_initials}`
     }
   }
 
   return {
-    className: `custom-event ${event.shift} ${
-      isSameDay(event.schedule_date, selectedDay) ? 'selected' : ''
+    className: `custom-event ${event.shift_initials} ${
+      isSameDay(event.start, selectedDay) ? 'selected' : ''
     }`
   }
 }

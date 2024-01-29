@@ -8,7 +8,7 @@ export function useAuthRoles() {
   const { user } = useAuthContext()
 
   const userRoles = useMemo(() => {
-    return user
+    return user && user.roles
       ? user.roles.map((r: IRoles) => {
           return {
             role: r.role,

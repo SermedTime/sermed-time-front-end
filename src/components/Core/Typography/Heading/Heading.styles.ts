@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components'
 
 interface Props {
-  size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'display'
+  size: 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'display'
 }
 
 export const Container = styled.div<Props>`
@@ -10,6 +10,11 @@ export const Container = styled.div<Props>`
     font-family: ${props.theme.font.family.highlight};
     font-weight: ${props.theme.font.weight.bold};
     line-height: ${props.theme.line.height.default};
+
+    ${props.size === 'xxs' &&
+    css`
+      font-size: ${props.theme.font.size.xxs};
+    `}
 
     ${props.size === 'xs' &&
     css`

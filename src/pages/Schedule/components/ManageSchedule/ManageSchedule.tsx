@@ -15,6 +15,7 @@ import { convertDateToString } from '@/utils/date'
 import { ManageScheduleRegisterForm } from './components/RegisterForm'
 
 import { ISheduleRegisterForm } from './components/RegisterForm/RegisterForm.form'
+import { ListDaySchedules } from './components/List/components'
 
 interface Props {
   team_id: string
@@ -84,6 +85,7 @@ export function ManageSchedule({ date, show, onClose, team_id }: Props) {
       <Row>
         <Col>
           <ManageScheduleRegisterForm
+            mode="create"
             initialValues={{
               team_id,
               user_id: '',
@@ -91,8 +93,13 @@ export function ManageSchedule({ date, show, onClose, team_id }: Props) {
               shift_id: ''
             }}
             onSubmit={values => handleOnSubmit(values)}
+            onCancel={() => handleOnCancel()}
           />
         </Col>
+      </Row>
+
+      <Row>
+        <ListDaySchedules team_id={team_id} date={date} />
       </Row>
 
       <Row className="justify-content-end">

@@ -1,9 +1,14 @@
 export interface IScheduleShift {
-  id: string
+  schedule_id: string
   team_id: string
   team_name: string
   user_id: string
   user_name: string
-  shift: string
-  schedule_date: Date
+  title: string
+  shift_id: string
+  shift_name: string
+  shift_initials: string
+  start: Date
+  end: Date
+  type: string
 }

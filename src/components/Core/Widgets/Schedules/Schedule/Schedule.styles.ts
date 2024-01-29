@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components'
 
 interface Props {
-  type: string
+  shift_initials: string
 }
 
 export const Container = styled.div`
@@ -25,12 +25,12 @@ export const Identifier = styled.div<Props>`
     min-height: 1rem;
     min-width: 0.25rem;
 
-    ${props.type === 'green' &&
+    ${props.shift_initials === 'M' &&
     css`
       background-color: ${props.theme.colors.feedback.success.pure};
     `}
 
-    ${props.type === 'yellow' &&
+    ${props.shift_initials === 'T' &&
     css`
       background-color: ${props.theme.colors.feedback.helper.pure};
     `}

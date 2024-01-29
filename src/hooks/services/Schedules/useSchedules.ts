@@ -2,14 +2,19 @@ import { get } from '@/services/api/sermed-api/sermed-api'
 import { removeEmptyEntries } from '@/utils/generic'
 import { useState, useCallback, useEffect } from 'react'
 
-interface IScheduleShift {
-  id: string
+export interface IScheduleShift {
+  schedule_id: string
   team_id: string
   team_name: string
   user_id: string
   user_name: string
-  shift: string
-  schedule_date: Date
+  title: string
+  shift_id: string
+  shift_name: string
+  start: Date
+  end: Date
+  type: string
+  shift_initials: string
 }
 
 export function useSchedules() {
@@ -26,14 +31,14 @@ export function useSchedules() {
         user_id: params?.user_id
       })
 
-      console.log(params)
-
-      const { data } = await get('/schedules', queryParams)
+      const { data } = await get('/schedule/list', queryParams)
 
       for (let i = 0; i < data.data.length; i++) {
         data.data[i].start = new Date(data.data[i].start)
         data.data[i].end = new Date(data.data[i].end)
       }
+
+      console.log(data.data)
 
       setResult(data.data)
     } catch {
