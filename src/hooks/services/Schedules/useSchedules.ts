@@ -34,11 +34,9 @@ export function useSchedules() {
       const { data } = await get('/schedule/list', queryParams)
 
       for (let i = 0; i < data.data.length; i++) {
-        data.data[i].start = new Date(data.data[i].start)
-        data.data[i].end = new Date(data.data[i].end)
+        data.data[i].start = new Date(data.data[i].start.replace('Z', '-0300'))
+        data.data[i].end = new Date(data.data[i].end.replace('Z', '-0300'))
       }
-
-      console.log(data.data)
 
       setResult(data.data)
     } catch {

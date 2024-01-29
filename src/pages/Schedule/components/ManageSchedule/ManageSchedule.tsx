@@ -12,6 +12,7 @@ import { Button } from '@/components/Core/Buttons/Button'
 import { useRefreshKeyContext } from '@/contexts/Refresh'
 
 import { convertDateToString } from '@/utils/date'
+import { useShiftDropdown } from '@/hooks/services/Rules/Dropdown/useShift'
 import { ManageScheduleRegisterForm } from './components/RegisterForm'
 
 import { ISheduleRegisterForm } from './components/RegisterForm/RegisterForm.form'
@@ -27,6 +28,7 @@ interface Props {
 export function ManageSchedule({ date, show, onClose, team_id }: Props) {
   const { showLoader, hideLoader } = useLoaderContext()
   const { addToast, handleApiRejection } = useToastContext()
+  const { shifts } = useShiftDropdown()
 
   const { refreshKey, onRefresh } = useRefreshKeyContext()
 
@@ -85,7 +87,6 @@ export function ManageSchedule({ date, show, onClose, team_id }: Props) {
       <Row>
         <Col>
           <ManageScheduleRegisterForm
-            mode="create"
             initialValues={{
               team_id,
               user_id: '',
@@ -93,13 +94,13 @@ export function ManageSchedule({ date, show, onClose, team_id }: Props) {
               shift_id: ''
             }}
             onSubmit={values => handleOnSubmit(values)}
-            onCancel={() => handleOnCancel()}
+            shifts={shifts}
           />
         </Col>
       </Row>
 
-      <Row>
-        <ListDaySchedules team_id={team_id} date={date} />
+      <Row className="mt-4">
+        <ListDaySchedules team_id={team_id} date={date} shifts={shifts} />
       </Row>
 
       <Row className="justify-content-end">

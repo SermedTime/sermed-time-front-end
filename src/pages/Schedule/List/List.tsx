@@ -66,8 +66,6 @@ export function ListScheduleCalendar() {
   const [selectedDay, setSelectedDay] = useState<Date | undefined>(new Date())
   const [showModalCreate, setShowModalCreate] = useState(false)
 
-  console.log('result', result)
-
   useEffect(() => {
     document.title = TITLE_SCHEDULE
 
@@ -245,6 +243,7 @@ export function ListScheduleCalendar() {
         date={selectedDay}
         show={showModalCreate}
         onClose={hasChanges => {
+          refetch()
           hasChanges && refetch()
           setShowModalCreate(false)
         }}

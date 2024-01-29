@@ -8,15 +8,18 @@ import { IScheduleShift } from '@/hooks/services/Schedules/useSchedules'
 import { get } from '@/services/api/sermed-api/sermed-api'
 import { useCallback, useEffect, useState } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
+import { IOption } from '@/components/Core/Form/Fields/Select/Select.interface'
+import { SchedulesTable } from './SchedulesTable'
 
 interface Props {
   team_id: string
   date: Date | undefined
+  shifts: IOption[] | null
 }
 
-export function ListDaySchedules({ team_id, date }: Props) {
-  const { addToast, handleApiRejection } = useToastContext()
-  const { initialValues, setInitialValues } = useState<IScheduleShift[] | null>(
+export function ListDaySchedules({ team_id, date, shifts }: Props) {
+  const { handleApiRejection } = useToastContext()
+  const [initialValues, setInitialValues] = useState<IScheduleShift[] | null>(
     null
   )
 
@@ -25,18 +28,20 @@ export function ListDaySchedules({ team_id, date }: Props) {
       try {
         const params = {
           team_id,
-          date
+          schedule_date: date
         }
 
         const { data } = await get(`/schedule/list`, params)
 
-        const values = data.map((item: IScheduleShift) => ({
-          uuid: item.schedule_id,
-          user_name: item.user_name,
-          shift_name: item.shift_name
-        }))
+        const result = data.data.map((item: any) => {
+          return {
+            ...item,
+            start: new Date(item.start.replace('Z', '-0300')),
+            end: new Date(item.end.replace('Z', '-0300'))
+          }
+        })
 
-        setInitialValues(values)
+        setInitialValues(result)
       } catch {
         setInitialValues([])
         handleApiRejection()
@@ -83,14 +88,7 @@ export function ListDaySchedules({ team_id, date }: Props) {
                   <Tbody>
                     {initialValues ? (
                       initialValues.length > 0 ? (
-                        initialValues.map((item: IScheduleShift) => (
-                          // <PesmissionsTable
-                          //   key={item.uuid}
-                          //   data={item}
-                          //   onRefetch={() => refetch()}
-                          // />
-                          <h1>{item.user_name}</h1>
-                        ))
+                        <SchedulesTable data={initialValues} shifts={shifts} />
                       ) : (
                         <Empty columns={3} />
                       )

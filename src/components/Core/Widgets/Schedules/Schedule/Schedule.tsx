@@ -1,5 +1,6 @@
 import { Heading } from '@/components/Core/Typography/Heading'
 import { Caption } from '@/components/Core/Typography/Caption'
+import { convertIsoDateToTime } from '@/utils/date'
 import { IScheduleShift } from './Schedule.interface'
 import { Container, Identifier } from './Schedule.styles'
 
@@ -18,6 +19,10 @@ export function Schedule({ data, onClick }: Props) {
 
         <Caption size="lg" className="mt-1">
           {data.shift_name}
+        </Caption>
+        <Caption size="lg" className="mt-1">
+          {convertIsoDateToTime(data.start.toISOString())} -{' '}
+          {convertIsoDateToTime(data.end.toISOString())}
         </Caption>
       </div>
     </Container>
