@@ -1,14 +1,19 @@
-import { Section } from '@/components/Core/Containers/Section'
+import { useCallback, useEffect, useState } from 'react'
+import { Col, Container, Row } from 'react-bootstrap'
+
+import { useToastContext } from '@/contexts/Toast'
+
+import { get } from '@/services/api/sermed-api/sermed-api'
+
 import { Table, Tbody, Th, Thead, Tr } from '@/components/Core/Table'
+import { Section } from '@/components/Core/Containers/Section'
 import { Empty } from '@/components/Core/Table/Empty'
 import { LoadingLines } from '@/components/Core/Table/LoadingLines'
 import { Heading } from '@/components/Core/Typography/Heading'
-import { useToastContext } from '@/contexts/Toast'
+
 import { IScheduleShift } from '@/hooks/services/Schedules/useSchedules'
-import { get } from '@/services/api/sermed-api/sermed-api'
-import { useCallback, useEffect, useState } from 'react'
-import { Col, Container, Row } from 'react-bootstrap'
 import { IOption } from '@/components/Core/Form/Fields/Select/Select.interface'
+
 import { SchedulesTable } from './SchedulesTable'
 
 interface Props {
@@ -33,15 +38,19 @@ export function ListDaySchedules({ team_id, date, shifts }: Props) {
 
         const { data } = await get(`/schedule/list`, params)
 
-        const result = data.data.map((item: any) => {
-          return {
-            ...item,
-            start: new Date(item.start.replace('Z', '-0300')),
-            end: new Date(item.end.replace('Z', '-0300'))
-          }
-        })
+        if (data) {
+          const result = data.data.map((item: any) => {
+            return {
+              ...item,
+              start: new Date(item.start.replace('Z', '-0300')),
+              end: new Date(item.end.replace('Z', '-0300'))
+            }
+          })
 
-        setInitialValues(result)
+          setInitialValues(result)
+        } else {
+          setInitialValues([])
+        }
       } catch {
         setInitialValues([])
         handleApiRejection()

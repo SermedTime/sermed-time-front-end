@@ -15,12 +15,14 @@ interface Props {
   initialValues: ISheduleRegisterForm | null
   onSubmit: (formaValues: ISheduleRegisterForm) => void
   shifts?: IOption[] | null
+  readOnly?: boolean
 }
 
 export function ManageScheduleRegisterForm({
   initialValues,
   shifts,
-  onSubmit
+  onSubmit,
+  readOnly
 }: Props) {
   const { users, setTeamId, setDependsOn } = useUsersDropdown()
 
@@ -58,6 +60,7 @@ export function ManageScheduleRegisterForm({
                 onChange={({ value }: IOption) => {
                   setFieldValue('user_id', value)
                 }}
+                readOnly={readOnly}
                 disabled={!values.team_id}
               />
             </Col>
@@ -94,5 +97,6 @@ export function ManageScheduleRegisterForm({
 }
 
 ManageScheduleRegisterForm.defaultProps = {
-  shifts: undefined
+  shifts: undefined,
+  readOnly: undefined
 }

@@ -126,13 +126,61 @@ export default createGlobalStyle`
 
         &.M {
           &:before {
-            background-color: ${props.theme.colors.feedback.success.pure};
+            background-color: #41b6e6;
+          }
+        }
+
+        &.MP {
+          &:before {
+            background-color: #004c99;
+          }
+        }
+
+        &.ME {
+          &:before {
+            background-color: #00008b;
           }
         }
 
         &.T {
           &:before {
-            background-color: ${props.theme.colors.feedback.helper.pure};
+            background-color: #ec435c;
+          }
+        }
+
+        &.TP {
+          &:before {
+            background-color: #8c0c1f;
+          }
+        }
+
+        &.TO {
+          &:before {
+            background-color: #44050e;
+          }
+        }
+
+        &.V {
+          &:before {
+            background-color: #ff8a00;
+          }
+        }
+
+        &.N {
+          &:before {
+            background-color: #03212d;
+          }
+        }
+
+        &.F {
+          &:before {
+            background-color: #198038;
+          }
+        }
+
+        &.BH {
+          &:before {
+            background-color: #a3a3a3;
           }
         }
 

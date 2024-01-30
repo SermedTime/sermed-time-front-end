@@ -233,6 +233,7 @@ export function ListScheduleCalendar() {
               onCreateEvent={
                 params?.team_id ? () => setShowModalCreate(true) : undefined
               }
+              refetch={() => refetch()}
             />
           </Col>
         </Row>

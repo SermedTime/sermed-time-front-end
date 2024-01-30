@@ -27,12 +27,52 @@ export const Identifier = styled.div<Props>`
 
     ${props.shift_initials === 'M' &&
     css`
-      background-color: ${props.theme.colors.feedback.success.pure};
+      background-color: #41b6e6;
+    `}
+
+    ${props.shift_initials === 'MP' &&
+    css`
+      background-color: #004c99;
+    `}
+
+    ${props.shift_initials === 'ME' &&
+    css`
+      background-color: #00008b;
     `}
 
     ${props.shift_initials === 'T' &&
     css`
-      background-color: ${props.theme.colors.feedback.helper.pure};
+      background-color: #ec435c;
+    `}
+
+    ${props.shift_initials === 'TP' &&
+    css`
+      background-color: #8c0c1f;
+    `}
+
+    ${props.shift_initials === 'TO' &&
+    css`
+      background-color: #44050e;
+    `}
+
+    ${props.shift_initials === 'V' &&
+    css`
+      background-color: #ff8a00;
+    `}
+
+    ${props.shift_initials === 'N' &&
+    css`
+      background-color: #03212d;
+    `}
+
+    ${props.shift_initials === 'F' &&
+    css`
+      background-color: #198038;
+    `}
+
+    ${props.shift_initials === 'BH' &&
+    css`
+      background-color: #a3a3a3;
     `}
   `}
 `

@@ -15,6 +15,7 @@ import { fillWithLeadingZero } from '@/utils/masks'
 import { get } from '@/services/api/sermed-api/sermed-api'
 import Image from '@/assets/images/icon-chat.png'
 
+import { EditEvent } from '@/pages/Schedule/components/ManageSchedule/components/Edit'
 import { IScheduleShift } from './Schedule/Schedule.interface'
 import { handleWeekDay, handleMonth } from './Events.helpers'
 
@@ -27,6 +28,7 @@ interface Props {
   expanded?: boolean
   shouldLoadEvents?: boolean
   onCreateEvent?: () => void
+  refetch: () => void
 }
 
 export function WidgetSchedules({
@@ -34,12 +36,17 @@ export function WidgetSchedules({
   events,
   expanded,
   shouldLoadEvents,
-  onCreateEvent
+  onCreateEvent,
+  refetch
 }: Props) {
   const [currentDate, setCurrentDate] = useState<Date | null>(null)
   const [dayEvents, setDayEvents] = useState<IScheduleShift[] | null>(null)
 
+  const [editEvent, setEditEvent] = useState<IScheduleShift>()
+
   const [showMore, setShowMore] = useState(false)
+
+  const [showEdit, setShowEdit] = useState(false)
 
   useEffect(() => {
     if (date && events) {
@@ -110,7 +117,13 @@ export function WidgetSchedules({
                 return (
                   <Row key={idx} className="my-2">
                     <Col>
-                      <Schedule data={event} />
+                      <Schedule
+                        data={event}
+                        onClick={() => {
+                          setEditEvent(event)
+                          setShowEdit(true)
+                        }}
+                      />
                     </Col>
                   </Row>
                 )
@@ -179,6 +192,15 @@ export function WidgetSchedules({
           </Col>
         </Row>
       )}
+
+      <EditEvent
+        schedule_data={editEvent || ({} as IScheduleShift)}
+        show={showEdit}
+        onClose={hasChanges => {
+          hasChanges && refetch()
+          setShowEdit(false)
+        }}
+      />
     </Section>
   )
 }
