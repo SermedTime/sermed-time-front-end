@@ -33,7 +33,7 @@ export const Container = styled.div<Props>`
 
     ${!props.mode &&
     css`
-      background-color: ${props.theme.colors.brand.secondary.light};
+      background-color: ${props.theme.colors.feedback.success.light};
 
       span {
         color: ${props.theme.colors.brand.secondary.pure};

@@ -12,10 +12,11 @@ import { ButtonLink } from '@/components/Core/Buttons/ButtonLink'
 import { ButtonIcon } from '@/components/Core/Buttons/ButtonIcon'
 import { Skeleton } from '@/components/Core/Skeleton'
 
+import { cpfMask } from '@/utils/masks'
 import * as S from './User.styles'
 
 interface IUser {
-  userUuid: string
+  uuid: string
   name: string
   socialName: string
   cpf: string
@@ -76,23 +77,23 @@ function DisplayAsCard({ data }: DisplayProps) {
       </Row>
 
       <Row className="align-items-center mb-3">
-        <Col xs={8}>
+        <Col xs={6}>
           <Col xs={data ? undefined : 6}>
             {data ? (
-              <Caption size="lg">{`CPF: ${data.cpf}`}</Caption>
+              <Caption size="lg">{`CPF: ${cpfMask(data.cpf)}`}</Caption>
             ) : (
               <Skeleton size="sm" />
             )}
           </Col>
         </Col>
 
-        <Col xs={4}>
+        <Col xs={6}>
           <Row className="justify-content-end">
-            <Col xs={data ? 'auto' : 7}>
+            <Col xs={data ? 'auto' : 6}>
               {data ? (
                 <div className="d-flex align-items-center">
                   <S.Insured status={data.status}>
-                    {data.employeeCode}
+                    {`Matrícula: ${data.employeeCode}`}
                   </S.Insured>
                 </div>
               ) : (
@@ -109,7 +110,7 @@ function DisplayAsCard({ data }: DisplayProps) {
             <ButtonLink
               size="sm"
               onClick={() =>
-                navigate(`${ROUTE_TIME_SHEET_OVERVIEW}/${data.userUuid}`)
+                navigate(`${ROUTE_TIME_SHEET_OVERVIEW}/${data.uuid}`)
               }
             >
               Relatório de Ponto
@@ -153,7 +154,7 @@ function DisplayAsList({ data }: DisplayProps) {
           </Row>
 
           <Row>
-            <Col xs={data ? undefined : 8}>
+            <Col xs={data ? undefined : 6}>
               {data ? (
                 <Caption size="lg" className="text-truncate">
                   {data.name}
@@ -165,21 +166,21 @@ function DisplayAsList({ data }: DisplayProps) {
           </Row>
         </Col>
 
-        <Col lg={8} xxl={6}>
+        <Col lg={7} xxl={6}>
           <Row className="justify-content-end align-items-center">
-            <Col xs={data ? 'auto' : 3}>
+            <Col xs={data ? 5 : 6}>
               {data ? (
-                <Caption size="lg">{`CPF: ${data.cpf}`}</Caption>
+                <Caption size="lg">{`CPF: ${cpfMask(data.cpf)}`}</Caption>
               ) : (
                 <Skeleton size="sm" />
               )}
             </Col>
 
-            <Col xs={data ? 'auto' : 3}>
+            <Col xs={data ? 5 : 6}>
               {data ? (
-                <div className="d-flex align-items-center">
+                <div className="d-flex align-items-center ">
                   <S.Insured status={data.status}>
-                    {data.employeeCode}
+                    {`Matrícula: ${data.employeeCode}`}
                   </S.Insured>
                 </div>
               ) : (
@@ -187,14 +188,14 @@ function DisplayAsList({ data }: DisplayProps) {
               )}
             </Col>
 
-            <Col xs={data ? 'auto' : 2}>
+            <Col xs={data ? 2 : 1}>
               {data ? (
                 <div className="d-flex gap-1">
                   <ButtonIcon
                     size="sm"
                     icon="open_in_new"
                     onClick={() =>
-                      navigate(`${ROUTE_TIME_SHEET_OVERVIEW}/${data.userUuid}`)
+                      navigate(`${ROUTE_TIME_SHEET_OVERVIEW}/${data.uuid}`)
                     }
                   />
                 </div>

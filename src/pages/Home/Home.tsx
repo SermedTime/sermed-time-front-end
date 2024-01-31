@@ -33,11 +33,13 @@ export function Home() {
       <Container>
         <Row>
           <Col g={9} xxl={10}>
-            <Row className="mb-4">
-              <Col>
-                <Summary />
-              </Col>
-            </Row>
+            {user && (
+              <Row className="mb-4">
+                <Col>
+                  <Summary user_id={user.userUuid} />
+                </Col>
+              </Row>
+            )}
 
             <Row className="mb-4">
               <Col>

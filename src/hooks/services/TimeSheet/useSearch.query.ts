@@ -10,7 +10,7 @@ import {
 import { removeEmptyEntries } from '@/utils/generic'
 
 interface IUserSearch {
-  userUuid: string
+  uuid: string
   name: string
   socialName: string
   cpf: string
@@ -37,7 +37,7 @@ async function fetchData(
     page: params?.page
   })
 
-  return get('user', queryParams)
+  return get('parametrizations/users', queryParams)
     .then(res => res.data)
     .catch(() => defaultValues)
 }

@@ -24,7 +24,7 @@ export const Container = styled.div<ContainerProps>`
     ${props.indicator &&
     css`
       &::after {
-        background-color: ${props.theme.colors.brand.primary.pure};
+        background-color: ${props.theme.colors.feedback.success.pure};
         border-radius: ${props.theme.border.radius.md};
 
         content: '';

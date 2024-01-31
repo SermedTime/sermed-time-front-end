@@ -32,7 +32,7 @@ export const nav: INavigation[] = [
     route: ROUTE_SCHEDULE
   },
   {
-    icon: 'multiline_chart',
+    icon: 'display_settings',
     label: 'Parametrizações',
     route: ROUTE_PARAMETERIZATIONS,
     allowedRoles: [ROLE_PARAMETRIZATIONS]

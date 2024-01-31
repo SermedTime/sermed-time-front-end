@@ -10,6 +10,10 @@ import { Col, Row } from 'react-bootstrap'
 import { convertIntToTime } from '@/utils/date'
 import { ISummary } from './Summary.interface'
 
+interface Props {
+  user_id: string
+}
+
 const res: IApiResponse<ISummary> = {
   data: [
     {
@@ -22,7 +26,8 @@ const res: IApiResponse<ISummary> = {
   page: 1
 }
 
-export function Summary() {
+export function Summary({ user_id }: Props) {
+  console.log(user_id)
   const [result, setResult] = useState<ISummary | null>(null)
 
   const fetchData = useCallback(async () => {

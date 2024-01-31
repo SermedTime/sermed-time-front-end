@@ -145,7 +145,7 @@ export function UserSearch() {
                     }
                     onChange={search => handleOnSearch(search)}
                   >
-                    <Row className="justify-content-end align-items-center">
+                    <Row className="justify-content-end align-items-center mt-2">
                       <Col xs="auto">
                         <Button
                           type="button"
@@ -172,7 +172,7 @@ export function UserSearch() {
                   {!isLoading && data ? (
                     <Row>
                       {data.data.map((item, idx) => (
-                        <Col key={idx} xs={displayMode === 'cards' ? 6 : 12}>
+                        <Col key={idx} xs={displayMode === 'cards' ? 4 : 12}>
                           <Customer displayMode={displayMode} data={item} />
                         </Col>
                       ))}
@@ -180,7 +180,7 @@ export function UserSearch() {
                   ) : (
                     <Row>
                       {Array.from({ length: 6 }).map((_, idx) => (
-                        <Col key={idx} xs={displayMode === 'cards' ? 6 : 12}>
+                        <Col key={idx} xs={displayMode === 'cards' ? 4 : 12}>
                           <Customer displayMode={displayMode} />
                         </Col>
                       ))}

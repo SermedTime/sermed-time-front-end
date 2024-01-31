@@ -93,11 +93,11 @@ export const Insured = styled.div<InsuredProps>`
     ${props.status === 'active'
       ? css`
           color: ${props.theme.colors.feedback.success.pure};
-          margin-left: 0.25rem;
+          /* margin-left: 0.25rem; */
         `
       : css`
           color: ${props.theme.colors.neutral.low.pure};
-          margin-left: 1.5625rem;
+          /* margin-left: 1.5625rem; */
         `}
   `}
 `
