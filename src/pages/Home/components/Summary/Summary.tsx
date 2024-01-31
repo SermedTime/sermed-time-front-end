@@ -11,7 +11,7 @@ import { convertIntToTime } from '@/utils/date'
 import { ISummary } from './Summary.interface'
 
 interface Props {
-  user_id: string
+  user_id?: string
 }
 
 const res: IApiResponse<ISummary> = {
@@ -27,7 +27,6 @@ const res: IApiResponse<ISummary> = {
 }
 
 export function Summary({ user_id }: Props) {
-  console.log(user_id)
   const [result, setResult] = useState<ISummary | null>(null)
 
   const fetchData = useCallback(async () => {
@@ -41,10 +40,10 @@ export function Summary({ user_id }: Props) {
   }, [])
 
   useEffect(() => {
-    if (result === null) {
+    if (result === null && user_id) {
       fetchData()
     }
-  }, [result, fetchData])
+  }, [result, fetchData, user_id])
 
   return (
     <Row>
@@ -78,4 +77,8 @@ export function Summary({ user_id }: Props) {
       </Col>
     </Row>
   )
+}
+
+Summary.defaultProps = {
+  user_id: undefined
 }

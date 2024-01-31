@@ -11,11 +11,14 @@ import { Col, Row } from 'react-bootstrap'
 
 import { ROUTE_TIME_SHEET_USER_SEARCH } from '@/routes/Pages/TimeSheet/TimeSheet.paths'
 
+import { ITimeSheet } from '@/hooks/services/TimeSheet/useTimeSheet'
 import { IApiResponse } from '@/services/api/sermed-api/sermed-api.interface'
+
 import { fakeRequest } from '@/services/api/sermed-api/sermed-api'
+
 import { TableTime } from './components/Table'
 
-import { ITimeSheet, fakeTimeSheet } from './TimeSheet.inteface'
+import { fakeTimeSheet } from './TimeSheet.inteface'
 
 const res: IApiResponse<ITimeSheet> = {
   data: fakeTimeSheet,

@@ -1,16 +1,5 @@
+import { ITimeSheet } from '@/hooks/services/TimeSheet/useTimeSheet'
 import { v4 } from 'uuid'
-
-export interface ITimeSheet {
-  id: number | string
-  date: string
-  firstEntry: string | undefined
-  firstExit: string | undefined
-  secondEntry: string | undefined
-  secondExit: string | undefined
-  thirdEntry: string | undefined
-  thirdExit: string | undefined
-  overtime: string | undefined
-}
 
 export const fakeTimeSheet: ITimeSheet[] = [
   {
