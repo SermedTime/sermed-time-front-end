@@ -30,7 +30,7 @@ const nav: NavItem[] = [
   },
   {
     icon: 'bar_chart',
-    label: 'Holerite',
+    label: 'Holerites',
     view: 'payslips'
   },
   {
@@ -41,7 +41,7 @@ const nav: NavItem[] = [
 ]
 
 export function WidgetMenu() {
-  const { setView } = usePageViewContext()
+  const { setView, view } = usePageViewContext()
 
   return (
     <Section size="sm">
@@ -57,9 +57,16 @@ export function WidgetMenu() {
                       active={!!item.view}
                       onClick={() => setView(item.view)}
                     >
-                      <Caption size="lg">{item.label}</Caption>
+                      <Caption
+                        fontWeigth={item.view === view ? 'bold' : undefined}
+                        size="lg"
+                      >
+                        {item.label}
+                      </Caption>
 
-                      <IconShape>
+                      <IconShape
+                        mode={item.view === view ? 'success' : undefined}
+                      >
                         <Icon size="sm" icon={item.icon} />
                       </IconShape>
                     </Item>

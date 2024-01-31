@@ -4,7 +4,7 @@ import { Container } from './IconShape.styles'
 
 interface Props {
   size?: 'sm' | 'md' | 'lg'
-  mode?: 'success' | 'helper' | 'warning'
+  mode?: 'success' | 'helper' | 'warning' | undefined
   children: ReactNode
 }
 

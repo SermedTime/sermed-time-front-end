@@ -52,7 +52,7 @@ export const Item = styled.li<ItemProps>`
       margin-top: 2px;
 
       @media (min-width: ${props.theme.breakpoints.lg}) {
-        margin-left: 90px;
+        margin-left: 100px;
       }
 
       @media (min-width: ${props.theme.breakpoints.xxl}) {
@@ -64,11 +64,11 @@ export const Item = styled.li<ItemProps>`
       margin-top: 3.025rem;
 
       @media (min-width: ${props.theme.breakpoints.lg}) {
-        margin-left: -0.75rem;
+        margin-left: 3rem;
       }
 
       @media (min-width: ${props.theme.breakpoints.xxl}) {
-        margin-left: -0.75rem;
+        margin-left: -1.15rem;
       }
     }
 

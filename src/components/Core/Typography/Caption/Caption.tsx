@@ -4,18 +4,20 @@ import { Container } from './Caption.styles'
 
 interface Props {
   size: 'sm' | 'lg'
+  fontWeigth?: 'bold'
   className?: string
   children: string | number | ReactNode
 }
 
-export function Caption({ size, className, children }: Props) {
+export function Caption({ size, fontWeigth, className, children }: Props) {
   return (
-    <Container size={size} className={className}>
+    <Container fontWeigth={fontWeigth} size={size} className={className}>
       {children}
     </Container>
   )
 }
 
 Caption.defaultProps = {
-  className: undefined
+  className: undefined,
+  fontWeigth: undefined
 }
