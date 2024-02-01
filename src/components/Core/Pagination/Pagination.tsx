@@ -61,7 +61,7 @@ export function Pagination({
     handleRender(currentPage)
 
     onChange && onChange(currentPage)
-  }, [handleRender, currentPage, onChange])
+  }, [handleRender, currentPage, onChange, defaultCurrent])
 
   function handlePrevious() {
     setCurrentPage(current => current - 1)

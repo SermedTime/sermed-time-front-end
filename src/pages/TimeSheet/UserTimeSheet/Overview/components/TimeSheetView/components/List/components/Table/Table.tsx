@@ -15,8 +15,6 @@ interface Props {
 }
 
 export function TableTimeSheet({ data, onRefetch }: Props) {
-  console.log(onRefetch)
-
   const [edit, setEdit] = useState(false)
 
   return (

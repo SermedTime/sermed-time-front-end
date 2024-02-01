@@ -14,11 +14,12 @@ import { useTimeSheet } from '@/hooks/services/TimeSheet/useTimeSheet'
 import { Empty } from '@/components/Core/Table/Empty'
 import { Skeleton } from '@/components/Core/Skeleton'
 import { Pagination } from '@/components/Core/Pagination'
-import { TimeSheetFilterForm } from './FilterForm'
+
+import { TimeSheetFilterForm } from './components/FilterForm'
 import {
   ITimeSheetFilterForm,
   initialFilterValues
-} from './FilterForm/FilterForm.form'
+} from './components/FilterForm/FilterForm.form'
 import { TableTimeSheet } from './components/Table'
 
 export function ListTimeSheet() {
@@ -126,71 +127,74 @@ export function ListTimeSheet() {
       </Row>
 
       <Row>
-        <Table>
-          <Thead>
-            <Tr>
-              <Th>
-                <Heading size="xs">Dia</Heading>
-              </Th>
+        <Col>
+          <Table isLoading={result === null} hover={!!result?.data.length}>
+            <Thead>
+              <Tr>
+                <Th>
+                  <Heading size="xs">Dia</Heading>
+                </Th>
 
-              <Th>
-                <Heading size="xs">Ent. 1</Heading>
-              </Th>
+                <Th>
+                  <Heading size="xs">Ent. 1</Heading>
+                </Th>
 
-              <Th>
-                <Heading size="xs">Saí. 1</Heading>
-              </Th>
+                <Th>
+                  <Heading size="xs">Saí. 1</Heading>
+                </Th>
 
-              <Th>
-                <Heading size="xs">Ent. 2</Heading>
-              </Th>
+                <Th>
+                  <Heading size="xs">Ent. 2</Heading>
+                </Th>
 
-              <Th>
-                <Heading size="xs">Saí. 2</Heading>
-              </Th>
+                <Th>
+                  <Heading size="xs">Saí. 2</Heading>
+                </Th>
 
-              <Th>
-                <Heading size="xs">Ent. 3</Heading>
-              </Th>
+                <Th>
+                  <Heading size="xs">Ent. 3</Heading>
+                </Th>
 
-              <Th>
-                <Heading size="xs">Saí. 3</Heading>
-              </Th>
+                <Th>
+                  <Heading size="xs">Saí. 3</Heading>
+                </Th>
 
-              <Th>
-                <Heading size="xs">Extra</Heading>
-              </Th>
+                <Th>
+                  <Heading size="xs">Extra</Heading>
+                </Th>
 
-              <Th>
-                <div style={{ height: '2.5rem', width: '2.5rem' }} />
-              </Th>
-            </Tr>
-          </Thead>
+                <Th>
+                  <div style={{ height: '2.5rem', width: '2.5rem' }} />
+                </Th>
+              </Tr>
+            </Thead>
 
-          <Tbody>
-            {result ? (
-              result.data.length > 0 ? (
-                result.data.map(item => (
-                  <TableTimeSheet
-                    key={item.id}
-                    data={item}
-                    onRefetch={() => refetch()}
-                  />
-                ))
+            <Tbody>
+              {result ? (
+                result.data.length > 0 ? (
+                  result.data.map(item => (
+                    <TableTimeSheet
+                      key={item.id}
+                      data={item}
+                      onRefetch={() => refetch()}
+                    />
+                  ))
+                ) : (
+                  <Empty columns={9} />
+                )
               ) : (
-                <Empty columns={9} />
-              )
-            ) : (
-              <LoadingLines lines={5} columns={9} />
-            )}
-          </Tbody>
-        </Table>
+                <LoadingLines lines={5} columns={9} />
+              )}
+            </Tbody>
+          </Table>
+        </Col>
       </Row>
 
       <Row className="justify-content-center">
         {params && result ? (
           <Col xs="auto">
             <Pagination
+              key={params.page}
               defaultCurrent={params.page}
               pageSize={Number(params.records)}
               total={result.total}

@@ -1,8 +1,10 @@
 import { useCallback, useEffect, useState } from 'react'
 
+import { fakeRequest, get } from '@/services/api/sermed-api/sermed-api'
+
 import { IApiResponse } from '@/services/api/sermed-api/sermed-api.interface'
+
 import { removeEmptyEntries } from '@/utils/generic'
-import { get } from '@/services/api/sermed-api/sermed-api'
 import { fakeTimeSheet } from '@/pages/Home/components/TimeSheet/TimeSheet.inteface'
 
 export interface ITimeSheet {
@@ -32,36 +34,35 @@ export function useTimeSheet(uuid?: string) {
           month: params?.month,
           year: params?.year,
           records: params?.records,
-          params: params?.page
+          page: params?.page
         })
 
-        const { data } = await get(`/time-sheet/${uuid}`, queryParams)
+        console.log(queryParams, uuid)
+
+        await fakeRequest(2000)
+
+        const data = {
+          data: fakeTimeSheet,
+          page: params.page,
+          total: 31
+        }
+
+        // const { data } = await get(`/time-sheet/${uuid}`, queryParams)
 
         if (data) {
           setResult(data)
         } else {
-          // setResult({
-          //   data: [],
-          //   page: 1,
-          //   total: 0
-          // })
           setResult({
-            data: fakeTimeSheet,
+            data: [],
             page: 1,
             total: 0
           })
         }
       } catch {
-        // setResult({
-        //   data: [],
-        //   page: 1,
-        //   total: 0
-        // })
-
         setResult({
-          data: fakeTimeSheet,
+          data: [],
           page: 1,
-          total: 31
+          total: 0
         })
       }
     },

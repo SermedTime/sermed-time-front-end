@@ -297,6 +297,7 @@ export function ListUsers() {
                 {params && result ? (
                   <Col xs="auto">
                     <Pagination
+                      key={params.page}
                       defaultCurrent={params.page}
                       pageSize={Number(params.records)}
                       total={result.total}
