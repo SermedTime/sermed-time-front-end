@@ -1,29 +1,35 @@
 import { useCallback, useEffect, useState } from 'react'
 
-import { fakeRequest, get } from '@/services/api/sermed-api/sermed-api'
-
 import { IApiResponse } from '@/services/api/sermed-api/sermed-api.interface'
-
+import { fakeRequest, get } from '@/services/api/sermed-api/sermed-api'
 import { removeEmptyEntries } from '@/utils/generic'
-import { fakeTimeSheet } from '@/pages/Home/components/TimeSheet/TimeSheet.inteface'
 
-export interface ITimeSheet {
-  id: number | string
-  date: string
-  firstEntry: string | undefined
-  firstExit: string | undefined
-  secondEntry: string | undefined
-  secondExit: string | undefined
-  thirdEntry: string | undefined
-  thirdExit: string | undefined
-  overtime: string | undefined
-  is_edited?: boolean
+export interface IPayslips {
+  month: string
+  year: string
+  type: string
+  link: string
 }
 
-export function useTimeSheet(uuid?: string) {
+const fakePayslips: IPayslips[] = [
+  {
+    month: 'Janeiro',
+    year: '2024',
+    type: 'Pagamento',
+    link: 'http://www.google.com.br'
+  },
+  {
+    month: 'Janeiro',
+    year: '2024',
+    type: 'Vale',
+    link: 'http://www.google.com.br'
+  }
+]
+
+export function usePayslips(uuid?: string) {
   const [params, setParams] = useState<Record<string, any> | null>(null)
 
-  const [result, setResult] = useState<IApiResponse<ITimeSheet> | null>(null)
+  const [result, setResult] = useState<IApiResponse<IPayslips> | null>(null)
 
   const fetchData = useCallback(
     async (uuid: string, params: Record<string, any>) => {
@@ -31,23 +37,23 @@ export function useTimeSheet(uuid?: string) {
         setResult(null)
 
         const queryParams = removeEmptyEntries({
-          month: params?.month,
-          year: params?.year,
-          records: params?.records,
-          page: params?.page
+          page: params?.page,
+          records: params?.records
         })
 
         console.log(queryParams, uuid)
 
+        // const { data } = await get(`/overview/payslips/${uuid}`, queryParams)
+
         await fakeRequest(2000)
 
         const data = {
-          data: fakeTimeSheet,
+          data: fakePayslips,
           page: params.page,
-          total: 31
+          total: 12
         }
 
-        // const { data } = await get(`/overview/time-sheet/${uuid}`, queryParams)
+        console.log(data)
 
         if (data) {
           setResult(data)
@@ -70,12 +76,12 @@ export function useTimeSheet(uuid?: string) {
   )
 
   function refetch() {
-    params && uuid && fetchData(uuid, params)
+    uuid && params && fetchData(uuid, params)
   }
 
   useEffect(() => {
     params && uuid && fetchData(uuid, params)
-  }, [params, uuid, fetchData])
+  }, [uuid, fetchData, params])
 
-  return { result, params, setParams, refetch }
+  return { result, refetch, params, setParams }
 }

@@ -1,0 +1,1 @@
+export { TablePayslips } from './Table'

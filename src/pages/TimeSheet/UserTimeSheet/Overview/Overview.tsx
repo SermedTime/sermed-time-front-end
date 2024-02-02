@@ -15,6 +15,7 @@ import { UserData } from './components/UserData'
 import { WidgetMenu } from './components/WidgetMenu'
 import { usePageViewContext } from '../context/PageView'
 import { TimeSheetView } from './components/TimeSheetView'
+import { PayslipsView } from './components/PayslipsView'
 
 export function Overview() {
   const { uuid } = useParams()
@@ -55,6 +56,8 @@ export function Overview() {
 
             <Row className="mb-4">
               {view === 'summary' && <TimeSheetView />}
+
+              {view === 'payslips' && <PayslipsView />}
             </Row>
           </Col>
 

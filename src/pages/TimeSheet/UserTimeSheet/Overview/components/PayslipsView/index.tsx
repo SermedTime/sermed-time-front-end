@@ -1,0 +1,1 @@
+export { PayslipsView } from './PayslipsView'
