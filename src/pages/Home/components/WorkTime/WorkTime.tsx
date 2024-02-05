@@ -1,6 +1,9 @@
 import { useEffect } from 'react'
 
 import { useSchedules } from '@/hooks/services/Schedules/useSchedules'
+import { useAuthContext } from '@/contexts/Auth'
+
+import { ROUTE_SCHEDULE } from '@/routes/Pages/Schedule/Schedules.paths'
 
 import { Section } from '@/components/Core/Containers/Section'
 import { Col, Row } from 'react-bootstrap'
@@ -9,9 +12,7 @@ import { Heading } from '@/components/Core/Typography/Heading'
 import { Caption } from '@/components/Core/Typography/Caption'
 import { ButtonLink } from '@/components/Core/Buttons/ButtonLink'
 import { Skeleton } from '@/components/Core/Skeleton'
-import { ROUTE_SCHEDULE } from '@/routes/Pages/Schedule/Schedules.paths'
 
-import { useAuthContext } from '@/contexts/Auth'
 import { TableWorkTime } from './components/TableWorkTime'
 
 export function WorkTime() {

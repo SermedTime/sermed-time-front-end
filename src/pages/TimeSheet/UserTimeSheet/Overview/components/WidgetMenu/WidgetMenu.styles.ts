@@ -76,11 +76,11 @@ export const Item = styled.li<ItemProps>`
       margin-top: 53px;
 
       @media (min-width: ${props.theme.breakpoints.lg}) {
-        margin-left: 90px;
+        margin-left: 110px;
       }
 
       @media (min-width: ${props.theme.breakpoints.xxl}) {
-        margin-left: 20px;
+        margin-left: 40px;
       }
     }
   `}

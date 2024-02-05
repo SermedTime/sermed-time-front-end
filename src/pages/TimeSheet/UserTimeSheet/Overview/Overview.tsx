@@ -9,13 +9,13 @@ import { ROUTE_HOME } from '@/routes/Pages/Pages.paths'
 import { ROUTE_TIME_SHEET_USER_SEARCH } from '@/routes/Pages/TimeSheet/TimeSheet.paths'
 import { AnimatedPage } from '@/components/Layout/AnimatedPage'
 import { Col, Container, Row } from 'react-bootstrap'
-import { Section } from '@/components/Core/Containers/Section'
 
 import { UserData } from './components/UserData'
 import { WidgetMenu } from './components/WidgetMenu'
 import { usePageViewContext } from '../context/PageView'
 import { TimeSheetView } from './components/TimeSheetView'
 import { PayslipsView } from './components/PayslipsView'
+import { BenefitsView } from './components/BenefitsView'
 
 export function Overview() {
   const { uuid } = useParams()
@@ -44,20 +44,26 @@ export function Overview() {
           <Col lg={9} xxl={10}>
             <Row className="mb-4">
               <Col>
-                <Section>
-                  <Row className="mb-5">
-                    <Col>
-                      <UserData user_id={uuid || ''} />
-                    </Col>
-                  </Row>
-                </Section>
+                <Row>
+                  <Col>
+                    <UserData user_id={uuid || ''} />
+                  </Col>
+                </Row>
               </Col>
             </Row>
 
             <Row className="mb-4">
-              {view === 'summary' && <TimeSheetView />}
+              <Col>
+                <Row>
+                  <Col>
+                    {view === 'summary' && <TimeSheetView />}
 
-              {view === 'payslips' && <PayslipsView />}
+                    {view === 'payslips' && <PayslipsView />}
+
+                    {view === 'benefits' && <BenefitsView />}
+                  </Col>
+                </Row>
+              </Col>
             </Row>
           </Col>
 

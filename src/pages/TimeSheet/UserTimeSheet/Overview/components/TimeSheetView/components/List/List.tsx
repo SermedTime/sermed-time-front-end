@@ -14,7 +14,7 @@ import { Empty } from '@/components/Core/Table/Empty'
 import { Skeleton } from '@/components/Core/Skeleton'
 import { Pagination } from '@/components/Core/Pagination'
 
-import { AnimatedPage } from '@/components/Layout/AnimatedPage'
+import { Section } from '@/components/Core/Containers/Section'
 import { TimeSheetFilterForm } from './components/FilterForm'
 import {
   ITimeSheetFilterForm,
@@ -100,7 +100,7 @@ export function ListTimeSheet() {
   }
 
   return (
-    <AnimatedPage>
+    <Section>
       <Container>
         <Row className="mb-3">
           <Col xl={8}>
@@ -221,6 +221,6 @@ export function ListTimeSheet() {
           hasChanges && refetch()
         }}
       />
-    </AnimatedPage>
+    </Section>
   )
 }

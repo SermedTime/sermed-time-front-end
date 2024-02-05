@@ -24,18 +24,18 @@ interface NavItem {
 
 const nav: NavItem[] = [
   {
-    icon: '360',
+    icon: 'description',
     label: 'Resumo',
     view: 'summary'
   },
   {
-    icon: 'bar_chart',
+    icon: 'payments',
     label: 'Holerites',
     view: 'payslips'
   },
   {
-    icon: 'attach_money',
-    label: 'Benefícios',
+    icon: '360',
+    label: 'Anuais',
     view: 'benefits'
   }
 ]

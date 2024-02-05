@@ -1,14 +1,13 @@
 import { Row } from 'react-bootstrap'
 
 import { AnimatedPage } from '@/components/Layout/AnimatedPage'
+import { ListBenefits } from './components/List'
 
-import { ListPayslips } from './components/List'
-
-export function PayslipsView() {
+export function BenefitsView() {
   return (
     <AnimatedPage>
       <Row>
-        <ListPayslips />
+        <ListBenefits />
       </Row>
     </AnimatedPage>
   )

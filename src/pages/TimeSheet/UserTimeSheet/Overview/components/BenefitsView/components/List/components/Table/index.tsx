@@ -1,0 +1,1 @@
+export { TableBenefits } from './Table'
