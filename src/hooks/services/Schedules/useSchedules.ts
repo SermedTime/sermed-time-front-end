@@ -28,7 +28,8 @@ export function useSchedules() {
 
       const queryParams = removeEmptyEntries({
         team_id: params?.team_id,
-        user_id: params?.user_id
+        user_id: params?.user_id,
+        is_home: params?.is_home
       })
 
       const { data } = await get('/schedule/list', queryParams)

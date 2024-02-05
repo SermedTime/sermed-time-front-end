@@ -6,10 +6,15 @@ import { Paragraph } from '@/components/Core/Typography/Paragraph'
 import { LoadingLines } from '@/components/Core/Table/LoadingLines'
 
 import { Col } from 'react-bootstrap'
-import { IWorkTime } from '../../WorkTime.interface'
+import {
+  convertDateToString,
+  convertDateToWeekDay,
+  convertIsoDateToTime
+} from '@/utils/date'
+import { IScheduleShift } from '@/hooks/services/Schedules/useSchedules'
 
 interface Props {
-  result: IWorkTime[] | null
+  result: IScheduleShift[]
 }
 
 export function TableWorkTime({ result }: Props) {
@@ -18,31 +23,23 @@ export function TableWorkTime({ result }: Props) {
       <Thead>
         <Tr>
           <Th>
+            <Heading size="xs">Data</Heading>
+          </Th>
+
+          <Th>
             <Heading size="xs">Dia</Heading>
           </Th>
 
           <Th>
-            <Heading size="xs">Ent. 1</Heading>
+            <Heading size="xs">Turno</Heading>
           </Th>
 
           <Th>
-            <Heading size="xs">Saí. 1</Heading>
+            <Heading size="xs">Entrada</Heading>
           </Th>
 
           <Th>
-            <Heading size="xs">Ent. 2</Heading>
-          </Th>
-
-          <Th>
-            <Heading size="xs">Saí. 2</Heading>
-          </Th>
-
-          <Th>
-            <Heading size="xs">Ent. 3</Heading>
-          </Th>
-
-          <Th>
-            <Heading size="xs">Saí. 3</Heading>
+            <Heading size="xs">Saída</Heading>
           </Th>
         </Tr>
       </Thead>
@@ -53,37 +50,37 @@ export function TableWorkTime({ result }: Props) {
             <Tr key={v4()}>
               <Td>
                 <Col xs="auto">
-                  <Paragraph size="sm">{item.day}</Paragraph>
+                  <Paragraph size="sm">
+                    {convertDateToString(item.start)}
+                  </Paragraph>
                 </Col>
               </Td>
 
               <Td>
-                <Paragraph size="sm">{item.firstEntry}</Paragraph>
+                <Paragraph size="sm">
+                  {convertDateToWeekDay(item.start)}
+                </Paragraph>
               </Td>
 
               <Td>
-                <Paragraph size="sm">{item.firstExit}</Paragraph>
+                <Paragraph size="sm">{item.shift_name}</Paragraph>
               </Td>
 
               <Td>
-                <Paragraph size="sm">{item.secondEntry}</Paragraph>
+                <Paragraph size="sm">
+                  {convertIsoDateToTime(item.start.toISOString())}
+                </Paragraph>
               </Td>
 
               <Td>
-                <Paragraph size="sm">{item.secondExit}</Paragraph>
-              </Td>
-
-              <Td>
-                <Paragraph size="sm">{item.thirdEntry}</Paragraph>
-              </Td>
-
-              <Td>
-                <Paragraph size="sm">{item.thirdExit}</Paragraph>
+                <Paragraph size="sm">
+                  {convertIsoDateToTime(item.end.toISOString())}
+                </Paragraph>
               </Td>
             </Tr>
           ))
         ) : (
-          <LoadingLines lines={5} columns={7} />
+          <LoadingLines lines={5} columns={5} />
         )}
       </Tbody>
     </Table>

@@ -1,39 +1,32 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
-import { IApiResponse } from '@/services/api/sermed-api/sermed-api.interface'
-import { fakeRequest } from '@/services/api/sermed-api/sermed-api'
+import { useSchedules } from '@/hooks/services/Schedules/useSchedules'
+
 import { Section } from '@/components/Core/Containers/Section'
 import { Col, Row } from 'react-bootstrap'
 import { Icon } from '@/components/Core/Icons/Icon'
 import { Heading } from '@/components/Core/Typography/Heading'
 import { Caption } from '@/components/Core/Typography/Caption'
-import { IWorkTime, fakeWorkTime } from './WorkTime.interface'
+import { ButtonLink } from '@/components/Core/Buttons/ButtonLink'
+import { Skeleton } from '@/components/Core/Skeleton'
+import { ROUTE_SCHEDULE } from '@/routes/Pages/Schedule/Schedules.paths'
+
+import { useAuthContext } from '@/contexts/Auth'
 import { TableWorkTime } from './components/TableWorkTime'
 
-const res: IApiResponse<IWorkTime> = {
-  data: fakeWorkTime,
-  total: 10,
-  page: 1
-}
-
 export function WorkTime() {
-  const [result, setResult] = useState<IWorkTime[] | null>(null)
+  const { result, setParams } = useSchedules()
 
-  const fetchData = useCallback(async () => {
-    try {
-      await fakeRequest(2000)
-
-      setResult(res.data)
-    } catch {
-      setResult(null)
-    }
-  }, [])
+  const { user } = useAuthContext()
 
   useEffect(() => {
     if (result === null) {
-      fetchData()
+      setParams({
+        is_home: 'active',
+        user_id: user?.userUuid
+      })
     }
-  }, [result, fetchData])
+  })
 
   return (
     <Section>
@@ -45,7 +38,7 @@ export function WorkTime() {
             <div className="mt-1">
               <Heading size="xs">Horário de Trabalho</Heading>
 
-              <Caption size="lg">Escala Semanal</Caption>
+              <Caption size="lg">Resumo dos próximos 7 dias</Caption>
             </div>
           </div>
         </Col>
@@ -53,8 +46,20 @@ export function WorkTime() {
 
       <Row>
         <Col>
-          <TableWorkTime result={result} />
+          <TableWorkTime result={result || []} />
         </Col>
+      </Row>
+
+      <Row className="justify-content-center mt-3">
+        {result ? (
+          <Col xs="auto">
+            <ButtonLink route={ROUTE_SCHEDULE}>Exibir mais</ButtonLink>{' '}
+          </Col>
+        ) : (
+          <Col xs={2}>
+            <Skeleton />
+          </Col>
+        )}
       </Row>
     </Section>
   )

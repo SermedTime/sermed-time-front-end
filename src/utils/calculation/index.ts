@@ -1,4 +1,4 @@
-import { IProduct } from 'hooks/Services/Management/Products/useSearch'
+import { IProduct } from '@/hooks/Services/Management/Products/useSearch'
 
 export function getProposalTotalValue(materialsAdded: IProduct[]) {
   let proposalTotalValue = 0
