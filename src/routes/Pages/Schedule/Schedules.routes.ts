@@ -1,5 +1,7 @@
-import { IRouteProps } from '@/routes/routes.interface'
 import { lazy } from 'react'
+
+import { IRouteProps } from '@/routes/routes.interface'
+
 import { ROUTE_SCHEDULE } from './Schedules.paths'
 
 const ListScheduleCalendar = lazy(() =>

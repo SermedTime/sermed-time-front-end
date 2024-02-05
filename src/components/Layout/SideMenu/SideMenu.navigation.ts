@@ -1,6 +1,7 @@
 import { ROLE_PARAMETRIZATIONS } from '@/constants/user.roles'
 import { ROUTE_HOME } from '@/routes/Pages/Pages.paths'
 import { ROUTE_PARAMETERIZATIONS } from '@/routes/Pages/Parametrizations/Parametrizations.paths'
+import { ROUTE_REPORTS } from '@/routes/Pages/Reports/Reports.paths'
 import { ROUTE_SCHEDULE } from '@/routes/Pages/Schedule/Schedules.paths'
 import { ROUTE_TIME_SHEET_USER_SEARCH } from '@/routes/Pages/TimeSheet/TimeSheet.paths'
 
@@ -30,6 +31,11 @@ export const nav: INavigation[] = [
     icon: 'calendar_month',
     label: 'Escalas',
     route: ROUTE_SCHEDULE
+  },
+  {
+    icon: 'bar_chart',
+    label: 'Relatórios',
+    route: ROUTE_REPORTS
   },
   {
     icon: 'display_settings',

@@ -22,3 +22,6 @@ export const TITLE_USER_TIME_SHEET_OVERVIEW = `Folhas de Ponto - ${brand}`
 
 // SCHEDULE
 export const TITLE_SCHEDULE = `Escala - ${brand}`
+
+// REPORTS
+export const TITLE_REPORTS = `Relatórios - ${brand}`
