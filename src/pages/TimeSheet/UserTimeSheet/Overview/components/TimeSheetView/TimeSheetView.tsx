@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom'
 
 import { Summary } from '@/pages/Home/components/Summary'
 import { Container, Row } from 'react-bootstrap'
+import { Section } from '@/components/Core/Containers/Section'
 import { ListTimeSheet } from './components/List'
 
 export function TimeSheetView() {
@@ -16,7 +17,9 @@ export function TimeSheetView() {
       )}
 
       <Row>
-        <ListTimeSheet />
+        <Section>
+          <ListTimeSheet />
+        </Section>
       </Row>
     </Container>
   )

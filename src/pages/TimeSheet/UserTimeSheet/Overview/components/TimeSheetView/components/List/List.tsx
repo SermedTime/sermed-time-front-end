@@ -1,9 +1,8 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useParams, useSearchParams } from 'react-router-dom'
 
-import { Col, Row } from 'react-bootstrap'
+import { Col, Container, Row } from 'react-bootstrap'
 
-import { Section } from '@/components/Core/Containers/Section'
 import { Heading } from '@/components/Core/Typography/Heading'
 import { Caption } from '@/components/Core/Typography/Caption'
 import { Icon } from '@/components/Core/Icons/Icon'
@@ -15,12 +14,14 @@ import { Empty } from '@/components/Core/Table/Empty'
 import { Skeleton } from '@/components/Core/Skeleton'
 import { Pagination } from '@/components/Core/Pagination'
 
+import { AnimatedPage } from '@/components/Layout/AnimatedPage'
 import { TimeSheetFilterForm } from './components/FilterForm'
 import {
   ITimeSheetFilterForm,
   initialFilterValues
 } from './components/FilterForm/FilterForm.form'
 import { TableTimeSheet } from './components/Table'
+import { ReleaseHours } from './components/ReleaseHours'
 
 export function ListTimeSheet() {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -34,6 +35,8 @@ export function ListTimeSheet() {
   const defaultYear = new Date().getFullYear()
 
   const { params, refetch, result, setParams } = useTimeSheet(uuid)
+
+  const [approve, setApprove] = useState<string>('')
 
   useEffect(() => {
     setLoaded(true)
@@ -97,116 +100,127 @@ export function ListTimeSheet() {
   }
 
   return (
-    <Section>
-      <Row className="mb-3">
-        <Col xl={8}>
-          <div className="d-flex gap-1">
-            <Icon appearance="outlined" size="lg" icon="poll" />
+    <AnimatedPage>
+      <Container>
+        <Row className="mb-3">
+          <Col xl={8}>
+            <div className="d-flex gap-1">
+              <Icon appearance="outlined" size="lg" icon="poll" />
 
-            <div className="mt-1">
-              <Heading size="xs">Resumo das Horas</Heading>
+              <div className="mt-1">
+                <Heading size="xs">Resumo das Horas</Heading>
 
-              <Caption size="lg">Dados do mês</Caption>
+                <Caption size="lg">Dados do mês</Caption>
+              </div>
             </div>
-          </div>
-        </Col>
+          </Col>
 
-        <Col xl={4}>
-          <TimeSheetFilterForm
-            defaultValues={
-              params
-                ? {
-                    year: defaultYear,
-                    month: defaultMonth
-                  }
-                : null
-            }
-            onChange={filter => handleOnFilter(filter)}
-          />
-        </Col>
-      </Row>
-
-      <Row>
-        <Col>
-          <Table isLoading={result === null} hover={!!result?.data.length}>
-            <Thead>
-              <Tr>
-                <Th>
-                  <Heading size="xs">Dia</Heading>
-                </Th>
-
-                <Th>
-                  <Heading size="xs">Ent. 1</Heading>
-                </Th>
-
-                <Th>
-                  <Heading size="xs">Saí. 1</Heading>
-                </Th>
-
-                <Th>
-                  <Heading size="xs">Ent. 2</Heading>
-                </Th>
-
-                <Th>
-                  <Heading size="xs">Saí. 2</Heading>
-                </Th>
-
-                <Th>
-                  <Heading size="xs">Ent. 3</Heading>
-                </Th>
-
-                <Th>
-                  <Heading size="xs">Saí. 3</Heading>
-                </Th>
-
-                <Th>
-                  <Heading size="xs">Extra</Heading>
-                </Th>
-
-                <Th>
-                  <div style={{ height: '2.5rem', width: '2.5rem' }} />
-                </Th>
-              </Tr>
-            </Thead>
-
-            <Tbody>
-              {result ? (
-                result.data.length > 0 ? (
-                  result.data.map(item => (
-                    <TableTimeSheet
-                      key={item.id}
-                      data={item}
-                      onRefetch={() => refetch()}
-                    />
-                  ))
-                ) : (
-                  <Empty columns={9} />
-                )
-              ) : (
-                <LoadingLines lines={5} columns={9} />
-              )}
-            </Tbody>
-          </Table>
-        </Col>
-      </Row>
-
-      <Row className="justify-content-center">
-        {params && result ? (
-          <Col xs="auto">
-            <Pagination
-              key={params.page}
-              defaultCurrent={params.page}
-              pageSize={Number(params.records)}
-              total={result.total}
-              onChange={page => handleOnChangePage(page)}
+          <Col xl={4}>
+            <TimeSheetFilterForm
+              defaultValues={
+                params
+                  ? {
+                      year: defaultYear,
+                      month: defaultMonth
+                    }
+                  : null
+              }
+              onChange={filter => handleOnFilter(filter)}
             />
           </Col>
-        ) : (
-          <Col xs={4} className="mt-5">
-            <Skeleton />
+        </Row>
+
+        <Row>
+          <Col>
+            <Table isLoading={result === null} hover={!!result?.data.length}>
+              <Thead>
+                <Tr>
+                  <Th>
+                    <Heading size="xs">Dia</Heading>
+                  </Th>
+
+                  <Th>
+                    <Heading size="xs">Ent. 1</Heading>
+                  </Th>
+
+                  <Th>
+                    <Heading size="xs">Saí. 1</Heading>
+                  </Th>
+
+                  <Th>
+                    <Heading size="xs">Ent. 2</Heading>
+                  </Th>
+
+                  <Th>
+                    <Heading size="xs">Saí. 2</Heading>
+                  </Th>
+
+                  <Th>
+                    <Heading size="xs">Ent. 3</Heading>
+                  </Th>
+
+                  <Th>
+                    <Heading size="xs">Saí. 3</Heading>
+                  </Th>
+
+                  <Th>
+                    <Heading size="xs">Extra</Heading>
+                  </Th>
+
+                  <Th>
+                    <div style={{ height: '2.5rem', width: '2.5rem' }} />
+                  </Th>
+                </Tr>
+              </Thead>
+
+              <Tbody>
+                {result ? (
+                  result.data.length > 0 ? (
+                    result.data.map(item => (
+                      <TableTimeSheet
+                        key={item.id}
+                        data={item}
+                        onApprove={() => setApprove(item.id as string)}
+                      />
+                    ))
+                  ) : (
+                    <Empty columns={9} />
+                  )
+                ) : (
+                  <LoadingLines lines={5} columns={9} />
+                )}
+              </Tbody>
+            </Table>
           </Col>
-        )}
-      </Row>
-    </Section>
+        </Row>
+
+        <Row className="justify-content-center">
+          {params && result ? (
+            <Col xs="auto">
+              <Pagination
+                key={params.page}
+                defaultCurrent={params.page}
+                pageSize={Number(params.records)}
+                total={result.total}
+                onChange={page => handleOnChangePage(page)}
+              />
+            </Col>
+          ) : (
+            <Col xs={4} className="mt-5">
+              <Skeleton />
+            </Col>
+          )}
+        </Row>
+      </Container>
+
+      <ReleaseHours
+        timeshift_id={approve}
+        onClose={hasChanges => {
+          setApprove('')
+
+          hasChanges && refetch()
+        }}
+      />
+    </AnimatedPage>
   )
 }

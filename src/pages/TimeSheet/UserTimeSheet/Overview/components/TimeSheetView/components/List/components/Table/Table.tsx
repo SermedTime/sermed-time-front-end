@@ -11,10 +11,10 @@ import { Tooltip } from '@/components/Core/Tooltip'
 
 interface Props {
   data: ITimeSheet
-  onRefetch: () => void
+  onApprove: () => void
 }
 
-export function TableTimeSheet({ data, onRefetch }: Props) {
+export function TableTimeSheet({ data, onApprove }: Props) {
   const [edit, setEdit] = useState(false)
 
   return (
@@ -69,7 +69,7 @@ export function TableTimeSheet({ data, onRefetch }: Props) {
             </Tooltip>
           )}
           <Tooltip title="Aprovar Horas" place="top-start">
-            <ButtonIcon size="sm" icon="alarm_on" onClick={onRefetch} />
+            <ButtonIcon size="sm" icon="alarm_on" onClick={() => onApprove()} />
           </Tooltip>
         </div>
       </Td>
