@@ -4,17 +4,18 @@ import { Routes, Route, useLocation } from 'react-router-dom'
 
 import { AnimatePresence } from 'framer-motion'
 
-// import { RequireAuth } from 'routes/Routing/RequireAuth'
-
 import { Loader } from '@/components/Core/Loader'
 
 import { NotFound } from '@/pages/Errors/NotFound'
 
 import { routes } from '../Pages/Pages.routes'
+
 import { RequireAuth } from './RequireAuth'
 
 export function Routing() {
   const location = useLocation()
+
+  console.log(location)
 
   return (
     <AnimatePresence mode="wait">

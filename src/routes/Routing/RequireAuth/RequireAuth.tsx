@@ -2,12 +2,13 @@ import { useEffect } from 'react'
 
 import { Navigate } from 'react-router-dom'
 
-import { ROUTE_HOME } from '@/routes/Pages/Pages.paths'
-
-import { useToastContext } from '@/contexts/Toast'
-import { ROUTE_LOGIN } from '@/routes/Pages/Auth/Auth.paths'
 import { useAuthContext } from '@/contexts/Auth'
+import { useToastContext } from '@/contexts/Toast'
 import { useAuthRoles } from '@/hooks/services/Rules/Auth/useRoles'
+
+import { ROUTE_HOME } from '@/routes/Pages/Pages.paths'
+import { ROUTE_LOGIN } from '@/routes/Pages/Auth/Auth.paths'
+
 import { IRoles } from '@/contexts/Auth/Auth'
 
 interface Props {
