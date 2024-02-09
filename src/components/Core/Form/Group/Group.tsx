@@ -1,8 +1,8 @@
 import { ReactNode, useEffect, useState } from 'react'
 
-import { Paragraph } from 'components/Core/Typography/Paragraph'
-import { Icon } from 'components/Core/Icons/Icon'
-import { SmoothReveal } from 'components/Core/Animations/SmoothReveal'
+import { Paragraph } from '@/components/Core/Typography/Paragraph'
+import { Icon } from '@/components/Core/Icons/Icon'
+import { SmoothReveal } from '@/components/Core/Animations/SmoothReveal'
 
 import { Wrapper, Label } from './Group.styles'
 

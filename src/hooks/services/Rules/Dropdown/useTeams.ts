@@ -10,19 +10,19 @@ interface ITeamDropdown {
 }
 
 interface props {
-  allData?: string
+  allTeams?: string
   uuid?: string
 }
 
-export function useTeamDropdown({ allData, uuid }: props) {
+export function useTeamDropdown({ allTeams, uuid }: props) {
   const [teams, setTeams] = useState<IOption[] | null>(null)
 
-  const fetchData = useCallback(async (allData?: string, uuid?: string) => {
+  const fetchData = useCallback(async (allTeams?: string, uuid?: string) => {
     try {
       setTeams(null)
 
       const params = {
-        allData,
+        allTeams,
         user_id: uuid
       }
 
@@ -44,8 +44,13 @@ export function useTeamDropdown({ allData, uuid }: props) {
   }, [])
 
   useEffect(() => {
-    fetchData(allData, uuid)
-  }, [allData, uuid, fetchData])
+    fetchData(allTeams, uuid)
+  }, [allTeams, uuid, fetchData])
 
   return { teams }
+}
+
+useTeamDropdown.defaultProps = {
+  allTeams: undefined,
+  uuid: undefined
 }

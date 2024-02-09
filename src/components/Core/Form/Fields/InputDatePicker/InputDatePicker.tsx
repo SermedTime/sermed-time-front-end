@@ -3,9 +3,9 @@ import { useRef, useState, useEffect } from 'react'
 import DatePicker, { registerLocale, setDefaultLocale } from 'react-datepicker'
 import ptBR from 'date-fns/locale/pt-BR'
 
-import { Label } from 'components/Core/Form/Label'
-import { Icon } from 'components/Core/Icons/Icon'
-import { HelperText } from 'components/Core/Form/HelperText'
+import { Label } from '@/components/Core/Form/Label'
+import { Icon } from '@/components/Core/Icons/Icon'
+import { HelperText } from '@/components/Core/Form/HelperText'
 
 import { Container } from './InputDatePicker.styles'
 

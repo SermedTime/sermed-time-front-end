@@ -27,7 +27,7 @@ export function WorkTime() {
         user_id: user?.userUuid
       })
     }
-  })
+  }, [result, setParams, user])
 
   return (
     <Section>

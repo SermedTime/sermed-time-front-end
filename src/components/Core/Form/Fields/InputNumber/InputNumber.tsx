@@ -2,8 +2,8 @@ import { ReactNode } from 'react'
 
 import { NumericFormat, NumberFormatValues } from 'react-number-format'
 
-import { Label } from 'components/Core/Form/Label'
-import { HelperText } from 'components/Core/Form/HelperText'
+import { Label } from '@/components/Core/Form/Label'
+import { HelperText } from '@/components/Core/Form/HelperText'
 
 import { Container } from './InputNumber.styles'
 

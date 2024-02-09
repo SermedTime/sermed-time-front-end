@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { Icon } from 'components/Core/Icons/Icon'
+import { Icon } from '@/components/Core/Icons/Icon'
 
 import { IMultiSelectOption } from '../MultiSelect.interface'
 
