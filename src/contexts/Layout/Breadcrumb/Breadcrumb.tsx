@@ -12,7 +12,8 @@ import { useLocation } from 'react-router-dom'
 
 import {
   ROUTE_LOGIN,
-  ROUTE_RECOVER_PASSWORD
+  ROUTE_RECOVER_PASSWORD,
+  ROUTE_RESET_PASSWORD
 } from '@/routes/Pages/Auth/Auth.paths'
 
 import { IBreadcrumb } from '@/components/Layout/Breadcrumb/Breadcrumb.interface'
@@ -39,6 +40,7 @@ function BreadcrumbContext({ children }: Props) {
     switch (location.pathname) {
       case ROUTE_LOGIN:
       case ROUTE_RECOVER_PASSWORD:
+      case ROUTE_RESET_PASSWORD:
         setBreadcrumb([])
         break
 

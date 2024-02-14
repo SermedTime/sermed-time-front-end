@@ -23,7 +23,7 @@ export function Layout({ children }: Props) {
 
   return (
     <>
-      {user && !user.sysPassword ? (
+      {user ? (
         <S.Container width={handleOnZoomDetectionClass()}>
           <Header />
 

@@ -12,7 +12,8 @@ import { useLocation } from 'react-router-dom'
 
 import {
   ROUTE_LOGIN,
-  ROUTE_RECOVER_PASSWORD
+  ROUTE_RECOVER_PASSWORD,
+  ROUTE_RESET_PASSWORD
 } from '@/routes/Pages/Auth/Auth.paths'
 
 import { ROUTE_TERMS_OF_USE } from '@/routes/Pages/Pages.paths'
@@ -39,6 +40,7 @@ function FooterContext({ children }: Props) {
       case ROUTE_LOGIN:
       case ROUTE_RECOVER_PASSWORD:
       case ROUTE_TERMS_OF_USE:
+      case ROUTE_RESET_PASSWORD:
         setVisible(false)
         break
 

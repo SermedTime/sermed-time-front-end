@@ -48,7 +48,11 @@ export function ListReports() {
   const [loaded, setLoaded] = useState(false)
   const [viewDetail, setViewDetails] = useState({
     user_name: '',
-    user_id: ''
+    params: {
+      user_id: '',
+      initial_date: '',
+      final_date: ''
+    }
   })
 
   useEffect(() => {
@@ -252,7 +256,11 @@ export function ListReports() {
                                 if (item.employee_id && item.employee_name) {
                                   setViewDetails({
                                     user_name: item.employee_name,
-                                    user_id: item.employee_name
+                                    params: {
+                                      user_id: item.employee_id,
+                                      initial_date: params?.initial_date,
+                                      final_date: params?.final_date
+                                    }
                                   })
                                 }
                               }}
@@ -316,11 +324,15 @@ export function ListReports() {
       </Container>
 
       <EmployeeReportDetails
-        user_id={viewDetail.user_id}
+        params={viewDetail.params}
         user_name={viewDetail.user_name}
         onClose={() => {
           setViewDetails({
-            user_id: '',
+            params: {
+              user_id: '',
+              initial_date: '',
+              final_date: ''
+            },
             user_name: ''
           })
         }}

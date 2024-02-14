@@ -1,6 +1,7 @@
 import {
   ROUTE_LOGIN,
-  ROUTE_RECOVER_PASSWORD
+  ROUTE_RECOVER_PASSWORD,
+  ROUTE_RESET_PASSWORD
 } from '@/routes/Pages/Auth/Auth.paths'
 import {
   ReactNode,
@@ -39,6 +40,7 @@ function HeaderContext({ children }: Props) {
     switch (location.pathname) {
       case ROUTE_LOGIN:
       case ROUTE_RECOVER_PASSWORD:
+      case ROUTE_RESET_PASSWORD:
         setVisible(false)
         break
 
