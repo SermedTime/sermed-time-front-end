@@ -4,7 +4,7 @@ import { get } from '@/services/api/sermed-api/sermed-api'
 
 import { removeEmptyEntries } from '@/utils/generic'
 
-interface IExtraHours {
+interface IAnnualLeave {
   date: Date
   shift_name: string
   hours: string
@@ -13,7 +13,7 @@ interface IExtraHours {
 }
 
 interface IResponse {
-  data: IExtraHours[]
+  data: IAnnualLeave[]
   total: string
 }
 
@@ -23,7 +23,7 @@ interface Props {
   final_date: string
 }
 
-export function useExtraHour({ user_id, initial_date, final_date }: Props) {
+export function useAnnualLeave({ user_id, initial_date, final_date }: Props) {
   const [result, setResult] = useState<IResponse | null>(null)
 
   const fetchData = useCallback(
