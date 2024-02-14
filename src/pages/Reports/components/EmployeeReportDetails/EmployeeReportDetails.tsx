@@ -5,6 +5,8 @@ import { Subtitle } from '@/components/Core/Typography/Subtitle'
 import { useEffect, useState } from 'react'
 import { Col, Row } from 'react-bootstrap'
 import { Absenses } from './components/Absenses'
+import { ExtraHour } from './components/ExtraHour'
+import { AnnualLeave } from './components/AnnualLeave'
 
 interface Props {
   params: {
@@ -51,11 +53,11 @@ export function EmployeeReportDetails({ params, user_name, onClose }: Props) {
             </Tab>
 
             <Tab eventKey="extra_hour" title="Horas Extras">
-              <div>Horas Extras</div>
+              <ExtraHour params={params} />
             </Tab>
 
             <Tab eventKey="annual_leave" title="Banco de Horas">
-              <div>Banco de Horas</div>
+              <AnnualLeave params={params} />
             </Tab>
           </Tabs>
         </Col>

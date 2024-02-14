@@ -3,7 +3,7 @@ import { LoadingLines } from '@/components/Core/Table/LoadingLines'
 import { Totals } from '@/components/Core/Table/Totals'
 import { Heading } from '@/components/Core/Typography/Heading'
 import { Paragraph } from '@/components/Core/Typography/Paragraph'
-import { useAbsenses } from '@/hooks/services/Reports/useAbsenses'
+import { useExtraHour } from '@/hooks/services/Reports/useExtraHour'
 import { convertDateToString } from '@/utils/date'
 
 interface Props {
@@ -14,13 +14,13 @@ interface Props {
   }
 }
 
-export function Absenses({ params }: Props) {
+export function ExtraHour({ params }: Props) {
   const { user_id, initial_date, final_date } = params
 
-  const { result } = useAbsenses({ user_id, initial_date, final_date })
+  const { result } = useExtraHour({ user_id, initial_date, final_date })
 
   return (
-    <Table isLoading={result === null}>
+    <Table>
       <Thead>
         <Tr>
           <Th>
@@ -29,6 +29,18 @@ export function Absenses({ params }: Props) {
 
           <Th>
             <Heading size="xs">Turno</Heading>
+          </Th>
+
+          <Th>
+            <Heading size="xs">Aprovado por</Heading>
+          </Th>
+
+          <Th>
+            <Heading size="xs">Data aprovação</Heading>
+          </Th>
+
+          <Th>
+            <Heading size="xs">Horas</Heading>
           </Th>
         </Tr>
       </Thead>
@@ -44,29 +56,47 @@ export function Absenses({ params }: Props) {
               </Td>
 
               <Td>
-                <Paragraph size="sm">{item.shift_name}</Paragraph>
+                <Paragraph size="sm">
+                  <Paragraph size="sm">{item.shift_name}</Paragraph>
+                </Paragraph>
+              </Td>
+
+              <Td>
+                <Paragraph size="sm">
+                  <Paragraph size="sm">{item.approved_by}</Paragraph>
+                </Paragraph>
+              </Td>
+
+              <Td>
+                <Paragraph size="sm">
+                  {convertDateToString(item.approval_date)}
+                </Paragraph>
+              </Td>
+
+              <Td>
+                <Paragraph size="sm">
+                  <Paragraph size="sm">{item.hours}</Paragraph>
+                </Paragraph>
               </Td>
             </Tr>
           ))
         ) : (
-          <LoadingLines lines={5} columns={2} />
+          <LoadingLines lines={5} columns={5} />
         )}
       </Tbody>
 
       {result && (
         <Tfoot size="lg">
           <Tr>
-            <Td colSpan={1}>
+            <Td colSpan={4}>
               <Totals>
                 <Heading size="xs">Total</Heading>
               </Totals>
             </Td>
 
-            <Td>
+            <Td colSpan={1}>
               <Totals>
-                <Heading size="xs">{`${result.total} ${
-                  result.total > 1 ? 'Faltas' : 'Falta'
-                }`}</Heading>
+                <Heading size="xs">{`${result.total} horas`}</Heading>
               </Totals>
             </Td>
           </Tr>

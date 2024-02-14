@@ -1,17 +1,18 @@
+import { get } from '@/services/api/sermed-api/sermed-api'
+import { removeEmptyEntries } from '@/utils/generic'
 import { useCallback, useEffect, useState } from 'react'
 
-import { get } from '@/services/api/sermed-api/sermed-api'
-
-import { removeEmptyEntries } from '@/utils/generic'
-
-interface IAbsenses {
+interface IExtraHours {
   date: Date
   shift_name: string
+  hours: string
+  approved_by: string
+  approval_date: Date
 }
 
 interface IResponse {
-  data: IAbsenses[]
-  total: number
+  data: IExtraHours[]
+  total: string
 }
 
 interface Props {
@@ -20,7 +21,7 @@ interface Props {
   final_date: string
 }
 
-export function useAbsenses({ user_id, initial_date, final_date }: Props) {
+export function useExtraHour({ user_id, initial_date, final_date }: Props) {
   const [result, setResult] = useState<IResponse | null>(null)
 
   const fetchData = useCallback(
@@ -33,7 +34,10 @@ export function useAbsenses({ user_id, initial_date, final_date }: Props) {
           final_date
         })
 
-        const { data } = await get(`/reports/absenses/${user_id}`, queryParams)
+        const { data } = await get(
+          `/reports/extra-hour/${user_id}`,
+          queryParams
+        )
 
         const res: IResponse = data.data
 
@@ -44,14 +48,25 @@ export function useAbsenses({ user_id, initial_date, final_date }: Props) {
         }
       } catch {
         // setResult(null)
+
         setResult({
           data: [
             {
               date: new Date(),
-              shift_name: 'Manhã Esterilização'
+              shift_name: 'Manhã Esterilização',
+              hours: '00:45',
+              approved_by: 'Gabriela Viegas',
+              approval_date: new Date()
+            },
+            {
+              date: new Date(),
+              shift_name: 'Manhã Esterilização',
+              hours: '00:45',
+              approved_by: 'Gabriela Viegas',
+              approval_date: new Date()
             }
           ],
-          total: 1
+          total: '01:30'
         })
       }
     },
