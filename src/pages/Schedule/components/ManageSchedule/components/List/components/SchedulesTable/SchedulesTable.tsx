@@ -129,7 +129,7 @@ export function SchedulesTable({ data, shifts }: Props) {
                 </Tooltip>
               )}
 
-              <Tooltip title="Remover Equipe" place="top">
+              <Tooltip title="Remover escala" place="top">
                 <ButtonIcon
                   size="sm"
                   icon="delete"
