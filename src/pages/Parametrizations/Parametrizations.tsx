@@ -151,10 +151,15 @@ export function Parametrizations() {
                                       icon={item.icon}
                                       title={item.title}
                                       routeToList={item.routeToList}
-                                      routeToAdd={{
-                                        title: item.routeToAdd,
-                                        disabled: !hasParametrizationsWriter()
-                                      }}
+                                      routeToAdd={
+                                        item.routeToAdd
+                                          ? {
+                                              title: item.routeToAdd,
+                                              disabled:
+                                                !hasParametrizationsWriter()
+                                            }
+                                          : undefined
+                                      }
                                     />
                                   </Col>
                                 ))}

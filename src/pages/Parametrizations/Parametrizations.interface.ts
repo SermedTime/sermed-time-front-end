@@ -2,7 +2,7 @@ interface IParameter {
   icon: string
   title: string
   routeToList: string
-  routeToAdd: string
+  routeToAdd?: string
 }
 
 export interface IParameterList {

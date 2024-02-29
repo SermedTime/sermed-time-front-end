@@ -17,7 +17,7 @@ export interface ICard {
   icon: string
   title: string
   routeToList: string
-  routeToAdd: IRouteToAdd
+  routeToAdd?: IRouteToAdd
 }
 
 export function Card({ icon, title, routeToList, routeToAdd }: ICard) {
@@ -40,12 +40,14 @@ export function Card({ icon, title, routeToList, routeToAdd }: ICard) {
               onClick={() => navigate(routeToList)}
             />
 
-            <ButtonIcon
-              size="md"
-              icon="add"
-              disabled={!routeToAdd || routeToAdd.disabled}
-              onClick={() => navigate(routeToAdd.title)}
-            />
+            {routeToAdd && (
+              <ButtonIcon
+                size="md"
+                icon="add"
+                disabled={!routeToAdd || routeToAdd.disabled}
+                onClick={() => navigate(routeToAdd.title)}
+              />
+            )}
           </div>
         </Col>
       </Row>
@@ -59,4 +61,8 @@ export function Card({ icon, title, routeToList, routeToAdd }: ICard) {
       </Row>
     </S.Container>
   )
+}
+
+Card.defaultProps = {
+  routeToAdd: undefined
 }
