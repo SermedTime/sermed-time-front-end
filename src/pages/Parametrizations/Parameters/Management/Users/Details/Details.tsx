@@ -1,16 +1,13 @@
 import { useCallback, useEffect, useState } from 'react'
 
-import { useLoaderContext } from '@/contexts/Loader'
 import { useToastContext } from '@/contexts/Toast'
-import { useAuthRoles } from '@/hooks/services/Rules/Auth/useRoles'
 
-import { get, put } from '@/services/api/sermed-api/sermed-api'
+import { get } from '@/services/api/sermed-api/sermed-api'
 import { Modal } from '@/components/Core/Modal'
 import { Col, Row } from 'react-bootstrap'
 import { Icon } from '@/components/Core/Icons/Icon'
 import { Subtitle } from '@/components/Core/Typography/Subtitle'
 
-import { Button } from '@/components/Core/Buttons/Button'
 import { cpfMask } from '@/utils/masks'
 
 import { IUserRegisterForm } from '../components/RegisterForm/RegisterForm.form'
@@ -21,10 +18,8 @@ interface Props {
   onClose: (hasChanges: boolean) => void
 }
 
-export function EditUser({ uuid, onClose }: Props) {
-  const { hasParametrizationsWriter } = useAuthRoles()
-  const { showLoader, hideLoader } = useLoaderContext()
-  const { addToast, handleApiRejection } = useToastContext()
+export function DetailsUser({ uuid, onClose }: Props) {
+  const { handleApiRejection } = useToastContext()
 
   const [showModal, setShowModal] = useState(false)
   const [readOnly, setReadOnly] = useState(true)
@@ -97,43 +92,6 @@ export function EditUser({ uuid, onClose }: Props) {
     onClose(false)
   }
 
-  async function handleOnSubmit(formValues: IUserRegisterForm) {
-    try {
-      showLoader()
-
-      const { data, message } = await put(
-        `parametrizations/users/${formValues.uuid}`,
-        { ...formValues, cpf: formValues.cpf.replace(/\D/g, '') }
-      )
-
-      if (data) {
-        addToast({
-          type: 'success',
-          title: 'Sucesso',
-          description: 'O cadastro do Usuário foi editado.'
-        })
-
-        setShowModal(false)
-        setReadOnly(true)
-        setInitialValues(null)
-
-        onClose(true)
-      }
-
-      if (message) {
-        addToast({
-          type: 'warning',
-          title: 'Ooops',
-          description: message
-        })
-      }
-    } catch {
-      handleApiRejection()
-    } finally {
-      hideLoader()
-    }
-  }
-
   return (
     <Modal visible={showModal} onClose={() => handleOnCancel()}>
       <Row className="align-items-center mb-4">
@@ -141,34 +99,14 @@ export function EditUser({ uuid, onClose }: Props) {
           <div className="d-flex align-items-center gap-2">
             <Icon icon="edit" />
 
-            <Subtitle size="sm">Editar Usuário</Subtitle>
+            <Subtitle size="sm">Detalhes do Usuário</Subtitle>
           </div>
-        </Col>
-
-        <Col>
-          <Button
-            type="button"
-            styles="tertiary"
-            icon="edit"
-            onClick={() => setReadOnly(readOnly => !readOnly)}
-            disabled={
-              !initialValues || !readOnly || !hasParametrizationsWriter()
-            }
-          >
-            {`${readOnly ? 'Alterar' : 'Alterando...'}`}
-          </Button>
         </Col>
       </Row>
 
       <Row>
         <Col>
-          <UserRegisterForm
-            mode="edit"
-            initialValues={initialValues}
-            readOnly={readOnly}
-            onCancel={() => handleOnCancel()}
-            onSubmit={values => handleOnSubmit(values)}
-          />
+          <UserRegisterForm initialValues={initialValues} readOnly={readOnly} />
         </Col>
       </Row>
     </Modal>

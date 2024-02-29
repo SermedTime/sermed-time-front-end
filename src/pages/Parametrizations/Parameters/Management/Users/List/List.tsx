@@ -1,11 +1,10 @@
 import { useCallback, useEffect, useState } from 'react'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 
 import { Col, Container, Row } from 'react-bootstrap'
 
 import { useBreadcrumbContext } from '@/contexts/Layout/Breadcrumb'
 import { useHeaderContext } from '@/contexts/Layout/Header'
-import { useAuthRoles } from '@/hooks/services/Rules/Auth/useRoles'
 
 import { useUsers } from '@/hooks/services/Parameters/useUsers'
 
@@ -16,12 +15,7 @@ import { IOrder } from '@/components/Core/Table/Order/Order.interface'
 import { AnimatedPage } from '@/components/Layout/AnimatedPage'
 import { Section } from '@/components/Core/Containers/Section'
 
-import { Tooltip } from '@/components/Core/Tooltip'
-import { ButtonIcon } from '@/components/Core/Buttons/ButtonIcon'
-import { ROUTE_MANAGEMENT_USERS_CREATE } from '@/routes/Pages/Parametrizations/Management/Management.paths'
-
 import { Table, Tbody, Th, Thead, Tr } from '@/components/Core/Table'
-import { Icon } from '@/components/Core/Icons/Icon'
 import { Heading } from '@/components/Core/Typography/Heading'
 import { Empty } from '@/components/Core/Table/Empty'
 import { LoadingLines } from '@/components/Core/Table/LoadingLines'
@@ -38,15 +32,11 @@ import {
 } from '../../../components/SearchForm/SearchForm.form'
 import { ParametersFilterForm } from '../../../components/FilterForm/FilterForm'
 import { UsersTable } from './components/UsersTable'
-import { EditUser } from '../Edit'
+import { DetailsUser } from '../Details'
 import { AssignTeam } from '../components/AssignTeam'
 import { AssignPermission } from '../components/AssignPermission'
 
 export function ListUsers() {
-  const { hasParametrizationsWriter } = useAuthRoles()
-
-  const navigate = useNavigate()
-
   const [searchParams, setSearchParams] = useSearchParams()
 
   const { setPageHeading } = useHeaderContext()
@@ -203,19 +193,6 @@ export function ListUsers() {
                 </Col>
               </Row>
 
-              <Row className="justify-content-end align-items-center mb-3">
-                <Col xs="auto">
-                  <Tooltip title="Adicionar um Usuário">
-                    <ButtonIcon
-                      size="lg"
-                      icon="add"
-                      disabled={!hasParametrizationsWriter()}
-                      onClick={() => navigate(ROUTE_MANAGEMENT_USERS_CREATE)}
-                    />
-                  </Tooltip>
-                </Col>
-              </Row>
-
               <Row>
                 <Col>
                   <Table
@@ -224,14 +201,6 @@ export function ListUsers() {
                   >
                     <Thead>
                       <Tr>
-                        <Th>
-                          <Row className="justify-content-center">
-                            <Col xs="auto">
-                              <Icon size="md" icon="power_settings_new" />
-                            </Col>
-                          </Row>
-                        </Th>
-
                         <Th>
                           <Heading size="xs">Nome</Heading>
                         </Th>
@@ -276,7 +245,6 @@ export function ListUsers() {
                                   user_id: item.uuid
                                 })
                               }
-                              onRefetch={() => refetch()}
                             />
                           ))
                         ) : (
@@ -329,7 +297,7 @@ export function ListUsers() {
         </Row>
       </Container>
 
-      <EditUser
+      <DetailsUser
         uuid={editingRecord}
         onClose={hasChanges => {
           setEditingRecord('')
