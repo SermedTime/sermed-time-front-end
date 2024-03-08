@@ -9,7 +9,6 @@ import {
   ROUTE_MANAGEMENT_TEAMS_LIST,
   ROUTE_MANAGEMENT_TIME_CLOCK_CREATE,
   ROUTE_MANAGEMENT_TIME_CLOCK_LIST,
-  ROUTE_MANAGEMENT_USERS_CREATE,
   ROUTE_MANAGEMENT_USERS_LIST
 } from './Management.paths'
 
@@ -40,12 +39,6 @@ const CreateTeam = lazy(() =>
 const ListUsers = lazy(() =>
   import('@/pages/Parametrizations/Parameters/Management/Users/List').then(
     module => ({ default: module.ListUsers })
-  )
-)
-
-const CreateUser = lazy(() =>
-  import('@/pages/Parametrizations/Parameters/Management/Users/Create').then(
-    module => ({ default: module.CreateUser })
   )
 )
 
@@ -92,12 +85,7 @@ export const managementParametersRoutes: IRouteProps[] = [
     isPrivate: true,
     allowedRoles: [{ role: ROLE_PARAMETRIZATIONS, is_writer: false }]
   },
-  {
-    path: ROUTE_MANAGEMENT_USERS_CREATE,
-    component: CreateUser,
-    isPrivate: true,
-    allowedRoles: [{ role: ROLE_PARAMETRIZATIONS, is_writer: true }]
-  },
+
   {
     path: ROUTE_MANAGEMENT_COMPANIES_LIST,
     component: ListCompanies,
