@@ -8,6 +8,7 @@ import { Paragraph } from '@/components/Core/Typography/Paragraph'
 import { ITimeSheet } from '@/hooks/services/TimeSheet/useTimeSheet'
 import { ButtonIcon } from '@/components/Core/Buttons/ButtonIcon'
 import { Tooltip } from '@/components/Core/Tooltip'
+import { convertIsoDateToPtBr, convertIsoDateToTime } from '@/utils/date'
 
 interface Props {
   data: ITimeSheet
@@ -21,36 +22,40 @@ export function TableTimeSheet({ data, onApprove }: Props) {
     <Tr>
       <Td>
         <Col xs="auto">
-          <Paragraph size="sm">{data.date}</Paragraph>
+          <Paragraph size="sm">{`${convertIsoDateToPtBr(data.date)} - ${
+            data.day
+          }`}</Paragraph>
         </Col>
       </Td>
 
       <Td>
-        <Paragraph size="sm">{data.firstEntry}</Paragraph>
+        <Paragraph size="sm">{convertIsoDateToTime(data.firstEntry)}</Paragraph>
       </Td>
 
       <Td>
-        <Paragraph size="sm">{data.firstExit}</Paragraph>
+        <Paragraph size="sm">{convertIsoDateToTime(data.firstExit)}</Paragraph>
       </Td>
 
       <Td>
-        <Paragraph size="sm">{data.secondEntry}</Paragraph>
+        <Paragraph size="sm">
+          {convertIsoDateToTime(data.secondEntry)}
+        </Paragraph>
       </Td>
 
       <Td>
-        <Paragraph size="sm">{data.secondExit}</Paragraph>
+        <Paragraph size="sm">{convertIsoDateToTime(data.secondExit)}</Paragraph>
       </Td>
 
       <Td>
-        <Paragraph size="sm">{data.thirdEntry}</Paragraph>
+        <Paragraph size="sm">{convertIsoDateToTime(data.thirdEntry)}</Paragraph>
       </Td>
 
       <Td>
-        <Paragraph size="sm">{data.thirdExit}</Paragraph>
+        <Paragraph size="sm">{convertIsoDateToTime(data.thirdExit)}</Paragraph>
       </Td>
 
       <Td>
-        <Paragraph size="sm">{data.overtime}</Paragraph>
+        <Paragraph size="sm">{convertIsoDateToTime(data.overtime)}</Paragraph>
       </Td>
 
       <Td showOnHover={true}>

@@ -7,16 +7,15 @@ import { IApiResponse } from '@/services/api/sermed-api/sermed-api.interface'
 import { removeEmptyEntries } from '@/utils/generic'
 
 export interface ITimeSheet {
-  id: number | string
   date: string
-  firstEntry: string | undefined
-  firstExit: string | undefined
-  secondEntry: string | undefined
-  secondExit: string | undefined
-  thirdEntry: string | undefined
-  thirdExit: string | undefined
-  overtime: string | undefined
-  is_edited?: boolean
+  day: string
+  firstEntry: string
+  firstExit: string
+  secondEntry: string
+  secondExit: string
+  thirdEntry: string
+  thirdExit: string
+  overtime: string
 }
 
 export function useTimeSheet(uuid?: string) {
@@ -33,7 +32,7 @@ export function useTimeSheet(uuid?: string) {
           month: params?.month,
           year: params?.year,
           records: params?.records,
-          page: 2
+          page: params?.page
         })
 
         const { data } = await get(
@@ -42,7 +41,6 @@ export function useTimeSheet(uuid?: string) {
         )
 
         if (data) {
-          console.log(data)
           setResult(data)
         } else {
           setResult({

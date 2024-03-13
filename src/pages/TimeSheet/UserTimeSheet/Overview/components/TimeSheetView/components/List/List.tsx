@@ -136,7 +136,7 @@ export function ListTimeSheet() {
               <Thead>
                 <Tr>
                   <Th>
-                    <Heading size="xs">Dia</Heading>
+                    <Heading size="xs">Data</Heading>
                   </Th>
 
                   <Th>
@@ -176,18 +176,18 @@ export function ListTimeSheet() {
               <Tbody>
                 {result ? (
                   result.data.length > 0 ? (
-                    result.data.map(item => (
+                    result.data.map((item, idx) => (
                       <TableTimeSheet
-                        key={item.id}
+                        key={idx}
                         data={item}
-                        onApprove={() => setApprove(item.id as string)}
+                        onApprove={() => setApprove('')}
                       />
                     ))
                   ) : (
                     <Empty columns={9} />
                   )
                 ) : (
-                  <LoadingLines lines={5} columns={9} />
+                  <LoadingLines lines={10} columns={9} />
                 )}
               </Tbody>
             </Table>

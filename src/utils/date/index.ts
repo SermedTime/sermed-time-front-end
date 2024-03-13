@@ -1,4 +1,4 @@
-import { startOfMonth, endOfMonth, format, parseISO } from 'date-fns'
+import { startOfMonth, endOfMonth, format, parseISO, getDay } from 'date-fns'
 
 export function firstDayOfCurrentMonth(): Date {
   return startOfMonth(new Date())
@@ -33,7 +33,9 @@ export function convertIsoDateToPtBr(
 export function convertIsoDateToTime(date: string | undefined | null): string {
   if (!date) return ''
 
-  return format(parseISO(date), 'HH:mm')
+  const dateWithoutTimezone = date.replace(/Z|([+-]\d{2}:\d{2})$/g, '')
+
+  return format(parseISO(dateWithoutTimezone), 'HH:mm')
 }
 
 export function convertDateToString(date: Date | undefined | null): string {
@@ -89,7 +91,7 @@ export function validateData(
 export function convertDateToWeekDay(date: Date) {
   let day = ''
 
-  switch (date.getDay()) {
+  switch (getDay(date)) {
     case 0:
       day = 'Domingo'
       break
