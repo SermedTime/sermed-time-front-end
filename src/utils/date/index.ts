@@ -8,6 +8,14 @@ export function lastDayOfCurrentMonth(): Date {
   return endOfMonth(new Date())
 }
 
+export function lastDayByDate(date: Date): number {
+  const lastDayMonthDate = endOfMonth(date)
+
+  const lastDayMonth = lastDayMonthDate.getDate()
+
+  return Number(lastDayMonth)
+}
+
 export function convertIsoDateToPtBr(
   date: string | undefined | null,
   time = false

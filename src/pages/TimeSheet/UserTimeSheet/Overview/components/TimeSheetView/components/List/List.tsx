@@ -63,7 +63,7 @@ export function ListTimeSheet() {
         params = {
           ...initialFilterValues,
           records: 10,
-          page: 1
+          page: 2
         }
       }
 
@@ -79,7 +79,7 @@ export function ListTimeSheet() {
         month,
         year,
         records: 10,
-        page: 1
+        page: 2
       }
 
       handleSearchParams(newParams)
