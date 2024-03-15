@@ -32,7 +32,8 @@ export function useTimeSheet(uuid?: string) {
           month: params?.month,
           year: params?.year,
           records: params?.records,
-          page: params?.page
+          page: params?.page,
+          isHome: params?.isHome
         })
 
         const { data } = await get(

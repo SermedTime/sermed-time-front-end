@@ -1,4 +1,9 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect } from 'react'
+
+import { useTimeSheet } from '@/hooks/services/TimeSheet/useTimeSheet'
+import { useAuthContext } from '@/contexts/Auth'
+
+import { Col, Row } from 'react-bootstrap'
 
 import { ButtonLink } from '@/components/Core/Buttons/ButtonLink'
 import { Section } from '@/components/Core/Containers/Section'
@@ -6,44 +11,26 @@ import { Icon } from '@/components/Core/Icons/Icon'
 import { Skeleton } from '@/components/Core/Skeleton'
 import { Caption } from '@/components/Core/Typography/Caption'
 import { Heading } from '@/components/Core/Typography/Heading'
-
-import { Col, Row } from 'react-bootstrap'
+import { Table, Tbody, Th, Thead, Tr } from '@/components/Core/Table'
+import { Empty } from '@/components/Core/Table/Empty'
+import { LoadingLines } from '@/components/Core/Table/LoadingLines'
 
 import { ROUTE_TIME_SHEET_USER_SEARCH } from '@/routes/Pages/TimeSheet/TimeSheet.paths'
 
-import { ITimeSheet } from '@/hooks/services/TimeSheet/useTimeSheet'
-import { IApiResponse } from '@/services/api/sermed-api/sermed-api.interface'
-
-import { fakeRequest } from '@/services/api/sermed-api/sermed-api'
-
 import { TableTime } from './components/Table'
 
-import { fakeTimeSheet } from './TimeSheet.inteface'
-
-const res: IApiResponse<ITimeSheet> = {
-  data: fakeTimeSheet,
-  total: 10,
-  page: 1
-}
-
 export function TimeSheet() {
-  const [result, setResult] = useState<ITimeSheet[] | null>(null)
+  const { user } = useAuthContext()
 
-  const fetchData = useCallback(async () => {
-    try {
-      await fakeRequest(2000)
-
-      setResult(res.data)
-    } catch {
-      setResult(null)
-    }
-  }, [])
+  const { result, setParams } = useTimeSheet(user?.userUuid)
 
   useEffect(() => {
-    if (result === null) {
-      fetchData()
+    const params = {
+      isHome: 'true'
     }
-  }, [result, fetchData])
+
+    setParams(params)
+  }, [setParams])
 
   return (
     <Section>
@@ -63,7 +50,61 @@ export function TimeSheet() {
 
       <Row>
         <Col>
-          <TableTime result={result} />
+          <Table isLoading={result === null} hover={!!result?.data.length}>
+            <Thead>
+              <Tr>
+                <Th>
+                  <Heading size="xs">Data</Heading>
+                </Th>
+
+                <Th>
+                  <Heading size="xs">Ent. 1</Heading>
+                </Th>
+
+                <Th>
+                  <Heading size="xs">Saí. 1</Heading>
+                </Th>
+
+                <Th>
+                  <Heading size="xs">Ent. 2</Heading>
+                </Th>
+
+                <Th>
+                  <Heading size="xs">Saí. 2</Heading>
+                </Th>
+
+                <Th>
+                  <Heading size="xs">Ent. 3</Heading>
+                </Th>
+
+                <Th>
+                  <Heading size="xs">Saí. 3</Heading>
+                </Th>
+
+                <Th>
+                  <Heading size="xs">Extra</Heading>
+                </Th>
+
+                <Th>
+                  <div style={{ height: '2.5rem', width: '2.5rem' }} />
+                </Th>
+              </Tr>
+            </Thead>
+
+            <Tbody>
+              {result ? (
+                result.data.length > 0 ? (
+                  result.data.map((item, idx) => (
+                    <TableTime key={idx} data={item} />
+                  ))
+                ) : (
+                  <Empty columns={8} />
+                )
+              ) : (
+                <LoadingLines lines={10} columns={8} />
+              )}
+            </Tbody>
+          </Table>
         </Col>
       </Row>
 
