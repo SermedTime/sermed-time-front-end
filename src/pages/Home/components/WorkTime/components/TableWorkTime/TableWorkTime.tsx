@@ -68,13 +68,13 @@ export function TableWorkTime({ result }: Props) {
 
               <Td>
                 <Paragraph size="sm">
-                  {convertIsoDateToTime(item.start.toISOString())}
+                  {convertIsoDateToTime(item.start_string)}
                 </Paragraph>
               </Td>
 
               <Td>
                 <Paragraph size="sm">
-                  {convertIsoDateToTime(item.end.toISOString())}
+                  {convertIsoDateToTime(item.end_string)}
                 </Paragraph>
               </Td>
             </Tr>

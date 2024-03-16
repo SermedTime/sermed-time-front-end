@@ -13,6 +13,8 @@ export interface IScheduleShift {
   shift_name: string
   start: Date
   end: Date
+  start_string: string
+  end_string: string
   type: string
   shift_initials: string
 }
@@ -38,6 +40,8 @@ export function useSchedules() {
         data.data[i].start = new Date(data.data[i].start.replace('Z', '-0300'))
         data.data[i].end = new Date(data.data[i].end.replace('Z', '-0300'))
       }
+
+      console.log(data.data)
 
       setResult(data.data)
     } catch {

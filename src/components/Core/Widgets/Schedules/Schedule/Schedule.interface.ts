@@ -9,6 +9,8 @@ export interface IScheduleShift {
   shift_name: string
   start: Date
   end: Date
+  start_string: string
+  end_string: string
   type: string
   shift_initials: string
 }

@@ -21,8 +21,8 @@ export function Schedule({ data, onClick }: Props) {
           {data.shift_name}
         </Caption>
         <Caption size="lg" className="mt-1">
-          {convertIsoDateToTime(data.start.toISOString())} -{' '}
-          {convertIsoDateToTime(data.end.toISOString())}
+          {convertIsoDateToTime(data.start_string)} -{' '}
+          {convertIsoDateToTime(data.end_string)}
         </Caption>
       </div>
     </Container>

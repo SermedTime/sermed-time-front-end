@@ -88,9 +88,8 @@ export function SchedulesTable({ data, shifts }: Props) {
           <Td>
             {edit !== item.schedule_id ? (
               <Paragraph size="sm">
-                {item.shift_name} -{' '}
-                {convertIsoDateToTime(item.start?.toISOString())} -{' '}
-                {convertIsoDateToTime(item.end?.toISOString())}
+                {item.shift_name} - {convertIsoDateToTime(item.start_string)} -{' '}
+                {convertIsoDateToTime(item.end_string)}
               </Paragraph>
             ) : (
               <Select
