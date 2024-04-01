@@ -160,3 +160,13 @@ export function capitalizeFirstLetter(value: string): string {
 export function removeMask(value: string): string {
   return value.replace(/\D/g, '')
 }
+
+export function plateMask(value: string): string {
+  const validate = /([A-Za-z]{3})([0-9]{1})([0-9a-jA-J]{1})([0-9]{2})/
+
+  if (value.length >= 7 && !validate.test(value)) {
+    return ''
+  }
+
+  return value.replace(/[^A-Z0-9a-z]/g, '').toUpperCase()
+}

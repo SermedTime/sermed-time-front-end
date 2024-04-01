@@ -5,6 +5,7 @@ import {
   ROUTE_MANAGEMENT_TEAMS_LIST,
   ROUTE_MANAGEMENT_TIME_CLOCK_CREATE,
   ROUTE_MANAGEMENT_TIME_CLOCK_LIST,
+  ROUTE_MANAGEMENT_UNITS_LIST,
   ROUTE_MANAGEMENT_USERS_LIST
 } from '@/routes/Pages/Parametrizations/Management/Management.paths'
 import { IParameterList } from './Parametrizations.interface'
@@ -19,6 +20,11 @@ export const initialParameterList: IParameterList[] = [
         title: 'Empresas',
         routeToList: ROUTE_MANAGEMENT_COMPANIES_LIST,
         routeToAdd: ROUTE_MANAGEMENT_COMPANIES_CREATE
+      },
+      {
+        icon: 'account_balance',
+        title: 'Unidades',
+        routeToList: ROUTE_MANAGEMENT_UNITS_LIST
       },
       {
         icon: 'access_time',
