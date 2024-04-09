@@ -9,6 +9,7 @@ import {
   ROUTE_MANAGEMENT_TEAMS_LIST,
   ROUTE_MANAGEMENT_TIME_CLOCK_CREATE,
   ROUTE_MANAGEMENT_TIME_CLOCK_LIST,
+  ROUTE_MANAGEMENT_UNITS_CREATE,
   ROUTE_MANAGEMENT_UNITS_LIST,
   ROUTE_MANAGEMENT_USERS_LIST
 } from './Management.paths'
@@ -61,6 +62,12 @@ const ListUnits = lazy(() =>
   )
 )
 
+const CreateUnit = lazy(() =>
+  import('@/pages/Parametrizations/Parameters/Management/Units/Create').then(
+    module => ({ default: module.CreateUnit })
+  )
+)
+
 export const managementParametersRoutes: IRouteProps[] = [
   {
     path: ROUTE_MANAGEMENT_TIME_CLOCK_LIST,
@@ -110,5 +117,11 @@ export const managementParametersRoutes: IRouteProps[] = [
     component: ListUnits,
     isPrivate: true,
     allowedRoles: [{ role: ROLE_PARAMETRIZATIONS, is_writer: false }]
+  },
+  {
+    path: ROUTE_MANAGEMENT_UNITS_CREATE,
+    component: CreateUnit,
+    isPrivate: true,
+    allowedRoles: [{ role: ROLE_PARAMETRIZATIONS, is_writer: true }]
   }
 ]

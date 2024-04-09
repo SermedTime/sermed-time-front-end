@@ -189,7 +189,7 @@ export function ListUnits() {
 
               <Row className="justify-content-end align-items-center mb-3">
                 <Col xs="auto">
-                  <Tooltip title="Adcionar uma Empresa">
+                  <Tooltip title="Adcionar uma Unidade">
                     <ButtonIcon
                       size="lg"
                       icon="add"
