@@ -40,6 +40,7 @@ import {
 import { ParametersFilterForm } from '../../../components/FilterForm/FilterForm'
 import { ParametersSearchForm } from '../../../components/SearchForm'
 import { UnitsTable } from './components/UnitsTable'
+import { EditUnit } from '../Edit'
 
 export function ListUnits() {
   const { hasParametrizationsWriter } = useAuthRoles()
@@ -301,14 +302,14 @@ export function ListUnits() {
         </Row>
       </Container>
 
-      {/* <EditCompany
+      <EditUnit
         uuid={editingRecord}
         onClose={hasChanges => {
           setEditingRecord('')
 
           hasChanges && refetch()
         }}
-      /> */}
+      />
     </AnimatedPage>
   )
 }
