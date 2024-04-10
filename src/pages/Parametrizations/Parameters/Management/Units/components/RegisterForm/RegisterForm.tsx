@@ -84,11 +84,13 @@ export function UnitRegisterForm({
               <Field
                 as={InputText}
                 label="Descrição"
-                name="name"
-                placeholder="Insira o nome da equipe"
+                name="unitName"
+                placeholder="Insira o nome da unidade"
                 type="text"
-                error={touched.name && !!errors.name}
-                helperText={touched.name && !!errors.name ? errors.name : ''}
+                error={touched.unitName && !!errors.unitName}
+                helperText={
+                  touched.unitName && !!errors.unitName ? errors.unitName : ''
+                }
                 readOnly={readOnly}
               />
             </Col>

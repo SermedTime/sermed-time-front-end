@@ -40,11 +40,11 @@ export function EditUnit({ uuid, onClose }: Props) {
           data: { data }
         } = await get(`/parametrizations/units/${uuid}`)
 
-        const { name, status } = data
+        const { unitName, status } = data
 
         setInitialValues({
           uuid,
-          name,
+          unitName,
           status
         })
       } catch {
@@ -116,7 +116,7 @@ export function EditUnit({ uuid, onClose }: Props) {
           <div className="d-flex align-items-center gap-2">
             <Icon icon="edit" />
 
-            <Subtitle size="sm">Editar Equipe</Subtitle>
+            <Subtitle size="sm">Editar Unidade</Subtitle>
           </div>
         </Col>
 
