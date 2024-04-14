@@ -15,8 +15,6 @@ import { RequireAuth } from './RequireAuth'
 export function Routing() {
   const location = useLocation()
 
-  console.log(location)
-
   return (
     <AnimatePresence mode="wait">
       <Suspense fallback={<Loader />}>

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 
 import { IApiResponse } from '@/services/api/sermed-api/sermed-api.interface'
-import { fakeRequest, get } from '@/services/api/sermed-api/sermed-api'
+import { fakeRequest } from '@/services/api/sermed-api/sermed-api'
 import { removeEmptyEntries } from '@/utils/generic'
 
 export interface IPayslips {

@@ -23,8 +23,6 @@ export function ListPayslips() {
 
   const { params, setParams, result } = usePayslips(uuid)
 
-  console.log(result)
-
   useEffect(() => {
     setLoaded(true)
   }, [])

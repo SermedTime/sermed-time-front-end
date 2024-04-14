@@ -28,7 +28,8 @@ export function useTeams() {
         status: params?.status,
         order: params?.order,
         orderBy: params?.orderBy,
-        page: params?.page
+        page: params?.page,
+        unit: params?.unit
       })
 
       const { data } = await get('/parametrizations/team', queryParams)

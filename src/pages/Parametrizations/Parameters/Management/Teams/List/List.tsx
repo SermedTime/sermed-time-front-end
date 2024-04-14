@@ -32,11 +32,14 @@ import {
   IParametersSearchForm,
   initialSearchValues
 } from '../../../components/SearchForm/SearchForm.form'
-import { IParametersFilterForm } from '../../../components/FilterForm/FilterForm.Form'
-import { initialFilterValues } from '../../../components/FilterForm/FilterForm.Form'
-import { ParametersFilterForm } from '../../../components/FilterForm/FilterForm'
+
 import { EditTeam } from '../Edit'
 import { Teams } from './components'
+import {
+  ITeamsFilterForm,
+  initialFilterValues
+} from '../components/FilterForm/FilterForm.Form'
+import { TeamsFilterForm } from '../components/FilterForm'
 
 export function ListTeams() {
   const { hasParametrizationsWriter } = useAuthRoles()
@@ -120,15 +123,16 @@ export function ListTeams() {
     }
   }
 
-  function handleOnFilter(data: IParametersFilterForm) {
+  function handleOnFilter(data: ITeamsFilterForm) {
     if (params) {
-      const { records, status } = data
+      const { records, status, unit } = data
 
       const newParams = {
         ...params,
         page: 1,
         records,
-        status
+        status,
+        unit
       }
 
       handleSearchParams(newParams)
@@ -283,12 +287,13 @@ export function ListTeams() {
           </Col>
 
           <Col lg={3} xxl={2}>
-            <ParametersFilterForm
+            <TeamsFilterForm
               defaultValues={
                 params
                   ? {
                       records: Number(params.records),
-                      status: params.status
+                      status: params.status,
+                      unit: params.unit
                     }
                   : null
               }

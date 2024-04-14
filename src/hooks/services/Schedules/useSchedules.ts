@@ -41,8 +41,6 @@ export function useSchedules() {
         data.data[i].end = new Date(data.data[i].end.replace('Z', '-0300'))
       }
 
-      console.log(data.data)
-
       setResult(data.data)
     } catch {
       setResult([])
