@@ -8,6 +8,9 @@ import { Switch } from '@/components/Core/Form/Fields/Switch'
 import { InputText } from '@/components/Core/Form/Fields/InputText'
 import { Button } from '@/components/Core/Buttons/Button'
 
+import { Select } from '@/components/Core/Form/Fields/Select'
+import { IOption } from '@/components/Core/Form/Fields/Select/Select.interface'
+import { useUnitsDropdown } from '@/hooks/services/Rules/Dropdown/useUnits'
 import { ITeamRegisterForm, validationSchema } from './RegisterForm.form'
 
 interface Props {
@@ -26,6 +29,8 @@ export function TeamsRegisterForm({
   onSubmit
 }: Props) {
   const { addAlertOnCancel } = useAlertContext()
+
+  const { units } = useUnitsDropdown(true)
 
   function handleOnCancel(hasChanges: boolean) {
     if (!hasChanges) {
@@ -46,7 +51,11 @@ export function TeamsRegisterForm({
           </Col>
         </Row>
         <Row className="mb-4">
-          <Col xxl={12}>
+          <Col xxl={6}>
+            <Skeleton size="lg" />
+          </Col>
+
+          <Col xxl={6}>
             <Skeleton size="lg" />
           </Col>
         </Row>
@@ -60,7 +69,15 @@ export function TeamsRegisterForm({
       validationSchema={validationSchema}
       onSubmit={onSubmit}
     >
-      {({ values, touched, errors, dirty, isValid, setFieldValue }) => (
+      {({
+        values,
+        touched,
+        errors,
+        dirty,
+        isValid,
+        setFieldValue,
+        setFieldTouched
+      }) => (
         <Form>
           <Row className="mb-4">
             <Col xs="auto">
@@ -81,7 +98,7 @@ export function TeamsRegisterForm({
           </Row>
 
           <Row className="mb-4">
-            <Col xl={12}>
+            <Col xl={6}>
               <Field
                 as={InputText}
                 label="Descrição"
@@ -90,6 +107,24 @@ export function TeamsRegisterForm({
                 type="text"
                 error={touched.name && !!errors.name}
                 helperText={touched.name && !!errors.name ? errors.name : ''}
+                readOnly={readOnly}
+              />
+            </Col>
+
+            <Col xl={6}>
+              <Field
+                as={Select}
+                label="Unidade"
+                name="unit"
+                placeholder="Selecione uma unidade"
+                value={values.unit}
+                options={units}
+                error={touched.unit && !!errors.unit}
+                helperText={touched.unit && !!errors.unit ? errors.unit : ''}
+                onChange={({ value }: IOption) => {
+                  setFieldTouched('unit')
+                  setFieldValue('unit', value)
+                }}
                 readOnly={readOnly}
               />
             </Col>

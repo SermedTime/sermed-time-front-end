@@ -9,10 +9,8 @@ interface IUnitDropdown {
   unitName: string
 }
 
-export function useUnitsDropdown() {
+export function useUnitsDropdown(onlyActiveUnits: boolean = false) {
   const [units, setUnits] = useState<IOption[] | null>(null)
-
-  const [onlyActiveUnits, setOnlyActiveUnits] = useState<boolean>(false)
 
   const fetchData = useCallback(async (onlyActiveUnits: boolean) => {
     try {
@@ -43,5 +41,5 @@ export function useUnitsDropdown() {
     fetchData(onlyActiveUnits)
   }, [fetchData, onlyActiveUnits])
 
-  return { units, setOnlyActiveUnits }
+  return { units }
 }
