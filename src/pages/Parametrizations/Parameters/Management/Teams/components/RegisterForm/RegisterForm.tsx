@@ -30,7 +30,7 @@ export function TeamsRegisterForm({
 }: Props) {
   const { addAlertOnCancel } = useAlertContext()
 
-  const { units } = useUnitsDropdown(true)
+  const { units } = useUnitsDropdown()
 
   function handleOnCancel(hasChanges: boolean) {
     if (!hasChanges) {
@@ -117,6 +117,7 @@ export function TeamsRegisterForm({
                 label="Unidade"
                 name="unit"
                 placeholder="Selecione uma unidade"
+                defaultOption={values.unit}
                 value={values.unit}
                 options={units}
                 error={touched.unit && !!errors.unit}

@@ -40,11 +40,12 @@ export function EditTeam({ uuid, onClose }: Props) {
           data: { data }
         } = await get(`/parametrizations/team/${uuid}`)
 
-        const { name, status } = data
+        const { name, unitId, status } = data
 
         setInitialValues({
           uuid,
           name,
+          unit: unitId,
           status
         })
       } catch {
