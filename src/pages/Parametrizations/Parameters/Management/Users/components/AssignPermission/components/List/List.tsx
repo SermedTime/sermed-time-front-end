@@ -22,7 +22,7 @@ interface props {
 export function ListPermissions({ user_id }: props) {
   const [searchParams, setSearchParams] = useSearchParams()
 
-  const { result, params, refetch, setParams } = useUserPermissions({ user_id })
+  const { result, params, refetch, setParams } = useUserPermissions()
 
   const [loaded, setLoaded] = useState(false)
 
@@ -44,6 +44,7 @@ export function ListPermissions({ user_id }: props) {
   useEffect(() => {
     if (params === null && loaded) {
       const params = {
+        user: user_id,
         records: 5,
         order: undefined,
         orderBy: '',
@@ -52,7 +53,7 @@ export function ListPermissions({ user_id }: props) {
 
       handleSearchParams(params)
     }
-  }, [params, loaded, searchParams, handleSearchParams])
+  }, [params, loaded, searchParams, handleSearchParams, user_id])
 
   function handleOnChangeOrder(order: IOrder, orderBy: string) {
     if (params && (params.order !== order || params.orderBy !== orderBy)) {
