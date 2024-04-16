@@ -34,12 +34,13 @@ import {
 } from '../../../components/SearchForm/SearchForm.form'
 
 import { EditTeam } from '../Edit'
-import { Teams } from './components'
+import { Teams } from './components/Table'
 import {
   ITeamsFilterForm,
   initialFilterValues
 } from '../components/FilterForm/FilterForm.Form'
 import { TeamsFilterForm } from '../components/FilterForm'
+import { TeamMembers } from '../components/TeamMembers'
 
 export function ListTeams() {
   const { hasParametrizationsWriter } = useAuthRoles()
@@ -55,6 +56,7 @@ export function ListTeams() {
 
   const [loaded, setLoaded] = useState(false)
   const [editingRecord, setEditingRecord] = useState('')
+  const [membersRecord, setMembersRecord] = useState('')
 
   const SEARCH_OPTIONS: IOption[] = [
     {
@@ -249,6 +251,7 @@ export function ListTeams() {
                               key={item.uuid}
                               data={item}
                               onEdit={() => setEditingRecord(item.uuid)}
+                              onListMembers={() => setMembersRecord(item.uuid)}
                               onRefetch={() => refetch()}
                             />
                           ))
@@ -309,6 +312,13 @@ export function ListTeams() {
           setEditingRecord('')
 
           hasChanges && refetch()
+        }}
+      />
+
+      <TeamMembers
+        uuid={membersRecord}
+        onClose={() => {
+          setMembersRecord('')
         }}
       />
     </AnimatedPage>
