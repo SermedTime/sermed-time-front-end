@@ -16,10 +16,11 @@ import { ITeams } from '@/hooks/services/Parameters/useTeams'
 interface Props {
   data: ITeams
   onEdit: () => void
+  onListMembers: () => void
   onRefetch: () => void
 }
 
-export function Teams({ data, onEdit, onRefetch }: Props) {
+export function Teams({ data, onEdit, onListMembers, onRefetch }: Props) {
   const { hasParametrizationsWriter } = useAuthRoles()
   const { showLoader, hideLoader } = useLoaderContext()
   const { addToast, handleApiRejection } = useToastContext()
@@ -104,6 +105,13 @@ export function Teams({ data, onEdit, onRefetch }: Props) {
         <div className="d-flex justify-content-center">
           <Tooltip title="Detalhes" place="top">
             <ButtonIcon size="sm" icon="open_in_new" onClick={() => onEdit()} />
+          </Tooltip>
+          <Tooltip title="Funcionários" place="top">
+            <ButtonIcon
+              size="sm"
+              icon="groups_2"
+              onClick={() => onListMembers()}
+            />
           </Tooltip>
         </div>
       </Td>
