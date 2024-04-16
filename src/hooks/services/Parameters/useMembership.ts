@@ -11,60 +11,52 @@ export interface IMembership {
   created_at: string
 }
 
-interface props {
-  user_id: string
-}
-
-export function useMembership({ user_id }: props) {
+export function useMembership() {
   const [params, setParams] = useState<Record<string, any> | null>(null)
 
   const [result, setResult] = useState<IApiResponse<IMembership> | null>(null)
 
-  const fetchData = useCallback(
-    async (params: Record<string, any>) => {
-      try {
-        setResult(null)
+  const fetchData = useCallback(async (params: Record<string, any>) => {
+    try {
+      setResult(null)
 
-        const queryParams = {
-          records: params?.records,
-          isSupervisor: params?.isSupervisor,
-          order: params?.order,
-          orderBy: params?.orderBy,
-          page: params?.page
-        }
+      const queryParams = {
+        records: params?.records,
+        isSupervisor: params?.isSupervisor,
+        order: params?.order,
+        orderBy: params?.orderBy,
+        page: params?.page,
+        user: params?.user,
+        team: params?.team
+      }
 
-        const { data } = await get(
-          `/parametrizations/assign-teams/${user_id}`,
-          queryParams
-        )
+      const { data } = await get(`/parametrizations/assign-teams`, queryParams)
 
-        if (data) {
-          setResult(data)
-        } else {
-          setResult({
-            data: [],
-            page: 1,
-            total: 0
-          })
-        }
-      } catch {
+      if (data) {
+        setResult(data)
+      } else {
         setResult({
           data: [],
           page: 1,
           total: 0
         })
       }
-    },
-    [user_id]
-  )
+    } catch {
+      setResult({
+        data: [],
+        page: 1,
+        total: 0
+      })
+    }
+  }, [])
 
   function refetch() {
-    params && user_id && fetchData(params)
+    params && fetchData(params)
   }
 
   useEffect(() => {
-    params && user_id && fetchData(params)
-  }, [params, user_id, fetchData])
+    params && fetchData(params)
+  }, [params, fetchData])
 
   return { result, params, refetch, setParams }
 }

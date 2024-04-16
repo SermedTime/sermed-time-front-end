@@ -23,7 +23,7 @@ interface Props {
 export function ListTeams({ user_id }: Props) {
   const [searchParams, setSearchParams] = useSearchParams()
 
-  const { result, params, refetch, setParams } = useMembership({ user_id })
+  const { result, params, refetch, setParams } = useMembership()
 
   const [loaded, setLoaded] = useState(false)
 
@@ -45,6 +45,7 @@ export function ListTeams({ user_id }: Props) {
   useEffect(() => {
     if (params === null && loaded) {
       const params = {
+        user: user_id,
         records: 5,
         order: undefined,
         orderBy: '',
@@ -53,7 +54,7 @@ export function ListTeams({ user_id }: Props) {
 
       handleSearchParams(params)
     }
-  }, [params, loaded, searchParams, handleSearchParams])
+  }, [params, loaded, searchParams, user_id, handleSearchParams])
 
   function handleOnChangeOrder(order: IOrder, orderBy: string) {
     if (params && (params.order !== order || params.orderBy !== orderBy)) {
