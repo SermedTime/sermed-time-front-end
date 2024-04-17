@@ -5,6 +5,8 @@ import { get } from '@/services/api/sermed-api/sermed-api'
 
 export interface IMembership {
   uuid: string
+  user_id: string
+  user_name: string
   team_name: string
   team_id: string
   is_supervisor: string

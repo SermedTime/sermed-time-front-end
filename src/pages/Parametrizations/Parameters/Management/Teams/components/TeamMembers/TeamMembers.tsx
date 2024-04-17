@@ -4,12 +4,14 @@ import { Col, Row } from 'react-bootstrap'
 import { Icon } from '@/components/Core/Icons/Icon'
 import { Modal } from '@/components/Core/Modal'
 import { Subtitle } from '@/components/Core/Typography/Subtitle'
-import { useUsers } from '@/hooks/services/Parameters/useUsers'
+
 import { Table, Tbody, Td, Th, Thead, Tr } from '@/components/Core/Table'
 import { Heading } from '@/components/Core/Typography/Heading'
 import { LoadingLines } from '@/components/Core/Table/LoadingLines'
 import { Empty } from '@/components/Core/Table/Empty'
 import { Paragraph } from '@/components/Core/Typography/Paragraph'
+import { useMembership } from '@/hooks/services/Parameters/useMembership'
+import { ButtonIcon } from '@/components/Core/Buttons/ButtonIcon'
 
 interface Props {
   uuid: string
@@ -19,7 +21,7 @@ interface Props {
 export function TeamMembers({ uuid, onClose }: Props) {
   const [showModal, setShowModal] = useState(false)
 
-  const { result, setParams } = useUsers()
+  const { result, setParams } = useMembership()
 
   function handleOnCancel() {
     setShowModal(false)
@@ -56,6 +58,10 @@ export function TeamMembers({ uuid, onClose }: Props) {
                 <Th>
                   <Heading size="xs">Membro</Heading>
                 </Th>
+
+                <Th>
+                  <Heading size="xs">Supervisor</Heading>
+                </Th>
               </Tr>
             </Thead>
 
@@ -65,15 +71,32 @@ export function TeamMembers({ uuid, onClose }: Props) {
                   result.data.map(item => (
                     <Tr>
                       <Td>
-                        <Paragraph size="sm">{item.name}</Paragraph>
+                        <Paragraph size="sm">{item.user_name}</Paragraph>
+                      </Td>
+
+                      <Td>
+                        <ButtonIcon
+                          appearance={`${
+                            item.is_supervisor === 'active'
+                              ? 'filled'
+                              : 'outlined'
+                          }`}
+                          size="md"
+                          icon={`${
+                            item.is_supervisor === 'active'
+                              ? 'toggle_on'
+                              : 'toggle_off'
+                          }`}
+                          disabled={true}
+                        />
                       </Td>
                     </Tr>
                   ))
                 ) : (
-                  <Empty columns={1} />
+                  <Empty columns={2} />
                 )
               ) : (
-                <LoadingLines lines={5} columns={4} />
+                <LoadingLines lines={5} columns={2} />
               )}
             </Tbody>
           </Table>
