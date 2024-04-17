@@ -42,6 +42,7 @@ import { ParametersSearchForm } from '../../../components/SearchForm'
 import { UnitsTable } from './components/UnitsTable'
 import { EditUnit } from '../Edit'
 import { UnitMembers } from './components/Members'
+import { UnitTeams } from './components/Teams'
 
 export function ListUnits() {
   const { hasParametrizationsWriter } = useAuthRoles()
@@ -317,6 +318,7 @@ export function ListUnits() {
       />
 
       <UnitMembers unit={listMembers} onClose={() => setListMembers('')} />
+      <UnitTeams unit={listTeams} onClose={() => setListTeams('')} />
     </AnimatedPage>
   )
 }

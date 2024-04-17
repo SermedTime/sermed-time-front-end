@@ -8,6 +8,7 @@ import { IApiResponse } from '@/services/api/sermed-api/sermed-api.interface'
 export interface ITeams {
   uuid: string
   name: string
+  total_members: string
   created_at: string
   status: string
 }
