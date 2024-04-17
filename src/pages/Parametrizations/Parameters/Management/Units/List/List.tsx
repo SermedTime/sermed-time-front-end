@@ -41,6 +41,7 @@ import { ParametersFilterForm } from '../../../components/FilterForm/FilterForm'
 import { ParametersSearchForm } from '../../../components/SearchForm'
 import { UnitsTable } from './components/UnitsTable'
 import { EditUnit } from '../Edit'
+import { UnitMembers } from './components/Members'
 
 export function ListUnits() {
   const { hasParametrizationsWriter } = useAuthRoles()
@@ -56,6 +57,8 @@ export function ListUnits() {
 
   const [loaded, setLoaded] = useState(false)
   const [editingRecord, setEditingRecord] = useState('')
+  const [listMembers, setListMembers] = useState('')
+  const [listTeams, setListTeams] = useState('')
 
   const SEARCH_OPTIONS: IOption[] = [
     {
@@ -249,6 +252,8 @@ export function ListUnits() {
                               key={item.uuid}
                               data={item}
                               onEdit={() => setEditingRecord(item.uuid)}
+                              onListMembers={() => setListMembers(item.uuid)}
+                              onListTeams={() => setListTeams(item.uuid)}
                               onRefetch={() => refetch()}
                             />
                           ))
@@ -310,6 +315,8 @@ export function ListUnits() {
           hasChanges && refetch()
         }}
       />
+
+      <UnitMembers unit={listMembers} onClose={() => setListMembers('')} />
     </AnimatedPage>
   )
 }

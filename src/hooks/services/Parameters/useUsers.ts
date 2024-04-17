@@ -5,9 +5,11 @@ import { get } from '@/services/api/sermed-api/sermed-api'
 
 export interface IUsers {
   uuid: string
+  employeeCode: string
   name: string
   created_at: string
   status: string
+  position: string
   resignation_date: string
 }
 
@@ -28,7 +30,8 @@ export function useUsers() {
         order: params?.order,
         orderBy: params?.orderBy,
         page: params?.page,
-        team: params?.team
+        team: params?.team,
+        unit: params?.unit
       })
 
       const { data } = await get('/parametrizations/users', queryParams)

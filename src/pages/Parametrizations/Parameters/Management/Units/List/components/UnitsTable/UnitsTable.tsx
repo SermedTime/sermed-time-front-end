@@ -16,10 +16,18 @@ import { put } from '@/services/api/sermed-api/sermed-api'
 interface Props {
   data: IUnit
   onEdit: () => void
+  onListMembers: () => void
+  onListTeams: () => void
   onRefetch: () => void
 }
 
-export function UnitsTable({ data, onEdit, onRefetch }: Props) {
+export function UnitsTable({
+  data,
+  onEdit,
+  onListMembers,
+  onListTeams,
+  onRefetch
+}: Props) {
   const { hasParametrizationsWriter } = useAuthRoles()
   const { showLoader, hideLoader } = useLoaderContext()
   const { addToast, handleApiRejection } = useToastContext()
@@ -104,6 +112,20 @@ export function UnitsTable({ data, onEdit, onRefetch }: Props) {
         <div className="d-flex justify-content-center">
           <Tooltip title="Detalhes" place="top">
             <ButtonIcon size="sm" icon="open_in_new" onClick={() => onEdit()} />
+          </Tooltip>
+          <Tooltip title="Equipes" place="top">
+            <ButtonIcon
+              size="sm"
+              icon="diversity_2"
+              onClick={() => onListTeams()}
+            />
+          </Tooltip>
+          <Tooltip title="Funcionários" place="top">
+            <ButtonIcon
+              size="sm"
+              icon="groups_2"
+              onClick={() => onListMembers()}
+            />
           </Tooltip>
         </div>
       </Td>
