@@ -37,7 +37,7 @@ export function CreateTimeClock() {
 
     setPageBreadcrumb([
       { text: 'Parametrizações', route: ROUTE_PARAMETERIZATIONS },
-      { text: 'Gerenciais' },
+      { text: 'Operacionais' },
       { text: 'Relógios de Ponto' }
     ])
   }, [setPageHeading, setPageBreadcrumb])
