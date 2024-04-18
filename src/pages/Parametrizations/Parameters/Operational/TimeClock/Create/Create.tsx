@@ -17,7 +17,7 @@ import { Icon } from '@/components/Core/Icons/Icon'
 import { Subtitle } from '@/components/Core/Typography/Subtitle'
 
 import { TITLE_TIME_CLOCK_PARAMETERIZATIONS } from '@/constants/title.browser'
-import { ROUTE_MANAGEMENT_TIME_CLOCK_LIST } from '@/routes/Pages/Parametrizations/Management/Management.paths'
+import { ROUTE_OPERATIONAL_TIME_CLOCK_LIST } from '@/routes/Pages/Parametrizations/Operational/Operational.paths'
 
 import { ClockTimeRegisterForm } from '../components/RegisterForm/RegisterForm'
 import { IClockTimeRegisterForm } from '../components/RegisterForm/RegisterForm.form'
@@ -58,7 +58,7 @@ export function CreateTimeClock() {
           description: 'O Relógio foi cadastrado com sucesso!'
         })
 
-        navigate(ROUTE_MANAGEMENT_TIME_CLOCK_LIST)
+        navigate(ROUTE_OPERATIONAL_TIME_CLOCK_LIST)
       }
 
       if (message) {

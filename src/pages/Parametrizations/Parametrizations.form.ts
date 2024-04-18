@@ -3,12 +3,14 @@ import {
   ROUTE_MANAGEMENT_COMPANIES_LIST,
   ROUTE_MANAGEMENT_TEAMS_CREATE,
   ROUTE_MANAGEMENT_TEAMS_LIST,
-  ROUTE_MANAGEMENT_TIME_CLOCK_CREATE,
-  ROUTE_MANAGEMENT_TIME_CLOCK_LIST,
   ROUTE_MANAGEMENT_UNITS_CREATE,
   ROUTE_MANAGEMENT_UNITS_LIST,
   ROUTE_MANAGEMENT_USERS_LIST
 } from '@/routes/Pages/Parametrizations/Management/Management.paths'
+import {
+  ROUTE_OPERATIONAL_TIME_CLOCK_CREATE,
+  ROUTE_OPERATIONAL_TIME_CLOCK_LIST
+} from '@/routes/Pages/Parametrizations/Operational/Operational.paths'
 import { IParameterList } from './Parametrizations.interface'
 
 export const initialParameterList: IParameterList[] = [
@@ -29,7 +31,7 @@ export const initialParameterList: IParameterList[] = [
         routeToAdd: ROUTE_MANAGEMENT_UNITS_CREATE
       },
       {
-        icon: 'access_time',
+        icon: 'groups_2',
         title: 'Equipes',
         routeToList: ROUTE_MANAGEMENT_TEAMS_LIST,
         routeToAdd: ROUTE_MANAGEMENT_TEAMS_CREATE
@@ -38,13 +40,18 @@ export const initialParameterList: IParameterList[] = [
         icon: 'person',
         title: 'Usuários',
         routeToList: ROUTE_MANAGEMENT_USERS_LIST
-      },
-
+      }
+    ]
+  },
+  {
+    title: 'Operacionais',
+    description: 'As operacionais são parametrizações referentes ...',
+    items: [
       {
-        icon: 'alarm_add',
+        icon: 'access_time',
         title: 'Relógios de Ponto',
-        routeToList: ROUTE_MANAGEMENT_TIME_CLOCK_LIST,
-        routeToAdd: ROUTE_MANAGEMENT_TIME_CLOCK_CREATE
+        routeToList: ROUTE_OPERATIONAL_TIME_CLOCK_LIST,
+        routeToAdd: ROUTE_OPERATIONAL_TIME_CLOCK_CREATE
       }
     ]
   }

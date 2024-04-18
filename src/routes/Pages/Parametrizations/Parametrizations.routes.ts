@@ -4,7 +4,9 @@ import { IRouteProps } from '@/routes/routes.interface'
 
 import { ROLE_PARAMETRIZATIONS } from '@/constants/user.roles'
 import { ROUTE_PARAMETERIZATIONS } from './Parametrizations.paths'
+
 import { managementParametersRoutes } from './Management/Management.routes'
+import { operationalParametersRoutes } from './Operational/Operational.routes'
 
 const Parametrizations = lazy(() =>
   import('@/pages/Parametrizations').then(module => ({
@@ -21,4 +23,7 @@ const routes: IRouteProps[] = [
   }
 ]
 
-export const parameterizationsRoutes = routes.concat(managementParametersRoutes)
+export const parameterizationsRoutes = routes.concat(
+  managementParametersRoutes,
+  operationalParametersRoutes
+)

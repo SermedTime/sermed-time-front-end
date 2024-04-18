@@ -29,7 +29,7 @@ import { Pagination } from '@/components/Core/Pagination'
 import { Skeleton } from '@/components/Core/Skeleton'
 
 import { TITLE_TIME_CLOCK_PARAMETERIZATIONS } from '@/constants/title.browser'
-import { ROUTE_MANAGEMENT_TIME_CLOCK_CREATE } from '@/routes/Pages/Parametrizations/Management/Management.paths'
+import { ROUTE_OPERATIONAL_TIME_CLOCK_CREATE } from '@/routes/Pages/Parametrizations/Operational/Operational.paths'
 
 import { ParametersSearchForm } from '../../../components/SearchForm'
 
@@ -200,7 +200,7 @@ export function ListTimeClock() {
                       icon="add"
                       disabled={!hasParametrizationsWriter()}
                       onClick={() =>
-                        navigate(ROUTE_MANAGEMENT_TIME_CLOCK_CREATE)
+                        navigate(ROUTE_OPERATIONAL_TIME_CLOCK_CREATE)
                       }
                     />
                   </Tooltip>
