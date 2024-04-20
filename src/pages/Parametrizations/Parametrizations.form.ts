@@ -7,10 +7,13 @@ import {
   ROUTE_MANAGEMENT_UNITS_LIST,
   ROUTE_MANAGEMENT_USERS_LIST
 } from '@/routes/Pages/Parametrizations/Management/Management.paths'
+
 import {
+  ROUTE_OPERATIONAL_HOLIDAY_LIST,
   ROUTE_OPERATIONAL_TIME_CLOCK_CREATE,
   ROUTE_OPERATIONAL_TIME_CLOCK_LIST
 } from '@/routes/Pages/Parametrizations/Operational/Operational.paths'
+
 import { IParameterList } from './Parametrizations.interface'
 
 export const initialParameterList: IParameterList[] = [
@@ -37,6 +40,12 @@ export const initialParameterList: IParameterList[] = [
         routeToAdd: ROUTE_MANAGEMENT_TEAMS_CREATE
       },
       {
+        icon: 'work_history',
+        title: 'Jornadas',
+        routeToList: ROUTE_MANAGEMENT_TEAMS_LIST,
+        routeToAdd: ROUTE_MANAGEMENT_TEAMS_CREATE
+      },
+      {
         icon: 'person',
         title: 'Usuários',
         routeToList: ROUTE_MANAGEMENT_USERS_LIST
@@ -51,6 +60,12 @@ export const initialParameterList: IParameterList[] = [
         icon: 'access_time',
         title: 'Relógios de Ponto',
         routeToList: ROUTE_OPERATIONAL_TIME_CLOCK_LIST,
+        routeToAdd: ROUTE_OPERATIONAL_TIME_CLOCK_CREATE
+      },
+      {
+        icon: 'event_icon',
+        title: 'Feriados',
+        routeToList: ROUTE_OPERATIONAL_HOLIDAY_LIST,
         routeToAdd: ROUTE_OPERATIONAL_TIME_CLOCK_CREATE
       }
     ]

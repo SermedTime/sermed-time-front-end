@@ -1,22 +1,21 @@
 import { useCallback, useEffect, useState } from 'react'
 
 import { removeEmptyEntries } from '@/utils/generic'
-import { get } from '@/services/api/sermed-api/sermed-api'
+import { fakeRequest, get } from '@/services/api/sermed-api/sermed-api'
 
 import { IApiResponse } from '@/services/api/sermed-api/sermed-api.interface'
 
-export interface ITeams {
+export interface IHolidays {
   uuid: string
   name: string
-  total_members: string
-  created_at: string
+  date: string
   status: string
 }
 
-export function useTeams() {
+export function useHolidays() {
   const [params, setParams] = useState<Record<string, any> | null>(null)
 
-  const [result, setResult] = useState<IApiResponse<ITeams> | null>(null)
+  const [result, setResult] = useState<IApiResponse<IHolidays> | null>(null)
 
   const fetchData = useCallback(async (params: Record<string, any>) => {
     try {
@@ -27,13 +26,36 @@ export function useTeams() {
         searchingBy: params?.searchingBy,
         records: params?.records,
         status: params?.status,
+        initialDate: params?.initialDate,
+        finalDate: params?.finalDate,
         order: params?.order,
         orderBy: params?.orderBy,
-        page: params?.page,
-        unit: params?.unit
+        page: params?.page
       })
 
-      const { data } = await get('/parametrizations/team', queryParams)
+      // const { data } = await get(
+      //   '/parametrizations/operational/holiday',
+      //   queryParams
+      // )
+
+      const { data } = await fakeRequest(2000, {
+        data: [
+          {
+            uuid: '1',
+            name: 'Natal',
+            date: '2021-12-25',
+            status: 'active'
+          },
+          {
+            uuid: '2',
+            name: 'Ano Novo',
+            date: '2021-01-01',
+            status: 'active'
+          }
+        ],
+        page: 1,
+        total: 2
+      })
 
       if (data) {
         setResult(data)

@@ -1,0 +1,1 @@
+export { HolidaysTable } from './Holidays'
