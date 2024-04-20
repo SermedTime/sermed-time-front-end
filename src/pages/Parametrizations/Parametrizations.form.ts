@@ -9,6 +9,7 @@ import {
 } from '@/routes/Pages/Parametrizations/Management/Management.paths'
 
 import {
+  ROUTE_OPERATIONAL_HOLIDAY_CREATE,
   ROUTE_OPERATIONAL_HOLIDAY_LIST,
   ROUTE_OPERATIONAL_TIME_CLOCK_CREATE,
   ROUTE_OPERATIONAL_TIME_CLOCK_LIST
@@ -66,7 +67,7 @@ export const initialParameterList: IParameterList[] = [
         icon: 'event_icon',
         title: 'Feriados',
         routeToList: ROUTE_OPERATIONAL_HOLIDAY_LIST,
-        routeToAdd: ROUTE_OPERATIONAL_TIME_CLOCK_CREATE
+        routeToAdd: ROUTE_OPERATIONAL_HOLIDAY_CREATE
       }
     ]
   }

@@ -90,7 +90,8 @@ export function CreateTeam() {
                     mode="create"
                     initialValues={{
                       name: '',
-                      status: 'active'
+                      status: 'active',
+                      unit: ''
                     }}
                     onCancel={() => navigate(-1)}
                     onSubmit={values => handleOnSubmit(values)}

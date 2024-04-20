@@ -22,6 +22,7 @@ import { Skeleton } from '@/components/Core/Skeleton'
 
 import { TITLE_HOLIDAY_PARAMETERIZATIONS } from '@/constants/title.browser'
 import { ROUTE_PARAMETERIZATIONS } from '@/routes/Pages/Parametrizations/Parametrizations.paths'
+import { ROUTE_OPERATIONAL_HOLIDAY_CREATE } from '@/routes/Pages/Parametrizations/Operational/Operational.paths'
 
 import { IOption } from '@/components/Core/Form/Fields/Select/Select.interface'
 
@@ -199,7 +200,7 @@ export function ListHoliday() {
                       size="lg"
                       icon="add"
                       disabled={!hasParametrizationsWriter()}
-                      onClick={() => navigate(ROUTE_PARAMETERIZATIONS)}
+                      onClick={() => navigate(ROUTE_OPERATIONAL_HOLIDAY_CREATE)}
                     />
                   </Tooltip>
                 </Col>
