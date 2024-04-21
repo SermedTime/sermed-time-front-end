@@ -1,0 +1,1 @@
+export { HolidayRegisterForm } from './RegisterForm'

@@ -6,13 +6,20 @@ import { useHeaderContext } from '@/contexts/Layout/Header'
 import { useLoaderContext } from '@/contexts/Loader'
 import { useToastContext } from '@/contexts/Toast'
 
+import { post } from '@/services/api/sermed-api/sermed-api'
+
 import { TITLE_HOLIDAY_PARAMETERIZATIONS } from '@/constants/title.browser'
 import { ROUTE_PARAMETERIZATIONS } from '@/routes/Pages/Parametrizations/Parametrizations.paths'
+
 import { AnimatedPage } from '@/components/Layout/AnimatedPage'
 import { Col, Container, Row } from 'react-bootstrap'
 import { Icon } from '@/components/Core/Icons/Icon'
 import { Subtitle } from '@/components/Core/Typography/Subtitle'
 import { Section } from '@/components/Core/Containers/Section'
+
+import { ROUTE_OPERATIONAL_HOLIDAY_LIST } from '@/routes/Pages/Parametrizations/Operational/Operational.paths'
+import { HolidayRegisterForm } from '../components/RegisterForm'
+import { IHolidayRegisterForm } from '../components/RegisterForm/RegisterForm.form'
 
 export function CreateHoliday() {
   const navigate = useNavigate()
@@ -34,6 +41,39 @@ export function CreateHoliday() {
     ])
   }, [setPageHeading, setPageBreadcrumb])
 
+  async function handleOnSubmit(formValues: IHolidayRegisterForm) {
+    try {
+      showLoader()
+
+      const { data, message } = await post(
+        '/parametrizations/perational/holiday',
+        formValues
+      )
+
+      if (data) {
+        addToast({
+          type: 'success',
+          title: 'Sucesso!',
+          description: 'O feriado foi cadastrado com sucesso!'
+        })
+
+        navigate(ROUTE_OPERATIONAL_HOLIDAY_LIST)
+      }
+
+      if (message) {
+        addToast({
+          type: 'warning',
+          title: 'Ooops',
+          description: message
+        })
+      }
+    } catch {
+      handleApiRejection()
+    } finally {
+      hideLoader()
+    }
+  }
+
   return (
     <AnimatedPage>
       <Container>
@@ -45,6 +85,23 @@ export function CreateHoliday() {
 
                 <Subtitle size="sm">Novo Feriado</Subtitle>
               </div>
+
+              <Row className="justify-content-center">
+                <Col xs={11}>
+                  <HolidayRegisterForm
+                    mode="create"
+                    initialValues={{
+                      description: '',
+                      date: null,
+                      holidayType: 'national',
+                      state: '',
+                      city: ''
+                    }}
+                    onCancel={() => navigate(-1)}
+                    onSubmit={values => handleOnSubmit(values)}
+                  />
+                </Col>
+              </Row>
             </Section>
           </Col>
         </Row>
