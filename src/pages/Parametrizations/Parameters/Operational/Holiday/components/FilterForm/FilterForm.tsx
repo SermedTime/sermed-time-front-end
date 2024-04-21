@@ -116,6 +116,40 @@ export function HolidayFilterForm({ defaultValues, onChange }: Props) {
 
                     <Row className="mb-3">
                       <Col>
+                        <Field
+                          as={Select}
+                          size="sm"
+                          label="Tipo de Feriado"
+                          placeholder="Selecione"
+                          value={values.holidayTipe}
+                          options={[
+                            {
+                              value: 'all',
+                              label: 'Todos'
+                            },
+                            {
+                              value: 'national',
+                              label: 'Nacional'
+                            },
+                            {
+                              value: 'state',
+                              label: 'Estadual'
+                            },
+                            {
+                              value: 'municipal',
+                              label: 'Municipal'
+                            }
+                          ]}
+                          onChange={({ value }: IOption) => {
+                            setFieldValue('status', value)
+                            submitForm()
+                          }}
+                        />
+                      </Col>
+                    </Row>
+
+                    <Row className="mb-3">
+                      <Col>
                         <FormGroup
                           size="sm"
                           label="Data do Feriado"
@@ -193,6 +227,12 @@ export function HolidayFilterForm({ defaultValues, onChange }: Props) {
           actionIcon="refresh"
           actionDisabled={true}
         >
+          <Row className="mb-3">
+            <Col>
+              <Skeleton />
+            </Col>
+          </Row>
+
           <Row className="mb-3">
             <Col>
               <Skeleton />

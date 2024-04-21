@@ -26,6 +26,7 @@ export function useHolidays() {
         searchingBy: params?.searchingBy,
         records: params?.records,
         status: params?.status,
+        holidayType: params?.holidayType,
         initialDate: params?.initialDate,
         finalDate: params?.finalDate,
         order: params?.order,
