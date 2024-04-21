@@ -14,7 +14,6 @@ import { Tooltip } from '@/components/Core/Tooltip'
 import { ButtonIcon } from '@/components/Core/Buttons/ButtonIcon'
 import { Heading } from '@/components/Core/Typography/Heading'
 import { Table, Tbody, Th, Tr } from '@/components/Core/Table'
-import { Icon } from '@/components/Core/Icons/Icon'
 import { Empty } from '@/components/Core/Table/Empty'
 import { LoadingLines } from '@/components/Core/Table/LoadingLines'
 import { Pagination } from '@/components/Core/Pagination'
@@ -40,6 +39,7 @@ import {
   IHolidayFilterForm,
   initialFilterValues
 } from '../components/FilterForm/FilterForm.form'
+import { EditHoliday } from '../Edit/Edit'
 
 export function ListHoliday() {
   const { hasParametrizationsWriter } = useAuthRoles()
@@ -208,14 +208,6 @@ export function ListHoliday() {
                   <Table>
                     <Tr>
                       <Th>
-                        <Row className="justify-content-center">
-                          <Col xs="auto">
-                            <Icon size="md" icon="power_settings_new" />
-                          </Col>
-                        </Row>
-                      </Th>
-
-                      <Th>
                         <Heading size="xs">Descrição</Heading>
                       </Th>
 
@@ -234,6 +226,14 @@ export function ListHoliday() {
                       </Th>
 
                       <Th>
+                        <Heading size="xs">UF</Heading>
+                      </Th>
+
+                      <Th>
+                        <Heading size="xs">Município</Heading>
+                      </Th>
+
+                      <Th>
                         <div style={{ height: '2.5rem', width: '2.5rem' }} />
                       </Th>
                     </Tr>
@@ -246,16 +246,15 @@ export function ListHoliday() {
                               key={item.uuid}
                               data={item}
                               onEdit={() => setEditingRecord(item.uuid)}
-                              onRefetch={() => refetch()}
                             />
                           ))
                         ) : (
-                          <Empty columns={4} />
+                          <Empty columns={5} />
                         )
                       ) : (
                         <LoadingLines
                           lines={params ? Number(params.records) : 5}
-                          columns={4}
+                          columns={5}
                         />
                       )}
                     </Tbody>
@@ -288,11 +287,11 @@ export function ListHoliday() {
               defaultValues={
                 params
                   ? {
-                      records: Number(params.records),
-                      status: params.status,
-                      holidayTipe: params.holidayTipe,
-                      initialDate: params.initialDate,
-                      finalDate: params.finalDate
+                      records: Number(params?.records),
+                      status: params?.status,
+                      holidayTipe: params?.holidayTipe,
+                      initialDate: params?.initialDate,
+                      finalDate: params?.finalDate
                     }
                   : null
               }
@@ -302,14 +301,14 @@ export function ListHoliday() {
         </Row>
       </Container>
 
-      {/* <EditTeam
+      <EditHoliday
         uuid={editingRecord}
         onClose={hasChanges => {
           setEditingRecord('')
 
           hasChanges && refetch()
         }}
-      /> */}
+      />
     </AnimatedPage>
   )
 }

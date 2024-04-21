@@ -141,7 +141,7 @@ export function HolidayFilterForm({ defaultValues, onChange }: Props) {
                             }
                           ]}
                           onChange={({ value }: IOption) => {
-                            setFieldValue('status', value)
+                            setFieldValue('holidayTipe', value)
                             submitForm()
                           }}
                         />

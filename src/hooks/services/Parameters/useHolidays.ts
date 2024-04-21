@@ -9,7 +9,9 @@ export interface IHolidays {
   uuid: string
   name: string
   date: string
-  status: string
+  state: string
+  city: string
+  holidayType: string
 }
 
 export function useHolidays() {
@@ -42,12 +44,14 @@ export function useHolidays() {
       const { data } = await fakeRequest(2000, {
         data: [
           {
+            holidayType: 'N',
             uuid: '1',
             name: 'Natal',
             date: '2021-12-25',
             status: 'active'
           },
           {
+            holidayType: 'N',
             uuid: '2',
             name: 'Ano Novo',
             date: '2021-01-01',
