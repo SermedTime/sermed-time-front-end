@@ -13,6 +13,7 @@ import { IOption } from '@/components/Core/Form/Fields/Select/Select.interface'
 import { InputDatePicker } from '@/components/Core/Form/Fields/InputDatePicker'
 import { validateData } from '@/utils/date'
 import { FormGroup } from '@/components/Core/Form/Group'
+import { UF_OPTIONS } from '@/constants/options/uf.options'
 import { IHolidayFilterForm, initialFilterValues } from './FilterForm.form'
 
 interface Props {
@@ -142,6 +143,23 @@ export function HolidayFilterForm({ defaultValues, onChange }: Props) {
                           ]}
                           onChange={({ value }: IOption) => {
                             setFieldValue('holidayTipe', value)
+                            submitForm()
+                          }}
+                        />
+                      </Col>
+                    </Row>
+
+                    <Row className="mb-3">
+                      <Col>
+                        <Field
+                          as={Select}
+                          size="sm"
+                          label="UF"
+                          placeholder="Selecione"
+                          value={values.state}
+                          options={UF_OPTIONS}
+                          onChange={({ value }: IOption) => {
+                            setFieldValue('state', value)
                             submitForm()
                           }}
                         />
