@@ -58,7 +58,7 @@ export function ListHoliday() {
 
   const SEARCH_OPTIONS: IOption[] = [
     {
-      value: 'name',
+      value: 'holidayName',
       label: 'Feriado'
     },
     {
@@ -129,15 +129,13 @@ export function ListHoliday() {
 
   function handleOnFilter(data: IHolidayFilterForm) {
     if (params) {
-      const { records, status, holidayTipe, state, initialDate, finalDate } =
-        data
+      const { records, holidayType, state, initialDate, finalDate } = data
 
       const newParams = {
         ...params,
         page: 1,
         records,
-        status,
-        holidayTipe,
+        holidayType,
         state,
         initialDate,
         finalDate
@@ -294,8 +292,7 @@ export function ListHoliday() {
                 params
                   ? {
                       records: Number(params?.records),
-                      status: params?.status,
-                      holidayTipe: params?.holidayTipe,
+                      holidayType: params?.holidayType,
                       state: params?.state,
                       initialDate: params?.initialDate,
                       finalDate: params?.finalDate

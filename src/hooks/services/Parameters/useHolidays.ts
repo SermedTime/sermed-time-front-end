@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 
 import { removeEmptyEntries } from '@/utils/generic'
-import { fakeRequest, get } from '@/services/api/sermed-api/sermed-api'
+import { get } from '@/services/api/sermed-api/sermed-api'
 
 import { IApiResponse } from '@/services/api/sermed-api/sermed-api.interface'
 
@@ -27,41 +27,18 @@ export function useHolidays() {
         search: params?.search,
         searchingBy: params?.searchingBy,
         records: params?.records,
-        status: params?.status,
         holidayType: params?.holidayType,
         state: params?.state,
         initialDate: params?.initialDate,
         finalDate: params?.finalDate,
         order: params?.order,
-        orderBy: params?.orderBy,
         page: params?.page
       })
 
-      // const { data } = await get(
-      //   '/parametrizations/operational/holiday',
-      //   queryParams
-      // )
-
-      const { data } = await fakeRequest(2000, {
-        data: [
-          {
-            holidayType: 'N',
-            uuid: '1',
-            name: 'Natal',
-            date: '2021-12-25',
-            status: 'active'
-          },
-          {
-            holidayType: 'N',
-            uuid: '2',
-            name: 'Ano Novo',
-            date: '2021-01-01',
-            status: 'active'
-          }
-        ],
-        page: 1,
-        total: 2
-      })
+      const { data } = await get(
+        '/parametrizations/operational/holiday',
+        queryParams
+      )
 
       if (data) {
         setResult(data)

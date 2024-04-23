@@ -90,81 +90,55 @@ export function HolidayFilterForm({ defaultValues, onChange }: Props) {
                         <Field
                           as={Select}
                           size="sm"
-                          label="Situação"
-                          placeholder="Selecione"
-                          value={values.status}
-                          options={[
-                            {
-                              value: 'all',
-                              label: 'Todos'
-                            },
-                            {
-                              value: 'active',
-                              label: 'Ativos'
-                            },
-                            {
-                              value: 'inactive',
-                              label: 'Inativos'
-                            }
-                          ]}
-                          onChange={({ value }: IOption) => {
-                            setFieldValue('status', value)
-                            submitForm()
-                          }}
-                        />
-                      </Col>
-                    </Row>
-
-                    <Row className="mb-3">
-                      <Col>
-                        <Field
-                          as={Select}
-                          size="sm"
                           label="Tipo de Feriado"
                           placeholder="Selecione"
-                          value={values.holidayTipe}
+                          value={values.holidayType}
                           options={[
                             {
-                              value: 'all',
+                              value: '',
                               label: 'Todos'
                             },
                             {
-                              value: 'national',
+                              value: 'N',
                               label: 'Nacional'
                             },
                             {
-                              value: 'state',
+                              value: 'E',
                               label: 'Estadual'
                             },
                             {
-                              value: 'municipal',
+                              value: 'M',
                               label: 'Municipal'
                             }
                           ]}
                           onChange={({ value }: IOption) => {
-                            setFieldValue('holidayTipe', value)
+                            setFieldValue('state', '')
+                            setFieldValue('holidayType', value)
                             submitForm()
                           }}
                         />
                       </Col>
                     </Row>
 
-                    <Row className="mb-3">
-                      <Col>
-                        <Field
-                          as={Select}
-                          size="sm"
-                          label="UF"
-                          placeholder="Selecione"
-                          value={values.state}
-                          options={UF_OPTIONS}
-                          onChange={({ value }: IOption) => {
-                            setFieldValue('state', value)
-                            submitForm()
-                          }}
-                        />
-                      </Col>
-                    </Row>
+                    {(values.holidayType === 'E' ||
+                      values.holidayType === 'M') && (
+                      <Row className="mb-3">
+                        <Col>
+                          <Field
+                            as={Select}
+                            size="sm"
+                            label="UF"
+                            placeholder="Selecione"
+                            value={values.state}
+                            options={UF_OPTIONS}
+                            onChange={({ value }: IOption) => {
+                              setFieldValue('state', value)
+                              submitForm()
+                            }}
+                          />
+                        </Col>
+                      </Row>
+                    )}
 
                     <Row className="mb-3">
                       <Col>
@@ -245,12 +219,6 @@ export function HolidayFilterForm({ defaultValues, onChange }: Props) {
           actionIcon="refresh"
           actionDisabled={true}
         >
-          <Row className="mb-3">
-            <Col>
-              <Skeleton />
-            </Col>
-          </Row>
-
           <Row className="mb-3">
             <Col>
               <Skeleton />
