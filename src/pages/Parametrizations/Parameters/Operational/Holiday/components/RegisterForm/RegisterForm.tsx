@@ -47,6 +47,8 @@ export function HolidayRegisterForm({
     }
   }, [initialValues, mode, setState])
 
+  console.log(initialValues)
+
   function handleOnCancel(hasChanges: boolean) {
     if (!hasChanges) {
       onCancel(false)
@@ -105,6 +107,7 @@ export function HolidayRegisterForm({
                 onChange={(date: Date) => {
                   setFieldValue('date', date)
                 }}
+                readOnly={readOnly}
               />
             </Col>
           </Row>

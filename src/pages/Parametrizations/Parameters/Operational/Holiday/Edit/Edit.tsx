@@ -12,6 +12,7 @@ import { Subtitle } from '@/components/Core/Typography/Subtitle'
 import { Button } from '@/components/Core/Buttons/Button'
 
 import { createLocalDate } from '@/utils/date'
+import { removeEmptyEntries } from '@/utils/generic'
 import { IHolidayRegisterForm } from '../components/RegisterForm/RegisterForm.form'
 import { HolidayRegisterForm } from '../components/RegisterForm'
 
@@ -44,8 +45,8 @@ export function EditHoliday({ uuid, onClose }: Props) {
           description,
           date: createLocalDate(date),
           holidayType,
-          state,
-          city
+          state: state || '',
+          city: city || ''
         })
       } catch {
         handleApiRejection()
@@ -78,9 +79,7 @@ export function EditHoliday({ uuid, onClose }: Props) {
 
       const { data, message } = await put(
         `/parametrizations/operational/holiday/${uuid}`,
-        {
-          ...formValues
-        }
+        removeEmptyEntries(formValues)
       )
 
       if (data) {
