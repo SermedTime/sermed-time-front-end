@@ -18,6 +18,7 @@ import { Subtitle } from '@/components/Core/Typography/Subtitle'
 import { Section } from '@/components/Core/Containers/Section'
 
 import { ROUTE_OPERATIONAL_HOLIDAY_LIST } from '@/routes/Pages/Parametrizations/Operational/Operational.paths'
+import { removeEmptyEntries } from '@/utils/generic'
 import { HolidayRegisterForm } from '../components/RegisterForm'
 import { IHolidayRegisterForm } from '../components/RegisterForm/RegisterForm.form'
 
@@ -46,8 +47,8 @@ export function CreateHoliday() {
       showLoader()
 
       const { data, message } = await post(
-        '/parametrizations/perational/holiday',
-        formValues
+        '/parametrizations/operational/holiday',
+        removeEmptyEntries(formValues)
       )
 
       if (data) {
@@ -93,7 +94,7 @@ export function CreateHoliday() {
                     initialValues={{
                       description: '',
                       date: null,
-                      holidayType: 'national',
+                      holidayType: 'N',
                       state: '',
                       city: ''
                     }}

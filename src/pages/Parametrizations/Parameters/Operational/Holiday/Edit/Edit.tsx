@@ -35,7 +35,7 @@ export function EditHoliday({ uuid, onClose }: Props) {
       try {
         const {
           data: { data }
-        } = await get(`/parametrizations/operational/holidays/${uuid}`)
+        } = await get(`/parametrizations/operational/holiday/${uuid}`)
 
         const { description, date, holidayType, state, city } = data
 

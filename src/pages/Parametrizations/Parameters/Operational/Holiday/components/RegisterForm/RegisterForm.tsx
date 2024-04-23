@@ -33,9 +33,9 @@ export function HolidayRegisterForm({
   const { cities, setState } = useCitiesDropdown()
 
   const HOLIDAY_TYPES: IOption[] = [
-    { value: 'national', label: 'Nacional' },
-    { value: 'state', label: 'Estadual' },
-    { value: 'municipal', label: 'Municipal' }
+    { value: 'N', label: 'Nacional' },
+    { value: 'E', label: 'Estadual' },
+    { value: 'M', label: 'Municipal' }
   ]
 
   function handleOnCancel(hasChanges: boolean) {
@@ -147,8 +147,7 @@ export function HolidayRegisterForm({
           </Row>
 
           <Row className="mb-4">
-            {(values.holidayType === 'state' ||
-              values.holidayType === 'municipal') && (
+            {(values.holidayType === 'E' || values.holidayType === 'M') && (
               <Col xl={4}>
                 <Field
                   as={Select}
@@ -162,7 +161,7 @@ export function HolidayRegisterForm({
                     touched.state && !!errors.state ? errors.state : ''
                   }
                   onChange={({ value }: IOption) => {
-                    if (values.holidayType === 'municipal') {
+                    if (values.holidayType === 'M') {
                       setState(value as string)
                     }
                     setFieldValue('city', '')
@@ -174,7 +173,7 @@ export function HolidayRegisterForm({
               </Col>
             )}
 
-            {values.holidayType === 'municipal' && cities.length > 0 && (
+            {values.holidayType === 'M' && cities.length > 0 && (
               <Col xl={8}>
                 <Field
                   as={Select}

@@ -4,7 +4,7 @@ export interface IHolidayRegisterForm {
   uuid?: string
   date: Date | null
   description: string
-  holidayType: 'national' | 'state' | 'municipal'
+  holidayType: 'N' | 'E' | 'M'
   state?: string
   city?: string
 }
@@ -14,15 +14,14 @@ export const validationSchema = Yup.object().shape({
   description: Yup.string().required('Uma descrição é obrigatória'),
   holidayType: Yup.string()
     .required('Um tipo de feriado é obrigatório')
-    .oneOf(['national', 'state', 'municipal']),
+    .oneOf(['N', 'E', 'M']),
   state: Yup.string().when('holidayType', {
-    is: (holidayType: string) =>
-      holidayType === 'municipal' || holidayType === 'state',
+    is: (holidayType: string) => holidayType === 'M' || holidayType === 'E',
     then: Yup.string().required('Um estado é obrigatório'),
     otherwise: Yup.string().optional()
   }),
   city: Yup.string().when('holidayType', {
-    is: (holidayType: string) => holidayType === 'municipal',
+    is: (holidayType: string) => holidayType === 'M',
     then: Yup.string().required('Uma cidade é obrigatória'),
     otherwise: Yup.string().optional()
   })
