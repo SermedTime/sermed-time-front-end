@@ -11,6 +11,7 @@ import { IOption } from '@/components/Core/Form/Fields/Select/Select.interface'
 import { Button } from '@/components/Core/Buttons/Button'
 import { UF_OPTIONS } from '@/constants/options/uf.options'
 import { useCitiesDropdown } from '@/hooks/services/Rules/Dropdown/useCities'
+import { useEffect } from 'react'
 import { IHolidayRegisterForm, validationSchema } from './RegisterForm.form'
 
 interface Props {
@@ -37,6 +38,14 @@ export function HolidayRegisterForm({
     { value: 'E', label: 'Estadual' },
     { value: 'M', label: 'Municipal' }
   ]
+
+  useEffect(() => {
+    if (mode === 'edit' && initialValues?.holidayType === 'M') {
+      if (initialValues.state) {
+        setState(initialValues.state)
+      }
+    }
+  }, [initialValues, mode, setState])
 
   function handleOnCancel(hasChanges: boolean) {
     if (!hasChanges) {
@@ -86,7 +95,7 @@ export function HolidayRegisterForm({
       }) => (
         <Form>
           <Row className="mb-4">
-            <Col xl={2}>
+            <Col xl={mode === 'create' ? 2 : 3}>
               <Field
                 as={InputDatePicker}
                 size="lg"

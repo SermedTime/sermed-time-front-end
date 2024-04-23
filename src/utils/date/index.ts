@@ -119,3 +119,15 @@ export function convertDateToWeekDay(date: Date) {
 
   return day
 }
+
+export function createLocalDate(date: string) {
+  const partes = date.split('T')[0].split('-') // Separa a data '2024-12-25' de '00:00:00.000Z' e quebra em partes
+  const ano = parseInt(partes[0], 10)
+  const mes = parseInt(partes[1], 10) - 1 // JavaScript conta meses a partir de 0
+  const dia = parseInt(partes[2], 10)
+
+  // Cria a data como local
+  const dataLocal = new Date(ano, mes, dia)
+
+  return dataLocal
+}
