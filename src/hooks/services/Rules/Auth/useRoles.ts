@@ -7,7 +7,7 @@ import { IRoles } from '@/contexts/Auth/Auth'
 export function useAuthRoles() {
   const { user } = useAuthContext()
 
-  const userRoles = useMemo(() => {
+  const userRoles: IRoles[] = useMemo(() => {
     return user && user.roles
       ? user.roles.map((r: IRoles) => {
           return {

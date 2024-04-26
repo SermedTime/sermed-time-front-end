@@ -91,7 +91,7 @@ export function CreateUnit() {
                   <UnitRegisterForm
                     mode="create"
                     initialValues={{
-                      name: '',
+                      unitName: '',
                       status: 'active'
                     }}
                     onCancel={() => navigate(-1)}
