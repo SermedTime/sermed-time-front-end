@@ -34,8 +34,6 @@ export function useWorkingDay() {
         queryParams
       )
 
-      console.log(data)
-
       if (data) {
         setResult(data)
       } else {

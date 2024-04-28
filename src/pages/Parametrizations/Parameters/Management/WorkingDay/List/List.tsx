@@ -37,6 +37,7 @@ import {
 import { ParametersSearchForm } from '../../../components/SearchForm'
 import { ParametersFilterForm } from '../../../components/FilterForm'
 import { WorkingDayTable } from './components/WorkingDayTable'
+import { EditWorkingDay } from '../Edit'
 
 export function ListWorkingDay() {
   const { hasParametrizationsWriter } = useAuthRoles()
@@ -292,14 +293,14 @@ export function ListWorkingDay() {
         </Row>
       </Container>
 
-      {/* <EditWorkingDay
+      <EditWorkingDay
         uuid={editingRecord}
         onClose={hasChanges => {
           setEditingRecord('')
 
           hasChanges && refetch()
         }}
-      /> */}
+      />
     </AnimatedPage>
   )
 }

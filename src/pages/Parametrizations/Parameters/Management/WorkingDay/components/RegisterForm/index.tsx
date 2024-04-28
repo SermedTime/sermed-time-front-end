@@ -1,0 +1,1 @@
+export { WorkingDayRegisterForm } from './RegisterForm'
