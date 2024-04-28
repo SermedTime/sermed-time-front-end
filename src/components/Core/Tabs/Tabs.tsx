@@ -38,13 +38,18 @@ Tabs.defaultProps = {
 interface TabProps {
   eventKey: string
   title: string
+  disabled?: boolean
   children: ReactNode
 }
 
-export function Tab({ eventKey, title, children }: TabProps) {
+export function Tab({ eventKey, title, disabled, children }: TabProps) {
   return (
-    <BootstrapTab eventKey={eventKey} title={title}>
+    <BootstrapTab eventKey={eventKey} title={title} disabled={disabled}>
       {children}
     </BootstrapTab>
   )
+}
+
+Tab.defaultProps = {
+  disabled: false
 }

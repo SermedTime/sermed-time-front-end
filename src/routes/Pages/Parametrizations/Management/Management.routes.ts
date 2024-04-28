@@ -9,7 +9,9 @@ import {
   ROUTE_MANAGEMENT_TEAMS_LIST,
   ROUTE_MANAGEMENT_UNITS_CREATE,
   ROUTE_MANAGEMENT_UNITS_LIST,
-  ROUTE_MANAGEMENT_USERS_LIST
+  ROUTE_MANAGEMENT_USERS_LIST,
+  ROUTE_MANAGEMENT_WORKING_DAY_CREATE,
+  ROUTE_MANAGEMENT_WORKING_DAY_LIST
 } from './Management.paths'
 
 const ListTeams = lazy(() =>
@@ -54,6 +56,18 @@ const CreateUnit = lazy(() =>
   )
 )
 
+const ListWorkingDay = lazy(() =>
+  import('@/pages/Parametrizations/Parameters/Management/WorkingDay/List').then(
+    module => ({ default: module.ListWorkingDay })
+  )
+)
+
+const CreateWorkingDay = lazy(() =>
+  import(
+    '@/pages/Parametrizations/Parameters/Management/WorkingDay/Create'
+  ).then(module => ({ default: module.CreateWorkingDay }))
+)
+
 export const managementParametersRoutes: IRouteProps[] = [
   {
     path: ROUTE_MANAGEMENT_TEAMS_LIST,
@@ -95,6 +109,18 @@ export const managementParametersRoutes: IRouteProps[] = [
   {
     path: ROUTE_MANAGEMENT_UNITS_CREATE,
     component: CreateUnit,
+    isPrivate: true,
+    allowedRoles: [{ role: ROLE_PARAMETRIZATIONS, is_writer: true }]
+  },
+  {
+    path: ROUTE_MANAGEMENT_WORKING_DAY_LIST,
+    component: ListWorkingDay,
+    isPrivate: true,
+    allowedRoles: [{ role: ROLE_PARAMETRIZATIONS, is_writer: false }]
+  },
+  {
+    path: ROUTE_MANAGEMENT_WORKING_DAY_CREATE,
+    component: CreateWorkingDay,
     isPrivate: true,
     allowedRoles: [{ role: ROLE_PARAMETRIZATIONS, is_writer: true }]
   }

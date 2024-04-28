@@ -17,6 +17,7 @@ export const TITLE_TEAMS_PARAMETERIZATIONS = `Equipes - ${brand}`
 export const TITLE_USERS_PARAMETERIZATIONS = `Usuários - ${brand}`
 export const TITLE_COMPANIES_PARAMETERIZATIONS = `Empresas - ${brand}`
 export const TITLE_UNITS_PARAMETERIZATIONS = `Unidades - ${brand}`
+export const TITLE_WORKING_DAY_PARAMETERIZATIONS = `Jornadas de Trabalho - ${brand}`
 
 // TIME SHEET
 export const TITLE_USER_SEARCH = `Pesquisar Usuários - ${brand}`

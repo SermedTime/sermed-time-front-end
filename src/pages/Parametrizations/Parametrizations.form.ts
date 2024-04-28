@@ -5,7 +5,9 @@ import {
   ROUTE_MANAGEMENT_TEAMS_LIST,
   ROUTE_MANAGEMENT_UNITS_CREATE,
   ROUTE_MANAGEMENT_UNITS_LIST,
-  ROUTE_MANAGEMENT_USERS_LIST
+  ROUTE_MANAGEMENT_USERS_LIST,
+  ROUTE_MANAGEMENT_WORKING_DAY_CREATE,
+  ROUTE_MANAGEMENT_WORKING_DAY_LIST
 } from '@/routes/Pages/Parametrizations/Management/Management.paths'
 
 import {
@@ -43,8 +45,8 @@ export const initialParameterList: IParameterList[] = [
       {
         icon: 'work_history',
         title: 'Jornadas',
-        routeToList: ROUTE_MANAGEMENT_TEAMS_LIST,
-        routeToAdd: ROUTE_MANAGEMENT_TEAMS_CREATE
+        routeToList: ROUTE_MANAGEMENT_WORKING_DAY_LIST,
+        routeToAdd: ROUTE_MANAGEMENT_WORKING_DAY_CREATE
       },
       {
         icon: 'person',

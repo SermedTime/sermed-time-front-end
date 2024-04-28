@@ -12,3 +12,6 @@ export const ROUTE_MANAGEMENT_COMPANIES_CREATE = `${path}/companies/create`
 
 export const ROUTE_MANAGEMENT_UNITS_LIST = `${path}/units/list`
 export const ROUTE_MANAGEMENT_UNITS_CREATE = `${path}/units/create`
+
+export const ROUTE_MANAGEMENT_WORKING_DAY_LIST = `${path}/working-day/list`
+export const ROUTE_MANAGEMENT_WORKING_DAY_CREATE = `${path}/working-day/create`
