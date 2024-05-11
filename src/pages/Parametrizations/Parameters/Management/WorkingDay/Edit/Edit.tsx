@@ -3,6 +3,7 @@ import { Tab, Tabs } from '@/components/Core/Tabs'
 import { useEffect, useState } from 'react'
 import { Col, Row } from 'react-bootstrap'
 import { WorkingDay } from './components/WorkingDay'
+import { EditWorkingTime } from './components/WorkingTime'
 
 interface Props {
   uuid: string
@@ -37,9 +38,10 @@ export function EditWorkingDay({ uuid, onClose }: Props) {
             </Tab>
 
             <Tab eventKey="hours" title="Horas da jornada">
-              <div>
-                <h1>Horas da jornada</h1>
-              </div>
+              <EditWorkingTime
+                uuid={uuid}
+                onClose={(hasChanges: boolean) => handleOnCancel(hasChanges)}
+              />
             </Tab>
           </Tabs>
         </Col>
