@@ -122,6 +122,20 @@ export function ipMask(value: string): string {
     .replace(/(\d{3})(\d)/, '$1.$2')
 }
 
+export function timeMask(value: string): string {
+  if (!value) return ''
+
+  const digits = value.replace(/\D+/g, '')
+  const limitedDigits = digits.slice(0, 4)
+
+  const formatted =
+    limitedDigits.length > 2
+      ? `${limitedDigits.slice(0, 2)}:${limitedDigits.slice(2)}`
+      : limitedDigits
+
+  return formatted
+}
+
 export function fillWithLeadingZero(
   value: string | number,
   size: number
