@@ -3,7 +3,7 @@ import { useLoaderContext } from '@/contexts/Loader'
 import { useToastContext } from '@/contexts/Toast'
 import { useAuthRoles } from '@/hooks/services/Rules/Auth/useRoles'
 
-import { get } from '@/services/api/sermed-api/sermed-api'
+import { get, put } from '@/services/api/sermed-api/sermed-api'
 
 import { Col, Row } from 'react-bootstrap'
 import { Icon } from '@/components/Core/Icons/Icon'
@@ -63,14 +63,39 @@ export function EditWorkingTime({ uuid, onClose }: Props) {
   }
 
   async function handleOnSubmit(formValues: IWorkingTimeRegisterForm) {
-    showLoader()
-    console.log(formValues)
-    addToast({
-      type: 'warning',
-      title: 'Ooops',
-      description: `Hello`
-    })
-    hideLoader()
+    try {
+      showLoader()
+
+      const { data, message } = await put(
+        `/parametrizations/management/working-time/${uuid}`,
+        formValues
+      )
+
+      if (data) {
+        addToast({
+          type: 'success',
+          title: 'Sucesso',
+          description: 'As horas da jornada de trabalho foram editadas.'
+        })
+
+        setReadOnly(true)
+        setInitialValues(null)
+
+        onClose(true)
+      }
+
+      if (message) {
+        addToast({
+          type: 'warning',
+          title: 'Ooops',
+          description: message
+        })
+      }
+    } catch {
+      handleApiRejection()
+    } finally {
+      hideLoader()
+    }
   }
 
   return (
