@@ -33,7 +33,7 @@ export function useUserPermissions() {
       }
 
       const { data } = await get(
-        `/parametrizations/assing-permissions`,
+        `/parametrizations/assign-permissions`,
         queryParams
       )
 

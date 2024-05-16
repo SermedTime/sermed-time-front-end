@@ -30,7 +30,7 @@ export function PesmissionsTable({ data, onRefetch }: Props) {
       showLoader()
 
       const { data } = await put(
-        `/parametrizations/assing-permissions/${uuid}`,
+        `/parametrizations/assign-permissions/${uuid}`,
         {
           is_writer: 'active'
         }
@@ -57,7 +57,7 @@ export function PesmissionsTable({ data, onRefetch }: Props) {
       showLoader()
 
       const { data } = await put(
-        `/parametrizations/assing-permissions/${uuid}`,
+        `/parametrizations/assign-permissions/${uuid}`,
         {
           is_writer: 'inactive'
         }
@@ -83,7 +83,7 @@ export function PesmissionsTable({ data, onRefetch }: Props) {
     try {
       showLoader()
 
-      const { data } = await del(`/parametrizations/assing-permissions/${uuid}`)
+      const { data } = await del(`/parametrizations/assign-permissions/${uuid}`)
 
       if (data) {
         onRefetch()
