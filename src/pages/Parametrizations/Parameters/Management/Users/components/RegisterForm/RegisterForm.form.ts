@@ -13,4 +13,5 @@ export interface IUserRegisterForm {
   admissionDate: string | null
   resignationDate?: string | null
   status: string
+  workingDayId?: string
 }

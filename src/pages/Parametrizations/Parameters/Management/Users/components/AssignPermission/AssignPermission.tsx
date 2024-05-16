@@ -53,7 +53,7 @@ export function AssignPermission({ user_id, onClose, user_name }: Props) {
       }
 
       const { data, message } = await post(
-        `/parametrizations/assing-permissions`,
+        `/parametrizations/assign-permissions`,
         params
       )
 
