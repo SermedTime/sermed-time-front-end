@@ -23,18 +23,18 @@ import { Pagination } from '@/components/Core/Pagination'
 import { Skeleton } from '@/components/Core/Skeleton'
 import { ParametersSearchForm } from '../../../components/SearchForm'
 import {
-  IParametersFilterForm,
-  initialFilterValues
-} from '../../../components/FilterForm/FilterForm.Form'
-import {
   IParametersSearchForm,
   initialSearchValues
 } from '../../../components/SearchForm/SearchForm.form'
-import { ParametersFilterForm } from '../../../components/FilterForm/FilterForm'
 import { UsersTable } from './components/UsersTable'
 import { DetailsUser } from '../Details'
 import { AssignTeam } from '../components/AssignTeam'
 import { AssignPermission } from '../components/AssignPermission'
+import { UserFilterForm } from '../components/FilterForm'
+import {
+  IUserFilterForm,
+  initialFilterValues
+} from '../components/FilterForm/FilterForm.form'
 
 export function ListUsers() {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -130,15 +130,18 @@ export function ListUsers() {
     }
   }
 
-  function handleOnFilter(data: IParametersFilterForm) {
+  function handleOnFilter(data: IUserFilterForm) {
     if (params) {
-      const { records, status } = data
+      const { records, status, companyId, teamId, unitId } = data
 
       const newParams = {
         ...params,
         page: 1,
         records,
-        status
+        status,
+        companyId,
+        unitId,
+        teamId
       }
 
       handleSearchParams(newParams)
@@ -282,12 +285,15 @@ export function ListUsers() {
           </Col>
 
           <Col lg={3} xxl={2}>
-            <ParametersFilterForm
+            <UserFilterForm
               defaultValues={
                 params
                   ? {
                       records: Number(params.records),
-                      status: params.status
+                      status: params.status,
+                      companyId: params.companyId,
+                      unitId: params.unitId,
+                      teamId: params.teamId
                     }
                   : null
               }

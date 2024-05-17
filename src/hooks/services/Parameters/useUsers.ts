@@ -30,8 +30,9 @@ export function useUsers() {
         order: params?.order,
         orderBy: params?.orderBy,
         page: params?.page,
-        team: params?.team,
-        unit: params?.unit
+        companyId: params?.companyId,
+        unitId: params?.unitId,
+        teamId: params?.teamId
       })
 
       const { data } = await get('/parametrizations/users', queryParams)
