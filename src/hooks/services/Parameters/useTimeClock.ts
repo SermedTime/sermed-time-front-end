@@ -7,6 +7,7 @@ export interface ITimeClock {
   uuid: string
   name: string
   created_at: string
+  lastUpdate: string
   status: string
 }
 

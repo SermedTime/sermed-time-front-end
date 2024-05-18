@@ -1,9 +1,10 @@
+import { useState } from 'react'
 import { useLoaderContext } from '@/contexts/Loader'
 import { useToastContext } from '@/contexts/Toast'
 import { useAuthRoles } from '@/hooks/services/Rules/Auth/useRoles'
 
 import { convertIsoDateToPtBr } from '@/utils/date'
-import { put } from '@/services/api/sermed-api/sermed-api'
+import { get, put } from '@/services/api/sermed-api/sermed-api'
 
 import { Col, Row } from 'react-bootstrap'
 import { ButtonIcon } from '@/components/Core/Buttons/ButtonIcon'
@@ -12,6 +13,7 @@ import { Tooltip } from '@/components/Core/Tooltip'
 import { Paragraph } from '@/components/Core/Typography/Paragraph'
 
 import { ITimeClock } from '@/hooks/services/Parameters/useTimeClock'
+import { ClipLoading } from '@/components/Core/Loading/ClipLoading'
 
 interface Props {
   data: ITimeClock
@@ -23,6 +25,8 @@ export function TimeClock({ data, onEdit, onRefetch }: Props) {
   const { hasParametrizationsWriter } = useAuthRoles()
   const { showLoader, hideLoader } = useLoaderContext()
   const { addToast, handleApiRejection } = useToastContext()
+
+  const [loading, setLoading] = useState(false)
 
   async function handleOnActivate(uuid: string) {
     try {
@@ -72,6 +76,30 @@ export function TimeClock({ data, onEdit, onRefetch }: Props) {
     }
   }
 
+  async function handleOnUpdateTimeClock(uuid: string) {
+    try {
+      setLoading(true)
+
+      const { data } = await get(
+        `parametrizations/time-clock/update-time-sheet/${uuid}`
+      )
+
+      if (data) {
+        onRefetch()
+
+        addToast({
+          type: 'success',
+          title: 'Sucesso!',
+          description: 'Dados atualizados com sucesso!'
+        })
+      }
+    } catch {
+      handleApiRejection()
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <Tr>
       <Td>
@@ -100,10 +128,30 @@ export function TimeClock({ data, onEdit, onRefetch }: Props) {
         <Paragraph size="sm">{convertIsoDateToPtBr(data.created_at)}</Paragraph>
       </Td>
 
+      <Td>
+        <Paragraph size="sm">
+          {convertIsoDateToPtBr(data.lastUpdate, true)}
+        </Paragraph>
+      </Td>
+
       <Td showOnHover={true}>
-        <div className="d-flex justify-content-center">
+        <div className="d-flex justify-content-center align-items-center">
           <Tooltip title="Detalhes" place="top">
             <ButtonIcon size="sm" icon="open_in_new" onClick={() => onEdit()} />
+          </Tooltip>
+          {!loading ? (
+            <Tooltip title="Atualizar" place="top">
+              <ButtonIcon
+                size="sm"
+                icon="autorenew"
+                onClick={() => handleOnUpdateTimeClock(data.uuid)}
+              />
+            </Tooltip>
+          ) : (
+            <ClipLoading />
+          )}
+          <Tooltip title="Upload Folha" place="top">
+            <ButtonIcon size="sm" icon="upload_file" onClick={() => onEdit()} />
           </Tooltip>
         </div>
       </Td>

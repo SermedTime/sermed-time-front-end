@@ -242,6 +242,10 @@ export function ListTimeClock() {
                         </Th>
 
                         <Th>
+                          <Heading size="xs">Ultima atualização</Heading>
+                        </Th>
+
+                        <Th>
                           <div style={{ height: '2.5rem', width: '2.5rem' }} />
                         </Th>
                       </Tr>
