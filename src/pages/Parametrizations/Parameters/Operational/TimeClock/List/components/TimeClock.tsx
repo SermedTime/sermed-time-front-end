@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { useLoaderContext } from '@/contexts/Loader'
 import { useToastContext } from '@/contexts/Toast'
 import { useAuthRoles } from '@/hooks/services/Rules/Auth/useRoles'
@@ -13,7 +12,6 @@ import { Tooltip } from '@/components/Core/Tooltip'
 import { Paragraph } from '@/components/Core/Typography/Paragraph'
 
 import { ITimeClock } from '@/hooks/services/Parameters/useTimeClock'
-import { ClipLoading } from '@/components/Core/Loading/ClipLoading'
 
 interface Props {
   data: ITimeClock
@@ -25,8 +23,6 @@ export function TimeClock({ data, onEdit, onRefetch }: Props) {
   const { hasParametrizationsWriter } = useAuthRoles()
   const { showLoader, hideLoader } = useLoaderContext()
   const { addToast, handleApiRejection } = useToastContext()
-
-  const [loading, setLoading] = useState(false)
 
   async function handleOnActivate(uuid: string) {
     try {
@@ -78,7 +74,7 @@ export function TimeClock({ data, onEdit, onRefetch }: Props) {
 
   async function handleOnUpdateTimeClock(uuid: string) {
     try {
-      setLoading(true)
+      showLoader()
 
       const { data } = await get(
         `parametrizations/time-clock/update-time-sheet/${uuid}`
@@ -96,7 +92,7 @@ export function TimeClock({ data, onEdit, onRefetch }: Props) {
     } catch {
       handleApiRejection()
     } finally {
-      setLoading(false)
+      hideLoader()
     }
   }
 
@@ -139,17 +135,15 @@ export function TimeClock({ data, onEdit, onRefetch }: Props) {
           <Tooltip title="Detalhes" place="top">
             <ButtonIcon size="sm" icon="open_in_new" onClick={() => onEdit()} />
           </Tooltip>
-          {!loading ? (
-            <Tooltip title="Atualizar" place="top">
-              <ButtonIcon
-                size="sm"
-                icon="autorenew"
-                onClick={() => handleOnUpdateTimeClock(data.uuid)}
-              />
-            </Tooltip>
-          ) : (
-            <ClipLoading />
-          )}
+
+          <Tooltip title="Atualizar" place="top">
+            <ButtonIcon
+              size="sm"
+              icon="autorenew"
+              onClick={() => handleOnUpdateTimeClock(data.uuid)}
+            />
+          </Tooltip>
+
           <Tooltip title="Upload Folha" place="top">
             <ButtonIcon size="sm" icon="upload_file" onClick={() => onEdit()} />
           </Tooltip>
