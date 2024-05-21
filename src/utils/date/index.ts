@@ -18,14 +18,15 @@ export function lastDayByDate(date: Date): number {
 
 export function convertIsoDateToPtBr(
   date: string | undefined | null,
-  time = false
+  time = false,
+  isUTC = true
 ): string {
   if (!date) return ''
 
   const dateWithoutTimezone = date.replace(/Z|([+-]\d{2}:\d{2})$/g, '')
 
   return format(
-    parseISO(dateWithoutTimezone),
+    parseISO(isUTC ? date : dateWithoutTimezone),
     time ? `dd/MM/yyyy 'às' HH:mm` : 'dd/MM/yyyy'
   )
 }
