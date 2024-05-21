@@ -3,7 +3,7 @@ import { useToastContext } from '@/contexts/Toast'
 import { useAuthRoles } from '@/hooks/services/Rules/Auth/useRoles'
 
 import { convertIsoDateToPtBr } from '@/utils/date'
-import { get, put } from '@/services/api/sermed-api/sermed-api'
+import { post, put } from '@/services/api/sermed-api/sermed-api'
 
 import { Col, Row } from 'react-bootstrap'
 import { ButtonIcon } from '@/components/Core/Buttons/ButtonIcon'
@@ -76,7 +76,7 @@ export function TimeClock({ data, onEdit, onRefetch }: Props) {
     try {
       showLoader()
 
-      const { data } = await get(
+      const { data } = await post(
         `parametrizations/time-clock/update-time-sheet/${uuid}`
       )
 
