@@ -45,3 +45,20 @@ export function chunkArrayInGroups(array: any[], size: number): any[] {
 
   return result
 }
+
+export function convertToBase64(file: File): Promise<string> {
+  return new Promise<string>((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onloadend = () => {
+      if (reader.result && typeof reader.result === 'string') {
+        resolve(reader.result)
+      } else {
+        reject(new Error('Failed to read file as Base64'))
+      }
+    }
+    reader.onerror = () => {
+      reject(new Error('Failed to read file'))
+    }
+    reader.readAsDataURL(file)
+  })
+}

@@ -45,6 +45,7 @@ import {
 import { ParametersFilterForm } from '../../../components/FilterForm/FilterForm'
 import { TimeClock } from './components'
 import { EditTimeClock } from '../Edit'
+import { UploadTimeSheet } from '../components/UploadTimeSheet'
 
 export function ListTimeClock() {
   const { hasParametrizationsWriter } = useAuthRoles()
@@ -60,6 +61,7 @@ export function ListTimeClock() {
 
   const [loaded, setLoaded] = useState(false)
   const [editingRecord, setEditingRecord] = useState('')
+  const [uploadTimeSheet, setUploadTimeSheet] = useState('')
 
   const SEARCH_OPTIONS: IOption[] = [
     {
@@ -259,6 +261,7 @@ export function ListTimeClock() {
                               key={item.uuid}
                               data={item}
                               onEdit={() => setEditingRecord(item.uuid)}
+                              onUpload={() => setUploadTimeSheet(item.uuid)}
                               onRefetch={() => refetch()}
                             />
                           ))
@@ -316,6 +319,15 @@ export function ListTimeClock() {
         uuid={editingRecord}
         onClose={hasChanges => {
           setEditingRecord('')
+
+          hasChanges && refetch()
+        }}
+      />
+
+      <UploadTimeSheet
+        uuid={uploadTimeSheet}
+        onClose={hasChanges => {
+          setUploadTimeSheet('')
 
           hasChanges && refetch()
         }}

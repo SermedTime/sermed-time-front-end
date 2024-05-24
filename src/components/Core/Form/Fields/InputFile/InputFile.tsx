@@ -1,13 +1,14 @@
+import { ButtonLink } from '@/components/Core/Buttons/ButtonLink'
 import { HTMLProps, useRef } from 'react'
-
-import { ButtonLink } from 'components/Core/Buttons/ButtonLink'
 
 interface Props extends HTMLProps<HTMLInputElement> {
   label: string
   icon?: string
+  accept?: string
+  multiple?: boolean
 }
 
-export function InputFile({ label, icon, onChange }: Props) {
+export function InputFile({ label, icon, accept, multiple, onChange }: Props) {
   const ref = useRef<HTMLInputElement>(null)
 
   function handleClick() {
@@ -27,11 +28,20 @@ export function InputFile({ label, icon, onChange }: Props) {
         </ButtonLink>
       )}
 
-      <input ref={ref} type="file" className="d-none" onChange={onChange} />
+      <input
+        ref={ref}
+        type="file"
+        className="d-none"
+        onChange={onChange}
+        accept={accept}
+        multiple={multiple}
+      />
     </>
   )
 }
 
 InputFile.defaultProps = {
-  icon: undefined
+  icon: undefined,
+  accept: undefined,
+  multiple: false
 }

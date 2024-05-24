@@ -16,10 +16,11 @@ import { ITimeClock } from '@/hooks/services/Parameters/useTimeClock'
 interface Props {
   data: ITimeClock
   onEdit: () => void
+  onUpload: () => void
   onRefetch: () => void
 }
 
-export function TimeClock({ data, onEdit, onRefetch }: Props) {
+export function TimeClock({ data, onEdit, onUpload, onRefetch }: Props) {
   const { hasParametrizationsWriter } = useAuthRoles()
   const { showLoader, hideLoader } = useLoaderContext()
   const { addToast, handleApiRejection } = useToastContext()
@@ -145,7 +146,11 @@ export function TimeClock({ data, onEdit, onRefetch }: Props) {
           </Tooltip>
 
           <Tooltip title="Upload Folha" place="top">
-            <ButtonIcon size="sm" icon="upload_file" onClick={() => onEdit()} />
+            <ButtonIcon
+              size="sm"
+              icon="upload_file"
+              onClick={() => onUpload()}
+            />
           </Tooltip>
         </div>
       </Td>
