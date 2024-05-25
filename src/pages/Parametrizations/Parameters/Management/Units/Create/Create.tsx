@@ -92,6 +92,14 @@ export function CreateUnit() {
                     mode="create"
                     initialValues={{
                       unitName: '',
+                      streetName: '',
+                      streetNumber: '',
+                      complement: '',
+                      neighborhood: '',
+                      city: '',
+                      state: '',
+                      zipCode: '',
+                      ibgeCode: '',
                       status: 'active'
                     }}
                     onCancel={() => navigate(-1)}

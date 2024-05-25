@@ -61,7 +61,7 @@ export function UnitTeams({ unit, onClose }: Props) {
                 <Th>
                   <Row className="justify-content-center">
                     <Col xs="auto">
-                      <Heading size="xs">Membros</Heading>
+                      <Heading size="xs">Qtde. colaboradores</Heading>
                     </Col>
                   </Row>
                 </Th>
@@ -81,7 +81,7 @@ export function UnitTeams({ unit, onClose }: Props) {
                         <Row className="justify-content-center">
                           <Col xs="auto">
                             <Paragraph size="sm">
-                              {item.total_members}
+                              {item.totalActiveEmployees}
                             </Paragraph>
                           </Col>
                         </Row>

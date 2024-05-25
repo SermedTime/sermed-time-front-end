@@ -40,11 +40,30 @@ export function EditUnit({ uuid, onClose }: Props) {
           data: { data }
         } = await get(`/parametrizations/units/${uuid}`)
 
-        const { unitName, status } = data
+        const {
+          unitName,
+          streetName,
+          streetNumber,
+          complement,
+          neighborhood,
+          city,
+          state,
+          zipCode,
+          ibgeCode,
+          status
+        } = data
 
         setInitialValues({
           uuid,
           unitName,
+          streetName,
+          streetNumber,
+          complement,
+          neighborhood,
+          city,
+          state,
+          zipCode,
+          ibgeCode,
           status
         })
       } catch {
