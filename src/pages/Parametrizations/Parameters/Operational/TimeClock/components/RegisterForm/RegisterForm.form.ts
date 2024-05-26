@@ -2,13 +2,11 @@ import * as Yup from 'yup'
 
 export interface IClockTimeRegisterForm {
   uuid?: string
-  city: string
   clock_ip: string
   manufacturer: string
   model: string
   name: string
   sector: string
-  state: string
   status: string
   unit: string
 }
@@ -38,10 +36,5 @@ export const validationSchema = Yup.object().shape({
   sector: Yup.string()
     .required('Uma unidade é obrigatória')
     .min(3, 'Digite no mínimo 3 caracteres')
-    .max(50, 'Digite no máximo 50 caracteres'),
-  city: Yup.string()
-    .required('Uma cidade é obrigatória')
-    .min(3, 'Digite no mínimo 3 caracteres')
-    .max(50, 'Digite no máximo 50 caracteres'),
-  state: Yup.string().required('Um estado é obrigatório').min(2).max(2)
+    .max(50, 'Digite no máximo 50 caracteres')
 })

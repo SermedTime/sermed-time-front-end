@@ -1,16 +1,16 @@
-import { Col, Row } from 'react-bootstrap'
-
+import { useUnitsDropdown } from '@/hooks/services/Rules/Dropdown/useUnits'
 import { useAlertContext } from '@/contexts/Alert'
 
-import { Skeleton } from '@/components/Core/Skeleton'
+import { ipMask } from '@/utils/masks'
 
+import { Col, Row } from 'react-bootstrap'
 import { Field, Form, Formik } from 'formik'
 import { Switch } from '@/components/Core/Form/Fields/Switch'
 import { InputText } from '@/components/Core/Form/Fields/InputText'
-import { ipMask } from '@/utils/masks'
 import { Button } from '@/components/Core/Buttons/Button'
 import { Select } from '@/components/Core/Form/Fields/Select'
-import { UF_OPTIONS } from '@/constants/options/uf.options'
+import { Skeleton } from '@/components/Core/Skeleton'
+
 import { IOption } from '@/components/Core/Form/Fields/Select/Select.interface'
 import { IClockTimeRegisterForm, validationSchema } from './RegisterForm.form'
 
@@ -31,6 +31,8 @@ export function ClockTimeRegisterForm({
 }: Props) {
   const { addAlertOnCancel } = useAlertContext()
 
+  const { units } = useUnitsDropdown()
+
   function handleOnCancel(hasChanges: boolean) {
     if (!hasChanges) {
       onCancel(false)
@@ -47,14 +49,6 @@ export function ClockTimeRegisterForm({
         <Row className="mb-4">
           <Col xs={2}>
             <Skeleton />
-          </Col>
-        </Row>
-        <Row className="mb-4">
-          <Col xxl={6}>
-            <Skeleton size="lg" />
-          </Col>
-          <Col xxl={6}>
-            <Skeleton size="lg" />
           </Col>
         </Row>
         <Row className="mb-4">
@@ -158,13 +152,19 @@ export function ClockTimeRegisterForm({
           <Row className="mb-4">
             <Col xl={6}>
               <Field
-                as={InputText}
+                as={Select}
                 label="Unidade"
                 name="unit"
-                placeholder="Insira a unidade do Relógio de Ponto"
-                type="text"
+                placeholder="Selecione uma unidade"
+                defaultOption={values.unit}
+                value={values.unit}
+                options={units}
                 error={touched.unit && !!errors.unit}
                 helperText={touched.unit && !!errors.unit ? errors.unit : ''}
+                onChange={({ value }: IOption) => {
+                  setFieldTouched('unit')
+                  setFieldValue('unit', value)
+                }}
                 readOnly={readOnly}
               />
             </Col>
@@ -180,39 +180,6 @@ export function ClockTimeRegisterForm({
                 helperText={
                   touched.sector && !!errors.sector ? errors.sector : ''
                 }
-                readOnly={readOnly}
-              />
-            </Col>
-          </Row>
-
-          <Row className="mb-4">
-            <Col xl={6}>
-              <Field
-                as={InputText}
-                label="Cidade"
-                name="city"
-                placeholder="Insira a cidade do Relógio de Ponto"
-                type="text"
-                error={touched.city && !!errors.city}
-                helperText={touched.city && !!errors.city ? errors.city : ''}
-                readOnly={readOnly}
-              />
-            </Col>
-
-            <Col xl={6}>
-              <Field
-                as={Select}
-                label="UF"
-                name="state"
-                placeholder="Selecione um UF"
-                value={values.state}
-                options={UF_OPTIONS}
-                error={touched.state && !!errors.state}
-                helperText={touched.state && !!errors.state ? errors.state : ''}
-                onChange={({ value }: IOption) => {
-                  setFieldTouched('state')
-                  setFieldValue('state', value)
-                }}
                 readOnly={readOnly}
               />
             </Col>

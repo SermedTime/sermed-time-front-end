@@ -142,6 +142,7 @@ export function TimeClock({ data, onEdit, onUpload, onRefetch }: Props) {
               size="sm"
               icon="autorenew"
               onClick={() => handleOnUpdateTimeClock(data.uuid)}
+              disabled={!hasParametrizationsWriter()}
             />
           </Tooltip>
 
@@ -150,6 +151,7 @@ export function TimeClock({ data, onEdit, onUpload, onRefetch }: Props) {
               size="sm"
               icon="upload_file"
               onClick={() => onUpload()}
+              disabled={!hasParametrizationsWriter()}
             />
           </Tooltip>
         </div>
