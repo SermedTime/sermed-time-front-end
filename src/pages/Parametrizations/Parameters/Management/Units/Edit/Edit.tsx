@@ -5,6 +5,7 @@ import { useToastContext } from '@/contexts/Toast'
 import { useAuthRoles } from '@/hooks/services/Rules/Auth/useRoles'
 
 import { get, put } from '@/services/api/sermed-api/sermed-api'
+import { cepMask } from '@/utils/masks'
 
 import { Col, Row } from 'react-bootstrap'
 import { Modal } from '@/components/Core/Modal'
@@ -62,7 +63,7 @@ export function EditUnit({ uuid, onClose }: Props) {
           neighborhood,
           city,
           state,
-          zipCode,
+          zipCode: cepMask(zipCode),
           ibgeCode,
           status
         })

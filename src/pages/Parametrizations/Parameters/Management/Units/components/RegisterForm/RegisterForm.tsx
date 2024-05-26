@@ -277,7 +277,7 @@ export function UnitRegisterForm({
           </Row>
 
           <Row className="mb-4">
-            <Col xl={3}>
+            <Col xl={4}>
               <Field
                 as={InputText}
                 label="Bairro"
@@ -307,22 +307,7 @@ export function UnitRegisterForm({
               />
             </Col>
 
-            <Col xl={2}>
-              <Field
-                as={InputText}
-                label="Cód. IBGE"
-                name="ibgeCode"
-                placeholder="000000"
-                value={values.ibgeCode}
-                error={touched.ibgeCode && !!errors.ibgeCode}
-                helperText={
-                  touched.ibgeCode && !!errors.ibgeCode ? errors.ibgeCode : ''
-                }
-                readOnly={readOnly || cepSelected}
-              />
-            </Col>
-
-            <Col xl={3}>
+            <Col xl={4}>
               <Field
                 as={Select}
                 label="Estado"

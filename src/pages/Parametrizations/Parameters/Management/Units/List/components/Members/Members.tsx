@@ -32,7 +32,7 @@ export function UnitMembers({ unit, onClose }: Props) {
       setShowModal(true)
 
       setParams({
-        unit
+        unitId: unit
       })
     }
   }, [unit, setParams])
