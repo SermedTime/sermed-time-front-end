@@ -92,13 +92,11 @@ export function CreateTimeClock() {
                   <ClockTimeRegisterForm
                     mode="create"
                     initialValues={{
-                      city: '', //
                       clock_ip: '', //
                       manufacturer: '',
                       model: '',
                       name: '', //
                       sector: '', //
-                      state: '', //
                       status: 'active', //
                       unit: '' //
                     }}

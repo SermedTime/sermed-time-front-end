@@ -37,26 +37,15 @@ export function EditTimeClock({ uuid, onClose }: Props) {
           data: { data }
         } = await get(`/parametrizations/time-clock/${uuid}`)
 
-        const {
-          city,
-          clock_ip,
-          manufacturer,
-          model,
-          name,
-          sector,
-          state,
-          status,
-          unit
-        } = data
+        const { clock_ip, manufacturer, model, name, sector, status, unit } =
+          data
 
         setInitialValues({
-          city,
           clock_ip,
           manufacturer,
           model,
           name,
           sector,
-          state,
           status,
           unit,
           uuid
