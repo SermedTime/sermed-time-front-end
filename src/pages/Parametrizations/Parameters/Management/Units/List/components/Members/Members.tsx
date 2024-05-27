@@ -32,7 +32,8 @@ export function UnitMembers({ unit, onClose }: Props) {
       setShowModal(true)
 
       setParams({
-        unitId: unit
+        unitId: unit,
+        status: 'active'
       })
     }
   }, [unit, setParams])
