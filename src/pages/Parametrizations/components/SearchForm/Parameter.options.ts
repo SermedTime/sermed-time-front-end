@@ -14,11 +14,19 @@ export const PARAMETER_OPTIONS: IOption[] = [
     label: 'Equipes'
   },
   {
+    value: 'Jornadas',
+    label: 'Jornadas'
+  },
+  {
     value: 'Usuários',
     label: 'Usuários'
   },
   {
     value: 'Relógios de Ponto',
     label: 'Relógios de Ponto'
+  },
+  {
+    value: 'Feriados',
+    label: 'Feriados'
   }
 ]
