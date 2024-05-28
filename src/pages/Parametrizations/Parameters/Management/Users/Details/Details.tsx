@@ -69,7 +69,7 @@ export function DetailsUser({ uuid, onClose }: Props) {
           pis,
           ctps,
           admissionDate: admissionDate?.split('T')[0],
-          resignationDate,
+          resignationDate: resignationDate?.split('T')[0],
           status,
           uuid,
           workingDayId
