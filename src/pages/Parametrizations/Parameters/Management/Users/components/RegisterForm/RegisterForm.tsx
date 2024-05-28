@@ -240,11 +240,13 @@ export function UserRegisterForm({
 
             <Col xl={4}>
               <InputText
-                label="Data de Admissão"
-                name="admissionDate"
+                label="Data de Desligamento"
+                name="resignationDate"
                 placeholder="00/00/0000"
                 type="date"
-                value={values.admissionDate ? values.admissionDate : undefined}
+                value={
+                  values.resignationDate ? values.resignationDate : undefined
+                }
                 readOnly={true}
               />
             </Col>
