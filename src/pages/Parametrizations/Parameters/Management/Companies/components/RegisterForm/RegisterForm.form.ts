@@ -2,6 +2,7 @@ import * as Yup from 'yup'
 
 export interface ICompanyRegisterForm {
   uuid?: string
+  idErp: string
   companyName: string
   companyCnpj: string
   streetName: string
@@ -15,6 +16,7 @@ export interface ICompanyRegisterForm {
 }
 
 export const validationSchema = Yup.object().shape({
+  idErp: Yup.string().required('Campo Obrigatório'),
   companyName: Yup.string().required('Campo Obrigatório'),
   companyCnpj: Yup.string()
     .required('Campo Obrigatório')

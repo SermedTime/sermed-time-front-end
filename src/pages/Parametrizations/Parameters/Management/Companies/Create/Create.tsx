@@ -92,6 +92,7 @@ export function CreateCompany() {
                   <CompanyRegisterForm
                     mode="create"
                     initialValues={{
+                      idErp: '',
                       companyName: '',
                       companyCnpj: '',
                       streetName: '',

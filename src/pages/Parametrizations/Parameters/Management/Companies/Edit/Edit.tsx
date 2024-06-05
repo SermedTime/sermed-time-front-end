@@ -42,6 +42,7 @@ export function EditCompany({ uuid, onClose }: Props) {
         } = await get(`/parametrizations/companies/${uuid}`)
 
         const {
+          idErp,
           companyName,
           companyCnpj,
           zipCode,
@@ -55,6 +56,7 @@ export function EditCompany({ uuid, onClose }: Props) {
         } = data
 
         setInitialValues({
+          idErp,
           companyName,
           companyCnpj: cnpjMask(companyCnpj),
           zipCode: cepMask(zipCode),

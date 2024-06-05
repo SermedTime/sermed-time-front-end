@@ -187,7 +187,7 @@ export function CompanyRegisterForm({
           </Row>
 
           <Row className="mb-4">
-            <Col xl={6}>
+            <Col xl={4}>
               <Field
                 as={InputText}
                 label="CNPJ"
@@ -207,6 +207,19 @@ export function CompanyRegisterForm({
 
                   setFieldValue('companyCnpj', e.target.value)
                 }}
+              />
+            </Col>
+
+            <Col xl={2}>
+              <Field
+                as={InputText}
+                label="ID ERP"
+                name="idErp"
+                placeholder="ID ERP"
+                type="text"
+                error={touched.idErp && !!errors.idErp}
+                helperText={touched.idErp && !!errors.idErp ? errors.idErp : ''}
+                readOnly={readOnly}
               />
             </Col>
 
