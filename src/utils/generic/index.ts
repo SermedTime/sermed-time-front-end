@@ -62,3 +62,10 @@ export function convertToBase64(file: File): Promise<string> {
     reader.readAsDataURL(file)
   })
 }
+
+export function textLength(text: string, length: number): string {
+  if (text.length > length) {
+    return `${text.substring(0, length)}...`
+  }
+  return text
+}

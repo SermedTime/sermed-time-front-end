@@ -13,6 +13,7 @@ import { ButtonIcon } from '@/components/Core/Buttons/ButtonIcon'
 import { Skeleton } from '@/components/Core/Skeleton'
 
 import { cpfMask } from '@/utils/masks'
+import { textLength } from '@/utils/generic'
 import * as S from './User.styles'
 
 interface IUser {
@@ -55,7 +56,9 @@ function DisplayAsCard({ data }: DisplayProps) {
               <Row>
                 <Col xs={data ? undefined : 8}>
                   {data ? (
-                    <Paragraph size="sm">{data.socialName}</Paragraph>
+                    <Paragraph size="sm">
+                      {textLength(data.socialName, 22)}
+                    </Paragraph>
                   ) : (
                     <Skeleton size="sm" />
                   )}
@@ -65,7 +68,7 @@ function DisplayAsCard({ data }: DisplayProps) {
               <Row>
                 <Col>
                   {data ? (
-                    <Caption size="lg">{data.name}</Caption>
+                    <Caption size="lg">{textLength(data.name, 30)}</Caption>
                   ) : (
                     <Skeleton size="sm" />
                   )}

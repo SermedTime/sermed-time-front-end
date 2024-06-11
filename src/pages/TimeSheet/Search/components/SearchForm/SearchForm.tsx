@@ -50,11 +50,12 @@ export function UserSearchForm({ defaultValues, children, onChange }: Props) {
                       as={InputSearch}
                       placeholder="Pesquisar"
                       name="search"
-                      type="text"
+                      type={values.searchingBy !== 'name' ? 'number' : 'text'}
                       onReset={() => {
                         setFieldValue('search', '')
                         submitForm()
                       }}
+                      disabled={values.searchingBy === ''}
                     />
                   </Col>
 
@@ -65,13 +66,16 @@ export function UserSearchForm({ defaultValues, children, onChange }: Props) {
                       value={values.searchingBy}
                       options={[
                         { value: 'name', label: 'Nome' },
-                        { value: 'cpf', label: 'CPF' }
+                        { value: 'cpf', label: 'CPF' },
+                        { value: 'pis', label: 'PIS' }
                       ]}
-                      onChange={(option: IOption) =>
+                      onChange={(option: IOption) => {
+                        setFieldValue('search', '')
                         setFieldValue('searchingBy', option.value)
-                      }
+                      }}
                       onReset={() => {
                         setFieldValue('searchingBy', '')
+                        setFieldValue('search', '')
                         submitForm()
                       }}
                     />
