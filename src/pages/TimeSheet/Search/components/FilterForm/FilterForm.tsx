@@ -4,8 +4,6 @@ import { Row, Col } from 'react-bootstrap'
 
 import { Formik, Form, Field } from 'formik'
 
-import { useSystemParams } from '@/hooks/utils/useParams'
-
 import { SmoothReveal } from '@/components/Core/Animations/SmoothReveal'
 import { Widget } from '@/components/Core/Containers/Widget'
 import { Select } from '@/components/Core/Form/Fields/Select'
@@ -20,7 +18,28 @@ interface Props {
 }
 
 export function UserFilterForm({ defaultValues, onChange }: Props) {
-  const { totalRecords } = useSystemParams()
+  const totalRecords = [
+    {
+      value: 6,
+      label: '6'
+    },
+    {
+      value: 12,
+      label: '12'
+    },
+    {
+      value: 24,
+      label: '24'
+    },
+    {
+      value: 48,
+      label: '48'
+    },
+    {
+      value: 96,
+      label: '96'
+    }
+  ]
 
   const [initialValues, setInitialValues] = useState<IUserFilterForm | null>(
     null
