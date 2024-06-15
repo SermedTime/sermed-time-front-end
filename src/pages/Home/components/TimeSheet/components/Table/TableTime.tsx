@@ -15,9 +15,9 @@ export function TableTime({ data }: Props) {
     <Tr>
       <Td>
         <Col xs="auto">
-          <Paragraph size="sm">{`${convertIsoDateToPtBr(data.date)} - ${
-            data.day
-          }`}</Paragraph>
+          <Paragraph size="sm">
+            {`${convertIsoDateToPtBr(data.date)} - ${data.day}`}
+          </Paragraph>
         </Col>
       </Td>
 

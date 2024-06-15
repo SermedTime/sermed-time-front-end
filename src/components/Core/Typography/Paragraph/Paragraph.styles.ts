@@ -11,6 +11,11 @@ export const Container = styled.div<Props>`
     font-weight: ${props.theme.font.weight.regular};
     opacity: ${props.theme.opacity.level.semiopaque};
 
+    &.absence {
+      color: ${props.theme.colors.feedback.warning.pure};
+      font-weight: ${props.theme.font.weight.bold};
+    }
+
     ${props.size === 'sm' &&
     css`
       font-size: ${props.theme.font.size.xs};

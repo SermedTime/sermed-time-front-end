@@ -25,8 +25,14 @@ export function TimeSheet() {
   const { result, setParams } = useTimeSheet(user?.userUuid)
 
   useEffect(() => {
+    const today = new Date()
+
     const params = {
-      isHome: 'true'
+      page: 1,
+      records: 10,
+      order: 'desc',
+      month: today.getMonth() + 1,
+      year: today.getFullYear()
     }
 
     setParams(params)
@@ -82,7 +88,7 @@ export function TimeSheet() {
                 </Th>
 
                 <Th>
-                  <Heading size="xs">Extra</Heading>
+                  <Heading size="xs">Saldo</Heading>
                 </Th>
 
                 <Th>

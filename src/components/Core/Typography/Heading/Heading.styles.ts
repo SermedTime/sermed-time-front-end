@@ -11,6 +11,10 @@ export const Container = styled.div<Props>`
     font-weight: ${props.theme.font.weight.bold};
     line-height: ${props.theme.line.height.default};
 
+    .absence {
+      color: ${props.theme.colors.feedback.warning.dark};
+    }
+
     ${props.size === 'xxs' &&
     css`
       font-size: ${props.theme.font.size.xxs};
