@@ -1,29 +1,15 @@
 import { useCallback, useEffect, useState } from 'react'
 
-import { fakeRequest } from '@/services/api/sermed-api/sermed-api'
+import { get } from '@/services/api/sermed-api/sermed-api'
 
-import { IApiResponse } from '@/services/api/sermed-api/sermed-api.interface'
 import { InfoCard } from '@/components/Core/Data/InfoCard'
 
 import { Col, Row } from 'react-bootstrap'
 
-import { convertIntToTime } from '@/utils/date'
 import { ISummary } from './Summary.interface'
 
 interface Props {
   user_id?: string
-}
-
-const res: IApiResponse<ISummary> = {
-  data: [
-    {
-      absencesInMonth: 2,
-      overtimeInMonth: 4.3,
-      annualLeave: 7.5
-    }
-  ],
-  total: 1,
-  page: 1
 }
 
 export function Summary({ user_id }: Props) {
@@ -31,11 +17,23 @@ export function Summary({ user_id }: Props) {
 
   const fetchData = useCallback(async () => {
     try {
-      await fakeRequest(2000)
+      const { data } = await get('/home/overtime-absence-summary')
 
-      setResult(res.data[0])
+      if (data) {
+        setResult(data.data.summary)
+      } else {
+        setResult({
+          absencesInMonth: 0,
+          annualLeave: '00:00',
+          overtimeInMonth: '00:00'
+        })
+      }
     } catch {
-      setResult(null)
+      setResult({
+        absencesInMonth: 0,
+        annualLeave: '00:00',
+        overtimeInMonth: '00:00'
+      })
     }
   }, [])
 
@@ -50,7 +48,7 @@ export function Summary({ user_id }: Props) {
       <Col>
         <InfoCard
           icon="warning"
-          value={result?.absencesInMonth ? result?.absencesInMonth : 0}
+          value={result?.absencesInMonth}
           suffix="Falta(s)"
           caption="Faltas no mês"
           indicator={true}
@@ -61,7 +59,7 @@ export function Summary({ user_id }: Props) {
       <Col>
         <InfoCard
           icon="add_alarm"
-          value={convertIntToTime(result?.overtimeInMonth)}
+          value={result?.overtimeInMonth}
           caption="Total Horas Extras no mês"
           indicator={true}
         />
@@ -70,7 +68,7 @@ export function Summary({ user_id }: Props) {
       <Col>
         <InfoCard
           icon="punch_clock"
-          value={convertIntToTime(result?.annualLeave)}
+          value={result?.annualLeave}
           caption="Total Banco de Horas no mês"
           indicator={true}
         />
