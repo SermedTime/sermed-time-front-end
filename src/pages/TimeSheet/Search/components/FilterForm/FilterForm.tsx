@@ -10,7 +10,7 @@ import { Select } from '@/components/Core/Form/Fields/Select'
 import { Skeleton } from '@/components/Core/Skeleton'
 
 import { IOption } from '@/components/Core/Form/Fields/Select/Select.interface'
-import { IUserFilterForm, initialFilterValues } from './FilterForm.form'
+import { IUserFilterForm, useTimeSheetUserFilterForm } from './FilterForm.form'
 
 interface Props {
   defaultValues?: IUserFilterForm | null
@@ -18,6 +18,8 @@ interface Props {
 }
 
 export function UserFilterForm({ defaultValues, onChange }: Props) {
+  const { initialFilterValues } = useTimeSheetUserFilterForm()
+
   const totalRecords = [
     {
       value: 6,
@@ -53,7 +55,8 @@ export function UserFilterForm({ defaultValues, onChange }: Props) {
         setInitialValues(initialFilterValues)
       }
     }
-  }, [initialValues, defaultValues])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [defaultValues])
 
   return (
     <SmoothReveal visible>

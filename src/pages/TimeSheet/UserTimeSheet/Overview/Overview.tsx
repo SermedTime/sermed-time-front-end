@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useHeaderContext } from '@/contexts/Layout/Header'
 import { useBreadcrumbContext } from '@/contexts/Layout/Breadcrumb'
+import { useAuthRoles } from '@/hooks/services/Rules/Auth/useRoles'
 
 import { TITLE_USER_TIME_SHEET_OVERVIEW } from '@/constants/title.browser'
 import { ROUTE_HOME } from '@/routes/Pages/Pages.paths'
@@ -20,6 +21,8 @@ import { BenefitsView } from './components/BenefitsView'
 export function Overview() {
   const { uuid } = useParams()
 
+  const { hasMultiviewPoint, hasTeamPoint } = useAuthRoles()
+
   const { view, pageTitle } = usePageViewContext()
 
   const { setPageHeading } = useHeaderContext()
@@ -30,12 +33,22 @@ export function Overview() {
 
     setPageHeading(pageTitle)
 
-    setPageBreadcrumb([
-      { text: 'Home', route: ROUTE_HOME },
-      { text: 'Funcionários', route: ROUTE_TIME_SHEET_USER_SEARCH },
-      { text: 'Visão Geral' }
-    ])
-  }, [setPageHeading, setPageBreadcrumb, pageTitle])
+    setPageBreadcrumb(
+      hasMultiviewPoint() || hasTeamPoint()
+        ? [
+            { text: 'Home', route: ROUTE_HOME },
+            { text: 'Funcionários', route: ROUTE_TIME_SHEET_USER_SEARCH },
+            { text: 'Visão Geral' }
+          ]
+        : [{ text: 'Home', route: ROUTE_HOME }, { text: 'Visão Geral' }]
+    )
+  }, [
+    setPageHeading,
+    setPageBreadcrumb,
+    pageTitle,
+    hasMultiviewPoint,
+    hasTeamPoint
+  ])
 
   return (
     <AnimatedPage>

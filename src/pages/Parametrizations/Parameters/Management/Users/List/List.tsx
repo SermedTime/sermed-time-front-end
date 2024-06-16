@@ -189,7 +189,10 @@ export function ListUsers() {
                             search: params.search,
                             searchingBy: params.searchingBy
                           }
-                        : null
+                        : {
+                            search: '',
+                            searchingBy: 'name'
+                          }
                     }
                     onChange={search => handleOnSearch(search)}
                   />

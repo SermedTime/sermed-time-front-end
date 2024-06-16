@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 
 import { useTimeSheet } from '@/hooks/services/TimeSheet/useTimeSheet'
 import { useAuthContext } from '@/contexts/Auth'
+import { useAuthRoles } from '@/hooks/services/Rules/Auth/useRoles'
 
 import { Col, Row } from 'react-bootstrap'
 
@@ -15,12 +16,17 @@ import { Table, Tbody, Th, Thead, Tr } from '@/components/Core/Table'
 import { Empty } from '@/components/Core/Table/Empty'
 import { LoadingLines } from '@/components/Core/Table/LoadingLines'
 
-import { ROUTE_TIME_SHEET_USER_SEARCH } from '@/routes/Pages/TimeSheet/TimeSheet.paths'
+import {
+  ROUTE_TIME_SHEET_OVERVIEW,
+  ROUTE_TIME_SHEET_USER_SEARCH
+} from '@/routes/Pages/TimeSheet/TimeSheet.paths'
 
 import { TableTime } from './components/Table'
 
 export function TimeSheet() {
   const { user } = useAuthContext()
+
+  const { hasMultiviewPoint, hasTeamPoint } = useAuthRoles()
 
   const { result, setParams } = useTimeSheet(user?.userUuid)
 
@@ -117,7 +123,13 @@ export function TimeSheet() {
       <Row className="justify-content-center mt-3">
         {result ? (
           <Col xs="auto">
-            <ButtonLink route={ROUTE_TIME_SHEET_USER_SEARCH}>
+            <ButtonLink
+              route={
+                hasMultiviewPoint() || (hasTeamPoint() && user?.teamId)
+                  ? ROUTE_TIME_SHEET_USER_SEARCH
+                  : `${ROUTE_TIME_SHEET_OVERVIEW}/${user?.userUuid}`
+              }
+            >
               Exibir mais
             </ButtonLink>{' '}
             {/* Rota para tela de Horas */}

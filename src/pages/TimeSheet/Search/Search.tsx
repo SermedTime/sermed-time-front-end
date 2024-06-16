@@ -28,13 +28,14 @@ import {
 
 import {
   IUserFilterForm,
-  initialFilterValues
+  useTimeSheetUserFilterForm
 } from './components/FilterForm/FilterForm.form'
 import { UserSearchForm } from './components/SearchForm'
 import { Customer } from './components/User/User'
 import { UserFilterForm } from './components/FilterForm'
 
 export function UserSearch() {
+  const { initialFilterValues } = useTimeSheetUserFilterForm()
   const [searchParams, setSearchParams] = useSearchParams()
 
   const { setPageHeading } = useHeaderContext()
@@ -216,7 +217,8 @@ export function UserSearch() {
                     params
                       ? {
                           records: Number(params.records),
-                          status: params.status
+                          status: params.status,
+                          teamId: params.teamId
                         }
                       : null
                   }
