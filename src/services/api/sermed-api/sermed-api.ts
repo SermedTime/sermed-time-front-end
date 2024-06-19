@@ -4,6 +4,7 @@ import { removeLocalStorageItem } from '@/utils/storage/local'
 
 import { ROUTE_LOGIN } from '@/routes/Pages/Auth/Auth.paths'
 
+import { ROUTE_HOME } from '@/routes/Pages/Pages.paths'
 import { getAuthorizationToken } from './token'
 
 // import { refreshToken } from './refreshToken'
@@ -23,6 +24,10 @@ api.interceptors.response.use(
       window.location.replace(
         `${ROUTE_LOGIN}?redirect=${window.location.pathname}`
       )
+    }
+
+    if (error.response.status === 403) {
+      window.location.replace(`${ROUTE_HOME}`)
     }
 
     /* const token = getAuthorizationToken()
@@ -51,11 +56,14 @@ export async function get(
 ): Promise<ApiResponse> {
   const token = getAuthorizationToken()
 
+  const currentUrl = typeof window !== 'undefined' ? window.location.href : ''
+
   try {
     const response = await api.get(path, {
       params,
       headers: {
-        Authorization: token
+        Authorization: token,
+        'X-Requested-From': currentUrl
       },
       signal: controller?.signal
     })

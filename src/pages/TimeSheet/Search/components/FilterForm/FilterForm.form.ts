@@ -14,7 +14,7 @@ export function useTimeSheetUserFilterForm() {
   const initialTeamId = !hasMultiviewPoint ? user!.teamId : ''
 
   const initialFilterValues: IUserFilterForm = {
-    records: 6,
+    records: 12,
     status: 'all',
     teamId: initialTeamId
   }
