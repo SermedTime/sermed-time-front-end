@@ -164,7 +164,7 @@ export function ListTimeSheet() {
                   </Th>
 
                   <Th>
-                    <Heading size="xs">Extra</Heading>
+                    <Heading size="xs">Saldo</Heading>
                   </Th>
 
                   <Th>
@@ -180,7 +180,7 @@ export function ListTimeSheet() {
                       <TableTimeSheet
                         key={idx}
                         data={item}
-                        onApprove={() => setApprove('')}
+                        onApprove={() => setApprove(item.hoursSummaryId)}
                       />
                     ))
                   ) : (

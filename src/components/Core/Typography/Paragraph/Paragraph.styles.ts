@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components'
 
 interface Props {
   size: 'sm' | 'lg'
+  color?: 'neutral' | 'warning' | 'success'
 }
 
 export const Container = styled.div<Props>`
@@ -26,6 +27,16 @@ export const Container = styled.div<Props>`
     css`
       font-size: ${props.theme.font.size.sm};
       line-height: ${props.theme.line.height.sm};
+    `}
+
+    ${props.color === 'warning' &&
+    css`
+      color: ${props.theme.colors.feedback.warning.pure};
+    `}
+
+    ${props.color === 'success' &&
+    css`
+      color: ${props.theme.colors.feedback.success.pure};
     `}
   `}
 `

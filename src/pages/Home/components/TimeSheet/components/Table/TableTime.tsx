@@ -48,7 +48,12 @@ export function TableTime({ data }: Props) {
       </Td>
 
       <Td>
-        <Paragraph size="sm">{convertIsoDateToTime(data.overtime)}</Paragraph>
+        <Paragraph
+          size="sm"
+          color={data.overtime?.includes('-') ? 'warning' : 'success'}
+        >
+          {data.overtime}
+        </Paragraph>
       </Td>
     </Tr>
   )
