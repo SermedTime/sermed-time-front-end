@@ -2,10 +2,9 @@ import { useEffect, useState, useRef } from 'react'
 
 import { v4 } from 'uuid'
 
-import { Label } from 'components/Core/Form/Label'
-import { HelperText } from 'components/Core/Form/HelperText'
-
 import { Container } from './TextArea.styles'
+import { Label } from '../../Label'
+import { HelperText } from '../../HelperText'
 
 interface Props {
   label?: string

@@ -13,9 +13,10 @@ import { convertIsoDateToPtBr, convertIsoDateToTime } from '@/utils/date'
 interface Props {
   data: ITimeSheet
   onApprove: () => void
+  onReprove: () => void
 }
 
-export function TableTimeSheet({ data, onApprove }: Props) {
+export function TableTimeSheet({ data, onApprove, onReprove }: Props) {
   const [edit, setEdit] = useState(false)
 
   return (
@@ -78,9 +79,25 @@ export function TableTimeSheet({ data, onApprove }: Props) {
               <ButtonIcon size="sm" icon="edit" onClick={() => setEdit(true)} />
             </Tooltip>
           )}
-          <Tooltip title="Aprovar Horas" place="top-start">
-            <ButtonIcon size="sm" icon="alarm_on" onClick={() => onApprove()} />
-          </Tooltip>
+          {data.overtime && !data.overtime.includes('-') && (
+            <>
+              <Tooltip title="Aprovar Horas" place="top-start">
+                <ButtonIcon
+                  size="sm"
+                  icon="alarm_on"
+                  onClick={() => onApprove()}
+                />
+              </Tooltip>
+
+              <Tooltip title="Reprovar Horas" place="top-start">
+                <ButtonIcon
+                  size="sm"
+                  icon="alarm_off"
+                  onClick={() => onReprove()}
+                />
+              </Tooltip>
+            </>
+          )}
         </div>
       </Td>
     </Tr>

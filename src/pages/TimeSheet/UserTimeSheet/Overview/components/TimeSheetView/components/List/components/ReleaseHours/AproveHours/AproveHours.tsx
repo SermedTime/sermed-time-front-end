@@ -14,14 +14,14 @@ import {
   Content,
   CloseButton,
   AlertIcon
-} from './ReleaseHours.styles'
+} from '../ReleaseHours.styles'
 
 interface Props {
   onClose: (hasChanges: boolean) => void
   timeshift_id: string
 }
 
-export function ReleaseHours({ onClose, timeshift_id }: Props) {
+export function AproveHours({ onClose, timeshift_id }: Props) {
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {

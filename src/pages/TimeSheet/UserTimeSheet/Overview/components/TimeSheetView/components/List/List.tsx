@@ -21,7 +21,8 @@ import {
   initialFilterValues
 } from './components/FilterForm/FilterForm.form'
 import { TableTimeSheet } from './components/Table'
-import { ReleaseHours } from './components/ReleaseHours'
+import { AproveHours } from './components/ReleaseHours/AproveHours'
+import { ReproveHours } from './components/ReleaseHours/ReproveHours'
 
 export function ListTimeSheet() {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -37,6 +38,8 @@ export function ListTimeSheet() {
   const { params, refetch, result, setParams } = useTimeSheet(uuid)
 
   const [approve, setApprove] = useState<string>('')
+
+  const [reprove, setReprove] = useState<string>('')
 
   useEffect(() => {
     setLoaded(true)
@@ -181,6 +184,7 @@ export function ListTimeSheet() {
                         key={idx}
                         data={item}
                         onApprove={() => setApprove(item.hoursSummaryId)}
+                        onReprove={() => setReprove(item.hoursSummaryId)}
                       />
                     ))
                   ) : (
@@ -213,10 +217,19 @@ export function ListTimeSheet() {
         </Row>
       </Container>
 
-      <ReleaseHours
+      <AproveHours
         timeshift_id={approve}
         onClose={hasChanges => {
           setApprove('')
+
+          hasChanges && refetch()
+        }}
+      />
+
+      <ReproveHours
+        timeshift_id={reprove}
+        onClose={hasChanges => {
+          setReprove('')
 
           hasChanges && refetch()
         }}

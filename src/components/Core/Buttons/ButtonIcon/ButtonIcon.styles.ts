@@ -4,6 +4,7 @@ import { rgba } from 'polished'
 
 interface Props {
   size: 'sm' | 'md' | 'lg'
+  mode?: 'success' | 'warning' | 'helper'
 }
 
 export const Wrapper = styled.div<Props>`
