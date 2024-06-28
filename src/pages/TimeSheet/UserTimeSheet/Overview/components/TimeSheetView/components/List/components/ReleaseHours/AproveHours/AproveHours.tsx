@@ -1,5 +1,10 @@
 import { useEffect, useState } from 'react'
 
+import { useLoaderContext } from '@/contexts/Loader'
+import { useToastContext } from '@/contexts/Toast'
+
+import { put } from '@/services/api/sermed-api/sermed-api'
+
 import { Row, Col } from 'react-bootstrap'
 
 import { ButtonIcon } from '@/components/Core/Buttons/ButtonIcon'
@@ -22,6 +27,9 @@ interface Props {
 }
 
 export function AproveHours({ onClose, timeshift_id }: Props) {
+  const { showLoader, hideLoader } = useLoaderContext()
+  const { addToast, handleApiRejection } = useToastContext()
+
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
@@ -34,6 +42,46 @@ export function AproveHours({ onClose, timeshift_id }: Props) {
 
   function handleIconType() {
     return 'pending_actions'
+  }
+
+  async function handleOnSubmit(aprroveAs: 'BH' | 'HE') {
+    try {
+      showLoader()
+
+      const { data, message } = await put(
+        `/overview/time-sheet/update-overtime/${timeshift_id}`,
+        {
+          overtimeStatus: 'A',
+          releaseType: aprroveAs
+        }
+      )
+
+      if (data) {
+        addToast({
+          type: 'success',
+          title: 'Sucesso!',
+          description: `${
+            aprroveAs === 'BH'
+              ? 'Banco de horas aprovado'
+              : 'Hora extra aprovada'
+          } com sucesso`
+        })
+
+        onClose(true)
+      }
+
+      if (message) {
+        addToast({
+          type: 'warning',
+          title: 'Ooops',
+          description: message
+        })
+      }
+    } catch {
+      handleApiRejection()
+    } finally {
+      hideLoader()
+    }
   }
 
   return (
@@ -82,7 +130,7 @@ export function AproveHours({ onClose, timeshift_id }: Props) {
                       mode="success"
                       styles="primary"
                       onClick={() => {
-                        onClose(true)
+                        handleOnSubmit('HE')
                       }}
                     >
                       Hora Extra
@@ -94,7 +142,7 @@ export function AproveHours({ onClose, timeshift_id }: Props) {
                       type="button"
                       styles="primary"
                       onClick={() => {
-                        onClose(true)
+                        handleOnSubmit('BH')
                       }}
                     >
                       Banco de Horas

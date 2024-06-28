@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react'
 
 import { useAlertContext } from '@/contexts/Alert'
+import { useLoaderContext } from '@/contexts/Loader'
+import { useToastContext } from '@/contexts/Toast'
+
+import { put } from '@/services/api/sermed-api/sermed-api'
 
 import { Col, Row } from 'react-bootstrap'
 import { Field, Form, Formik } from 'formik'
@@ -26,6 +30,8 @@ interface Props {
 
 export function ReproveHours({ onClose, timeshift_id }: Props) {
   const { addAlertOnCancel } = useAlertContext()
+  const { showLoader, hideLoader } = useLoaderContext()
+  const { addToast, handleApiRejection } = useToastContext()
 
   const [visible, setVisible] = useState(false)
 
@@ -51,8 +57,39 @@ export function ReproveHours({ onClose, timeshift_id }: Props) {
     return 'pending_actions'
   }
 
-  const onSubmit = (formValues: IReproveHours): void => {
-    console.log(formValues)
+  const handleOnSubmit = async (formValues: IReproveHours) => {
+    try {
+      showLoader()
+
+      const { data, message } = await put(
+        `/overview/time-sheet/update-overtime/${timeshift_id}`,
+        {
+          ...formValues
+        }
+      )
+
+      if (data) {
+        addToast({
+          type: 'success',
+          title: 'Sucesso!',
+          description: 'Horas reprovadas com sucesso'
+        })
+
+        onClose(false)
+      }
+
+      if (message) {
+        addToast({
+          type: 'warning',
+          title: 'Ooops',
+          description: message
+        })
+      }
+    } catch {
+      handleApiRejection()
+    } finally {
+      hideLoader()
+    }
   }
 
   return (
@@ -63,7 +100,7 @@ export function ReproveHours({ onClose, timeshift_id }: Props) {
             <Formik
               initialValues={initialValues}
               validationSchema={validationSchema}
-              onSubmit={onSubmit}
+              onSubmit={handleOnSubmit}
             >
               {({ touched, errors, dirty, isValid, values }) => (
                 <>
