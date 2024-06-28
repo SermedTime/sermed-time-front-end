@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 
 import { useLoaderContext } from '@/contexts/Loader'
 import { useToastContext } from '@/contexts/Toast'
+import { useParams } from 'react-router-dom'
 
 import { put } from '@/services/api/sermed-api/sermed-api'
 
@@ -27,6 +28,7 @@ interface Props {
 }
 
 export function AproveHours({ onClose, timeshift_id }: Props) {
+  const { uuid: userId } = useParams()
   const { showLoader, hideLoader } = useLoaderContext()
   const { addToast, handleApiRejection } = useToastContext()
 
@@ -49,7 +51,7 @@ export function AproveHours({ onClose, timeshift_id }: Props) {
       showLoader()
 
       const { data, message } = await put(
-        `/overview/time-sheet/update-overtime/${timeshift_id}`,
+        `/overview/time-sheet/update-overtime/user/${userId}/timesheet/${timeshift_id}`,
         {
           overtimeStatus: 'A',
           releaseType: aprroveAs

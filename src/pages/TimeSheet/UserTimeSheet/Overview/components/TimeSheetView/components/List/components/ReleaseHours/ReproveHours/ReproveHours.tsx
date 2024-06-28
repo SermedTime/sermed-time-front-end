@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { useAlertContext } from '@/contexts/Alert'
 import { useLoaderContext } from '@/contexts/Loader'
 import { useToastContext } from '@/contexts/Toast'
+import { useParams } from 'react-router-dom'
 
 import { put } from '@/services/api/sermed-api/sermed-api'
 
@@ -29,6 +30,7 @@ interface Props {
 }
 
 export function ReproveHours({ onClose, timeshift_id }: Props) {
+  const { uuid: userId } = useParams()
   const { addAlertOnCancel } = useAlertContext()
   const { showLoader, hideLoader } = useLoaderContext()
   const { addToast, handleApiRejection } = useToastContext()
@@ -62,7 +64,7 @@ export function ReproveHours({ onClose, timeshift_id }: Props) {
       showLoader()
 
       const { data, message } = await put(
-        `/overview/time-sheet/update-overtime/${timeshift_id}`,
+        `/overview/time-sheet/update-overtime/user/${userId}/timesheet/${timeshift_id}`,
         {
           ...formValues
         }
@@ -108,7 +110,9 @@ export function ReproveHours({ onClose, timeshift_id }: Props) {
                     <ButtonIcon
                       size="md"
                       icon="close"
-                      onClick={() => handleOnCancel(!!values.description)}
+                      onClick={() =>
+                        handleOnCancel(!!values.reasorForRejection)
+                      }
                     />
                   </S.CloseButton>
 
@@ -145,14 +149,16 @@ export function ReproveHours({ onClose, timeshift_id }: Props) {
                           <Col>
                             <Field
                               as={TextArea}
-                              name="description"
-                              placeholder="Insira a descrição"
+                              name="reasorForRejection"
+                              placeholder="Insira o motivo"
                               error={
-                                touched.description && !!errors.description
+                                touched.reasorForRejection &&
+                                !!errors.reasorForRejection
                               }
                               helperText={
-                                touched.description && !!errors.description
-                                  ? errors.description
+                                touched.reasorForRejection &&
+                                !!errors.reasorForRejection
+                                  ? errors.reasorForRejection
                                   : ''
                               }
                             />
@@ -176,7 +182,7 @@ export function ReproveHours({ onClose, timeshift_id }: Props) {
                               type="button"
                               styles="tertiary"
                               onClick={() => {
-                                handleOnCancel(!!values.description)
+                                handleOnCancel(!!values.reasorForRejection)
                               }}
                             >
                               Cancelar

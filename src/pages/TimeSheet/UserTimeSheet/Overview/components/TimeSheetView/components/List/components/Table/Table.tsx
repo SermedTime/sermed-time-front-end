@@ -8,7 +8,11 @@ import { Paragraph } from '@/components/Core/Typography/Paragraph'
 import { ITimeSheet } from '@/hooks/services/TimeSheet/useTimeSheet'
 import { ButtonIcon } from '@/components/Core/Buttons/ButtonIcon'
 import { Tooltip } from '@/components/Core/Tooltip'
-import { convertIsoDateToPtBr, convertIsoDateToTime } from '@/utils/date'
+import {
+  convertDataUTCToGMTMore3,
+  convertIsoDateToPtBr,
+  convertIsoDateToTime
+} from '@/utils/date'
 
 interface Props {
   data: ITimeSheet
@@ -23,9 +27,9 @@ export function TableTimeSheet({ data, onApprove, onReprove }: Props) {
     <Tr>
       <Td>
         <Col xs="auto">
-          <Paragraph size="sm">{`${convertIsoDateToPtBr(data.date)} - ${
-            data.day
-          }`}</Paragraph>
+          <Paragraph size="sm">{`${convertIsoDateToPtBr(
+            convertDataUTCToGMTMore3(data.date)
+          )} - ${data.day}`}</Paragraph>
         </Col>
       </Td>
 
