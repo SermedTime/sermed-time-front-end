@@ -9,7 +9,10 @@ import { Icon } from '@/components/Core/Icons/Icon'
 import { Table, Tbody, Th, Thead, Tr } from '@/components/Core/Table'
 import { LoadingLines } from '@/components/Core/Table/LoadingLines'
 
-import { useTimeSheet } from '@/hooks/services/TimeSheet/useTimeSheet'
+import {
+  ITimeSheet,
+  useTimeSheet
+} from '@/hooks/services/TimeSheet/useTimeSheet'
 import { Empty } from '@/components/Core/Table/Empty'
 import { Skeleton } from '@/components/Core/Skeleton'
 import { Pagination } from '@/components/Core/Pagination'
@@ -23,6 +26,7 @@ import {
 import { TableTimeSheet } from './components/Table'
 import { AproveHours } from './components/ReleaseHours/AproveHours'
 import { ReproveHours } from './components/ReleaseHours/ReproveHours'
+import { EditTimeSheet } from '../Edit'
 
 export function ListTimeSheet() {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -40,6 +44,8 @@ export function ListTimeSheet() {
   const [approve, setApprove] = useState<string>('')
 
   const [reprove, setReprove] = useState<string>('')
+
+  const [editingRecord, setEditingRecord] = useState<ITimeSheet | null>(null)
 
   useEffect(() => {
     setLoaded(true)
@@ -183,6 +189,7 @@ export function ListTimeSheet() {
                       <TableTimeSheet
                         key={idx}
                         data={item}
+                        onEdit={() => setEditingRecord(item)}
                         onApprove={() => setApprove(item.hoursSummaryId)}
                         onReprove={() => setReprove(item.hoursSummaryId)}
                       />
@@ -216,6 +223,17 @@ export function ListTimeSheet() {
           )}
         </Row>
       </Container>
+
+      {editingRecord && (
+        <EditTimeSheet
+          data={editingRecord}
+          onClose={hasChanges => {
+            setEditingRecord(null)
+
+            hasChanges && refetch()
+          }}
+        />
+      )}
 
       <AproveHours
         timeshift_id={approve}

@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import { Col } from 'react-bootstrap'
 
 import { Td, Tr } from '@/components/Core/Table'
@@ -16,13 +14,12 @@ import {
 
 interface Props {
   data: ITimeSheet
+  onEdit: () => void
   onApprove: () => void
   onReprove: () => void
 }
 
-export function TableTimeSheet({ data, onApprove, onReprove }: Props) {
-  const [edit, setEdit] = useState(false)
-
+export function TableTimeSheet({ data, onEdit, onApprove, onReprove }: Props) {
   return (
     <Tr>
       <Td>
@@ -70,19 +67,10 @@ export function TableTimeSheet({ data, onApprove, onReprove }: Props) {
 
       <Td showOnHover={true}>
         <div className="d-flex justify-content-center">
-          {edit ? (
-            <Tooltip title="Salvar" place="top-start">
-              <ButtonIcon
-                size="sm"
-                icon="save"
-                onClick={() => setEdit(false)}
-              />
-            </Tooltip>
-          ) : (
-            <Tooltip title="Editar Ponto" place="top-start">
-              <ButtonIcon size="sm" icon="edit" onClick={() => setEdit(true)} />
-            </Tooltip>
-          )}
+          <Tooltip title="Detalhes" place="top-start">
+            <ButtonIcon size="sm" icon="open_in_new" onClick={() => onEdit()} />
+          </Tooltip>
+
           {data.overtime && !data.overtime.includes('-') && (
             <>
               <Tooltip title="Aprovar Horas" place="top-start">
