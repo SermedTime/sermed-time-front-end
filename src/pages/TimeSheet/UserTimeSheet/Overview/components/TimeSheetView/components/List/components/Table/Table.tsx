@@ -24,9 +24,9 @@ export function TableTimeSheet({ data, onEdit, onApprove, onReprove }: Props) {
     <Tr>
       <Td>
         <Col xs="auto">
-          <Paragraph size="sm">{`${convertIsoDateToPtBr(
+          <Paragraph size="sm">{` ${data.day}, ${convertIsoDateToPtBr(
             convertDataUTCToGMTMore3(data.date)
-          )} - ${data.day}`}</Paragraph>
+          )}`}</Paragraph>
         </Col>
       </Td>
 
