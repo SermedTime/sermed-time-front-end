@@ -79,25 +79,27 @@ export function TableTimeSheet({ data, onEdit, onApprove, onReprove }: Props) {
             <ButtonIcon size="sm" icon="open_in_new" onClick={() => onEdit()} />
           </Tooltip>
 
-          {data.overtime && !data.overtime.includes('-') && (
-            <>
-              <Tooltip title="Aprovar Horas" place="top-start">
-                <ButtonIcon
-                  size="sm"
-                  icon="alarm_on"
-                  onClick={() => onApprove()}
-                />
-              </Tooltip>
+          {data.overtime &&
+            !data.overtime.includes('-') &&
+            !data.overtimeStatus && (
+              <>
+                <Tooltip title="Aprovar Horas" place="top-start">
+                  <ButtonIcon
+                    size="sm"
+                    icon="alarm_on"
+                    onClick={() => onApprove()}
+                  />
+                </Tooltip>
 
-              <Tooltip title="Reprovar Horas" place="top-start">
-                <ButtonIcon
-                  size="sm"
-                  icon="alarm_off"
-                  onClick={() => onReprove()}
-                />
-              </Tooltip>
-            </>
-          )}
+                <Tooltip title="Reprovar Horas" place="top-start">
+                  <ButtonIcon
+                    size="sm"
+                    icon="alarm_off"
+                    onClick={() => onReprove()}
+                  />
+                </Tooltip>
+              </>
+            )}
         </div>
       </Td>
     </Tr>

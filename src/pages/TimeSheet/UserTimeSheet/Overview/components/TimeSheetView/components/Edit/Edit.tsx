@@ -67,7 +67,7 @@ export function EditTimeSheet({ data, onClose }: Props) {
 
   return (
     <Modal visible={showModal} onClose={() => handleOnCancel()} mw="xl">
-      <Row className="align-items-center mb-4">
+      <Row className="d-flex align-items-center mb-4">
         <Col xs="auto">
           <div className="d-flex align-items-center gap-2">
             <Icon icon="edit" />
@@ -79,19 +79,21 @@ export function EditTimeSheet({ data, onClose }: Props) {
           </div>
         </Col>
 
-        <Col>
-          <Button
-            type="button"
-            styles="tertiary"
-            icon="edit"
-            onClick={() => setReadOnly(readOnly => !readOnly)}
-            disabled={!readOnly || !hasParametrizationsWriter()}
-          >
-            {`${readOnly ? 'Alterar' : 'Alterando...'}`}
-          </Button>
-        </Col>
+        {hasParametrizationsWriter() && (
+          <Col>
+            <Button
+              type="button"
+              styles="tertiary"
+              icon="edit"
+              onClick={() => setReadOnly(readOnly => !readOnly)}
+              disabled={!readOnly || !!data.overtimeStatus}
+            >
+              {`${readOnly ? 'Alterar' : 'Alterando...'}`}
+            </Button>
+          </Col>
+        )}
 
-        <Col>
+        <Col className="d-flex justify-content-end">
           <div className="d-flex align-items-center gap-2">
             <Subtitle size="sm">Saldo: </Subtitle>
 

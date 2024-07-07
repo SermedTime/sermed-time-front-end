@@ -235,7 +235,7 @@ export function RegisterTimeSheet({
                     <Button
                       type="submit"
                       styles="primary"
-                      disabled={!dirty || !isValid}
+                      disabled={!dirty || !isValid || !!values.overtimeStatus}
                     >
                       Salvar
                     </Button>
