@@ -1,21 +1,29 @@
-import { Button } from '@/components/Core/Buttons/Button'
-import { Icon } from '@/components/Core/Icons/Icon'
-import { Modal } from '@/components/Core/Modal'
-import { Subtitle } from '@/components/Core/Typography/Subtitle'
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { useLoaderContext } from '@/contexts/Loader'
+import { useToastContext } from '@/contexts/Toast'
 import { useAuthRoles } from '@/hooks/services/Rules/Auth/useRoles'
-import { ITimeSheet } from '@/hooks/services/TimeSheet/useTimeSheet'
+
 import {
   convertDataUTCToGMTMore3,
   convertIsoDateToPtBr,
   convertIsoDateToTime
 } from '@/utils/date'
-import { useEffect, useState } from 'react'
-import { Col, Row } from 'react-bootstrap'
-import { Tag } from '@/components/Core/Tag'
 import { isMissed } from '@/utils/validations'
-import { RegisterTimeSheet } from './components/RegisterForm'
+
+import { Col, Row } from 'react-bootstrap'
+import { Button } from '@/components/Core/Buttons/Button'
+import { Icon } from '@/components/Core/Icons/Icon'
+import { Modal } from '@/components/Core/Modal'
+import { Subtitle } from '@/components/Core/Typography/Subtitle'
+import { Tag } from '@/components/Core/Tag'
+
+import { ITimeSheet } from '@/hooks/services/TimeSheet/useTimeSheet'
+import { post } from '@/services/api/sermed-api/sermed-api'
 import { ITimeSheetForm } from './components/RegisterForm/RegisterForm.form'
+
 import { useEditTimeSheetHelper } from './useEditTimeSheetHelper'
+import { RegisterTimeSheet } from './components/RegisterForm'
 
 interface Props {
   data: ITimeSheet
@@ -23,9 +31,11 @@ interface Props {
 }
 
 export function EditTimeSheet({ data, onClose }: Props) {
+  const { uuid: userId } = useParams()
   const { hasParametrizationsWriter } = useAuthRoles()
-
   const { statusOvertime, typeOvertime } = useEditTimeSheetHelper()
+  const { showLoader, hideLoader } = useLoaderContext()
+  const { addToast, handleApiRejection } = useToastContext()
 
   const [showModal, setShowModal] = useState(false)
   const [readOnly, setReadOnly] = useState(true)
@@ -62,7 +72,40 @@ export function EditTimeSheet({ data, onClose }: Props) {
   }
 
   async function handleOnSubmit(formValues: ITimeSheetForm) {
-    console.log(formValues)
+    try {
+      showLoader()
+
+      const { data, message } = await post(
+        `/overview/time-sheet/update/${userId}`,
+        formValues
+      )
+
+      if (data) {
+        addToast({
+          type: 'success',
+          title: 'Sucesso',
+          description: 'As horas foram salvas com sucesso!'
+        })
+
+        setShowModal(false)
+        setReadOnly(true)
+        setInitialValues(null)
+
+        onClose(true)
+      }
+
+      if (message) {
+        addToast({
+          type: 'warning',
+          title: 'Ooops',
+          description: message
+        })
+      }
+    } catch {
+      handleApiRejection()
+    } finally {
+      hideLoader()
+    }
   }
 
   return (
