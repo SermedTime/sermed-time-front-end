@@ -15,7 +15,7 @@ import { Tag } from '@/components/Core/Tag'
 import { isMissed } from '@/utils/validations'
 import { RegisterTimeSheet } from './components/RegisterForm'
 import { ITimeSheetForm } from './components/RegisterForm/RegisterForm.form'
-import { statusOvertime } from './Edit.helper'
+import { useEditTimeSheetHelper } from './useEditTimeSheetHelper'
 
 interface Props {
   data: ITimeSheet
@@ -24,6 +24,8 @@ interface Props {
 
 export function EditTimeSheet({ data, onClose }: Props) {
   const { hasParametrizationsWriter } = useAuthRoles()
+
+  const { statusOvertime, typeOvertime } = useEditTimeSheetHelper()
 
   const [showModal, setShowModal] = useState(false)
   const [readOnly, setReadOnly] = useState(true)
@@ -43,8 +45,8 @@ export function EditTimeSheet({ data, onClose }: Props) {
         secondExit: convertIsoDateToTime(data.secondExit),
         thirdEntry: convertIsoDateToTime(data.thirdEntry),
         thirdExit: convertIsoDateToTime(data.thirdExit),
-        overtimeStatus: null,
-        reasorForRejection: null
+        overtimeStatus: data.overtimeStatus,
+        reasonForRejection: data.reasonForRejection
       })
       setShowModal(true)
       setReadOnly(true)
@@ -94,12 +96,27 @@ export function EditTimeSheet({ data, onClose }: Props) {
             <Subtitle size="sm">Saldo: </Subtitle>
 
             {isMissed(data.firstEntry, data.overtime) ? (
-              <Tag highlight>Falta</Tag>
+              <Tag size="lg" highlight>
+                Falta
+              </Tag>
             ) : (
-              <Tag status={statusOvertime(data.overtime)}>{`${
+              <Tag size="lg" status={typeOvertime(data.overtime)}>{`${
                 data.overtime || '00:00'
               }`}</Tag>
             )}
+
+            {data.overtime &&
+              !data.overtime.includes('-') &&
+              data.overtime !== '00:00' && (
+                <>
+                  {statusOvertime(data.overtimeStatus)}
+                  {data.overtimeStatus === 'A' && (
+                    <Tag size="sm" status="neutral">
+                      {data.overtimeAcceptType}
+                    </Tag>
+                  )}
+                </>
+              )}
           </div>
         </Col>
       </Row>

@@ -202,14 +202,13 @@ export function RegisterTimeSheet({
               <Col>
                 <Field
                   as={TextArea}
-                  name="reasorForRejection"
-                  placeholder="Insira o motivo"
+                  name="reasonForRejection"
                   error={
-                    touched.reasorForRejection && !!errors.reasorForRejection
+                    touched.reasonForRejection && !!errors.reasonForRejection
                   }
                   helperText={
-                    touched.reasorForRejection && !!errors.reasorForRejection
-                      ? errors.reasorForRejection
+                    touched.reasonForRejection && !!errors.reasonForRejection
+                      ? errors.reasonForRejection
                       : ''
                   }
                   readOnly

@@ -31,7 +31,7 @@ export function UserData({ user_id }: Props) {
                       <div className="d-flex align-items-center gap-2">
                         <Subtitle size="sm">{result.name}</Subtitle>
 
-                        <Tag>{`#${result.employeeCode}`}</Tag>
+                        <Tag size="sm">{`#${result.employeeCode}`}</Tag>
                       </div>
                     ) : (
                       <Skeleton />

@@ -11,6 +11,9 @@ import {
   convertIsoDateToPtBr,
   convertIsoDateToTime
 } from '@/utils/date'
+import { isMissed } from '@/utils/validations'
+import { Tag } from '@/components/Core/Tag'
+import { useEditTimeSheetHelper } from '../../../Edit/useEditTimeSheetHelper'
 
 interface Props {
   data: ITimeSheet
@@ -20,6 +23,8 @@ interface Props {
 }
 
 export function TableTimeSheet({ data, onEdit, onApprove, onReprove }: Props) {
+  const { typeOvertime } = useEditTimeSheetHelper()
+
   return (
     <Tr>
       <Td>
@@ -56,13 +61,16 @@ export function TableTimeSheet({ data, onEdit, onApprove, onReprove }: Props) {
         <Paragraph size="sm">{convertIsoDateToTime(data.thirdExit)}</Paragraph>
       </Td>
 
-      <Td>
-        <Paragraph
-          size="sm"
-          color={data.overtime?.includes('-') ? 'warning' : 'success'}
-        >
-          {data.overtime}
-        </Paragraph>
+      <Td className="d-flex justify-content-center my-2">
+        {isMissed(data.firstEntry, data.overtime) ? (
+          <Tag size="lg" highlight>
+            Falta
+          </Tag>
+        ) : (
+          <Tag size="lg" status={typeOvertime(data.overtime)}>{`${
+            data.overtime || '00:00'
+          }`}</Tag>
+        )}
       </Td>
 
       <Td showOnHover={true}>

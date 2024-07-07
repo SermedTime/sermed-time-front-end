@@ -17,6 +17,9 @@ export interface ITimeSheet {
   thirdEntry: string
   thirdExit: string
   overtime: string
+  overtimeStatus: string
+  reasonForRejection: string
+  overtimeAcceptType: string
 }
 
 export function useTimeSheet(uuid?: string) {

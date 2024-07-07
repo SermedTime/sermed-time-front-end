@@ -9,8 +9,8 @@ export interface ITimeSheetForm {
   secondExit: string | null
   thirdEntry: string | null
   thirdExit: string | null
-  reasorForRejection: string | null
-  overtimeStatus: 'R' | 'A' | null
+  reasonForRejection: string | null
+  overtimeStatus: string | null
 }
 
 const timeValidation = Yup.string()

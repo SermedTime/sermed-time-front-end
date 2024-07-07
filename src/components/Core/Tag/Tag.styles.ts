@@ -6,6 +6,7 @@ interface Props {
   display?: string
   disabled?: boolean
   highlight?: boolean
+  size: 'sm' | 'lg'
   status?:
     | 'default'
     | 'success'
@@ -30,9 +31,18 @@ export const Container = styled.div<Props>`
     justify-content: center;
 
     font-family: ${props.theme.font.family.base};
-    font-size: ${props.theme.font.size.xs};
     font-weight: ${props.theme.font.weight.medium};
     line-height: ${props.theme.line.height.lg};
+
+    ${props.size === 'sm' &&
+    css`
+      font-size: ${props.theme.font.size.xxs};
+    `}
+
+    ${props.size === 'lg' &&
+    css`
+      font-size: ${props.theme.font.size.xs};
+    `}
 
     cursor: ${props.hover ? 'pointer' : 'default'};
 
