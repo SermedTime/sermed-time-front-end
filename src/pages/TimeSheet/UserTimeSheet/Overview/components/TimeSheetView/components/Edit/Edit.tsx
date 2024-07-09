@@ -75,9 +75,12 @@ export function EditTimeSheet({ data, onClose }: Props) {
     try {
       showLoader()
 
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { reasonForRejection, overtimeStatus, ...payload } = formValues
+
       const { data, message } = await post(
         `/overview/time-sheet/update/${userId}`,
-        formValues
+        payload
       )
 
       if (data) {

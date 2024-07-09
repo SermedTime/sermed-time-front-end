@@ -36,7 +36,6 @@ const timeComparison = (refPath: string, message: string) =>
     )
 
 export const validationSchema = Yup.object({
-  timeSheetId: Yup.string(),
   date: Yup.string().required('Obrigatório'),
   firstEntry: timeValidation,
   firstExit: timeComparison(
