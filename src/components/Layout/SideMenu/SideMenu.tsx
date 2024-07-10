@@ -7,10 +7,12 @@ import { useAuthRoles } from '@/hooks/services/Rules/Auth/useRoles'
 
 import { Icon } from '@/components/Core/Icons/Icon'
 import * as S from './SideMenu.styles'
-import { nav } from './SideMenu.navigation'
+import { useSideMenuNavigation } from './SideMenu.navigation'
 
 export function SideMenu() {
   const location = useLocation()
+
+  const { nav } = useSideMenuNavigation()
 
   const { visible } = useSideMenuContext()
 

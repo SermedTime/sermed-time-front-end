@@ -6,6 +6,7 @@ interface Props {
   type?: 'button' | 'submit' | 'reset'
   appearance?: IconAppearence
   size: 'sm' | 'md' | 'lg'
+  mode?: 'success' | 'warning' | 'helper'
   icon: string
   disabled?: boolean
   className?: string
@@ -19,12 +20,14 @@ export function ButtonIcon({
   icon,
   disabled,
   className,
-  onClick
+  onClick,
+  mode
 }: Props) {
   return (
     <Wrapper size={size}>
       <Button type={type || 'button'} disabled={disabled} onClick={onClick}>
         <Icon
+          mode={mode}
           appearance={appearance}
           size={size}
           icon={icon}
@@ -37,6 +40,7 @@ export function ButtonIcon({
 
 ButtonIcon.defaultProps = {
   type: undefined,
+  mode: undefined,
   appearance: undefined,
   disabled: undefined,
   className: undefined,

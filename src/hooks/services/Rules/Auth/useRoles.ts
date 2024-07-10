@@ -3,6 +3,11 @@ import { useCallback, useMemo } from 'react'
 import { useAuthContext } from '@/contexts/Auth'
 
 import { IRoles } from '@/contexts/Auth/Auth'
+import {
+  ROLE_MULTIVIEW_POINT,
+  ROLE_PARAMETRIZATIONS,
+  ROLE_TEAM_POINT
+} from '@/constants/user.roles'
 
 export function useAuthRoles() {
   const { user } = useAuthContext()
@@ -33,14 +38,28 @@ export function useAuthRoles() {
 
   const hasParametrizations = useCallback((): boolean => {
     return checkIfUserHasRole({
-      role: String(`${import.meta.env.VITE_APP_ROLE_PARAMETRIZATIONS}`)
+      role: ROLE_PARAMETRIZATIONS
     })
   }, [checkIfUserHasRole])
 
   const hasParametrizationsWriter = useCallback((): boolean => {
     return checkIfUserHasRole({
-      role: String(`${import.meta.env.VITE_APP_ROLE_PARAMETRIZATIONS}`),
+      role: ROLE_PARAMETRIZATIONS,
       is_writer: true
+    })
+  }, [checkIfUserHasRole])
+
+  const hasMultiviewPoint = useCallback(() => {
+    return checkIfUserHasRole({
+      role: ROLE_MULTIVIEW_POINT,
+      is_writer: true || false
+    })
+  }, [checkIfUserHasRole])
+
+  const hasTeamPoint = useCallback(() => {
+    return checkIfUserHasRole({
+      role: ROLE_TEAM_POINT,
+      is_writer: true || false
     })
   }, [checkIfUserHasRole])
 
@@ -57,6 +76,8 @@ export function useAuthRoles() {
     checkIfUserHasRole,
     hasParametrizations,
     hasParametrizationsWriter,
+    hasMultiviewPoint,
+    hasTeamPoint,
     handleUserRoles
   }
 }

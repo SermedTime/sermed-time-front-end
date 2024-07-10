@@ -9,7 +9,10 @@ import { Icon } from '@/components/Core/Icons/Icon'
 import { Table, Tbody, Th, Thead, Tr } from '@/components/Core/Table'
 import { LoadingLines } from '@/components/Core/Table/LoadingLines'
 
-import { useTimeSheet } from '@/hooks/services/TimeSheet/useTimeSheet'
+import {
+  ITimeSheet,
+  useTimeSheet
+} from '@/hooks/services/TimeSheet/useTimeSheet'
 import { Empty } from '@/components/Core/Table/Empty'
 import { Skeleton } from '@/components/Core/Skeleton'
 import { Pagination } from '@/components/Core/Pagination'
@@ -21,7 +24,9 @@ import {
   initialFilterValues
 } from './components/FilterForm/FilterForm.form'
 import { TableTimeSheet } from './components/Table'
-import { ReleaseHours } from './components/ReleaseHours'
+import { AproveHours } from './components/ReleaseHours/AproveHours'
+import { ReproveHours } from './components/ReleaseHours/ReproveHours'
+import { EditTimeSheet } from '../Edit'
 
 export function ListTimeSheet() {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -37,6 +42,10 @@ export function ListTimeSheet() {
   const { params, refetch, result, setParams } = useTimeSheet(uuid)
 
   const [approve, setApprove] = useState<string>('')
+
+  const [reprove, setReprove] = useState<string>('')
+
+  const [editingRecord, setEditingRecord] = useState<ITimeSheet | null>(null)
 
   useEffect(() => {
     setLoaded(true)
@@ -164,7 +173,12 @@ export function ListTimeSheet() {
                   </Th>
 
                   <Th>
-                    <Heading size="xs">Extra</Heading>
+                    <Heading
+                      size="xs"
+                      className="d-flex justify-content-center"
+                    >
+                      Saldo
+                    </Heading>
                   </Th>
 
                   <Th>
@@ -180,7 +194,9 @@ export function ListTimeSheet() {
                       <TableTimeSheet
                         key={idx}
                         data={item}
-                        onApprove={() => setApprove('')}
+                        onEdit={() => setEditingRecord(item)}
+                        onApprove={() => setApprove(item.hoursSummaryId)}
+                        onReprove={() => setReprove(item.hoursSummaryId)}
                       />
                     ))
                   ) : (
@@ -213,10 +229,30 @@ export function ListTimeSheet() {
         </Row>
       </Container>
 
-      <ReleaseHours
+      {editingRecord && (
+        <EditTimeSheet
+          data={editingRecord}
+          onClose={hasChanges => {
+            setEditingRecord(null)
+
+            hasChanges && refetch()
+          }}
+        />
+      )}
+
+      <AproveHours
         timeshift_id={approve}
         onClose={hasChanges => {
           setApprove('')
+
+          hasChanges && refetch()
+        }}
+      />
+
+      <ReproveHours
+        timeshift_id={reprove}
+        onClose={hasChanges => {
+          setReprove('')
 
           hasChanges && refetch()
         }}

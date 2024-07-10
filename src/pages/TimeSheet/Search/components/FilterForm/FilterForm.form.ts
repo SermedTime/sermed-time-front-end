@@ -1,11 +1,23 @@
-import { DEFAULT_RECORDS_PER_PAGE } from '@/constants/default-values'
+import { useAuthContext } from '@/contexts/Auth'
+import { useAuthRoles } from '@/hooks/services/Rules/Auth/useRoles'
 
 export interface IUserFilterForm {
   records: number
   status: string
+  teamId: string
 }
 
-export const initialFilterValues: IUserFilterForm = {
-  records: DEFAULT_RECORDS_PER_PAGE,
-  status: 'all'
+export function useTimeSheetUserFilterForm() {
+  const { hasMultiviewPoint } = useAuthRoles()
+  const { user } = useAuthContext()
+
+  const initialTeamId = !hasMultiviewPoint ? user!.teamId : ''
+
+  const initialFilterValues: IUserFilterForm = {
+    records: 12,
+    status: 'all',
+    teamId: initialTeamId
+  }
+
+  return { initialFilterValues }
 }

@@ -89,6 +89,14 @@ export function validateData(
   return false
 }
 
+export function convertDataUTCToGMTMore3(date: string) {
+  const currentDate = new Date(date)
+
+  const currentDateGmtMore3 = currentDate.setHours(currentDate.getHours() + 3)
+
+  return new Date(currentDateGmtMore3).toISOString()
+}
+
 export function convertDateToWeekDay(date: Date) {
   let day = ''
 

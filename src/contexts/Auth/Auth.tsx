@@ -39,6 +39,7 @@ interface UserAuth {
   email: string
   companyName: string
   companyCnpj: string
+  teamId: string
   sysPassword: boolean
   position: string
   pis: string
@@ -131,6 +132,7 @@ function AuthContext({ children }: Props) {
             companyName: decryptToPayload(data.user.companyName),
             companyCnpj: decryptToPayload(data.user.companyCnpj),
             sysPassword: decryptToPayload(data.user.sysPassword) === 'true',
+            teamId: decryptToPayload(data.user.teamId),
             position: decryptToPayload(data.user.position),
             pis: decryptToPayload(data.user.pis),
             identityNumber: decryptToPayload(data.user.identityNumber),

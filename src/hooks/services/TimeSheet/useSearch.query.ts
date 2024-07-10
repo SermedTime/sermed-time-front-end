@@ -28,6 +28,9 @@ async function fetchData(
   params?: Record<string, any>
 ): Promise<IApiResponse<IUserSearch>> {
   const queryParams = removeEmptyEntries({
+    teamId: params?.teamId,
+    companyId: params?.companyId,
+    unitId: params?.unitId,
     search: params?.search,
     searchingBy: params?.searchingBy,
     records: params?.records,

@@ -1,5 +1,5 @@
 export interface ISummary {
   absencesInMonth: number | undefined
-  overtimeInMonth: number | undefined
-  annualLeave: number | undefined
+  overtimeInMonth: string | undefined
+  annualLeave: string | undefined
 }

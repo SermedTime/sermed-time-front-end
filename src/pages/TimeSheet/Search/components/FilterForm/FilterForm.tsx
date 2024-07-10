@@ -4,15 +4,13 @@ import { Row, Col } from 'react-bootstrap'
 
 import { Formik, Form, Field } from 'formik'
 
-import { useSystemParams } from '@/hooks/utils/useParams'
-
 import { SmoothReveal } from '@/components/Core/Animations/SmoothReveal'
 import { Widget } from '@/components/Core/Containers/Widget'
 import { Select } from '@/components/Core/Form/Fields/Select'
 import { Skeleton } from '@/components/Core/Skeleton'
 
 import { IOption } from '@/components/Core/Form/Fields/Select/Select.interface'
-import { IUserFilterForm, initialFilterValues } from './FilterForm.form'
+import { IUserFilterForm, useTimeSheetUserFilterForm } from './FilterForm.form'
 
 interface Props {
   defaultValues?: IUserFilterForm | null
@@ -20,7 +18,30 @@ interface Props {
 }
 
 export function UserFilterForm({ defaultValues, onChange }: Props) {
-  const { totalRecords } = useSystemParams()
+  const { initialFilterValues } = useTimeSheetUserFilterForm()
+
+  const totalRecords = [
+    {
+      value: 6,
+      label: '6'
+    },
+    {
+      value: 12,
+      label: '12'
+    },
+    {
+      value: 24,
+      label: '24'
+    },
+    {
+      value: 48,
+      label: '48'
+    },
+    {
+      value: 96,
+      label: '96'
+    }
+  ]
 
   const [initialValues, setInitialValues] = useState<IUserFilterForm | null>(
     null
@@ -34,7 +55,8 @@ export function UserFilterForm({ defaultValues, onChange }: Props) {
         setInitialValues(initialFilterValues)
       }
     }
-  }, [initialValues, defaultValues])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [defaultValues])
 
   return (
     <SmoothReveal visible>

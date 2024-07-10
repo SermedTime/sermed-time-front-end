@@ -6,6 +6,7 @@ interface Props {
   display?: string
   disabled?: boolean
   highlight?: boolean
+  size: 'sm' | 'lg'
   status?:
     | 'default'
     | 'success'
@@ -25,10 +26,23 @@ export const Container = styled.div<Props>`
 
     color: ${props.theme.colors.neutral.low.pure};
 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     font-family: ${props.theme.font.family.base};
-    font-size: ${props.theme.font.size.xxs};
     font-weight: ${props.theme.font.weight.medium};
     line-height: ${props.theme.line.height.lg};
+
+    ${props.size === 'sm' &&
+    css`
+      font-size: ${props.theme.font.size.xxs};
+    `}
+
+    ${props.size === 'lg' &&
+    css`
+      font-size: ${props.theme.font.size.xs};
+    `}
 
     cursor: ${props.hover ? 'pointer' : 'default'};
 
@@ -87,9 +101,9 @@ export const Container = styled.div<Props>`
 
           ${props.status === 'neutral' &&
           css`
-            background-color: ${props.theme.colors.neutral.low.light};
-            border-color: ${props.theme.colors.neutral.low.light};
-            color: ${props.theme.colors.neutral.low.dark};
+            background-color: ${props.theme.colors.brand.primary.pure};
+            border-color: ${props.theme.colors.brand.primary.pure};
+            color: ${props.theme.colors.neutral.high.pure};
           `}
 
           ${props.status === 'brand-secondary-pure' &&

@@ -1,4 +1,5 @@
 import {
+  ROUTE_FIRST_LOGIN,
   ROUTE_LOGIN,
   ROUTE_RECOVER_PASSWORD
 } from '@/routes/Pages/Auth/Auth.paths'
@@ -34,6 +35,7 @@ function SideMenuContext({ children }: Props) {
     switch (location.pathname) {
       case ROUTE_LOGIN:
       case ROUTE_RECOVER_PASSWORD:
+      case ROUTE_FIRST_LOGIN:
       case '/auth/reset-password/':
         setVisible(false)
         break

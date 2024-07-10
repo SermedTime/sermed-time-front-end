@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import { Col } from 'react-bootstrap'
 
 import { Td, Tr } from '@/components/Core/Table'
@@ -8,23 +6,32 @@ import { Paragraph } from '@/components/Core/Typography/Paragraph'
 import { ITimeSheet } from '@/hooks/services/TimeSheet/useTimeSheet'
 import { ButtonIcon } from '@/components/Core/Buttons/ButtonIcon'
 import { Tooltip } from '@/components/Core/Tooltip'
-import { convertIsoDateToPtBr, convertIsoDateToTime } from '@/utils/date'
+import {
+  convertDataUTCToGMTMore3,
+  convertIsoDateToPtBr,
+  convertIsoDateToTime
+} from '@/utils/date'
+import { isMissed } from '@/utils/validations'
+import { Tag } from '@/components/Core/Tag'
+import { useEditTimeSheetHelper } from '../../../Edit/useEditTimeSheetHelper'
 
 interface Props {
   data: ITimeSheet
+  onEdit: () => void
   onApprove: () => void
+  onReprove: () => void
 }
 
-export function TableTimeSheet({ data, onApprove }: Props) {
-  const [edit, setEdit] = useState(false)
+export function TableTimeSheet({ data, onEdit, onApprove, onReprove }: Props) {
+  const { typeOvertime } = useEditTimeSheetHelper()
 
   return (
     <Tr>
       <Td>
         <Col xs="auto">
-          <Paragraph size="sm">{`${convertIsoDateToPtBr(data.date)} - ${
-            data.day
-          }`}</Paragraph>
+          <Paragraph size="sm">{` ${data.day}, ${convertIsoDateToPtBr(
+            convertDataUTCToGMTMore3(data.date)
+          )}`}</Paragraph>
         </Col>
       </Td>
 
@@ -54,28 +61,45 @@ export function TableTimeSheet({ data, onApprove }: Props) {
         <Paragraph size="sm">{convertIsoDateToTime(data.thirdExit)}</Paragraph>
       </Td>
 
-      <Td>
-        <Paragraph size="sm">{convertIsoDateToTime(data.overtime)}</Paragraph>
+      <Td className="d-flex justify-content-center my-2">
+        {isMissed(data.firstEntry, data.overtime) ? (
+          <Tag size="lg" highlight>
+            Falta
+          </Tag>
+        ) : (
+          <Tag size="lg" status={typeOvertime(data.overtime)}>{`${
+            data.overtime || '00:00'
+          }`}</Tag>
+        )}
       </Td>
 
       <Td showOnHover={true}>
         <div className="d-flex justify-content-center">
-          {edit ? (
-            <Tooltip title="Salvar" place="top-start">
-              <ButtonIcon
-                size="sm"
-                icon="save"
-                onClick={() => setEdit(false)}
-              />
-            </Tooltip>
-          ) : (
-            <Tooltip title="Editar Ponto" place="top-start">
-              <ButtonIcon size="sm" icon="edit" onClick={() => setEdit(true)} />
-            </Tooltip>
-          )}
-          <Tooltip title="Aprovar Horas" place="top-start">
-            <ButtonIcon size="sm" icon="alarm_on" onClick={() => onApprove()} />
+          <Tooltip title="Detalhes" place="top-start">
+            <ButtonIcon size="sm" icon="open_in_new" onClick={() => onEdit()} />
           </Tooltip>
+
+          {data.overtime &&
+            !data.overtime.includes('-') &&
+            !data.overtimeStatus && (
+              <>
+                <Tooltip title="Aprovar Horas" place="top-start">
+                  <ButtonIcon
+                    size="sm"
+                    icon="alarm_on"
+                    onClick={() => onApprove()}
+                  />
+                </Tooltip>
+
+                <Tooltip title="Reprovar Horas" place="top-start">
+                  <ButtonIcon
+                    size="sm"
+                    icon="alarm_off"
+                    onClick={() => onReprove()}
+                  />
+                </Tooltip>
+              </>
+            )}
         </div>
       </Td>
     </Tr>

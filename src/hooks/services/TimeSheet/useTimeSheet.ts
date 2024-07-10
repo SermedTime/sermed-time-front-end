@@ -7,6 +7,7 @@ import { IApiResponse } from '@/services/api/sermed-api/sermed-api.interface'
 import { removeEmptyEntries } from '@/utils/generic'
 
 export interface ITimeSheet {
+  hoursSummaryId: string
   date: string
   day: string
   firstEntry: string
@@ -16,6 +17,9 @@ export interface ITimeSheet {
   thirdEntry: string
   thirdExit: string
   overtime: string
+  overtimeStatus: string
+  reasonForRejection: string
+  overtimeAcceptType: string
 }
 
 export function useTimeSheet(uuid?: string) {
@@ -33,7 +37,7 @@ export function useTimeSheet(uuid?: string) {
           year: params?.year,
           records: params?.records,
           page: params?.page,
-          isHome: params?.isHome
+          order: params?.order
         })
 
         const { data } = await get(

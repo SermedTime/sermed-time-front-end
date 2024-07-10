@@ -2,6 +2,7 @@ import { lazy } from 'react'
 
 import { IRouteProps } from '@/routes/routes.interface'
 
+import { ROLE_MULTIVIEW_POINT, ROLE_TEAM_POINT } from '@/constants/user.roles'
 import {
   ROUTE_TIME_SHEET_OVERVIEW,
   ROUTE_TIME_SHEET_USER_SEARCH
@@ -23,7 +24,11 @@ export const timeSheetRoutes: IRouteProps[] = [
   {
     path: ROUTE_TIME_SHEET_USER_SEARCH,
     component: UserSearch,
-    isPrivate: true
+    isPrivate: true,
+    allowedRoles: [
+      { role: ROLE_MULTIVIEW_POINT, is_writer: false || true },
+      { role: ROLE_TEAM_POINT, is_writer: false || true }
+    ]
   },
   {
     path: `${ROUTE_TIME_SHEET_OVERVIEW}/:uuid`,

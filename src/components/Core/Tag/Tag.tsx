@@ -6,6 +6,7 @@ interface Props {
   display?: 'block' | 'auto'
   disabled?: boolean
   highlight?: boolean
+  size: 'sm' | 'lg'
   status?:
     | 'default'
     | 'success'
@@ -22,6 +23,7 @@ export function Tag({
   display,
   disabled,
   highlight,
+  size,
   status,
   hover,
   onClick,
@@ -34,6 +36,7 @@ export function Tag({
       highlight={highlight}
       status={status}
       hover={hover}
+      size={size}
       onClick={() => {
         !disabled && onClick && onClick()
       }}

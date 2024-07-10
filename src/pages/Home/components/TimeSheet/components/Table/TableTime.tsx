@@ -15,9 +15,9 @@ export function TableTime({ data }: Props) {
     <Tr>
       <Td>
         <Col xs="auto">
-          <Paragraph size="sm">{`${convertIsoDateToPtBr(data.date)} - ${
-            data.day
-          }`}</Paragraph>
+          <Paragraph size="sm">
+            {`${convertIsoDateToPtBr(data.date)} - ${data.day}`}
+          </Paragraph>
         </Col>
       </Td>
 
@@ -48,7 +48,12 @@ export function TableTime({ data }: Props) {
       </Td>
 
       <Td>
-        <Paragraph size="sm">{convertIsoDateToTime(data.overtime)}</Paragraph>
+        <Paragraph
+          size="sm"
+          color={data.overtime?.includes('-') ? 'warning' : 'success'}
+        >
+          {data.overtime}
+        </Paragraph>
       </Td>
     </Tr>
   )
