@@ -3,3 +3,7 @@ export function isEmailValid(value: string): boolean {
 
   return pattern.test(value)
 }
+
+export function isMissed(firstEntry: string, overtime: string) {
+  return !firstEntry && overtime && overtime.includes('-')
+}

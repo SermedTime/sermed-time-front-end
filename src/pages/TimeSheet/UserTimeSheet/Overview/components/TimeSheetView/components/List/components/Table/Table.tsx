@@ -11,6 +11,9 @@ import {
   convertIsoDateToPtBr,
   convertIsoDateToTime
 } from '@/utils/date'
+import { isMissed } from '@/utils/validations'
+import { Tag } from '@/components/Core/Tag'
+import { useEditTimeSheetHelper } from '../../../Edit/useEditTimeSheetHelper'
 
 interface Props {
   data: ITimeSheet
@@ -20,13 +23,15 @@ interface Props {
 }
 
 export function TableTimeSheet({ data, onEdit, onApprove, onReprove }: Props) {
+  const { typeOvertime } = useEditTimeSheetHelper()
+
   return (
     <Tr>
       <Td>
         <Col xs="auto">
-          <Paragraph size="sm">{`${convertIsoDateToPtBr(
+          <Paragraph size="sm">{` ${data.day}, ${convertIsoDateToPtBr(
             convertDataUTCToGMTMore3(data.date)
-          )} - ${data.day}`}</Paragraph>
+          )}`}</Paragraph>
         </Col>
       </Td>
 
@@ -56,13 +61,16 @@ export function TableTimeSheet({ data, onEdit, onApprove, onReprove }: Props) {
         <Paragraph size="sm">{convertIsoDateToTime(data.thirdExit)}</Paragraph>
       </Td>
 
-      <Td>
-        <Paragraph
-          size="sm"
-          color={data.overtime?.includes('-') ? 'warning' : 'success'}
-        >
-          {data.overtime}
-        </Paragraph>
+      <Td className="d-flex justify-content-center my-2">
+        {isMissed(data.firstEntry, data.overtime) ? (
+          <Tag size="lg" highlight>
+            Falta
+          </Tag>
+        ) : (
+          <Tag size="lg" status={typeOvertime(data.overtime)}>{`${
+            data.overtime || '00:00'
+          }`}</Tag>
+        )}
       </Td>
 
       <Td showOnHover={true}>
@@ -71,25 +79,27 @@ export function TableTimeSheet({ data, onEdit, onApprove, onReprove }: Props) {
             <ButtonIcon size="sm" icon="open_in_new" onClick={() => onEdit()} />
           </Tooltip>
 
-          {data.overtime && !data.overtime.includes('-') && (
-            <>
-              <Tooltip title="Aprovar Horas" place="top-start">
-                <ButtonIcon
-                  size="sm"
-                  icon="alarm_on"
-                  onClick={() => onApprove()}
-                />
-              </Tooltip>
+          {data.overtime &&
+            !data.overtime.includes('-') &&
+            !data.overtimeStatus && (
+              <>
+                <Tooltip title="Aprovar Horas" place="top-start">
+                  <ButtonIcon
+                    size="sm"
+                    icon="alarm_on"
+                    onClick={() => onApprove()}
+                  />
+                </Tooltip>
 
-              <Tooltip title="Reprovar Horas" place="top-start">
-                <ButtonIcon
-                  size="sm"
-                  icon="alarm_off"
-                  onClick={() => onReprove()}
-                />
-              </Tooltip>
-            </>
-          )}
+                <Tooltip title="Reprovar Horas" place="top-start">
+                  <ButtonIcon
+                    size="sm"
+                    icon="alarm_off"
+                    onClick={() => onReprove()}
+                  />
+                </Tooltip>
+              </>
+            )}
         </div>
       </Td>
     </Tr>

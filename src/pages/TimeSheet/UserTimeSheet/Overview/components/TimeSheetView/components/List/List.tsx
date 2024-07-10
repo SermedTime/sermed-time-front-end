@@ -173,7 +173,12 @@ export function ListTimeSheet() {
                   </Th>
 
                   <Th>
-                    <Heading size="xs">Saldo</Heading>
+                    <Heading
+                      size="xs"
+                      className="d-flex justify-content-center"
+                    >
+                      Saldo
+                    </Heading>
                   </Th>
 
                   <Th>
