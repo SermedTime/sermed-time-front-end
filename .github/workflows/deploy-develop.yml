@@ -35,5 +35,5 @@ jobs:
           SERVER_USER: ${{ secrets.SERVER_USER }}
           SERVER_PASSWORD: ${{ secrets.SERVER_PASSWORD }}
         run: |
-          echo "$SERVER_PASSWORD" | sshpass ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "mkdir -p /home/bilgiadmin/applications/desenvolvimento/app"
+          echo '$SERVER_PASSWORD' | sshpass ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP
           sshpass scp -o StrictHostKeyChecking=no -r dist/* $SERVER_USER@$SERVER_IP:/home/bilgiadmin/applications/desenvolvimento/app
