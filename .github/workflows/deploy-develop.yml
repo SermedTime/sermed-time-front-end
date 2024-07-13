@@ -22,8 +22,8 @@ jobs:
 
       - name: Install sshpass
         run: |
-          sudo apt-get update
-          sudo apt-get install -y sshpass
+          echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S apt-get update
+          echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S apt-get install -y sshpass
 
       - name: Install dependencies
         run: npm install
