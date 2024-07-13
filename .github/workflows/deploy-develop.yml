@@ -1,4 +1,4 @@
-name: Deploy App in Develop
+name: Deploy App
 
 on:
   push:
@@ -10,13 +10,6 @@ on:
 jobs:
   deploy:
     runs-on: self-hosted
-
-    strategy:
-      matrix:
-        environment:
-          - develop
-          - homolog
-          - main
 
     steps:
       - name: Check out code
@@ -35,11 +28,11 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build project for ${{ matrix.environment }}
+      - name: Build project
         run: |
-          if [ "${{ matrix.environment }}" == "homolog" ]; then
+          if [ "${{ github.ref }}" == "refs/heads/homolog" ]; then
             npm run build:homolog
-          elif [ "${{ matrix.environment }}" == "main" ]; then
+          elif [ "${{ github.ref }}" == "refs/heads/main" ]; then
             npm run build:prod
           else
             npm run build:dev
@@ -57,6 +50,7 @@ jobs:
           fi
 
       - name: Deploy to server
+        if: always()
         env:
           SERVER_IP: ${{ secrets.SERVER_IP }}
           SERVER_USER: ${{ secrets.SERVER_USER }}
