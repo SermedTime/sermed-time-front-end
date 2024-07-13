@@ -20,7 +20,9 @@ export function HolidaysTable({ data, onEdit }: Props) {
       </Td>
 
       <Td>
-        <Paragraph size="sm">{convertIsoDateToPtBr(data.date)}</Paragraph>
+        <Paragraph size="sm">
+          {convertIsoDateToPtBr(data.date, false, false)}
+        </Paragraph>
       </Td>
 
       <Td>
