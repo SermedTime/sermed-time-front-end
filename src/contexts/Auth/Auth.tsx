@@ -27,7 +27,7 @@ interface Auth {
 
 export interface IRoles {
   role: string
-  is_writer: boolean
+  is_writer?: boolean
 }
 
 interface UserAuth {

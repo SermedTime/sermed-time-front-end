@@ -25,10 +25,7 @@ export const timeSheetRoutes: IRouteProps[] = [
     path: ROUTE_TIME_SHEET_USER_SEARCH,
     component: UserSearch,
     isPrivate: true,
-    allowedRoles: [
-      { role: ROLE_MULTIVIEW_POINT, is_writer: false || true },
-      { role: ROLE_TEAM_POINT, is_writer: false || true }
-    ]
+    allowedRoles: [{ role: ROLE_MULTIVIEW_POINT }, { role: ROLE_TEAM_POINT }]
   },
   {
     path: `${ROUTE_TIME_SHEET_OVERVIEW}/:uuid`,
