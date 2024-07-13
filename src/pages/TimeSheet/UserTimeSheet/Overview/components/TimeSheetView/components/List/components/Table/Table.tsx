@@ -13,6 +13,7 @@ import {
 } from '@/utils/date'
 import { isMissed } from '@/utils/validations'
 import { Tag } from '@/components/Core/Tag'
+import { useAuthRoles } from '@/hooks/services/Rules/Auth/useRoles'
 import { useEditTimeSheetHelper } from '../../../Edit/useEditTimeSheetHelper'
 
 interface Props {
@@ -23,6 +24,8 @@ interface Props {
 }
 
 export function TableTimeSheet({ data, onEdit, onApprove, onReprove }: Props) {
+  const { hasMultiviewPointWriter, hasTeamPointWriter } = useAuthRoles()
+
   const { typeOvertime } = useEditTimeSheetHelper()
 
   return (
@@ -80,6 +83,7 @@ export function TableTimeSheet({ data, onEdit, onApprove, onReprove }: Props) {
           </Tooltip>
 
           {data.overtime &&
+            (hasMultiviewPointWriter() || hasTeamPointWriter()) &&
             !data.overtime.includes('-') &&
             !data.overtimeStatus && (
               <>

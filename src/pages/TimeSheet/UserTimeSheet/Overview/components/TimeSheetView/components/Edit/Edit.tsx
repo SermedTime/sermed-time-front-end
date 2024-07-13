@@ -32,7 +32,7 @@ interface Props {
 
 export function EditTimeSheet({ data, onClose }: Props) {
   const { uuid: userId } = useParams()
-  const { hasParametrizationsWriter } = useAuthRoles()
+  const { hasMultiviewPointWriter, hasTeamPointWriter } = useAuthRoles()
   const { statusOvertime, typeOvertime } = useEditTimeSheetHelper()
   const { showLoader, hideLoader } = useLoaderContext()
   const { addToast, handleApiRejection } = useToastContext()
@@ -125,7 +125,7 @@ export function EditTimeSheet({ data, onClose }: Props) {
           </div>
         </Col>
 
-        {hasParametrizationsWriter() && (
+        {(hasMultiviewPointWriter() || hasTeamPointWriter()) && (
           <Col>
             <Button
               type="button"

@@ -51,15 +51,27 @@ export function useAuthRoles() {
 
   const hasMultiviewPoint = useCallback(() => {
     return checkIfUserHasRole({
+      role: ROLE_MULTIVIEW_POINT
+    })
+  }, [checkIfUserHasRole])
+
+  const hasMultiviewPointWriter = useCallback(() => {
+    return checkIfUserHasRole({
       role: ROLE_MULTIVIEW_POINT,
-      is_writer: true || false
+      is_writer: true
     })
   }, [checkIfUserHasRole])
 
   const hasTeamPoint = useCallback(() => {
     return checkIfUserHasRole({
+      role: ROLE_TEAM_POINT
+    })
+  }, [checkIfUserHasRole])
+
+  const hasTeamPointWriter = useCallback(() => {
+    return checkIfUserHasRole({
       role: ROLE_TEAM_POINT,
-      is_writer: true || false
+      is_writer: true
     })
   }, [checkIfUserHasRole])
 
@@ -77,7 +89,9 @@ export function useAuthRoles() {
     hasParametrizations,
     hasParametrizationsWriter,
     hasMultiviewPoint,
+    hasMultiviewPointWriter,
     hasTeamPoint,
+    hasTeamPointWriter,
     handleUserRoles
   }
 }
