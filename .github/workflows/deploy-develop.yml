@@ -4,10 +4,19 @@ on:
   push:
     branches:
       - develop
+      - homolog
+      - main
 
 jobs:
   deploy:
     runs-on: self-hosted
+
+    strategy:
+      matrix:
+        environment:
+          - develop
+          - homolog
+          - main
 
     steps:
       - name: Check out code
@@ -26,13 +35,30 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build project for development
-        run: npm run build:dev
+      - name: Build project for ${{ matrix.environment }}
+        run: |
+          if [ "${{ matrix.environment }}" == "homolog" ]; then
+            npm run build:homolog
+          else
+            npm run build:${{ matrix.environment == 'main' ? 'prod' : 'dev' }}
+          fi
+
+      - name: Determine Deploy Path
+        id: set_deploy_path
+        run: |
+          if [ "${{ github.ref }}" == "refs/heads/main" ]; then
+            echo "::set-output name=path::/home/bilgiadmin/applications/producao/app"
+          elif [ "${{ github.ref }}" == "refs/heads/homolog" ]; then
+            echo "::set-output name=path::/home/bilgiadmin/applications/homologacao/app"
+          else
+            echo "::set-output name=path::/home/bilgiadmin/applications/desenvolvimento/app"
+          fi
 
       - name: Deploy to server
         env:
           SERVER_IP: ${{ secrets.SERVER_IP }}
           SERVER_USER: ${{ secrets.SERVER_USER }}
           SERVER_PASSWORD: ${{ secrets.SERVER_PASSWORD }}
+          DEPLOY_PATH: ${{ steps.set_deploy_path.outputs.path }}
         run: |
-          sshpass -p "$SERVER_PASSWORD" rsync -avz --delete dist/* $SERVER_USER@$SERVER_IP:/home/bilgiadmin/applications/desenvolvimento/app
+          sshpass -p "$SERVER_PASSWORD" rsync -avz --delete dist/* $SERVER_USER@$SERVER_IP:$DEPLOY_PATH
