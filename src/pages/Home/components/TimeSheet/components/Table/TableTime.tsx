@@ -1,22 +1,28 @@
-import { Td, Tr } from '@/components/Core/Table'
+import { useEditTimeSheetHelper } from '@/pages/TimeSheet/UserTimeSheet/Overview/components/TimeSheetView/components/Edit/useEditTimeSheetHelper'
 
-import { Paragraph } from '@/components/Core/Typography/Paragraph'
+import { isMissed } from '@/utils/validations'
+import { convertIsoDateToPtBr, convertIsoDateToTime } from '@/utils/date'
 
 import { Col } from 'react-bootstrap'
+import { Tag } from '@/components/Core/Tag'
+import { Td, Tr } from '@/components/Core/Table'
+import { Paragraph } from '@/components/Core/Typography/Paragraph'
+
 import { ITimeSheet } from '@/hooks/services/TimeSheet/useTimeSheet'
-import { convertIsoDateToPtBr, convertIsoDateToTime } from '@/utils/date'
 
 interface Props {
   data: ITimeSheet
 }
 
 export function TableTime({ data }: Props) {
+  const { typeOvertime } = useEditTimeSheetHelper()
+
   return (
     <Tr>
       <Td>
         <Col xs="auto">
           <Paragraph size="sm">
-            {`${convertIsoDateToPtBr(data.date)} - ${data.day}`}
+            {`${data.day}, ${convertIsoDateToPtBr(data.date, false, false)}`}
           </Paragraph>
         </Col>
       </Td>
@@ -47,13 +53,16 @@ export function TableTime({ data }: Props) {
         <Paragraph size="sm">{convertIsoDateToTime(data.thirdExit)}</Paragraph>
       </Td>
 
-      <Td>
-        <Paragraph
-          size="sm"
-          color={data.overtime?.includes('-') ? 'warning' : 'success'}
-        >
-          {data.overtime}
-        </Paragraph>
+      <Td className="d-flex justify-content-center my-2">
+        {isMissed(data.firstEntry, data.overtime) ? (
+          <Tag size="lg" highlight>
+            Falta
+          </Tag>
+        ) : (
+          <Tag size="lg" status={typeOvertime(data.overtime)}>{`${
+            data.overtime || '00:00'
+          }`}</Tag>
+        )}
       </Td>
     </Tr>
   )
